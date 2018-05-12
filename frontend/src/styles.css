@@ -1,1 +1,63 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Raleway|Roboto:300,400');
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+*{
+    font-family: 'Raleway', sans-serif;
+}
+.full-width{
+    width: 100%;
+}
+.register-card{
+    width: 80%;
+    max-width: 600px;
+    margin: 10px auto;
+    font-family: 'Raleway', sans-serif;
+    padding-top: 120px !important;
+}
+.register-card small{
+    margin-left: 10px !important;
+}
+.register-card h1{
+    font-family: 'Raleway', sans-serif;
+    position: absolute;
+    top: 60px;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.masterHeadline{
+    font-size: 64px;
+    margin-bottom: 20px !important;
+}
+.subtitle{
+    font-size: 24px;
+    margin-bottom: 20px !important;
+}
+.cwb-primary-button{
+    background-color: #f39c12;
+    color: #fff;
+    font-weight: 500;
+    margin: 10px auto !important;
+}
+.cwb-callToAction{
+    padding: 6px 40px!important;
+    border-radius: 30px !important;
+}
+.reset-button{
+    margin-left: 10px !important;
+    background-color: #e1e1e1;
+}
+a{
+    text-decoration: none !important;
+}
+.body-wrapper{
+    width: 100%;
+    padding: 100px 30px!important;
+}
+.cwb-logo-image{
+    width: 100px;
+    height: auto;
+    float: left;
+    margin: 20px 0px 0px 100px;
+}
+.spacer{
+    width: 20px;
+}
