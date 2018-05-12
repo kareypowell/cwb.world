@@ -1,18 +1,22 @@
 <div class="body-wrapper">
     <mat-card class="login-card">
       <h1 class="masterHeadline">Login</h1>
-      <form class="">
+      <form #loginForm = "ngForm" (submit) = "submitLogin()">
           
           <mat-form-field class="full-width">
-              <input matInput placeholder="Username or email" class="full-width">
+              <input matInput placeholder="Username or email" class="full-width" name = "Username" [(ngModel)] = loginDetails.username>
           </mat-form-field>
           <p></p>
           <mat-form-field class="full-width">
-              <input type="password" matInput placeholder="Password" class="full-width">
+              <input type="password" matInput placeholder="Password" class="full-width" name = "password" [(ngModel)] = loginDetails.password>
           </mat-form-field>
           <p></p>
-          <button class="cwb-primary-button" mat-button>Login</button>
+          <mat-checkbox name = "stayLogged" [(ngModel)] = loginDetails.stayLoggedIn>Keep me logged in</mat-checkbox>
           <p></p>
+          <button type="submit" class="cwb-primary-button" mat-button>Login</button>
+          <p></p>
+          <small>Forgot username or password? <a routerLink="../retrievelogin" >Retrieve them</a></small><br>
+          <small>New to CWB? <a routerLink="../register" >Register</a></small>
         </form>
     </mat-card>
 </div>

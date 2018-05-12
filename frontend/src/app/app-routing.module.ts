@@ -6,6 +6,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { AboutComponent } from './about/about.component';
 import { TermsandconditionsComponent } from './termsandconditions/termsandconditions.component';
+import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.component';
 
 const routes: Routes = [
   {
@@ -31,6 +32,10 @@ const routes: Routes = [
   {
     path: "termsandconditions",
     component: TermsandconditionsComponent
+  },
+  {
+    path: "retrievelogin",
+    component: RetrieveLoginComponent
   }
 ];
 

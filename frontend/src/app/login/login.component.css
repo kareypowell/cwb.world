@@ -2,12 +2,12 @@
     width: 80%;
     max-width: 400px;
     margin: 10px auto;
-    padding-top: 120px;
+    padding-top: 130px;
 }
 .login-card h1{
     font-family: 'Raleway', sans-serif;
     position: absolute;
-    top: 20%;
+    top: 20px;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%,0%);
 }

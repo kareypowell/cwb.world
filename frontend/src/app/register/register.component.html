@@ -1,36 +1,36 @@
 <div class="body-wrapper">
     <mat-card class="register-card">
       <h1 class="masterHeadline">Register</h1>
-      <form class="">
+      <form #registerForm = "ngForm" (submit)="submitRegister()">
           <mat-form-field class="full-width">
-            <input matInput placeholder="First Name" class="full-width">
+            <input matInput placeholder="First Name" class="full-width" name = "firstname" [(ngModel)] = registerDetails.firstname>
           </mat-form-field>
           <p></p>
           <mat-form-field class="full-width">
-              <input matInput placeholder="Last Name" class="full-width">
+              <input matInput placeholder="Last Name" class="full-width" name = "lastname" [(ngModel)] = registerDetails.lastname>
           </mat-form-field>
           <p></p>
           <mat-form-field class="full-width">
-              <input matInput placeholder="Username" class="full-width">
+              <input matInput placeholder="Username" class="full-width" name = "username" [(ngModel)] = registerDetails.username>
           </mat-form-field>
           <p></p>
           <mat-form-field class="full-width">
-              <input type ="email" matInput placeholder="Email" class="full-width">
+              <input type ="email" matInput placeholder="Email" class="full-width" name = "email" [(ngModel)] = registerDetails.email>
           </mat-form-field>
           <p></p>
           <mat-form-field class="full-width">
-              <input type="password" matInput placeholder="Choose password" class="full-width">
+              <input type="password" matInput placeholder="Choose password" class="full-width" name = "password" [(ngModel)] = registerDetails.password>
           </mat-form-field>
           <p></p>
           <mat-form-field class="full-width">
-              <input type="password" matInput placeholder="Confirm password" class="full-width">
+              <input type="password" matInput placeholder="Confirm password" class="full-width" name = "password2" [(ngModel)] = registerDetails.confirmPassword>
           </mat-form-field>
           <p></p>
           <div class="g-recaptcha" data-sitekey="6Lc0z1gUAAAAAPSpLcwLzO2QxmFd7e7xNaHddRMK"></div>
           <p></p>
-          <mat-checkbox></mat-checkbox><small>I have read and accepted the <a href="termsandconditions">terms and conditions</a> of use</small>
+          <mat-checkbox name = "readtos" [(ngModel)] = registerDetails.readTOS></mat-checkbox><small>I have read and accepted the <a href="termsandconditions">terms and conditions</a> of use</small>
           <p></p>
-          <button class="cwb-primary-button" mat-button>Register</button>
+          <button type ="submit" class="cwb-primary-button" mat-button [disabled]="!registerDetails.readTOS">Register</button>
           <button class="reset-button" type="reset" mat-button>Reset Form</button>
           <p></p>
         </form>
