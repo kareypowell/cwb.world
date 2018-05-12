@@ -15,6 +15,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { TermsandconditionsComponent } from './termsandconditions/termsandconditions.component';
 import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.component';
+import { AuthService } from './auth-service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.componen
     HttpModule,
     FormsModule
   ],
-  providers: [ApiLinkService],
+  providers: [ApiLinkService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

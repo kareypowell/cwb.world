@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { RegisterForm } from '../register-form';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-register',
@@ -10,12 +11,12 @@ import { RegisterForm } from '../register-form';
 })
 export class RegisterComponent implements OnInit {
   registerDetails = new RegisterForm();
-  constructor() { }
+  constructor(private _auth:AuthService) { }
 
   ngOnInit() {
   }
   
   submitRegister(){
-    console.log(this.registerDetails);
+    this._auth.register(this.registerDetails.email,this.registerDetails.password);
   }
 }
