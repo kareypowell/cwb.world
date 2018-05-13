@@ -1,6 +1,5 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { RequestToJoinGroup } from '../requestToJoinGroup.component';
 
 @Component({
   selector: 'app-member-ui',

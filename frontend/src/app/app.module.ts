@@ -18,6 +18,7 @@ import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.componen
 import { AuthService } from './auth-service';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { MemberUiComponent } from './member-ui/member-ui.component';
+import { DialogOverviewExampleDialog } from './member-ui/member-ui.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { MemberUiComponent } from './member-ui/member-ui.component';
     TermsandconditionsComponent,
     RetrieveLoginComponent,
     RegisterLoginComponent,
-    MemberUiComponent
+    MemberUiComponent,
+    DialogOverviewExampleDialog
   ],
   imports: [
     BrowserModule,
