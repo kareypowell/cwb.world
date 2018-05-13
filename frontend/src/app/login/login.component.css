@@ -1,7 +1,5 @@
 .login-card{
-    width: 80%;
-    max-width: 400px;
-    margin: 10px auto;
+    width: 100%;
     padding-top: 130px;
 }
 .login-card h1{
