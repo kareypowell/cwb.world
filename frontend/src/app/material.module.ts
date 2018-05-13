@@ -7,10 +7,22 @@ import {MatCardModule} from '@angular/material/card';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDialogModule} from '@angular/material/dialog';
+import {MatBadgeModule} from '@angular/material/badge';
+import {MatIconModule} from '@angular/material/icon';
+
+
+
+
 
 
 @NgModule({
-  imports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,MatCheckboxModule,MatTabsModule],
-  exports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,MatCheckboxModule,MatTabsModule],
+  imports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
+    MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
+    MatIconModule],
+  exports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
+    MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
+    MatIconModule],
 })
 export class MaterialModule { }

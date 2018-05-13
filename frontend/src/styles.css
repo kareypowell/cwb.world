@@ -65,3 +65,19 @@ a{
     left: 50%;
     transform: translate(-50%,-50%);
 }
+.userImage{
+    width: 100px;
+    height: auto;
+    border: 5px solid #f39c12;
+}
+.gap{
+    height: 10px;
+}
+.no-padding{
+    padding: 0px !important;
+}
+.editIcons{
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}

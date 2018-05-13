@@ -1,0 +1,108 @@
+<div class="body-wrapper">
+  <div class="user-profile">
+    <mat-card>
+    <div class="row">
+      <div class="col-md-2">
+          <mat-icon class="editIcons">edit</mat-icon>
+        <img src="../../assets/images/user-silhouet.png" alt="User Image" class="rounded-circle userImage">
+      </div>
+      <div class="col-md-3">
+        <mat-icon class="editIcons">edit</mat-icon>
+        <h2>Mikail Huggins</h2>
+        <h5>DOB: 04/24/1999</h5>
+        <h5>Address: 500 Joseph C. Wilson Blvd</h5>
+        <h5>Email: cwb@gmail.com</h5>
+        <h5>Phone: (555) 232-1234</h5>
+        </div>
+      <div class="col-md-3">
+        <mat-icon class="editIcons">edit</mat-icon>
+        <h2>About Me</h2>
+        <p>
+            My name is Mikail. I am 12
+            years old. I love reading,
+            writing, and long-distance
+            running. One day I want to
+            be an olympic athlete..
+        </p>
+        </div>
+      <div class="col-md-4">
+        <h2>Gallery</h2>
+        </div>
+    </div>
+  </mat-card>
+  </div>
+  <div class="gap"></div>
+  <div class="row">
+    <div class="col-md-5">
+      <div class="col-md-12 no-padding">
+          <mat-card>
+            <h1>ALL GROUPS</h1>
+            <mat-form-field>
+                <mat-select placeholder="Community">
+                  <mat-option *ngFor="let community of communities" [value]="community.value">
+                    {{ community.viewValue }}
+                  </mat-option>
+                </mat-select>
+                
+              </mat-form-field>
+              <br>
+              <mat-form-field>
+                  <mat-select placeholder="Sector">
+                      <mat-option *ngFor="let sector of sectors" [value]="sector.value">
+                        {{ sector.viewValue }}
+                      </mat-option>
+                    </mat-select>
+              </mat-form-field>
+              <div class="middle-center">
+                  <mat-tab-group [dynamicHeight]="true">
+                    <mat-tab label="Details">
+                      <div class="gap"></div>
+                      <h2>Description</h2>
+                      <p>
+                          Explore the ideas and
+                          inspiration behind of your
+                          favorite books as you
+                          connect with authors,
+                          illustrators, and champions
+                          of children’s, middle grade,
+                          and young adult books.
+                          As readers, know there’s
+                          always more to the story.
+                          Here’s your chance to
+                          find out!
+                      </p>
+                      <h2>Prices</h2>
+                      <p>
+                          Group session with an author
+                          (monthly) $25 per month
+                      </p>
+                      <p>
+                          One-on- One with an author
+                          (2 times per month)
+                          $50 per month
+                      </p>
+                      <h2>Times</h2>
+                      <p>Wednesday 9am to 10am CDT</p>
+                      <p>
+                          Sunday 2pm to 3pm CDT
+                      </p>
+                      
+                    </mat-tab>
+                    <mat-tab label="Files">
+
+                    </mat-tab>
+                  </mat-tab-group>
+                </div>
+                <button mat-button (click)="openDialog()" class="cwb-primary-button">Join Group</button>
+            </mat-card>
+      </div>
+    </div>
+    <div class="col-md-7">
+        <div class="col-md-12 no-padding">
+            <mat-card>
+                <h1>MY EVENTS</h1>
+              </mat-card>
+        </div>
+      </div>
+  </div>
+</div>

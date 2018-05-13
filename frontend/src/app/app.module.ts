@@ -17,6 +17,7 @@ import { TermsandconditionsComponent } from './termsandconditions/termsandcondit
 import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.component';
 import { AuthService } from './auth-service';
 import { RegisterLoginComponent } from './register-login/register-login.component';
+import { MemberUiComponent } from './member-ui/member-ui.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RegisterLoginComponent } from './register-login/register-login.componen
     AboutComponent,
     TermsandconditionsComponent,
     RetrieveLoginComponent,
-    RegisterLoginComponent
+    RegisterLoginComponent,
+    MemberUiComponent
   ],
   imports: [
     BrowserModule,
