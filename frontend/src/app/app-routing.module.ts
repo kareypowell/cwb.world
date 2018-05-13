@@ -7,6 +7,7 @@ import { RegisterComponent } from './register/register.component';
 import { AboutComponent } from './about/about.component';
 import { TermsandconditionsComponent } from './termsandconditions/termsandconditions.component';
 import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.component';
+import { RegisterLoginComponent } from './register-login/register-login.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,10 @@ const routes: Routes = [
   {
     path: "retrievelogin",
     component: RetrieveLoginComponent
+  },
+  {
+    path: "register-login",
+    component: RegisterLoginComponent
   }
 ];
 
