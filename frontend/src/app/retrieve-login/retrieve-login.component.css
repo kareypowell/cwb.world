@@ -1,0 +1,9 @@
+.middle-center{
+    width: 80%;
+    max-width: 400px;
+    margin: 20px auto;
+}
+.register-card{
+    margin-top: 0px !important;
+    width: 100% !important;
+}

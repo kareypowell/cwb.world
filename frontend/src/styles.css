@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto:300,400');
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
 *{
     font-family: 'Raleway', sans-serif;
 }
@@ -83,4 +84,9 @@ a{
 }
 .grey-bg{
     background-color: #f1f1f1;
+}
+.full-height-wrapper{
+    min-height: 100vh;
+    height: auto;
+
 }
