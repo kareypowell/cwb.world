@@ -1,0 +1,23 @@
+<div class="body-wrapper">
+  <h1>Communities</h1>
+  <div class="gap"></div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let comm of communities">
+      <div class="col-md-12">
+        <mat-card>
+            <div class="imageHolder">
+                <img src="../../assets/images/{{comm.imageUri}}" alt="{{comm.name}} Image">
+              </div>
+              <div class="gap"></div>
+              <h3>{{comm.name}}</h3>
+              <div class="gap"></div>
+              <p>{{comm.description}}</p>
+              <div class="gap"></div>
+              <a routerLink = "../community" mat-button class="cwb-primary-button" (click) = "setCommunity(comm)">View Community</a>
+        </mat-card>
+      </div>
+      <div class="gap"></div>
+    </div>
+
+  </div>
+</div>

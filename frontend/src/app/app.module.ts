@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 import { ApiLinkService } from './api-link.service';
 import { FormsModule } from '@angular/forms';
-
+import { DataTransferService } from './data-transfer.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContactComponent } from './contact/contact.component';
@@ -19,6 +19,11 @@ import { AuthService } from './auth-service';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { MemberUiComponent } from './member-ui/member-ui.component';
 import { DialogOverviewExampleDialog } from './member-ui/member-ui.component';
+import { CommunitiesComponent } from './communities/communities.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
+import { CommunityComponent } from './community/community.component';
+import { GroupFilterPipe } from './group-filter.pipe';
 
 @NgModule({
   declarations: [
@@ -32,7 +37,12 @@ import { DialogOverviewExampleDialog } from './member-ui/member-ui.component';
     RetrieveLoginComponent,
     RegisterLoginComponent,
     MemberUiComponent,
-    DialogOverviewExampleDialog
+    DialogOverviewExampleDialog,
+    CommunitiesComponent,
+    HeaderComponent,
+    FooterComponent,
+    CommunityComponent,
+    GroupFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -42,7 +52,7 @@ import { DialogOverviewExampleDialog } from './member-ui/member-ui.component';
     HttpModule,
     FormsModule
   ],
-  providers: [ApiLinkService, AuthService],
+  providers: [ApiLinkService, AuthService, DataTransferService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,20 +1,25 @@
-<div class="body-wrapper2">
-    <mat-card class="login-card">
-      <form #loginForm = "ngForm" (submit) = "submitLogin()">
-          
-          <mat-form-field class="full-width">
-              <input matInput placeholder="Email" class="full-width" name = "email" [(ngModel)] = loginDetails.email>
-          </mat-form-field>
-          <p></p>
-          <mat-form-field class="full-width">
-              <input type="password" matInput placeholder="Password" class="full-width" name = "password" [(ngModel)] = loginDetails.password>
-          </mat-form-field>
-          <p></p>
-          <mat-checkbox name = "stayLogged" [(ngModel)] = loginDetails.stayLoggedIn>Keep me logged in</mat-checkbox>
-          <p></p>
-          <button type="submit" class="cwb-primary-button" mat-button>Login</button>
-          <p></p>
-          <small>Forgot username or password? <a routerLink="../retrievelogin" >Retrieve them</a></small><br>
-        </form>
+<div class="body-wrapper grey-bg">
+  <div class="middle-center">
+    <mat-card>
+      <h3>Login</h3>
+      <form #loginForm="ngForm" (submit)="submitLogin()">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="Email" class="full-width" name="email" [(ngModel)]=loginDetails.email>
+        </mat-form-field>
+        <p></p>
+        <mat-form-field class="full-width">
+          <input type="password" matInput placeholder="Password" class="full-width" name="password" [(ngModel)]=loginDetails.password>
+        </mat-form-field>
+        <p></p>
+        <mat-checkbox name="stayLogged" [(ngModel)]=loginDetails.stayLoggedIn>Keep me logged in</mat-checkbox>
+        <p></p>
+        <button type="submit" class="cwb-primary-button" mat-button>Login</button>
+        <p></p>
+        <small>Forgot username or password?
+          <a routerLink="../retrievelogin">Retrieve them</a>
+        </small>
+        <br>
+      </form>
     </mat-card>
+  </div>
 </div>

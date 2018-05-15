@@ -4,6 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 
 export class AuthService{
+    authenticated: boolean = false;
 
     register(email:string,password:string){
         fb.auth().createUserAndRetrieveDataWithEmailAndPassword(email,password).catch(
@@ -17,5 +18,12 @@ export class AuthService{
         ).catch(
             error=>console.log(error)
         )
+        if(fb.auth){
+            this.authenticated = true;
+        }
+    }
+
+    getAuthStatus(){
+        return this.authenticated;
     }
 }

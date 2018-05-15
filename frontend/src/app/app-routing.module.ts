@@ -9,6 +9,8 @@ import { TermsandconditionsComponent } from './termsandconditions/termsandcondit
 import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.component';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { MemberUiComponent } from './member-ui/member-ui.component';
+import { CommunitiesComponent } from './communities/communities.component';
+import { CommunityComponent } from './community/community.component';
 
 const routes: Routes = [
   {
@@ -46,6 +48,14 @@ const routes: Routes = [
   {
     path: "member-ui",
     component: MemberUiComponent
+  },
+  {
+    path: "communities",
+    component: CommunitiesComponent
+  },
+  {
+    path: "community",
+    component: CommunityComponent
   }
 ];
 
