@@ -9,14 +9,13 @@ import { DataTransferService } from '../data-transfer.service';
 export class CommunityComponent implements OnInit {
 
   constructor(private data:DataTransferService) { }
-  community: object =  this.data.community;
-  
+  community: object = this.data.community;
   ngOnInit() {
 
   }
   
   groups = this.data.groups;
-
+   
   setGroup(grp){
     
   }
