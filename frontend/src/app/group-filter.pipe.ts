@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   pure: false
 })
 export class GroupFilterPipe implements PipeTransform {
-  transform(groups: any[], filter: Object): any {
+  transform(groups: any[], filter: any): any {
     if (!groups || !filter) {
       return groups;
     }
