@@ -16,7 +16,7 @@ export class CommunityComponent implements OnInit {
   
   groups = this.data.groups;
    
-  setGroup(grp){
-    
+  setGroup(group){
+    this.data.groupPassed = group;
   }
 }

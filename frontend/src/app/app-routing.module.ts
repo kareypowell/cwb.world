@@ -11,6 +11,7 @@ import { RegisterLoginComponent } from './register-login/register-login.componen
 import { MemberUiComponent } from './member-ui/member-ui.component';
 import { CommunitiesComponent } from './communities/communities.component';
 import { CommunityComponent } from './community/community.component';
+import { GroupComponent } from './group/group.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: "community",
     component: CommunityComponent
+  },
+  {
+    path: "group",
+    component: GroupComponent
   }
 ];
 

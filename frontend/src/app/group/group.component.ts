@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { DataTransferService } from '../data-transfer.service';
 
 @Component({
   selector: 'app-group',
@@ -7,8 +8,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GroupComponent implements OnInit {
 
-  constructor() { }
-
+  constructor(private data:DataTransferService) { }
+  group= this.data.groupPassed;
   ngOnInit() {
   }
 
