@@ -18,7 +18,6 @@ import { RetrieveLoginComponent } from './retrieve-login/retrieve-login.componen
 import { AuthService } from './auth-service';
 import { RegisterLoginComponent } from './register-login/register-login.component';
 import { MemberUiComponent } from './member-ui/member-ui.component';
-import { DialogOverviewExampleDialog } from './member-ui/member-ui.component';
 import { CommunitiesComponent } from './communities/communities.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -37,7 +36,6 @@ import { GroupFilterPipe } from './group-filter.pipe';
     RetrieveLoginComponent,
     RegisterLoginComponent,
     MemberUiComponent,
-    DialogOverviewExampleDialog,
     CommunitiesComponent,
     HeaderComponent,
     FooterComponent,

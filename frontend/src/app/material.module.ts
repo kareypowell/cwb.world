@@ -11,7 +11,8 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatBadgeModule} from '@angular/material/badge';
 import {MatIconModule} from '@angular/material/icon';
-
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
 
 
 
@@ -20,9 +21,9 @@ import {MatIconModule} from '@angular/material/icon';
 @NgModule({
   imports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule],
+    MatIconModule,MatListModule,MatDividerModule],
   exports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule],
+    MatIconModule,MatListModule,MatDividerModule],
 })
 export class MaterialModule { }

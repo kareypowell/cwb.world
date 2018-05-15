@@ -70,7 +70,7 @@ a{
 .userImage{
     width: 100px;
     height: auto;
-    border: 5px solid #f39c12;
+    border: 3px solid #f39c12;
 }
 .gap{
     height: 10px;
@@ -95,4 +95,11 @@ a{
     width: 80%;
     max-width: 400px;
     margin: 20px auto;
+}
+.groupCard{
+    height: 300px;
+    overflow-y: scroll;
+}
+.cwb-mr-2{
+    margin-right: 20px!important;
 }

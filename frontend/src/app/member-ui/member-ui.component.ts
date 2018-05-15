@@ -1,5 +1,6 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { DataTransferService } from '../data-transfer.service';
 
 @Component({
   selector: 'app-member-ui',
@@ -8,7 +9,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 })
 export class MemberUiComponent implements OnInit {
 
-  constructor(public dialog: MatDialog) { }
+  constructor(public dialog: MatDialog, private data : DataTransferService) { }
 
   ngOnInit() {
   }
@@ -23,39 +24,12 @@ export class MemberUiComponent implements OnInit {
     {value: 'sector-2', viewValue: 'Sector 2'},
     {value: 'sector-3', viewValue: 'Sector 3'}
   ];
-  age: string;
-  name: string;
 
-  openDialog(): void {
-    let dialogRef = this.dialog.open(DialogOverviewExampleDialog, {
-      width: '250px',
-      data: { name: this.name, animal: this.age }
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      this.age = result;
-    });
+  groups = this.data.groups;
+  currentGroup = this.groups[0];
+  displayGroupInfo(grp){
+    this.currentGroup = grp;
   }
-
-}
-
-@Component({
-  selector: 'join-group-dialog',
-  template: `
-      <h1>Request To Join Group</h1>
-    `
-})
-export class DialogOverviewExampleDialog {
-
-  constructor(
-    public dialogRef: MatDialogRef<DialogOverviewExampleDialog>,
-    @Inject(MAT_DIALOG_DATA) public data: any) { }
-
-  onNoClick(): void {
-    this.dialogRef.close();
-  }
-
 }
 
 
