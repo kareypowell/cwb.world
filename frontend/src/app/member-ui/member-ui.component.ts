@@ -13,7 +13,7 @@ export class MemberUiComponent implements OnInit {
 
   ngOnInit() {
   }
-
+  searchVal = "";
   communities = [
     {value: 'Accra', viewValue: 'Accra'},
     {value: 'Tema', viewValue: 'Tema'},

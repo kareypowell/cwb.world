@@ -23,6 +23,7 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CommunityComponent } from './community/community.component';
 import { GroupFilterPipe } from './group-filter.pipe';
+import { GroupComponent } from './group/group.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { GroupFilterPipe } from './group-filter.pipe';
     HeaderComponent,
     FooterComponent,
     CommunityComponent,
-    GroupFilterPipe
+    GroupFilterPipe,
+    GroupComponent
   ],
   imports: [
     BrowserModule,
