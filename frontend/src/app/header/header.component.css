@@ -4,3 +4,9 @@
 .main-ul li a{
     font-weight: 400 !important;
 }
+.main-ul li{
+    margin-right: 20px;
+}
+nav{
+    border-bottom: 1px solid #f2f2f2;
+}

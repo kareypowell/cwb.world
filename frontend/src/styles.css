@@ -4,7 +4,6 @@
 
 *{
     font-family: 'Source Sans Pro', sans-serif;
-    color: #6a6e72;
 }
 h1,h2,h3,h4,h5,h6{
     font-family: 'Source Sans Pro', sans-serif;
@@ -36,9 +35,12 @@ h1,h2,h3,h4,h5,h6{
 }
 .cwb-primary-button{
     background-color: #f39c12;
-    color: #fff;
+    color: #fff !important;
     font-weight: 500;
     margin: 10px auto !important;
+}
+.cwb-primary-button a {
+    color: #fff !important;
 }
 .cwb-callToAction{
     padding: 6px 40px!important;
@@ -82,13 +84,19 @@ a{
 .no-padding{
     padding: 0px !important;
 }
+.padding-30{
+    padding: 30px !important;
+}
+.info *{
+    font-weight: 300!important;
+}
 .editIcons{
     position: absolute;
     top: 0px;
     right: 0px;
 }
 .grey-bg{
-    background-color: #f1f1f1;
+    background-color: #FAFAFA;
 }
 .full-height-wrapper{
     min-height: 100vh;

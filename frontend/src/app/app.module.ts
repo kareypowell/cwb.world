@@ -24,6 +24,7 @@ import { FooterComponent } from './footer/footer.component';
 import { CommunityComponent } from './community/community.component';
 import { GroupFilterPipe } from './group-filter.pipe';
 import { GroupComponent } from './group/group.component';
+import { GetInvoledComponent } from './get-involed/get-involed.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { GroupComponent } from './group/group.component';
     FooterComponent,
     CommunityComponent,
     GroupFilterPipe,
-    GroupComponent
+    GroupComponent,
+    GetInvoledComponent
   ],
   imports: [
     BrowserModule,

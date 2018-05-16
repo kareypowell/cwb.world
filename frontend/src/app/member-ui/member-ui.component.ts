@@ -15,14 +15,23 @@ export class MemberUiComponent implements OnInit {
   }
   searchVal = "";
   communities = [
-    {value: 'Accra', viewValue: 'Accra'},
-    {value: 'Tema', viewValue: 'Tema'},
-    {value: 'Kwadaso', viewValue: 'Kwadaso'}
+    {value: 'education', viewValue: 'Education'},
+    {value: 'careers', viewValue: 'Careers'},
+    {value: 'business', viewValue: 'Business'},
+    {value: 'non-profit', viewValue: 'Non-Profit'},
+    {value: 'wellness', viewValue: 'Wellness'},
+    {value: 'government', viewValue: 'Government'},
+    {value: 'art-and-entertainment', viewValue: 'Art and Entertainment'},
+    {value: 'investment', viewValue: 'Investment'},
+    {value: 'hollywood', viewValue: 'Hollywood'}
   ];
   sectors = [
-    {value: 'sector-1', viewValue: 'Sector 1'},
-    {value: 'sector-2', viewValue: 'Sector 2'},
-    {value: 'sector-3', viewValue: 'Sector 3'}
+    {value: 'pre-k', viewValue: 'Pre K'},
+    {value: 'k-5-grade', viewValue: 'K - 5th Grade'},
+    {value: '5-8-grade', viewValue: '5th Grade - 8th Grade'},
+    {value: 'high-school', viewValue: 'High School'},
+    {value: 'undergrad', viewValue: 'Undergraduate'},
+    {value: 'postgrad', viewValue: 'Postgraduate'}
   ];
 
   groups = this.data.groups;

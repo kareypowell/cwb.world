@@ -12,6 +12,7 @@ import { MemberUiComponent } from './member-ui/member-ui.component';
 import { CommunitiesComponent } from './communities/communities.component';
 import { CommunityComponent } from './community/community.component';
 import { GroupComponent } from './group/group.component';
+import { GetInvoledComponent } from './get-involed/get-involed.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: "group",
     component: GroupComponent
+  },
+  {
+    path: "get-involved",
+    component: GetInvoledComponent
   }
 ];
 
