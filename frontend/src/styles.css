@@ -1,29 +1,33 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto:300,400');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600');
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
 *{
-    font-family: 'Raleway', sans-serif;
+    font-family: 'Source Sans Pro', sans-serif;
+    color: #6a6e72;
+}
+h1,h2,h3,h4,h5,h6{
+    font-family: 'Source Sans Pro', sans-serif;
 }
 .full-width{
     width: 100%;
 }
 .register-card{
     width: 100%;
-    font-family: 'Raleway', sans-serif;
     padding-top: 20px !important;
 }
 .register-card small{
     margin-left: 10px !important;
 }
 .register-card h1{
-    font-family: 'Raleway', sans-serif;
     position: absolute;
     top: 60px;
     left: 50%;
     transform: translate(-50%,-50%);
 }
 .masterHeadline{
-    font-size: 64px;
+    font-size: 59px;
+    font-weight: 400;
     margin-bottom: 20px !important;
 }
 .subtitle{

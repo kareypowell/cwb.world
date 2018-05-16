@@ -11,7 +11,7 @@
 .landing-section{
     width: 100%;
     background-image: url('../../assets/images/studyset.jpg');
-    background-position: center;
+    background-position: center top;
     background-size: cover;
 }
 
