@@ -18,8 +18,14 @@ export class AuthService{
         ).catch(
             error=>console.log(error)
         )
-        if(fb.auth){
-            this.authenticated = true;
+        if(fb.auth().onAuthStateChanged(function(user){
+            if(user){
+                console.log(user);
+            }else{
+                console.log(user);
+            }
+        })){
+
         }
     }
 

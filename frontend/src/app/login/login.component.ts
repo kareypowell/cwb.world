@@ -10,6 +10,7 @@ import { AuthService } from '../auth-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  hide = true;
   loginDetails = new LoginForm("","",false);
   constructor(private _auth:AuthService) { }
   
