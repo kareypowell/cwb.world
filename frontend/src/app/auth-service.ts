@@ -13,9 +13,8 @@ export class AuthService {
     this.user = afAuth.authState;
   }
 
-  loginEmail(){
-    const provider = new firebase.auth.EmailAuthProvider();
-    this.afAuth.auth.signInWithRedirect(provider);
+  loginEmail(email:string,password:string){
+    this.afAuth.auth.signInWithEmailAndPassword(email,password).then().catch(error =>console.log(error));
     //firebase.auth().signInWithPopup(provider);
   }
   loginGoogle(){
@@ -28,6 +27,10 @@ export class AuthService {
     const provider = new firebase.auth.TwitterAuthProvider();
     this.afAuth.auth.signInWithPopup(provider);
     //firebase.auth().signInWithPopup(provider);
+  }
+  loginFacebook(){
+    const provider = new firebase.auth.FacebookAuthProvider();
+    this.afAuth.auth.signInWithPopup(provider);
   }
   logout(){
     this.afAuth.auth.signOut();
