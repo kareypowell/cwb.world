@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
   }
   
   submitLogin(){
-    //this._auth.loginEmail(this.loginDetails.email,this.loginDetails.password);
+    this._auth.loginEmail(this.loginDetails.email,this.loginDetails.password);
   }
   login_google(){
     this._auth.loginGoogle();

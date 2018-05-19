@@ -3,7 +3,6 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { Observable } from 'rxjs';
 import * as firebase from 'firebase/app';
-import '@firebase/auth';
 
 @Injectable()
 export class AuthService {
@@ -12,7 +11,9 @@ export class AuthService {
   constructor(public afAuth: AngularFireAuth) { 
     this.user = afAuth.authState;
   }
-
+  register(email:string,password:string){
+    this.afAuth.auth.createUserWithEmailAndPassword(email,password).then(res=> console.log(res)).catch(error=>console.log(error));
+  }
   loginEmail(email:string,password:string){
     this.afAuth.auth.signInWithEmailAndPassword(email,password).then().catch(error =>console.log(error));
     //firebase.auth().signInWithPopup(provider);

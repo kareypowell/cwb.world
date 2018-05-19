@@ -17,6 +17,6 @@ export class RegisterComponent implements OnInit {
   }
   
   submitRegister(){
-    //this._auth.register(this.registerDetails.email,this.registerDetails.password);
+    this._auth.register(this.registerDetails.email,this.registerDetails.password);
   }
 }
