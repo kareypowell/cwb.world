@@ -16,18 +16,14 @@ export class AuthService {
   }
   loginEmail(email:string,password:string){
     this.afAuth.auth.signInWithEmailAndPassword(email,password).then().catch(error =>console.log(error));
-    //firebase.auth().signInWithPopup(provider);
   }
   loginGoogle(){
     const provider = new firebase.auth.GoogleAuthProvider();
     this.afAuth.auth.signInWithPopup(provider);
-    //firebase.auth().signInWithPopup(provider);
-    //console.log(this.user);
   }
   loginTwitter(){
     const provider = new firebase.auth.TwitterAuthProvider();
     this.afAuth.auth.signInWithPopup(provider);
-    //firebase.auth().signInWithPopup(provider);
   }
   loginFacebook(){
     const provider = new firebase.auth.FacebookAuthProvider();
@@ -35,6 +31,5 @@ export class AuthService {
   }
   logout(){
     this.afAuth.auth.signOut();
-    //firebase.auth().signOut();
   }
 }
