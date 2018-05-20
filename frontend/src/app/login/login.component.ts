@@ -10,6 +10,7 @@ import { AuthService } from '../auth-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  hide = true;
   loginDetails = new LoginForm("","",false);
   constructor(private _auth:AuthService) { }
   
@@ -17,6 +18,15 @@ export class LoginComponent implements OnInit {
   }
   
   submitLogin(){
-    this._auth.login(this.loginDetails.email,this.loginDetails.password);
+    this._auth.loginEmail(this.loginDetails.email,this.loginDetails.password);
+  }
+  login_google(){
+    this._auth.loginGoogle();
+  }
+  login_twitter(){
+    this._auth.loginTwitter();
+  }
+  login_facebook(){
+    this._auth.loginFacebook();
   }
 }

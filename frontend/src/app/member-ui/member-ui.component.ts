@@ -1,6 +1,7 @@
 import { Component, OnInit,Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DataTransferService } from '../data-transfer.service';
+import { AuthService } from '../auth-service';
 
 @Component({
   selector: 'app-member-ui',
@@ -9,7 +10,7 @@ import { DataTransferService } from '../data-transfer.service';
 })
 export class MemberUiComponent implements OnInit {
 
-  constructor(public dialog: MatDialog, private data : DataTransferService) { }
+  constructor(public dialog: MatDialog, private data : DataTransferService, public auth:AuthService) { }
 
   ngOnInit() {
   }

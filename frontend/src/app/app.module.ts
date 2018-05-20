@@ -25,6 +25,9 @@ import { CommunityComponent } from './community/community.component';
 import { GroupFilterPipe } from './group-filter.pipe';
 import { GroupComponent } from './group/group.component';
 import { GetInvoledComponent } from './get-involed/get-involed.component';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+import { environment } from '../environments/environment'; 
+import { AngularFireModule } from 'angularfire2';
 
 @NgModule({
   declarations: [
@@ -52,7 +55,9 @@ import { GetInvoledComponent } from './get-involed/get-involed.component';
     MaterialModule,
     AppRoutingModule,
     HttpModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireAuthModule
   ],
   providers: [ApiLinkService, AuthService, DataTransferService],
   bootstrap: [AppComponent]

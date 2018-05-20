@@ -20,11 +20,5 @@ export class AppComponent implements OnInit{
       }
       window.scrollTo(0, 0)
     });
-
-    firebase.initializeApp({
-    apiKey: "AIzaSyD4QXiTy17ryixEh1wc14rk0NvcWMTCkus",
-    authDomain: "cwb-userbase.firebaseapp.com"
-    });
-    console.log("Firebase App Initiated");
   }
 }

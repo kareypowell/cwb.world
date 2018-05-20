@@ -1,25 +1,47 @@
 <div class="body-wrapper grey-bg">
-  <div class="middle-center">
+  <div class="middle-center" id="login">
     <mat-card>
-      <h3>Login</h3>
-      <form #loginForm="ngForm" (submit)="submitLogin()">
-        <mat-form-field class="full-width">
-          <input matInput placeholder="Email" class="full-width" name="email" [(ngModel)]=loginDetails.email>
-        </mat-form-field>
-        <p></p>
-        <mat-form-field class="full-width">
-          <input type="password" matInput placeholder="Password" class="full-width" name="password" [(ngModel)]=loginDetails.password>
-        </mat-form-field>
-        <p></p>
-        <mat-checkbox name="stayLogged" [(ngModel)]=loginDetails.stayLoggedIn>Keep me logged in</mat-checkbox>
-        <p></p>
-        <button type="submit" class="cwb-primary-button" mat-button>Login</button>
-        <p></p>
-        <small>Forgot login details?
-          <a routerLink="../retrievelogin">Retrieve them</a>
-        </small>
-        <br>
-      </form>
+      <h3 class="text-center">Login</h3>
+      <div class="row">
+        <div class="col-md-5">
+          <div class="col-md-12">
+            <form #loginForm="ngForm" (submit)="submitLogin()">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Email" class="full-width" name="email" [(ngModel)]=loginDetails.email>
+              </mat-form-field>
+              <mat-form-field class="full-width">
+                <input [type]="hide ? 'password' : 'text'" matInput placeholder="Password" class="full-width" name="password" [(ngModel)]=loginDetails.password>
+                <mat-icon matSuffix (click)="hide = !hide" style="cursor: pointer;">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              </mat-form-field>
+              <mat-checkbox name="stayLogged" [(ngModel)]=loginDetails.stayLoggedIn>Keep me logged in</mat-checkbox>
+
+              <button type="submit" class="cwb-primary-button" mat-button>Login</button>
+              <p></p>
+              <small>Forgot login details?
+                <a routerLink="../retrievelogin">Retrieve them</a>
+              </small>
+              <br>
+            </form>
+          </div>
+        </div>
+        <div class="col-md-2 pos-rel">
+          <div class="col-md-12 sepHolder">
+            <div class="or-container">
+              <h1>OR</h1>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class="col-md-12">
+            <div class="gap"></div>
+            <img src="../../assets/images/google.png" alt="Google login" class="loginButt" (click)="login_google()">
+            <br>
+            <img src="../../assets/images/facebook.png" alt="Facebook login" class="loginButt" (click)="login_facebook()">
+            <br>
+            <img src="../../assets/images/twitter.png" alt="Twitter login" class="loginButt" (click)="login_twitter()">
+          </div>
+        </div>
+      </div>
     </mat-card>
   </div>
 </div>
