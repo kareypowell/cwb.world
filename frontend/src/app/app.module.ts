@@ -28,6 +28,8 @@ import { GetInvoledComponent } from './get-involed/get-involed.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment'; 
 import { AngularFireModule } from 'angularfire2';
+import { MemberGuard } from './guards/member.guard';
+import { AdminGuard } from './guards/admin.guard';
 
 @NgModule({
   declarations: [
@@ -59,7 +61,7 @@ import { AngularFireModule } from 'angularfire2';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule
   ],
-  providers: [ApiLinkService, AuthService, DataTransferService],
+  providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
