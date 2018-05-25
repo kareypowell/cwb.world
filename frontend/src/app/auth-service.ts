@@ -41,11 +41,15 @@ export class AuthService {
     return userRef.set(data, { merge: true });
   }
   register(email: string, password: string) {
-    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(success => console.log(success)).catch(error => console.log(error));
+    this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
+      credential => this.updateUser(credential.user)
+    )
+    //.((success) => this.router.navigate(['/member-ui'])
+    .catch(error => console.log(error))
   }
   loginEmail(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
-      .then((success) => this.router.navigate(['/member-ui']),
+      .then(
         (credential) => {
           this.updateUser(credential.user)
           console.log(credential.user);
@@ -71,7 +75,11 @@ export class AuthService {
   }
   loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
-    this.afAuth.auth.signInWithPopup(provider).then((success) => this.router.navigate(['/member-ui']));
+    this.afAuth.auth.signInWithPopup(provider).then(
+      credential => this.updateUser(credential.user)
+    )
+    //.((success) => this.router.navigate(['/member-ui'])
+    .catch(error => console.log(error))
   }
   logout() {
     this.afAuth.auth.signOut();

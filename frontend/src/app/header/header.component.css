@@ -7,6 +7,9 @@
 .main-ul li{
     margin-right: 20px;
 }
+.main-ul{
+    padding-right: 80px;
+}
 nav{
     border-bottom: 1px solid #f2f2f2;
 }
