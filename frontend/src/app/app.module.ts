@@ -30,6 +30,9 @@ import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { MemberGuard } from './guards/member.guard';
 import { AdminGuard } from './guards/admin.guard';
+import { AngularFirestore , AngularFirestoreModule} from 'angularfire2/firestore';
+import { CalendarModule } from 'angular-calendar';
+import { CalendarComponent } from './calendar/calendar.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +52,8 @@ import { AdminGuard } from './guards/admin.guard';
     CommunityComponent,
     GroupFilterPipe,
     GroupComponent,
-    GetInvoledComponent
+    GetInvoledComponent,
+    CalendarComponent
   ],
   imports: [
     BrowserModule,
@@ -59,7 +63,9 @@ import { AdminGuard } from './guards/admin.guard';
     HttpModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFirestoreModule,
+    CalendarModule.forRoot()
   ],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard],
   bootstrap: [AppComponent]

@@ -14,6 +14,7 @@ import { CommunityComponent } from './community/community.component';
 import { GroupComponent } from './group/group.component';
 import { GetInvoledComponent } from './get-involed/get-involed.component';
 import { MemberGuard } from './guards/member.guard';
+import { CalendarComponent } from './calendar/calendar.component';
 
 const routes: Routes = [
   {
@@ -68,6 +69,10 @@ const routes: Routes = [
   {
     path: "get-involved",
     component: GetInvoledComponent
+  },
+  {
+    path: "calendar",
+    component: CalendarComponent
   }
 ];
 

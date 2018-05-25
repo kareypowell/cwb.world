@@ -2,6 +2,8 @@ import { Component, OnInit,Inject } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DataTransferService } from '../data-transfer.service';
 import { AuthService } from '../auth-service';
+import { User } from '../interfaces/member';
+
 
 @Component({
   selector: 'app-member-ui',
@@ -9,10 +11,11 @@ import { AuthService } from '../auth-service';
   styleUrls: ['./member-ui.component.css']
 })
 export class MemberUiComponent implements OnInit {
-
+  user:User;
   constructor(public dialog: MatDialog, private data : DataTransferService, public auth:AuthService) { }
 
   ngOnInit() {
+    this.auth.user$.subscribe(user => this.user = user);
   }
   searchVal = "";
   communities = [

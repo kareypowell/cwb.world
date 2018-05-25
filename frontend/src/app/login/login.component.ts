@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { LoginForm } from '../login-form';
 import { AuthService } from '../auth-service';
+import { User } from '../interfaces/member';
 
 @Component({
   selector: 'app-login',
@@ -10,11 +11,13 @@ import { AuthService } from '../auth-service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+  user:User;
   hide = true;
   loginDetails = new LoginForm("","",false);
   constructor(private _auth:AuthService) { }
   
   ngOnInit() {
+    this._auth.user$.subscribe(data => this.user = data);
   }
   
   submitLogin(){

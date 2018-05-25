@@ -11,20 +11,20 @@
       <li class="nav-item">
         <a class="nav-link" routerLink="communities">Communities</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!user">
         <a class="nav-link" routerLink="login">Login</a>
       </li>
-      <li class="nav-item">
+      <li class="nav-item" *ngIf="!user">
         <a class="nav-link" href="register">Join</a>
       </li>
-      <li *ngIf="auth.user | async" class="nav-item">
+      <li *ngIf="auth.user$ | async" class="nav-item">
         <a class="nav-link" routerLink="member-ui">Dashboard</a>
       </li>
-      <li *ngIf="auth.user | async" class="nav-item">
+      <li *ngIf="auth.user$ | async" class="nav-item">
         <a class="nav-link" routerLink="login" (click)="logout()">Logout</a>
       </li>
-      <li *ngIf="auth.user | async as user" class="nav-item">
-        <img src="{{user.photoURL}}" alt="" style="width:50px; height: auto; border-radius: 50%;">
+      <li *ngIf="auth.user$ | async as user" class="nav-item">
+        <img src="{{user.photoURL}}" alt="" style="width:40px; height: auto; border-radius: 50%;">
       </li>
     </ul>
   </div>
