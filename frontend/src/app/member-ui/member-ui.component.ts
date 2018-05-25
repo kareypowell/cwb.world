@@ -3,6 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DataTransferService } from '../data-transfer.service';
 import { AuthService } from '../auth-service';
 import { User } from '../interfaces/member';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -12,12 +13,18 @@ import { User } from '../interfaces/member';
 })
 export class MemberUiComponent implements OnInit {
   user:User;
-  constructor(public dialog: MatDialog, private data : DataTransferService, public auth:AuthService) { }
+  constructor(public dialog: MatDialog, private data : DataTransferService, public auth:AuthService, private route: Router) { }
 
   ngOnInit() {
     this.auth.user$.subscribe(user => this.user = user);
   }
   searchVal = "";
+  myRoles = [
+    {value: 'member', viewValue: 'Member'},
+    {value: 'group-lead', viewValue: 'Group Lead'},
+    {value: 'sector-lead', viewValue: 'Sector Lead'},
+    {value: 'admin', viewValue: 'Admin'}
+  ]
   communities = [
     {value: 'education', viewValue: 'Education'},
     {value: 'careers', viewValue: 'Careers'},
@@ -42,6 +49,10 @@ export class MemberUiComponent implements OnInit {
   currentGroup = this.groups[0];
   displayGroupInfo(grp){
     this.currentGroup = grp;
+  }
+  url = "";
+  routeToDash(){
+    this.route.navigate(['/member-ui/'+this.url])
   }
 }
 

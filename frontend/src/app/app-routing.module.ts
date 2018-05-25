@@ -15,6 +15,8 @@ import { GroupComponent } from './group/group.component';
 import { GetInvoledComponent } from './get-involed/get-involed.component';
 import { MemberGuard } from './guards/member.guard';
 import { CalendarComponent } from './calendar/calendar.component';
+import { MemberViewComponent } from './member-view/member-view.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 const routes: Routes = [
   {
@@ -52,7 +54,12 @@ const routes: Routes = [
   {
     path: "member-ui",
     component: MemberUiComponent,
-    canActivate:[MemberGuard]
+    canActivate:[MemberGuard],
+    children: [
+      { path: '', redirectTo: 'member', pathMatch: 'full' },
+      { path: 'member', component: MemberViewComponent },
+      { path: 'admin', component: AdminViewComponent }
+    ]
   },
   {
     path: "communities",

@@ -33,6 +33,8 @@ import { AdminGuard } from './guards/admin.guard';
 import { AngularFirestore , AngularFirestoreModule} from 'angularfire2/firestore';
 import { CalendarModule } from 'angular-calendar';
 import { CalendarComponent } from './calendar/calendar.component';
+import { MemberViewComponent } from './member-view/member-view.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +55,9 @@ import { CalendarComponent } from './calendar/calendar.component';
     GroupFilterPipe,
     GroupComponent,
     GetInvoledComponent,
-    CalendarComponent
+    CalendarComponent,
+    MemberViewComponent,
+    AdminViewComponent
   ],
   imports: [
     BrowserModule,
