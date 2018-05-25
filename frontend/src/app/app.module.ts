@@ -35,6 +35,9 @@ import { CalendarModule } from 'angular-calendar';
 import { CalendarComponent } from './calendar/calendar.component';
 import { MemberViewComponent } from './member-view/member-view.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import { SectorLeadViewComponent } from './sector-lead-view/sector-lead-view.component';
+import { GroupLeadViewComponent } from './group-lead-view/group-lead-view.component';
+import { HostPartnerViewComponent } from './host-partner-view/host-partner-view.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +60,10 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
     GetInvoledComponent,
     CalendarComponent,
     MemberViewComponent,
-    AdminViewComponent
+    AdminViewComponent,
+    SectorLeadViewComponent,
+    GroupLeadViewComponent,
+    HostPartnerViewComponent
   ],
   imports: [
     BrowserModule,

@@ -33,8 +33,7 @@ export class AuthService {
       uid: user.uid,
       email: user.email,
       roles: {
-        member: true,
-        admin: false
+        member: true
       },
       photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
     }

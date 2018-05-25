@@ -23,7 +23,8 @@ export class MemberUiComponent implements OnInit {
     {value: 'member', viewValue: 'Member'},
     {value: 'group-lead', viewValue: 'Group Lead'},
     {value: 'sector-lead', viewValue: 'Sector Lead'},
-    {value: 'admin', viewValue: 'Admin'}
+    {value: 'admin', viewValue: 'Admin'},
+    {value: 'host-partner', viewValue: 'Host Partner'}
   ]
   communities = [
     {value: 'education', viewValue: 'Education'},

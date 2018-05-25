@@ -14,9 +14,13 @@ import { CommunityComponent } from './community/community.component';
 import { GroupComponent } from './group/group.component';
 import { GetInvoledComponent } from './get-involed/get-involed.component';
 import { MemberGuard } from './guards/member.guard';
+import { AdminGuard } from './guards/admin.guard';
 import { CalendarComponent } from './calendar/calendar.component';
 import { MemberViewComponent } from './member-view/member-view.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
+import { GroupLeadViewComponent } from './group-lead-view/group-lead-view.component';
+import { SectorLeadViewComponent } from './sector-lead-view/sector-lead-view.component';
+import { HostPartnerViewComponent } from './host-partner-view/host-partner-view.component';
 
 const routes: Routes = [
   {
@@ -58,7 +62,10 @@ const routes: Routes = [
     children: [
       { path: '', redirectTo: 'member', pathMatch: 'full' },
       { path: 'member', component: MemberViewComponent },
-      { path: 'admin', component: AdminViewComponent }
+      { path: 'admin', component: AdminViewComponent,canActivate:[AdminGuard] },
+      { path: 'group-lead', component: GroupLeadViewComponent,canActivate:[AdminGuard] },
+      { path: 'sector-lead', component: SectorLeadViewComponent,canActivate:[AdminGuard] },
+      { path: 'host-partner', component: HostPartnerViewComponent,canActivate:[AdminGuard] }
     ]
   },
   {
