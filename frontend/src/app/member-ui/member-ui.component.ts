@@ -4,6 +4,7 @@ import { DataTransferService } from '../data-transfer.service';
 import { AuthService } from '../auth-service';
 import { User } from '../interfaces/member';
 import { Router } from '@angular/router';
+import { DialogComponent } from './../dialog/dialog.component';
 
 
 @Component({
@@ -17,6 +18,23 @@ export class MemberUiComponent implements OnInit {
 
   ngOnInit() {
     this.auth.user$.subscribe(user => this.user = user);
+  }
+  wid = "250px";
+  openDialog(source): void {
+    if(source == "editProfile"){
+      this.wid = '800px';
+    }else if (source =="viewProfile"){
+      this.wid = '99%';
+    }
+    let dialogRef = this.dialog.open(DialogComponent, {
+      width: this.wid,
+      data: { source:source }
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed');
+      //this.animal = result;
+    });
   }
   
   myRoles = [

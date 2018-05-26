@@ -2,13 +2,13 @@
   <span class="closedialog" (click)="onNoClick()">
     <i class="far fa-window-close"></i>
   </span>
-  <div class="reqToJoin">
+  <div *ngIf="data.source =='reqToJoin'" class="reqToJoin">
     <h2>Request to Join Group</h2>
-    <h4>{{data.grpName.name}}</h4>
+    <h4>{{data.grp.name}}</h4>
     <div class="gap"></div>
     <h3>Description</h3>
     <p>
-      {{data.grpName.description}}
+      {{data.grp.description}}
     </p>
     <h3>What to Expect</h3>
     <p>Connect with new authors every week, Participate in group chat and discussion, share ideas</p>
@@ -18,24 +18,24 @@
       and is hooked on the magic that happens when readers and authors connect. She’s a member of ALA, TASL, and SCBWI.
     </p>
     <p>
-      Community - {{data.grpName.community}}
+      Community - {{data.grp.community}}
     </p>
     <p>
-      Sector - {{data.grpName.sector}}
+      Sector - {{data.grp.sector}}
     </p>
     <p>
-      Group Lead - {{data.grpName.leader}}
+      Group Lead - {{data.grp.leader}}
     </p>
     <h3>Payments</h3>
     <h5>Choose</h5>
     <mat-radio-group>
-      <mat-radio-button value="1">Monthly Fee - {{data.grpName.price.monthly| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button value="1">Monthly Fee - {{data.grp.price.monthly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="2">Quarterly Fee - {{data.grpName.price.quarterly| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button value="2">Quarterly Fee - {{data.grp.price.quarterly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="3">6-Monthly Fee - {{data.grpName.price.sixmonthly| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button value="3">6-Monthly Fee - {{data.grp.price.sixmonthly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="4">Full Payment - {{data.grpName.price.fullPayment| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button value="4">Full Payment - {{data.grp.price.fullPayment| currency:'USD'}}</mat-radio-button>
       <br>
     </mat-radio-group>
     <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
@@ -45,5 +45,17 @@
     </span>
     <div class="gap"></div>
     <div class="gap"></div>
+  </div>
+
+  <!-- EDIT PROFILE CONTENT-->
+
+  <div *ngIf="data.source =='editProfile'" class="editProfileDialog">
+    <h2>Edit Profile</h2>
+  </div>
+
+  <!-- PREVIEW PROFILE CONTENT-->
+
+  <div *ngIf="data.source =='viewProfile'" class="previewProfileDialog">
+    <h2>Profile Preview</h2>
   </div>
 </div>

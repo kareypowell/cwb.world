@@ -155,8 +155,10 @@ a{
 .editProfile{
     font-size: 0.8em;
     color: #3498db;
+    cursor: pointer;
 }
 .previewProf{
     font-size: 0.8em;
     color: #e74c3c;
+    cursor: pointer;
 }

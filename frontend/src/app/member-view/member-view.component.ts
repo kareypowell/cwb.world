@@ -10,23 +10,22 @@ import { SearchPipe } from '../pipes/search.pipe';
   styleUrls: ['./member-view.component.css']
 })
 export class MemberViewComponent implements OnInit {
-  animal = "";
   wid = "250px";
   constructor(private data:DataTransferService,
     public dialog: MatDialog)
      { }
-     openDialog(source,grpName): void {
+     openDialog(source,grp): void {
       if(source == "reqToJoin"){
         this.wid = '600px';
       }
       let dialogRef = this.dialog.open(DialogComponent, {
         width: this.wid,
-        data: { grpName: grpName }
+        data: { source:source,grp: grp }
       });
   
       dialogRef.afterClosed().subscribe(result => {
         console.log('The dialog was closed');
-        this.animal = result;
+        //this.animal = result;
       });
     }
   ngOnInit() {
