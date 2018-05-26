@@ -13,7 +13,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
-
+import {MatRadioModule} from '@angular/material/radio';
 
 
 
@@ -21,9 +21,9 @@ import {MatDividerModule} from '@angular/material/divider';
 @NgModule({
   imports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule,MatListModule,MatDividerModule],
+    MatIconModule,MatListModule,MatDividerModule,MatRadioModule],
   exports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule,MatListModule,MatDividerModule],
+    MatIconModule,MatListModule,MatDividerModule,MatRadioModule],
 })
 export class MaterialModule { }

@@ -27,12 +27,20 @@
       Group Lead - {{data.grpName.leader}}
     </p>
     <h3>Payments</h3>
-      <h5>Choose</h5>
-      <ul>
-        <li>Monthly Fee ${{data.grpName.price.monthly}}</li>
-        <li>Quarterly Fee ${{data.grpName.price.quarterly}}</li>
-        <li>6-Monthly Fee ${{data.grpName.price.sixmonthly}}</li>
-        <li>Full Payment ${{data.grpName.price.fullPayment}}</li>
-      </ul>
+    <h5>Choose</h5>
+    <mat-radio-group>
+      <mat-radio-button value="1">Monthly Fee - {{data.grpName.price.monthly| currency:'USD'}}</mat-radio-button>
+      <br>
+      <mat-radio-button value="2">Quarterly Fee - {{data.grpName.price.quarterly| currency:'USD'}}</mat-radio-button>
+      <br>
+      <mat-radio-button value="3">6-Monthly Fee - {{data.grpName.price.sixmonthly| currency:'USD'}}</mat-radio-button>
+      <br>
+      <mat-radio-button value="4">Full Payment - {{data.grpName.price.fullPayment| currency:'USD'}}</mat-radio-button>
+      <br>
+    </mat-radio-group>
+    <span>
+      <button type="reset" mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
+      <button mat-raised-button class="cwb-primary-button">Submit</button>
+    </span>
   </div>
 </div>
