@@ -32,6 +32,7 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
+      displayName: user.displayName,
       roles: {
         member: true
       },

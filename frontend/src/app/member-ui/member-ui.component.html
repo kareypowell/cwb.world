@@ -2,7 +2,7 @@
   <div class="user-profile">
     <div class="row">
       <div class="col-md-2">
-        <img src="../../assets/images/user-silhouet.png" alt="User Image" class="rounded-circle userImage">
+        <img src="{{user.photoURL}}" alt="User Image" class="rounded-circle userImage">
         <div class="gap"></div>
         <mat-form-field class="full-width">
           <mat-select placeholder="Switch Role" [(ngModel)]="url" (ngModelChange) = "routeToDash()" [(value)] = "url">
@@ -15,7 +15,7 @@
         <div class="gap"></div>
       </div>
       <div class="col-md-3">
-        <h2 class="smallhead">Mikail Huggins</h2>
+        <h2 class="smallhead">{{user.displayName}}</h2>
         <h5 class="smallerhead"><i class="far fa-calendar-alt mr-3"></i>DOB: 04/24/1999</h5>
         <h5 class="smallerhead"><i class="fas fa-map-marker-alt mr-3"></i>Address: 500 Joseph C. Wilson Blvd</h5>
         <h5 class="smallerhead"><i class="fas fa-at mr-3"></i>Email: cwb@gmail.com</h5>
