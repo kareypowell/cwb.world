@@ -1,9 +1,7 @@
 <div class="body-wrapper member-ui">
   <div class="user-profile">
-    <mat-card>
     <div class="row">
       <div class="col-md-2">
-          <mat-icon class="editIcons">edit</mat-icon>
         <img src="../../assets/images/user-silhouet.png" alt="User Image" class="rounded-circle userImage">
         <div class="gap"></div>
         <mat-form-field class="full-width">
@@ -17,17 +15,14 @@
         <div class="gap"></div>
       </div>
       <div class="col-md-3">
-        <mat-icon class="editIcons">edit</mat-icon>
-        <h2 *ngIf="user">{{user.displayName}}Hello</h2>
-        <h2>Mikail Huggins</h2>
-        <h5>DOB: 04/24/1999</h5>
-        <h5>Address: 500 Joseph C. Wilson Blvd</h5>
-        <h5>Email: cwb@gmail.com</h5>
-        <h5>Phone: (555) 232-1234</h5>
+        <h2 class="smallhead">Mikail Huggins</h2>
+        <h5 class="smallerhead"><i class="far fa-calendar-alt mr-3"></i>DOB: 04/24/1999</h5>
+        <h5 class="smallerhead"><i class="fas fa-map-marker-alt mr-3"></i>Address: 500 Joseph C. Wilson Blvd</h5>
+        <h5 class="smallerhead"><i class="fas fa-at mr-3"></i>Email: cwb@gmail.com</h5>
+        <h5 class="smallerhead"><i class="fas fa-phone mr-3"></i>Phone: (555) 232-1234</h5>
         </div>
       <div class="col-md-3">
-        <mat-icon class="editIcons">edit</mat-icon>
-        <h2>About Me</h2>
+        <h2 class="smallhead">About Me</h2>
         <p>
             My name is Mikail. I am 12
             years old. I love reading,
@@ -35,13 +30,12 @@
             running. One day I want to
             be an olympic athlete..
         </p>
-        <button mat-button class="cwb-primary-button cwb-mr-2">Preview</button>
+        <span class="editProfile"><i class="fas fa-user-edit mr-2"></i>Edit your profile</span> | <span class="previewProf"><i class="far fa-eye mr-2 ml-2"></i>Preview profile</span>
         </div>
       <div class="col-md-4">
-        <h2>Gallery</h2>
+        <h2 class="smallhead">Gallery</h2>
         </div>
     </div>
-  </mat-card>
   </div>
   <div class="gap"></div>
   <router-outlet></router-outlet>
