@@ -21,73 +21,33 @@ import { AdminViewComponent } from './admin-view/admin-view.component';
 import { GroupLeadViewComponent } from './group-lead-view/group-lead-view.component';
 import { SectorLeadViewComponent } from './sector-lead-view/sector-lead-view.component';
 import { HostPartnerViewComponent } from './host-partner-view/host-partner-view.component';
+import { SectorLeadGuard } from './guards/sector-lead.guard';
+import { GroupLeadGuard } from './guards/group-lead.guard';
+import { HostPartnerGuard } from './guards/host-partner.guard';
 
 const routes: Routes = [
-  {
-    path: "",
-    component: HomepageComponent
-  },
-  {
-    path: "contact",
-    component: ContactComponent
-  },
-  {
-    path: "login",
-    component: LoginComponent
-  },
-  {
-    path: "register",
-    component: RegisterComponent
-  },
-  {
-    path: "about",
-    component: AboutComponent
-  },
-  {
-    path: "termsandconditions",
-    component: TermsandconditionsComponent
-  },
-  {
-    path: "retrievelogin",
-    component: RetrieveLoginComponent
-  },
-  {
-    path: "register-login",
-    component: RegisterLoginComponent
-  },
-  {
-    path: "member-ui",
-    component: MemberUiComponent,
-    canActivate:[MemberGuard],
+  {path: "",component: HomepageComponent},
+  {path: "contact",component: ContactComponent},
+  {path: "login",component: LoginComponent},
+  {path: "register",component: RegisterComponent},
+  {path: "about",component: AboutComponent},
+  {path: "termsandconditions",component: TermsandconditionsComponent},
+  {path: "retrievelogin",component: RetrieveLoginComponent},
+  {path: "register-login",component: RegisterLoginComponent},
+  {path: "member-ui",component: MemberUiComponent,canActivate:[MemberGuard],
     children: [
       { path: '', redirectTo: 'member', pathMatch: 'full' },
       { path: 'member', component: MemberViewComponent },
       { path: 'admin', component: AdminViewComponent,canActivate:[AdminGuard] },
-      { path: 'group-lead', component: GroupLeadViewComponent,canActivate:[AdminGuard] },
-      { path: 'sector-lead', component: SectorLeadViewComponent,canActivate:[AdminGuard] },
-      { path: 'host-partner', component: HostPartnerViewComponent,canActivate:[AdminGuard] }
-    ]
-  },
-  {
-    path: "communities",
-    component: CommunitiesComponent
-  },
-  {
-    path: "community",
-    component: CommunityComponent
-  },
-  {
-    path: "group",
-    component: GroupComponent
-  },
-  {
-    path: "get-involved",
-    component: GetInvoledComponent
-  },
-  {
-    path: "calendar",
-    component: CalendarComponent
-  }
+      { path: 'group-lead', component: GroupLeadViewComponent,canActivate:[GroupLeadGuard] },
+      { path: 'sector-lead', component: SectorLeadViewComponent,canActivate:[SectorLeadGuard] },
+      { path: 'host-partner', component: HostPartnerViewComponent,canActivate:[HostPartnerGuard] }
+    ]},
+  {path: "communities",component: CommunitiesComponent},
+  {path: "community",component: CommunityComponent},
+  {path: "group",component: GroupComponent},
+  {path: "get-involved",component: GetInvoledComponent},
+  {path: "calendar",component: CalendarComponent}
 ];
 
 @NgModule({
