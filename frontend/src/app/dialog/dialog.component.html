@@ -38,9 +38,12 @@
       <mat-radio-button value="4">Full Payment - {{data.grpName.price.fullPayment| currency:'USD'}}</mat-radio-button>
       <br>
     </mat-radio-group>
+    <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
     <span>
       <button type="reset" mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
-      <button mat-raised-button class="cwb-primary-button">Submit</button>
+      <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot">Submit</button>
     </span>
+    <div class="gap"></div>
+    <div class="gap"></div>
   </div>
 </div>

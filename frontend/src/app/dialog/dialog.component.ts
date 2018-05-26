@@ -16,7 +16,7 @@ export class DialogComponent implements OnInit {
     
   }
   
-
+  notRobot:boolean = false;
   onNoClick(): void {
     this.dialogRef.close();
   }
