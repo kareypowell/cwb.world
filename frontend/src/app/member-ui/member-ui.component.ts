@@ -28,7 +28,7 @@ export class MemberUiComponent implements OnInit {
     }
     let dialogRef = this.dialog.open(DialogComponent, {
       width: this.wid,
-      data: { source:source }
+      data: { source:source, user:this.user }
     });
 
     dialogRef.afterClosed().subscribe(result => {
@@ -46,7 +46,7 @@ export class MemberUiComponent implements OnInit {
   ];
   
  
-  url = "";
+  url = ""; // this and routeToDash Function used to send user to selected role in Role switch option
   routeToDash(){
     this.route.navigate(['/member-ui/'+this.url])
   }

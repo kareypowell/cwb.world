@@ -38,51 +38,45 @@ export class AuthService {
       },
       photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
     }
-    //this.router.navigate(['/member-ui']);
     return userRef.set(data, { merge: true });
   }
   register(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
-      credential => this.updateUser(credential.user)
+      credential => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
     )
-    //.((success) => this.router.navigate(['/member-ui'])
     .catch(error => console.log(error))
   }
   loginEmail(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(
-        (credential) => {
-          this.updateUser(credential.user)
-        })
+        (credential) => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
+      )
       .catch(error => console.log(error));
   }
   loginGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider)
     .then(
-      credential => this.updateUser(credential.user)
+      credential => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
     )
-    //.((success) => this.router.navigate(['/member-ui'])
     .catch(error => console.log(error))
     }
   loginTwitter() {
     const provider = new firebase.auth.TwitterAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      (credential) => this.updateUser(credential.user)
-      //(success) => this.router.navigate(['/member-ui'])
+      (credential) => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
     )
     .catch(error => console.log(error))
   }
   loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      credential => this.updateUser(credential.user)
+      credential => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
     )
-    //.((success) => this.router.navigate(['/member-ui'])
     .catch(error => console.log(error))
   }
   logout() {
-    this.afAuth.auth.signOut();
+    this.afAuth.auth.signOut().then((res) => this.router.navigate(['/']));
     this.user$ = of(null);
   }
 }
