@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { DataTransferService } from '../data-transfer.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { SearchPipe } from '../pipes/search.pipe';
 
 @Component({
   selector: 'app-member-view',
@@ -31,7 +32,11 @@ export class MemberViewComponent implements OnInit {
   ngOnInit() {
   }
   searchVal = "";
+  sectorVal = "";
+  commVal = "";
+
   communities = [
+    {value: 'all', viewValue: 'All Communities'},
     {value: 'education', viewValue: 'Education'},
     {value: 'careers', viewValue: 'Careers'},
     {value: 'business', viewValue: 'Business'},
@@ -43,12 +48,13 @@ export class MemberViewComponent implements OnInit {
     {value: 'hollywood', viewValue: 'Hollywood'}
   ];
   sectors = [
+    {value: 'all', viewValue: 'All Sectors'},
     {value: 'pre-k', viewValue: 'Pre K'},
-    {value: 'k-5-grade', viewValue: 'K - 5th Grade'},
+    {value: 'k to 5', viewValue: 'K - 5th Grade'},
     {value: '5-8-grade', viewValue: '5th Grade - 8th Grade'},
     {value: 'high-school', viewValue: 'High School'},
-    {value: 'undergrad', viewValue: 'Undergraduate'},
-    {value: 'postgrad', viewValue: 'Postgraduate'}
+    {value: 'Undergraduate', viewValue: 'Undergraduate'},
+    {value: 'postgraduate', viewValue: 'Postgraduate'}
   ];
 
   groups = this.data.groups;

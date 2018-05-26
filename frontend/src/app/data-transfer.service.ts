@@ -22,7 +22,7 @@ export class DataTransferService {
         Here’s your chance to\
       find out!",
       'imageUri': 'education.jpg',
-      'sector': 'k to 6',
+      'sector': 'k to 5',
       'price':{
         'monthly':50,
         'quarterly':160,
@@ -52,7 +52,7 @@ export class DataTransferService {
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
       'imageUri': 'careers.jpg',
-      'sector': 'k to 6',
+      'sector': 'k to 5',
       'price':{
         'monthly':50,
         'quarterly':160,
@@ -67,7 +67,7 @@ export class DataTransferService {
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
       'imageUri': 'non-profit.jpg',
-      'sector': 'k to 6',
+      'sector': 'k to 5',
       'price':{
         'monthly':50,
         'quarterly':160,
@@ -82,7 +82,7 @@ export class DataTransferService {
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
       'imageUri': 'finance.jpg',
-      'sector': 'k to 6',
+      'sector': 'k to 5',
       'price':{
         'monthly':50,
         'quarterly':160,
@@ -97,7 +97,7 @@ export class DataTransferService {
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
       'imageUri': 'government.jpg',
-      'sector': 'k to 6',
+      'sector': 'postgraduate',
       'price':{
         'monthly':50,
         'quarterly':160,

@@ -42,6 +42,7 @@ import { GroupLeadGuard } from './guards/group-lead.guard';
 import { HostPartnerGuard } from './guards/host-partner.guard';
 import { SectorLeadGuard } from './guards/sector-lead.guard';
 import { DialogComponent } from './dialog/dialog.component';
+import { SearchPipe } from './pipes/search.pipe';
 
 @NgModule({
   declarations: [
@@ -68,7 +69,8 @@ import { DialogComponent } from './dialog/dialog.component';
     SectorLeadViewComponent,
     GroupLeadViewComponent,
     HostPartnerViewComponent,
-    DialogComponent
+    DialogComponent,
+    SearchPipe
   ],
   imports: [
     BrowserModule,
