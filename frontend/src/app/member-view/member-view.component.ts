@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTransferService } from '../data-transfer.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { DialogComponent } from '../dialog/dialog.component';
 
 @Component({
   selector: 'app-member-view',
@@ -7,9 +9,25 @@ import { DataTransferService } from '../data-transfer.service';
   styleUrls: ['./member-view.component.css']
 })
 export class MemberViewComponent implements OnInit {
-
-  constructor(private data:DataTransferService) { }
-
+  animal = "";
+  wid = "250px";
+  constructor(private data:DataTransferService,
+    public dialog: MatDialog)
+     { }
+     openDialog(source,grpName): void {
+      if(source == "reqToJoin"){
+        this.wid = '600px';
+      }
+      let dialogRef = this.dialog.open(DialogComponent, {
+        width: this.wid,
+        data: { grpName: grpName }
+      });
+  
+      dialogRef.afterClosed().subscribe(result => {
+        console.log('The dialog was closed');
+        this.animal = result;
+      });
+    }
   ngOnInit() {
   }
   searchVal = "";
@@ -38,5 +56,6 @@ export class MemberViewComponent implements OnInit {
   displayGroupInfo(grp){
     this.currentGroup = grp;
   }
-  
+
 }
+

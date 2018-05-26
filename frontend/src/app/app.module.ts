@@ -41,6 +41,7 @@ import { HostPartnerViewComponent } from './host-partner-view/host-partner-view.
 import { GroupLeadGuard } from './guards/group-lead.guard';
 import { HostPartnerGuard } from './guards/host-partner.guard';
 import { SectorLeadGuard } from './guards/sector-lead.guard';
+import { DialogComponent } from './dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +67,8 @@ import { SectorLeadGuard } from './guards/sector-lead.guard';
     AdminViewComponent,
     SectorLeadViewComponent,
     GroupLeadViewComponent,
-    HostPartnerViewComponent
+    HostPartnerViewComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
@@ -80,6 +82,7 @@ import { SectorLeadGuard } from './guards/sector-lead.guard';
     AngularFirestoreModule,
     CalendarModule.forRoot()
   ],
+  entryComponents:[DialogComponent],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard,HostPartnerGuard,SectorLeadGuard],
   bootstrap: [AppComponent]
 })

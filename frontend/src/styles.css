@@ -59,6 +59,7 @@ a{
     padding: 30px 50px!important;
     min-height: 90vh;
     height: auto;
+    position: relative;
 }
 .cwb-logo-image{
     width: 100px;
@@ -123,4 +124,23 @@ a{
 .editables i{
     margin-left: 15px;
     cursor: pointer;
+}
+.closedialog{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+}
+.closedialog i{
+    font-size: 2em;
+    color: #686868;
+}
+.reqToJoin p{
+    padding: 10px;
+    border: 1px dotted #686868;
+}
+.dialogHeight{
+    max-height: 90vh;
+    height: auto;
+    overflow-y: scroll;
 }

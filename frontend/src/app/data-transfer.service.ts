@@ -21,47 +21,89 @@ export class DataTransferService {
       always more to the story.\
         Here’s your chance to\
       find out!",
-      'imageUri': 'education.jpg'
+      'imageUri': 'education.jpg',
+      'sector': 'k to 6',
+      'price':{
+        'monthly':50,
+        'quarterly':160,
+        'sixmonthly':350,
+        'fullPayment':650
+      }
     },
     {
       'name': 'Signal Strength',
       'community': 'Education',
-      'leader': 'Donovan',
+      'leader': 'Mark Beardly',
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
-      'imageUri': 'business.jpg'
+      'imageUri': 'business.jpg',
+      'sector': 'Undergraduate',
+      'price':{
+        'monthly':50,
+        'quarterly':160,
+        'sixmonthly':350,
+        'fullPayment':650
+      }
     },
     {
       'name': 'Spanish Poetry EC',
       'community': 'Careers',
-      'leader': 'Donovan',
+      'leader': 'Ellie Helmsley',
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
-      'imageUri': 'careers.jpg'
+      'imageUri': 'careers.jpg',
+      'sector': 'k to 6',
+      'price':{
+        'monthly':50,
+        'quarterly':160,
+        'sixmonthly':350,
+        'fullPayment':650
+      }
     },
     {
       'name': 'Basic Algebra',
       'community': 'Non-Profit',
-      'leader': 'Donovan',
+      'leader': 'Sir 261',
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
-      'imageUri': 'non-profit.jpg'
+      'imageUri': 'non-profit.jpg',
+      'sector': 'k to 6',
+      'price':{
+        'monthly':50,
+        'quarterly':160,
+        'sixmonthly':350,
+        'fullPayment':650
+      }
     },
     {
       'name': 'Camping 101',
       'community': 'Finance',
-      'leader': 'Donovan',
+      'leader': 'Obi Wan Kenobi',
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
-      'imageUri': 'finance.jpg'
+      'imageUri': 'finance.jpg',
+      'sector': 'k to 6',
+      'price':{
+        'monthly':50,
+        'quarterly':160,
+        'sixmonthly':350,
+        'fullPayment':650
+      }
     },
     {
       'name': 'Investment Strategies',
       'community': 'Government',
-      'leader': 'Donovan',
+      'leader': 'Peter Griffin',
       'date': 'May 15, 2018',
       'description': 'This is a community for doing this and this and that for the betterment of this and this and that. You should join!',
-      'imageUri': 'government.jpg'
+      'imageUri': 'government.jpg',
+      'sector': 'k to 6',
+      'price':{
+        'monthly':50,
+        'quarterly':160,
+        'sixmonthly':350,
+        'fullPayment':650
+      }
     }
   ]
 }
