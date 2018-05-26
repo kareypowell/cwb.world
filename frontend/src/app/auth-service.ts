@@ -32,12 +32,13 @@ export class AuthService {
     const data: User = {
       uid: user.uid,
       email: user.email,
-      displayName: user.displayName,
+      displayName: user.displayName || "Curious George",
       roles: {
         member: true
       },
       photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
     }
+    //this.router.navigate(['/member-ui']);
     return userRef.set(data, { merge: true });
   }
   register(email: string, password: string) {
@@ -52,7 +53,6 @@ export class AuthService {
       .then(
         (credential) => {
           this.updateUser(credential.user)
-          console.log(credential.user);
         })
       .catch(error => console.log(error));
   }
