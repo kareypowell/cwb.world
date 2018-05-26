@@ -116,3 +116,11 @@ a{
 .cwb-mr-2{
     margin-right: 20px!important;
 }
+.editables{
+    position: absolute;
+    right: 0px;
+}
+.editables i{
+    margin-left: 15px;
+    cursor: pointer;
+}
