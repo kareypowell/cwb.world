@@ -1,3 +1,60 @@
-<div>
-  <h1>Admin Dashboard</h1>
+<div class="row">
+  <div class="col-md-6">
+    <div class="col-md-12 no-padding">
+      <mat-card>
+
+        <div class="gap"></div>
+        <mat-form-field class="full-width">
+          <input matInput type="text" name="filterSearch" [(ngModel)]="searchVal" placeholder="Search within results">
+        </mat-form-field>
+        
+        <div class="">
+          <mat-tab-group [dynamicHeight]="true">
+            <mat-tab label="Communities">
+              <div class="gap"></div>
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Filter by Community">
+                  <mat-option *ngFor="let community of communities" [value]="community.value">
+                    {{ community.viewValue }}
+                  </mat-option>
+                </mat-select>
+
+              </mat-form-field>
+            </mat-tab>
+            <mat-tab label="Sectors">
+              <div class="gap"></div>
+              <mat-form-field class="full-width">
+                <mat-select placeholder="Filter by Sector">
+                  <mat-option *ngFor="let sector of sectors" [value]="sector.value">
+                    {{ sector.viewValue }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </mat-tab>
+            <mat-tab label="Groups">
+              <div class="gap"></div>
+              <mat-card class="groupCard">
+                <div class="gap"></div>
+                <mat-list *ngFor="let grp of groups">
+                  <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp.name}} </mat-list-item>
+                  <mat-divider></mat-divider>
+                </mat-list>
+              </mat-card>
+            </mat-tab>
+            <mat-tab label="Members">
+
+            </mat-tab>
+          </mat-tab-group>
+        </div>
+        <div class="gap"></div>
+      </mat-card>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="col-md-12 no-padding">
+      <mat-card>
+        <h1>MY EVENTS</h1>
+      </mat-card>
+    </div>
+  </div>
 </div>
