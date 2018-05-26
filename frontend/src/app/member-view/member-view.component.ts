@@ -36,7 +36,7 @@ export class MemberViewComponent implements OnInit {
   commVal = "";
 
   communities = [
-    {value: 'all', viewValue: 'All Communities'},
+    {value: "", viewValue: 'All Communities'},
     {value: 'education', viewValue: 'Education'},
     {value: 'careers', viewValue: 'Careers'},
     {value: 'business', viewValue: 'Business'},
@@ -48,7 +48,7 @@ export class MemberViewComponent implements OnInit {
     {value: 'hollywood', viewValue: 'Hollywood'}
   ];
   sectors = [
-    {value: 'all', viewValue: 'All Sectors'},
+    {value: "", viewValue: 'All Sectors'},
     {value: 'pre-k', viewValue: 'Pre K'},
     {value: 'k to 5', viewValue: 'K - 5th Grade'},
     {value: '5-8-grade', viewValue: '5th Grade - 8th Grade'},
