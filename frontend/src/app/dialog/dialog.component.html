@@ -1,5 +1,5 @@
 <div class="body-wrapper dialogHeight">
-  <span class="closedialog" (click)="onNoClick()">
+  <span class="closedialog" (click)="onNoClick(false)">
     <i class="far fa-window-close"></i>
   </span>
   <div *ngIf="data.source =='reqToJoin'" class="reqToJoin">
@@ -57,5 +57,11 @@
 
   <div *ngIf="data.source =='viewProfile'" class="previewProfileDialog">
     <h2>Profile Preview</h2>
+  </div>
+
+
+  <div *ngIf="data.dialogModeTos">
+    <app-termsandconditions></app-termsandconditions>
+    <button mat-raised-button class="cwb-primary-button center-item" (click)="onNoClick(true)">Accept Terms</button>
   </div>
 </div>

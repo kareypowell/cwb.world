@@ -47,7 +47,8 @@ const routes: Routes = [
   {path: "community",component: CommunityComponent},
   {path: "group",component: GroupComponent},
   {path: "get-involved",component: GetInvoledComponent},
-  {path: "calendar",component: CalendarComponent}
+  {path: "calendar",component: CalendarComponent},
+  {path: '**', component: HomepageComponent}
 ];
 
 @NgModule({

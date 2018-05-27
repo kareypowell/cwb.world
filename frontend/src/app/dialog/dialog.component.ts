@@ -15,10 +15,10 @@ export class DialogComponent implements OnInit {
   ngOnInit() {
     
   }
-  
+  acceptTerms: boolean = false;
   notRobot:boolean = false;
-  onNoClick(): void {
-    this.dialogRef.close();
+  onNoClick(data): void {
+    this.dialogRef.close(data);
   }
 }
 

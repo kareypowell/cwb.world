@@ -1,1 +1,7 @@
-
+#checkboxLabel{
+    position: relative;
+    display: inline;
+    font-size: 12px;
+    top: -4px;
+    left: 5px;
+}

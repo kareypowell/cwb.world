@@ -144,6 +144,10 @@ a{
     height: auto;
     overflow-y: scroll;
 }
+.bighead{
+    font-size: 28px;
+    font-weight: 600;
+}
 .smallhead{
     font-size: 20px;
     font-weight: 600;
@@ -161,4 +165,16 @@ a{
     font-size: 0.8em;
     color: #e74c3c;
     cursor: pointer;
+}
+.noLink{
+    cursor: pointer;
+    color: #3498db!important;
+}
+.placeholderGap{
+    height: 1200px;
+}
+.center-item{
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%,0%);
 }

@@ -1,7 +1,10 @@
 <div class="body-wrapper grey-bg">
   <div class="middle-center">
     <mat-card>
-      <h3 class="text-center">Register</h3>
+      <h3 class="text-center smallhead">Register</h3>
+      <!--<div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+        <strong>{{error}}</strong> 
+      </div>-->
       <form #registerForm="ngForm" (submit)="submitRegister()">
         <!--
                     <mat-form-field class="full-width">
@@ -17,25 +20,27 @@
                     </mat-form-field>
                     <p></p>-->
         <mat-form-field class="full-width">
-          <input type="email" matInput placeholder="Email" class="full-width" name="email" [(ngModel)]=registerDetails.email>
+          <input type="email" matInput placeholder="Email" required class="full-width" name="email" [(ngModel)]=registerDetails.email>
+        </mat-form-field>
+        <p></p>
+        <mat-form-field class="full-width" hintLabel="Minimum of 6 characters">
+          <input required #input type="password" matInput placeholder="Choose password" class="full-width" name="password" [(ngModel)]=registerDetails.password>
+          <mat-hint align="end" *ngIf="input.value?.length<6">At least {{6-input.value?.length}} more</mat-hint>
         </mat-form-field>
         <p></p>
         <mat-form-field class="full-width">
-          <input type="password" matInput placeholder="Choose password" class="full-width" name="password" [(ngModel)]=registerDetails.password>
+          <input required type="password"#input2 matInput placeholder="Confirm password" class="full-width" name="password2" [(ngModel)]=registerDetails.confirmPassword>
+          <mat-hint align="end" *ngIf="input2.value.dirty && !(input2.value == input.value)">Passwords do not match</mat-hint>
         </mat-form-field>
         <p></p>
-        <mat-form-field class="full-width">
-          <input type="password" matInput placeholder="Confirm password" class="full-width" name="password2" [(ngModel)]=registerDetails.confirmPassword>
-        </mat-form-field>
+        <!--<div class="g-recaptcha" data-sitekey="6Lc0z1gUAAAAAPSpLcwLzO2QxmFd7e7xNaHddRMK"></div>-->
         <p></p>
-        <div class="g-recaptcha" data-sitekey="6Lc0z1gUAAAAAPSpLcwLzO2QxmFd7e7xNaHddRMK"></div>
+        <mat-checkbox required name="readtos" [(ngModel)]=registerDetails.readTOS></mat-checkbox>
+        <h3 class="smallerhead" id="checkboxLabel">I have read and accepted the
+          <a class="noLink" (click)="openDialog()">terms and conditions</a> of use</h3>
         <p></p>
-        <mat-checkbox name="readtos" [(ngModel)]=registerDetails.readTOS></mat-checkbox>
-        <small>I have read and accepted the
-          <a href="termsandconditions" target="blank">terms and conditions</a> of use</small>
-        <p></p>
-        <button type="submit" class="cwb-primary-button" mat-button [disabled]="!registerDetails.readTOS">Register</button>
-        <button class="reset-button" type="reset" mat-button>Reset Form</button>
+        <button type="submit" class="cwb-primary-button" mat-raised-button [disabled]="!registerDetails.readTOS">Register</button>
+        <button class="reset-button" type="reset" mat-raised-button>Reset Form</button>
         <p></p>
       </form>
     </mat-card>
