@@ -1,9 +1,9 @@
 <div class="body-wrapper grey-bg">
   <div class="middle-center" id="login">
     <mat-card>
-      <h3 class="text-center smallhead">Login</h3>
+      <h3 class="text-center smallhead">Login To Use CWB</h3>
       <div class="row">
-        <div class="col-md-5">
+        <div class="col-md-6">
           <div class="col-md-12">
             <form #loginForm="ngForm" (submit)="submitLogin()">
               <mat-form-field class="full-width">
@@ -24,14 +24,7 @@
             </form>
           </div>
         </div>
-        <div class="col-md-2 pos-rel">
-          <div class="col-md-12 sepHolder">
-            <div class="or-container">
-              <h1 class="smallhead">OR</h1>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-5">
+        <div class="col-md-6">
           <div class="col-md-12">
             <div class="gap"></div>
             <img src="../../assets/images/google.png" alt="Google login" class="loginButt" (click)="login_google()">

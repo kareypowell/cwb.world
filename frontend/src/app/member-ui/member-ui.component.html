@@ -2,7 +2,7 @@
   <div class="user-profile">
     <div class="row">
       <div class="col-md-2">
-        <img src="{{user.photoURL}}" alt="User Image" class="rounded-circle userImage">
+        <img src="{{user['photoURL']}}" alt="User Image" class="rounded-circle userImage">
         <div class="gap"></div>
         <mat-form-field class="full-width">
           <mat-select placeholder="Switch Role" [(ngModel)]="url" (ngModelChange) = "routeToDash()" [(value)] = "url">

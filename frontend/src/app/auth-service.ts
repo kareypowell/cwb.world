@@ -18,7 +18,7 @@ export class AuthService {
     private router: Router,
     public afs: AngularFirestore) {
     this.user$ = afAuth.authState.pipe(
-      switchMap(user => {
+    switchMap(user => {
         if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
@@ -27,7 +27,7 @@ export class AuthService {
       })
     );
   }
-  updateUser(user) {
+  private updateUser(user:User) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     const data: User = {
       uid: user.uid,
@@ -76,7 +76,6 @@ export class AuthService {
     .catch(error => console.log(error))
   }
   logout() {
-    this.afAuth.auth.signOut().then((res) => this.router.navigate(['/']));
-    this.user$ = of(null);
+    this.afAuth.auth.signOut().then(() => this.router.navigate(['/']));
   }
 }

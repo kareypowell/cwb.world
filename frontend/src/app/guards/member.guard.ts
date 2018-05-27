@@ -18,7 +18,7 @@ export class MemberGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     return this.auth.user$.pipe(
       take(1),
-      map( user => user && user.roles.member ? true : false),
+      map( user => user && user.roles.member ? true : false), //user.roles.member
       tap( isMember =>{
         if(!isMember){
           console.error("Access Denied. Members only");
