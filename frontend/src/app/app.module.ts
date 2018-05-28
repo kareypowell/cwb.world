@@ -47,6 +47,7 @@ import { AdminRoleInfoComponent } from './roleInfo/admin-role-info/admin-role-in
 import { SectorLeadRoleInfoComponent } from './roleInfo/sector-lead-role-info/sector-lead-role-info.component';
 import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/group-lead-role-info.component';
 import { HostPartnerRoleInfoComponent } from './roleInfo/host-partner-role-info/host-partner-role-info.component';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -91,6 +92,7 @@ import { HostPartnerRoleInfoComponent } from './roleInfo/host-partner-role-info/
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    NgbModalModule.forRoot(),
     CalendarModule.forRoot()
   ],
   entryComponents:[DialogComponent],
