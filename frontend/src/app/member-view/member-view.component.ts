@@ -10,6 +10,7 @@ import { SearchPipe } from '../pipes/search.pipe';
   styleUrls: ['./member-view.component.css']
 })
 export class MemberViewComponent implements OnInit {
+  todayDate = new Date();
   wid = "250px";
   constructor(private data:DataTransferService,
     public dialog: MatDialog)

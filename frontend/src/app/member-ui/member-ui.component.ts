@@ -41,7 +41,12 @@ export class MemberUiComponent implements OnInit {
     ]
     }
   ];
-
+  gallery = [
+    {src:'./../../assets/images/user-silhouet.png',title:'Nicki Minaj',description:'Not a big fun of words so here, a picture!'},
+    {src:'./../../assets/images/user-silhouet.png',title:'Paris was great!',description:'Not a big fun of words so here, a picture!'},
+    {src:'./../../assets/images/user-silhouet.png',title:'At Madrid',description:'Not a big fun of words so here, a picture!'},
+    {src:'./../../assets/images/user-silhouet.png',title:'Senior ball',description:'Not a big fun of words so here, a picture!'}
+  ];
   // Modal Items
   wid = "250px";
   openDialog(source): void {
