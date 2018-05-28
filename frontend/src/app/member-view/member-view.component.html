@@ -9,9 +9,8 @@
               {{ community.viewValue }}
             </mat-option>
           </mat-select>
-
         </mat-form-field>
-        <br>
+
         <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Filter by Sector" [(ngModel)]="sectorVal">
             <mat-option *ngFor="let sector of sectors" [value]="sector.value">
@@ -19,13 +18,13 @@
             </mat-option>
           </mat-select>
         </mat-form-field>
-        <div class="gap"></div>
+
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Search within results</mat-label>
           <input matInput name="filterSearch" [(ngModel)]="searchVal">
           <mat-icon matPrefix>search</mat-icon>
         </mat-form-field>
-        <div class="gap"></div>
+        
         <mat-card class="groupCard">
           <div class="gap"></div>
           <mat-list *ngFor="let grp of groups | search:searchVal:'name' | search:sectorVal:'sector' | search: commVal:'community'">

@@ -1,13 +1,3 @@
 .member-ui{
     background-color: #f1f1f1;
 }
-.groupItemHover:hover{
-    background-color: #e1e1e1;
-    cursor: pointer;
-}
-.groupItemHover{
-    width: 100% !important;
-}
-.groupCard{
-    padding: 0px;
-}
