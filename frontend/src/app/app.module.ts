@@ -43,7 +43,6 @@ import { HostPartnerGuard } from './guards/host-partner.guard';
 import { SectorLeadGuard } from './guards/sector-lead.guard';
 import { DialogComponent } from './dialog/dialog.component';
 import { SearchPipe } from './pipes/search.pipe';
-import { MyRolesPipe } from './pipes/my-roles.pipe';
 import { AdminRoleInfoComponent } from './roleInfo/admin-role-info/admin-role-info.component';
 import { SectorLeadRoleInfoComponent } from './roleInfo/sector-lead-role-info/sector-lead-role-info.component';
 import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/group-lead-role-info.component';
@@ -76,7 +75,6 @@ import { HostPartnerRoleInfoComponent } from './roleInfo/host-partner-role-info/
     HostPartnerViewComponent,
     DialogComponent,
     SearchPipe,
-    MyRolesPipe,
     AdminRoleInfoComponent,
     SectorLeadRoleInfoComponent,
     GroupLeadRoleInfoComponent,

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway|Roboto:300,400');
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600');
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "../node_modules/angular-calendar/css/angular-calendar.css";
 
 
 *{
