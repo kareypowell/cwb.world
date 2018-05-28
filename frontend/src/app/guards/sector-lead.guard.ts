@@ -4,11 +4,12 @@ import { Observable } from 'rxjs';
 import { AuthService } from '../auth-service';
 import { User } from '../interfaces/member';
 import { tap, map, take } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class SectorLeadGuard implements CanActivate {
   user:User;
-  constructor(private auth:AuthService){}
+  constructor(private auth:AuthService, private router: Router){}
   ngOnInit() {
   }
   canActivate(
@@ -19,7 +20,8 @@ export class SectorLeadGuard implements CanActivate {
       map( user => user && user.roles.sectorLead ? true : false),
       tap( isMember =>{
         if(!isMember){
-          console.error("Access Denied. Sector Leads only");
+          //console.error("Access Denied. Sector Leads only");
+          this.router.navigate(['/member-ui/seclead-rl-info']);
         }
       })
     )

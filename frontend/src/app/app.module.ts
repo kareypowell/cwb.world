@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 import { ApiLinkService } from './api-link.service';
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { DataTransferService } from './data-transfer.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -44,6 +44,10 @@ import { SectorLeadGuard } from './guards/sector-lead.guard';
 import { DialogComponent } from './dialog/dialog.component';
 import { SearchPipe } from './pipes/search.pipe';
 import { MyRolesPipe } from './pipes/my-roles.pipe';
+import { AdminRoleInfoComponent } from './roleInfo/admin-role-info/admin-role-info.component';
+import { SectorLeadRoleInfoComponent } from './roleInfo/sector-lead-role-info/sector-lead-role-info.component';
+import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/group-lead-role-info.component';
+import { HostPartnerRoleInfoComponent } from './roleInfo/host-partner-role-info/host-partner-role-info.component';
 
 @NgModule({
   declarations: [
@@ -72,7 +76,11 @@ import { MyRolesPipe } from './pipes/my-roles.pipe';
     HostPartnerViewComponent,
     DialogComponent,
     SearchPipe,
-    MyRolesPipe
+    MyRolesPipe,
+    AdminRoleInfoComponent,
+    SectorLeadRoleInfoComponent,
+    GroupLeadRoleInfoComponent,
+    HostPartnerRoleInfoComponent
   ],
   imports: [
     BrowserModule,
@@ -81,6 +89,7 @@ import { MyRolesPipe } from './pipes/my-roles.pipe';
     AppRoutingModule,
     HttpModule,
     FormsModule,
+    ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
