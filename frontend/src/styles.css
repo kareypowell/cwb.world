@@ -178,3 +178,10 @@ a{
     left: 50%;
     transform: translate(-50%,0%);
 }
+.roleInfo{
+    padding: 50px 150px;
+    text-align: center;
+}
+.roleInfo p{
+    line-height: 35px;
+}
