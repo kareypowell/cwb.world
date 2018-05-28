@@ -7,7 +7,7 @@ import { DataTransferService } from '../data-transfer.service';
   styleUrls: ['./admin-view.component.css']
 })
 export class AdminViewComponent implements OnInit {
-
+  todayDate = new Date();
   constructor(private data: DataTransferService) { }
 
   ngOnInit() {
