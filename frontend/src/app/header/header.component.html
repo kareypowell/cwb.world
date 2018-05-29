@@ -19,24 +19,27 @@
       </li>
       <li class="nav-item dropdown" *ngIf="user">
         <a class="nav-link " href="#" id="navbarDropdownNotification" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i title="Notifications" matBadge="{{notifications.length}}" matBadgeSize="medium" class="far fa-flag" matBadgeColor="warn" style="font-size: 1.5em;"></i>
+          <i title="Notifications" matBadge="{{notifications.length}}" [matBadgeHidden]="notifications.length==0" class="far fa-bell" matBadgeColor="warn" style="font-size: 1.5em;"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right biggerDD" aria-labelledby="navbarDropdownNotification">
           <div class="messageArea">
-            <h2 class="smallerhead">Notifications</h2>
+            <h2 class="smallerhead text-center">Notifications</h2>
             <ul class="notifList">
-              <li *ngFor="let not of notifications; let even = even" [ngClass]="{ even: evenLi }"><strong>{{not.title}}</strong></li>
+              <li *ngFor="let not of notifications; let even = even" [ngClass]="{ even: even }"><strong>{{not.title}}</strong></li>
             </ul>
           </div>
         </div>
       </li>
       <li class="nav-item dropdown" *ngIf="user">
         <a class="nav-link " href="#" id="navbarDropdownMessage" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          <i title="Messages" matBadge="{{messages.length}}" class="far fa-envelope" matBadgeColor="accent" style="font-size: 1.5em;"></i>
+          <i title="Messages" matBadge="{{messages.length}}" [matBadgeHidden]="messages.length==0"  class="far fa-envelope" matBadgeColor="accent" style="font-size: 1.5em;"></i>
         </a>
         <div class="dropdown-menu dropdown-menu-right biggerDD" aria-labelledby="navbarDropdownMessage">
           <div class="messageArea">
-            <h2 class="smallerhead">Messages</h2>
+            <h2 class="smallerhead text-center">Messages</h2>
+            <ul class="notifList">
+                <li *ngFor="let mess of messages; let even = even" [ngClass]="{ even: even }"><strong>{{mess.title}}</strong></li>
+              </ul>
           </div>
         </div>
       </li>
