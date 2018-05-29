@@ -25,8 +25,9 @@
           <div class="messageArea">
             <h2 class="smallerhead text-center">Notifications</h2>
             <ul class="notifList">
-              <li *ngFor="let not of notifications; let even = even" [ngClass]="{ even: even }"><strong>{{not.title}}</strong></li>
+              <li *ngFor="let not of notifications; let even = even" [ngClass]="{ even: even }"><strong>{{not.title}}</strong><mat-icon class="closeNot" (click)="popItem(not);$event.stopPropagation();">close</mat-icon></li>
             </ul>
+            <p *ngIf="notifications.length==0" class="text-center mt-3">You have 0 Notifications</p>
           </div>
         </div>
       </li>
@@ -37,8 +38,9 @@
         <div class="dropdown-menu dropdown-menu-right biggerDD" aria-labelledby="navbarDropdownMessage">
           <div class="messageArea">
             <h2 class="smallerhead text-center">Messages</h2>
+            <p *ngIf="messages.length==0" class="text-center mt-3">No New Messages</p>
             <ul class="notifList">
-                <li *ngFor="let mess of messages; let even = even" [ngClass]="{ even: even }"><strong>{{mess.title}}</strong></li>
+                <li *ngFor="let mess of messages; let even = even" [ngClass]="{ even: even }"><strong>{{mess.title}}</strong><mat-icon class="closeNot" (click)="popMessage(mess);$event.stopPropagation();">close</mat-icon></li>
               </ul>
           </div>
         </div>
@@ -49,9 +51,9 @@
         </a>
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
           <!--<a class="dropdown-item" routerLink ="member-profile">Profile</a>-->
-          <a class="dropdown-item" routerLink="member-ui">Dashboard</a>
+          <a class="dropdown-item" routerLink="member-ui"><i class="fas fa-tachometer-alt mr-2"></i>Dashboard</a>
           <div class="dropdown-divider"></div>
-          <a class="dropdown-item" routerLink="" (click)="logout()">Logout</a>
+          <a class="dropdown-item" routerLink="" (click)="logout()"><i class="fas fa-power-off mr-2"></i>Logout</a>
         </div>
       </li>
     </ul>

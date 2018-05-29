@@ -25,6 +25,12 @@ export class HeaderComponent implements OnInit {
     {title:"Adams asked to join jupita leage coding group",more:""},
     {title:"Adams asked to join jupita leage coding group",more:""}
   ];
+  popItem(not){
+    this.notifications.splice(this.notifications.indexOf(not),1);
+  }
+  popMessage(mess){
+    this.messages.splice(this.messages.indexOf(mess),1);
+  }
   logout(){
     this.auth.logout();
   }

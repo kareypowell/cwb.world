@@ -4,206 +4,260 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
 @import '~perfect-scrollbar/css/perfect-scrollbar.css';
-
-*{
-    font-family: 'Source Sans Pro', sans-serif;
-    
-}
-p{
-    font-size: 14px;
-    font-family: 'Montserrat', sans-serif !important;
-}
-h1,h2,h3,h4,h5,h6,li,a{
-    font-family: 'Montserrat', sans-serif !important;
-}
-.full-width{
-    width: 100%;
+* {
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
-.register-card{
-    width: 100%;
-    padding-top: 20px !important;
+p {
+  font-size: 14px;
+  font-family: 'Montserrat', sans-serif !important;
 }
-.register-card small{
-    margin-left: 10px !important;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+li,
+a {
+  font-family: 'Montserrat', sans-serif !important;
 }
-.register-card h1{
-    position: absolute;
-    top: 60px;
-    left: 50%;
-    transform: translate(-50%,-50%);
+
+mat-form-field.mat-form-field {
+  font-size: 14px;
+  padding: 0px !important;
 }
-.masterHeadline{
-    font-size: 59px;
-    font-weight: 400;
-    margin-bottom: 20px !important;
+
+.full-width {
+  width: 100%;
 }
-.subtitle{
-    font-size: 24px;
-    margin-bottom: 20px !important;
+
+.register-card {
+  width: 100%;
+  padding-top: 20px !important;
 }
-.cwb-primary-button{
-    background-color: #f39c12;
-    color: #fff !important;
-    font-weight: 500;
-    margin: 10px auto !important;
+
+.register-card small {
+  margin-left: 10px !important;
 }
+
+.register-card h1 {
+  position: absolute;
+  top: 60px;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.masterHeadline {
+  font-size: 59px;
+  font-weight: 400;
+  margin-bottom: 20px !important;
+}
+
+.subtitle {
+  font-size: 24px;
+  margin-bottom: 20px !important;
+}
+
+.cwb-primary-button {
+  background-color: #f39c12;
+  color: #fff !important;
+  font-weight: 500;
+  margin: 10px auto !important;
+}
+
 .cwb-primary-button a {
-    color: #fff !important;
-}
-.cwb-callToAction{
-    padding: 6px 40px!important;
-    border-radius: 30px !important;
-}
-.reset-button{
-    margin-left: 10px !important;
-    background-color: #e1e1e1;
-}
-a{
-    text-decoration: none !important;
-}
-.body-wrapper{
-    width: 100%;
-    padding: 30px 50px!important;
-    min-height: 90vh;
-    height: auto;
-    position: relative;
-}
-.cwb-logo-image{
-    width: 100px;
-    height: auto;
-    margin: 0px 0px 0px 30px;
-}
-.spacer{
-    width: 20px;
-}
-.preloaderGif{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
-.userImage{
-    width: 100px;
-    height: auto;
-    border: 3px solid #f39c12;
-}
-.gap{
-    height: 10px;
-}
-.no-padding{
-    padding: 0px !important;
-}
-.padding-30{
-    padding: 30px !important;
-}
-.info *{
-    font-weight: 300!important;
-}
-.editIcons{
-    position: absolute;
-    top: 0px;
-    right: 0px;
-}
-.grey-bg{
-    background-color: #FAFAFA;
-}
-.full-height-wrapper{
-    min-height: 100vh;
-    height: auto;
-
-}
-.middle-center{
-    width: 98%;
-    max-width: 400px;
-    margin: 20px auto;
-}
-.groupCard{
-    position: relative;
-    height: 300px;
-    overflow-y: scroll;
-    padding: 0px!important;    
-}
-.cwb-mr-2{
-    margin-right: 20px!important;
-}
-.selectRel{
-    position: relative;
-}
-.editables{
-    position: absolute;
-    right: 0px;
-}
-.editables i{
-    margin-left: 15px;
-    cursor: pointer;
-}
-.closedialog{
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    cursor: pointer;
-}
-.closedialog i{
-    font-size: 2em;
-    color: #686868;
-}
-.reqToJoin p{
-    padding: 10px;
-    border: 1px dotted #686868;
-}
-.dialogHeight{
-    position: relative;
-    max-height: 90vh;
-    height: auto;
-    overflow-y: scroll;
+  color: #fff !important;
 }
 
-.bighead{
-    font-size: 28px;
-    font-weight: 600;
+.cwb-callToAction {
+  padding: 6px 40px !important;
+  border-radius: 30px !important;
 }
-.smallhead{
-    font-size: 20px;
-    font-weight: 600;
+
+.reset-button {
+  margin-left: 10px !important;
+  background-color: #e1e1e1;
 }
-.smallerhead{
-    font-size: 14px;
-    font-weight: 500;
+
+a {
+  text-decoration: none !important;
 }
-.editProfile{
-    font-size: 0.8em;
-    color: #3498db;
-    cursor: pointer;
+
+.body-wrapper {
+  width: 100%;
+  padding: 30px 50px !important;
+  min-height: 90vh;
+  height: auto;
+  position: relative;
 }
-.previewProf{
-    font-size: 0.8em;
-    color: #e74c3c;
-    cursor: pointer;
+
+.cwb-logo-image {
+  width: 100px;
+  height: auto;
+  margin: 0px 0px 0px 30px;
 }
-.noLink{
-    cursor: pointer;
-    color: #3498db!important;
+
+.spacer {
+  width: 20px;
 }
-.placeholderGap{
-    height: 1200px;
+
+.preloaderGif {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.center-item{
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%,0%);
+
+.userImage {
+  width: 100px;
+  height: auto;
+  border: 3px solid #f39c12;
 }
-.roleInfo{
-    padding: 50px 150px;
-    text-align: center;
+
+.gap {
+  height: 10px;
 }
-.roleInfo p{
-    line-height: 35px;
+
+.no-padding {
+  padding: 0px !important;
 }
-.groupItemHover:hover{
-    background-color: #e1e1e1;
-    cursor: pointer;
+
+.padding-30 {
+  padding: 30px !important;
 }
-.groupItemHover{
-    width: 100% !important;
+
+.info * {
+  font-weight: 300 !important;
+}
+
+.editIcons {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+
+.grey-bg {
+  background-color: #FAFAFA;
+}
+
+.full-height-wrapper {
+  min-height: 100vh;
+  height: auto;
+}
+
+.middle-center {
+  width: 98%;
+  max-width: 400px;
+  margin: 20px auto;
+}
+
+.groupCard {
+  position: relative;
+  height: 300px;
+  overflow-y: scroll;
+  padding: 0px !important;
+}
+
+.cwb-mr-2 {
+  margin-right: 20px !important;
+}
+
+.selectRel {
+  position: relative;
+}
+
+.editables {
+  position: absolute;
+  right: 0px;
+}
+
+.editables i {
+  margin-left: 15px;
+  cursor: pointer;
+}
+
+.closedialog {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.closedialog i {
+  font-size: 2em;
+  color: #686868;
+}
+
+.reqToJoin p {
+  padding: 10px;
+  border: 1px dotted #686868;
+}
+
+.dialogHeight {
+  position: relative;
+  max-height: 90vh;
+  height: auto;
+  overflow-y: scroll;
+}
+
+.bighead {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.smallhead {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.smallerhead {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.editProfile {
+  font-size: 0.8em;
+  color: #3498db;
+  cursor: pointer;
+}
+
+.previewProf {
+  font-size: 0.8em;
+  color: #e74c3c;
+  cursor: pointer;
+}
+
+.noLink {
+  cursor: pointer;
+  color: #3498db !important;
+}
+
+.placeholderGap {
+  height: 1200px;
+}
+
+.center-item {
+  position: absolute;
+  left: 50%;
+  transform: translate(-50%, 0%);
+}
+
+.roleInfo {
+  padding: 50px 150px;
+  text-align: center;
+}
+
+.roleInfo p {
+  line-height: 35px;
+}
+
+.groupItemHover:hover {
+  background-color: #e1e1e1;
+  cursor: pointer;
+}
+
+.groupItemHover {
+  width: 100% !important;
 }

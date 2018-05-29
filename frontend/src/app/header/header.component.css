@@ -6,6 +6,7 @@
 }
 .main-ul li{
     margin-right: 20px;
+    font-size: 15px;
 }
 .main-ul{
     padding-right: 20px;
@@ -26,10 +27,23 @@ nav{
     padding: 5px 0px;
 }
 .notifList li{
-    padding: 15px 5px;
+    padding: 15px 15px 15px 5px;
     cursor: pointer;
     margin: 0px auto;
+    position: relative;
 }
 .even{
     background-color: #f5f5f5 !important;
+}
+.closeNot{
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translate(0%,-50%);
+    font-size: 1em;
+    opacity: 0.4;
+    transition-duration: 0.2s;
+}
+.closeNot:hover{
+    opacity: 1;
 }
