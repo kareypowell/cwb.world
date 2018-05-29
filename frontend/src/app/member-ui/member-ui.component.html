@@ -47,9 +47,10 @@
       <div class="col-md-4">
         <h2 class="smallhead">Gallery</h2>
         <div class="row">
-          <div *ngFor="let itm of gallery" class="col-sm-3 no-wrap galItem">
-            <img src="{{itm.src}}" alt="Img" class="galleryImage">
-            <br> <h3 class="smallerhead">{{itm.title}}</h3>
+          <div *ngFor="let itm of gallery" class="col-xs-6 col-md-3">
+            <img src="{{itm.src}}" alt="Img" class="galleryImage thumbnail">
+
+            <h3 class="smallerhead">{{itm.title}}</h3>
             <br>
           </div>
         </div>

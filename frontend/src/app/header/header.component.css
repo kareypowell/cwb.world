@@ -8,8 +8,27 @@
     margin-right: 20px;
 }
 .main-ul{
-    padding-right: 80px;
+    padding-right: 20px;
 }
 nav{
     border-bottom: 1px solid #f2f2f2;
+}
+.biggerDD{
+    width:300px !important;
+}
+.messageArea{
+    padding: 15px;
+    font-size: 0.8em;
+    font-weight: 300;
+}
+.notifList{
+    list-style: none;
+    width: 100%;
+    padding: 0px;
+}
+.notifList li{
+    padding: 10px 0px;
+}
+.evenLi{
+    background-color: #686868;
 }
