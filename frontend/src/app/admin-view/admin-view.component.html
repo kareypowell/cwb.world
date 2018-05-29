@@ -43,7 +43,7 @@
             </mat-tab>
             <mat-tab label="Sectors">
               <div class="gap"></div>
-              <mat-card class="groupCard">
+              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
                 <mat-list *ngFor="let sector of sectors">
                   <mat-list-item class="groupItemHover"> {{sector.viewValue}}
@@ -74,7 +74,7 @@
             </mat-tab>
             <mat-tab label="Groups">
               <div class="gap"></div>
-              <mat-card class="groupCard">
+              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
                 <mat-list *ngFor="let grp of groups">
                   <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp.name}}
@@ -105,7 +105,7 @@
             </mat-tab>
             <mat-tab label="Members">
               <div class="gap"></div>
-              <mat-card class="groupCard">
+              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
                 <mat-list *ngFor="let grp of groups">
                   <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp.name}}
