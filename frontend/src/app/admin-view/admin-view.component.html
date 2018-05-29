@@ -12,7 +12,7 @@
           <mat-tab-group [dynamicHeight]="true">
             <mat-tab label="Communities">
               <div class="gap"></div>
-              <mat-card class="groupCard">
+              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
                 <mat-list *ngFor="let comm of communities">
                   <mat-list-item class="groupItemHover"> {{comm.viewValue}}

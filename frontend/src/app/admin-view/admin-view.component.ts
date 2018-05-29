@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { DataTransferService } from '../data-transfer.service';
+import { PerfectScrollbarConfigInterface,
+  PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-admin-view',
@@ -7,6 +9,7 @@ import { DataTransferService } from '../data-transfer.service';
   styleUrls: ['./admin-view.component.css']
 })
 export class AdminViewComponent implements OnInit {
+  public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
   constructor(private data: DataTransferService) { }
 

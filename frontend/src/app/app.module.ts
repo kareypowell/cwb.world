@@ -48,6 +48,13 @@ import { SectorLeadRoleInfoComponent } from './roleInfo/sector-lead-role-info/se
 import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/group-lead-role-info.component';
 import { HostPartnerRoleInfoComponent } from './roleInfo/host-partner-role-info/host-partner-role-info.component';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+ 
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 @NgModule({
   declarations: [
@@ -93,10 +100,13 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
     AngularFireAuthModule,
     AngularFirestoreModule,
     NgbModalModule.forRoot(),
-    CalendarModule.forRoot()
+    CalendarModule.forRoot(),
+    PerfectScrollbarModule
   ],
   entryComponents:[DialogComponent],
-  providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard,HostPartnerGuard,SectorLeadGuard],
+  providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard,HostPartnerGuard,
+    SectorLeadGuard,{provide: PERFECT_SCROLLBAR_CONFIG,
+    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

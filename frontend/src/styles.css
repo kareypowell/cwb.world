@@ -2,7 +2,7 @@
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600');
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import "../node_modules/angular-calendar/css/angular-calendar.css";
-
+@import '~perfect-scrollbar/css/perfect-scrollbar.css';
 
 *{
     font-family: 'Source Sans Pro', sans-serif;
@@ -13,6 +13,7 @@ h1,h2,h3,h4,h5,h6{
 .full-width{
     width: 100%;
 }
+
 .register-card{
     width: 100%;
     padding-top: 20px !important;
@@ -112,8 +113,9 @@ a{
     margin: 20px auto;
 }
 .groupCard{
+    position: relative;
     height: 300px;
-    overflow-y: scroll;
+    padding: 0px!important;    
 }
 .cwb-mr-2{
     margin-right: 20px!important;
@@ -141,13 +143,12 @@ a{
     border: 1px dotted #686868;
 }
 .dialogHeight{
+    position: relative;
     max-height: 90vh;
     height: auto;
     overflow-y: scroll;
 }
-.dialogHeight::-webkit-scrollbar{
-    display: none;
-}
+
 .bighead{
     font-size: 28px;
     font-weight: 600;
@@ -195,7 +196,4 @@ a{
 }
 .groupItemHover{
     width: 100% !important;
-}
-.groupCard{
-    padding: 0px !important;
 }

@@ -3,6 +3,9 @@ import { DataTransferService } from '../data-transfer.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { SearchPipe } from '../pipes/search.pipe';
+import PerfectScrollbar from 'perfect-scrollbar';
+import { PerfectScrollbarConfigInterface,
+  PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-member-view',
@@ -10,6 +13,7 @@ import { SearchPipe } from '../pipes/search.pipe';
   styleUrls: ['./member-view.component.css']
 })
 export class MemberViewComponent implements OnInit {
+  public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
   wid = "250px";
   constructor(private data:DataTransferService,

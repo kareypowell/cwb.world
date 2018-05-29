@@ -1,68 +1,71 @@
-<div class="body-wrapper dialogHeight">
 
-  <span class="closedialog" (click)="onNoClick(false)">
-    <i class="far fa-window-close"></i>
-  </span>
-  <div *ngIf="data.source =='reqToJoin'" class="reqToJoin">
-    <a href="#"></a>
-    <h2>Request to Join Group</h2>
-    <h4>{{data.grp.name}}</h4>
-    <div class="gap"></div>
-    <h3>Description</h3>
-    <p>
-      {{data.grp.description}}
-    </p>
-    <h3>What to Expect</h3>
-    <p>Connect with new authors every week, Participate in group chat and discussion, share ideas</p>
-    <h3>Bio</h3>
-    <p>
-      Lindsey Anderson is a middle school teacher librarian in Brentwood, Tennessee. She’s hosted over 40 authors at her school
-      and is hooked on the magic that happens when readers and authors connect. She’s a member of ALA, TASL, and SCBWI.
-    </p>
-    <p>
-      Community - {{data.grp.community}}
-    </p>
-    <p>
-      Sector - {{data.grp.sector}}
-    </p>
-    <p>
-      Group Lead - {{data.grp.leader}}
-    </p>
-    <h3>Payments</h3>
-    <h5>Choose</h5>
-    <mat-radio-group >
-      <mat-radio-button  value="1">Monthly Fee - {{data.grp.price.monthly| currency:'USD'}}</mat-radio-button>
-      <br>
-      <mat-radio-button  value="2">Quarterly Fee - {{data.grp.price.quarterly| currency:'USD'}}</mat-radio-button>
-      <br>
-      <mat-radio-button  value="3">6-Monthly Fee - {{data.grp.price.sixmonthly| currency:'USD'}}</mat-radio-button>
-      <br>
-      <mat-radio-button  value="4">Full Payment - {{data.grp.price.fullPayment| currency:'USD'}}</mat-radio-button>
-      <br>
-    </mat-radio-group>
-    <mat-checkbox  [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
-    <button type="reset"  mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
-    <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot">Submit</button>
-    <div class="gap"></div>
-    <div class="gap"></div>
-  </div>
+<perfect-scrollbar class="ps">
+    <div class="body-wrapper dialogHeight">
 
-  <!-- EDIT PROFILE CONTENT-->
-
-  <div *ngIf="data.source =='editProfile'" class="editProfileDialog">
-    <h2>Edit Profile</h2>
-  </div>
-
-  <!-- PREVIEW PROFILE CONTENT-->
-
-  <div *ngIf="data.source =='viewProfile'" class="previewProfileDialog">
-    <h2>Profile Preview</h2>
-  </div>
-
-
-  <div *ngIf="data.dialogModeTos">
-    <app-termsandconditions></app-termsandconditions>
-    <button mat-raised-button  class="cwb-primary-button center-item" (click)="onNoClick(true)">Accept Terms</button>
-  </div>
-
-</div>
+        <span class="closedialog" (click)="onNoClick(false)">
+          <i class="far fa-window-close"></i>
+        </span>
+        <div *ngIf="data.source =='reqToJoin'" class="reqToJoin">
+          <a href="#"></a>
+          <h2>Request to Join Group</h2>
+          <h4>{{data.grp.name}}</h4>
+          <div class="gap"></div>
+          <h3>Description</h3>
+          <p>
+            {{data.grp.description}}
+          </p>
+          <h3>What to Expect</h3>
+          <p>Connect with new authors every week, Participate in group chat and discussion, share ideas</p>
+          <h3>Bio</h3>
+          <p>
+            Lindsey Anderson is a middle school teacher librarian in Brentwood, Tennessee. She’s hosted over 40 authors at her school
+            and is hooked on the magic that happens when readers and authors connect. She’s a member of ALA, TASL, and SCBWI.
+          </p>
+          <p>
+            Community - {{data.grp.community}}
+          </p>
+          <p>
+            Sector - {{data.grp.sector}}
+          </p>
+          <p>
+            Group Lead - {{data.grp.leader}}
+          </p>
+          <h3>Payments</h3>
+          <h5>Choose</h5>
+          <mat-radio-group >
+            <mat-radio-button  value="1">Monthly Fee - {{data.grp.price.monthly| currency:'USD'}}</mat-radio-button>
+            <br>
+            <mat-radio-button  value="2">Quarterly Fee - {{data.grp.price.quarterly| currency:'USD'}}</mat-radio-button>
+            <br>
+            <mat-radio-button  value="3">6-Monthly Fee - {{data.grp.price.sixmonthly| currency:'USD'}}</mat-radio-button>
+            <br>
+            <mat-radio-button  value="4">Full Payment - {{data.grp.price.fullPayment| currency:'USD'}}</mat-radio-button>
+            <br>
+          </mat-radio-group>
+          <mat-checkbox  [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
+          <button type="reset"  mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
+          <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot">Submit</button>
+          <div class="gap"></div>
+          <div class="gap"></div>
+        </div>
+      
+        <!-- EDIT PROFILE CONTENT-->
+      
+        <div *ngIf="data.source =='editProfile'" class="editProfileDialog">
+          <h2>Edit Profile</h2>
+        </div>
+      
+        <!-- PREVIEW PROFILE CONTENT-->
+      
+        <div *ngIf="data.source =='viewProfile'" class="previewProfileDialog">
+          <h2>Profile Preview</h2>
+        </div>
+      
+      
+        <div *ngIf="data.dialogModeTos">
+          <app-termsandconditions></app-termsandconditions>
+          <button mat-raised-button  class="cwb-primary-button center-item" (click)="onNoClick(true)">Accept Terms</button>
+        </div>
+      
+      </div>
+</perfect-scrollbar>

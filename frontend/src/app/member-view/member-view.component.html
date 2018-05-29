@@ -25,7 +25,7 @@
           <mat-icon matPrefix>search</mat-icon>
         </mat-form-field>
 
-        <mat-card class="groupCard">
+        <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
           <div class="gap"></div>
           <mat-list *ngFor="let grp of groups | search:searchVal:'name' | search:sectorVal:'sector' | search: commVal:'community'">
             <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp.name}} </mat-list-item>
