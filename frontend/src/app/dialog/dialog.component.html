@@ -1,8 +1,10 @@
 <div class="body-wrapper dialogHeight">
+
   <span class="closedialog" (click)="onNoClick(false)">
     <i class="far fa-window-close"></i>
   </span>
   <div *ngIf="data.source =='reqToJoin'" class="reqToJoin">
+    <a href="#"></a>
     <h2>Request to Join Group</h2>
     <h4>{{data.grp.name}}</h4>
     <div class="gap"></div>
@@ -28,21 +30,19 @@
     </p>
     <h3>Payments</h3>
     <h5>Choose</h5>
-    <mat-radio-group>
-      <mat-radio-button value="1">Monthly Fee - {{data.grp.price.monthly| currency:'USD'}}</mat-radio-button>
+    <mat-radio-group >
+      <mat-radio-button  value="1">Monthly Fee - {{data.grp.price.monthly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="2">Quarterly Fee - {{data.grp.price.quarterly| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button  value="2">Quarterly Fee - {{data.grp.price.quarterly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="3">6-Monthly Fee - {{data.grp.price.sixmonthly| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button  value="3">6-Monthly Fee - {{data.grp.price.sixmonthly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="4">Full Payment - {{data.grp.price.fullPayment| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button  value="4">Full Payment - {{data.grp.price.fullPayment| currency:'USD'}}</mat-radio-button>
       <br>
     </mat-radio-group>
-    <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
-    <span>
-      <button type="reset" mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
-      <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot">Submit</button>
-    </span>
+    <mat-checkbox  [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
+    <button type="reset"  mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
+    <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot">Submit</button>
     <div class="gap"></div>
     <div class="gap"></div>
   </div>
@@ -62,6 +62,7 @@
 
   <div *ngIf="data.dialogModeTos">
     <app-termsandconditions></app-termsandconditions>
-    <button mat-raised-button class="cwb-primary-button center-item" (click)="onNoClick(true)">Accept Terms</button>
+    <button mat-raised-button  class="cwb-primary-button center-item" (click)="onNoClick(true)">Accept Terms</button>
   </div>
+
 </div>

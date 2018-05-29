@@ -145,6 +145,9 @@ a{
     height: auto;
     overflow-y: scroll;
 }
+.dialogHeight::-webkit-scrollbar{
+    display: none;
+}
 .bighead{
     font-size: 28px;
     font-weight: 600;
