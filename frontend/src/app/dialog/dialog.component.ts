@@ -12,7 +12,7 @@ import { PerfectScrollbarConfigInterface,
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css']
 })
-export class DialogComponent implements OnInit {
+export class DialogComponent implements OnInit{
   user: User;
   public config: PerfectScrollbarConfigInterface = {};
   isLinear = false;
@@ -23,10 +23,22 @@ export class DialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService) { }
   update = {};
   ngOnInit() {
+    this.updateUserForm = this._formBuilder.group({
+      firstName: ['',Validators.required],
+      lastName: ['',Validators.required],
+      about: ['',Validators.required],
+      phoneNumber: ['',Validators.required],
+      dob: [''],
+      streetAdd: ['',Validators.required],
+      city: ['',Validators.required],
+      state: ['',Validators.required],
+      zip: ['',Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      profilePublic: ['']
+    });
     this.auth.user$.subscribe(data => {this.user = data,
       
-      this.updateUserForm
-      .patchValue(
+      this.updateUserForm.setValue(
         {
           firstName:this.user.firstName,
           lastName:this.user.lastname,
@@ -40,20 +52,6 @@ export class DialogComponent implements OnInit {
           email:this.user.email,
           profilePublic: this.user.profilePublic,
       })  
-    });
-    
-    this.updateUserForm = this._formBuilder.group({
-      firstName: ['',Validators.required],
-      lastName: ['',Validators.required],
-      about: ['',Validators.required],
-      phoneNumber: ['',Validators.required],
-      dob: [''],
-      streetAdd: ['',Validators.required],
-      city: ['',Validators.required],
-      state: ['',Validators.required],
-      zip: ['',Validators.required],
-      email: ['',[Validators.required, Validators.email]],
-      profilePublic: ['']
     });
   }
   updateUserInfo(){

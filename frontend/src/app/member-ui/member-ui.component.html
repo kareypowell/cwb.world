@@ -26,7 +26,7 @@
         <h2 *ngIf="(user?.firstName =='') && (user?.lastname =='')" class="smallhead">{{user?.displayName}}</h2>
         <h2 *ngIf="!(user?.firstName =='') || !(user?.lastname =='')" class="smallhead">{{user?.firstName}} {{user?.lastname}}</h2>
         <h5 class="smallerhead">
-          <i class="far fa-calendar-alt mr-3"></i><strong>DOB:</strong> {{user?.dateOfBirth['seconds']*1000 | date}}</h5>
+          <i class="far fa-calendar-alt mr-3"></i><strong>DOB:</strong> {{user?.dateOfBirth?.seconds*1000 | date}}</h5>
         <h5 class="smallerhead">
           <i class="fas fa-map-marker-alt mr-3"></i><strong>Address:</strong> {{user?.addressLineOne}}</h5>
         <h5 class="smallerhead">

@@ -27,22 +27,35 @@ export class AuthService {
       })
     );
   }
-  private updateUser(user:User) {
+  private updateUser(user:User, reg:boolean) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    const data: User = {
-      uid: user.uid,
-      email: user.email,
-      displayName: user.displayName || "Curious George",
-      roles: {
-        member: true
-      },
-      profilePublic: true,
-      photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
+    if(reg){
+      const data: User = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || "Curious George",
+        roles: {
+          member: true
+        },
+        
+        profilePublic: true,
+        photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
+      }
+      return userRef.set(data, { merge: true });
+    }else{
+      const dataf: User = {
+        uid: user.uid,
+        email: user.email,
+        displayName: user.displayName || "Curious George",
+        roles: {
+          member: true
+        },
+        photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
+      }
+      return userRef.set(dataf, { merge: true });
     }
-    return userRef.set(data, { merge: true });
   }
-
-
+  // I absolutely need to create new functions for registration!!
   // Complete User profile from information they provide after registration
   completeRegistration(user:User, data){ 
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
@@ -53,14 +66,14 @@ export class AuthService {
   // Registraton and Auth Methods
   register(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
-      credential => {this.updateUser(credential.user),this.router.navigate(['/complete-registration'])}
+      credential => {this.updateUser(credential.user,true),this.router.navigate(['/complete-registration'])}
     )
     .catch(error => console.log(error))
   }
   loginEmail(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(
-        (credential) => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
+        (credential) => {this.updateUser(credential.user, false),this.router.navigate(['/member-ui'])}
       )
       .catch(error => console.log(error));
   }
@@ -68,21 +81,21 @@ export class AuthService {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider)
     .then(
-      credential => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
+      credential => {this.updateUser(credential.user, false),this.router.navigate(['/member-ui'])}
     )
     .catch(error => console.log(error))
     }
   loginTwitter() {
     const provider = new firebase.auth.TwitterAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      (credential) => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
+      (credential) => {this.updateUser(credential.user,false),this.router.navigate(['/member-ui'])}
     )
     .catch(error => console.log(error))
   }
   loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      credential => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
+      credential => {this.updateUser(credential.user,false),this.router.navigate(['/member-ui'])}
     )
     .catch(error => console.log(error))
   }

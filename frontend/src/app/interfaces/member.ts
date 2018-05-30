@@ -12,7 +12,7 @@ export interface User {
     city?:string;
     state?:string;
     country?:string;
-    dateOfBirth?:Date;
+    dateOfBirth?:{seconds:number};
     zipCode?:number;
     phoneNumber?:number;
     defaultDashView?:string; // to be set to where page redirects on Login/click dashboard link
@@ -23,6 +23,7 @@ export interface User {
     sectorsLead?:string[]; // Hold UIDs of sectors the user leads
     profilePublic?:boolean;
 }
+
 
 export interface Roles{
     member?:boolean;
