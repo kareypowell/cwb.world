@@ -36,9 +36,6 @@ export class DialogComponent implements OnInit {
           zip: this.user.zipCode,
           email:this.user.email,
           profilePublic: this.user.profilePublic,
-          
-          
-          
       })  
     });
     

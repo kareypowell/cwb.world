@@ -36,6 +36,7 @@ export class AuthService {
       roles: {
         member: true
       },
+      profilePublic: true,
       photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
     }
     return userRef.set(data, { merge: true });
