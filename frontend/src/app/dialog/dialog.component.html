@@ -53,6 +53,35 @@
       
         <div *ngIf="data.source =='editProfile'" class="editProfileDialog">
           <h2>Edit Profile</h2>
+          <form [formGroup]="updateUserForm" (submit)="updateUserInfo()">
+                <mat-form-field class="mr-3" appearance="outline">
+                  <mat-label>First Name</mat-label>
+                  <input matInput formControlName="firstName" value="{{user?.firstName}}" required>
+                </mat-form-field>
+                <mat-form-field appearance="outline">
+                  <mat-label>Last Name </mat-label>
+                  <input matInput formControlName="lastName" value="{{user?.lastname}}" required>
+                </mat-form-field>
+                <br>
+                <!--
+                <mat-form-field class="mr-3" appearance="outline">
+                  <mat-label>Date of Birth</mat-label>
+                  <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>  -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Phone Number</mat-label>
+                  <input type="tel" matInput formControlName="phoneNumber" value="{{user?.phoneNumber}}" required>
+                </mat-form-field>
+                <br>
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>About me</mat-label>
+                  <textarea matInput formControlName="about" value="{{user?.aboutUser}}" required></textarea>
+                </mat-form-field>
+                <br>
+                <button type="submit" mat-raised-button class="cwb-primary-button" [disabled] = "updateUserForm.invalid">Update Profile</button>
+            </form>
         </div>
       
         <!-- PREVIEW PROFILE CONTENT-->

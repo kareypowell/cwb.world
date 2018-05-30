@@ -18,6 +18,8 @@ export interface User {
     groupsJoined?:string[]; // save uid of groups joined
     roles?: Roles;
     linkedAccounts?:linkedAccounts; // keep track of which accounts are linked to user.  
+    groupsLead?:string[]; // Hold UIDs of groups the user leads
+    sectorsLead?:string[]; // Hold UIDs of sectors the user leads
 }
 
 export interface Roles{
@@ -30,15 +32,19 @@ export interface Roles{
 
 export interface Group{
     uid?:string;
-    groupLead?:User[];
+    groupLead?:string[]; // Hold UID of group lead
     members?:GrpMember[];
     title?:string;
     description?:string;
     meetingTimes?: string[];
-    prices?:string[];
+    prices?:groupPrice[];
     sector?:string;
     community?:string;
     
+}
+export class groupPrice{
+    termDescription?:string;
+    termPrice?:number;
 }
 
 export class GrpMember{
