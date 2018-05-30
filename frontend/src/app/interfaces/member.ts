@@ -11,6 +11,7 @@ export interface User {
     addressLineThree?:string;
     city?:string;
     state?:string;
+    country?:string;
     dateOfBirth?:Date;
     zipCode?:number;
     phoneNumber?:number;
@@ -20,6 +21,7 @@ export interface User {
     linkedAccounts?:linkedAccounts; // keep track of which accounts are linked to user.  
     groupsLead?:string[]; // Hold UIDs of groups the user leads
     sectorsLead?:string[]; // Hold UIDs of sectors the user leads
+    profilePublic?:boolean;
 }
 
 export interface Roles{

@@ -23,12 +23,22 @@ export class DialogComponent implements OnInit {
     this.auth.user$.subscribe(data => {this.user = data,
       
       this.updateUserForm
-      .setValue(
+      .patchValue(
         {
           firstName:this.user.firstName,
           lastName:this.user.lastname,
           about:this.user.aboutUser,
-          phoneNumber:this.user.phoneNumber
+          phoneNumber:this.user.phoneNumber,
+          dob: this.user.dateOfBirth,
+          streetAdd: this.user.addressLineOne,
+          city: this.user.city,
+          state: this.user.state,
+          zip: this.user.zipCode,
+          email:this.user.email,
+          profilePublic: this.user.profilePublic,
+          
+          
+          
       })  
     });
     
@@ -36,16 +46,30 @@ export class DialogComponent implements OnInit {
       firstName: ['',Validators.required],
       lastName: ['',Validators.required],
       about: ['',Validators.required],
-      phoneNumber: ['',Validators.required]
+      phoneNumber: ['',Validators.required],
+      dob: [''],
+      streetAdd: ['',Validators.required],
+      city: ['',Validators.required],
+      state: ['',Validators.required],
+      zip: ['',Validators.required],
+      email: ['',[Validators.required, Validators.email]],
+      profilePublic: ['']
     });
   }
-
+  birthDate:Date = new Date();
   updateUserInfo(){
     const data: User = {
       firstName: this.updateUserForm.value.firstName,
       lastname: this.updateUserForm.value.lastName,
       aboutUser: this.updateUserForm.value.about,
-      phoneNumber: this.updateUserForm.value.phoneNumber
+      phoneNumber: this.updateUserForm.value.phoneNumber,
+      dateOfBirth: new Date(this.updateUserForm.value.dob),
+      city: this.updateUserForm.value.city,
+      state: this.updateUserForm.value.state,
+      zipCode: this.updateUserForm.value.zip,
+      email: this.updateUserForm.value.email,
+      addressLineOne: this.updateUserForm.value.streetAdd,
+      profilePublic: this.updateUserForm.value.profilePublic
     }
     this.auth.completeRegistration(this.user,data);
   }

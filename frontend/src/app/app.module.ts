@@ -54,6 +54,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UpdateUserProfileComponent } from './update-user-profile/update-user-profile.component';
 import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
 import { MatNativeDateModule} from '@angular/material';
+import {MatInputModule} from '@angular/material';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -107,7 +108,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     NgbModalModule.forRoot(),
     CalendarModule.forRoot(),
     PerfectScrollbarModule,
-    MatNativeDateModule
+    MatNativeDateModule,
+    MatInputModule
   ],
   entryComponents:[DialogComponent],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard,HostPartnerGuard,
