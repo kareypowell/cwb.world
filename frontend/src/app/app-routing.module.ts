@@ -28,6 +28,7 @@ import { AdminRoleInfoComponent } from './roleInfo/admin-role-info/admin-role-in
 import { HostPartnerRoleInfoComponent } from './roleInfo/host-partner-role-info/host-partner-role-info.component';
 import { SectorLeadRoleInfoComponent } from './roleInfo/sector-lead-role-info/sector-lead-role-info.component';
 import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/group-lead-role-info.component';
+import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -58,7 +59,9 @@ const routes: Routes = [
   { path: "group", component: GroupComponent },
   { path: "get-involved", component: GetInvoledComponent },
   { path: "calendar", component: CalendarComponent },
+  { path: "complete-registration", component: CompleteRegistrationDetailsComponent},
   { path: '**', component: HomepageComponent }
+  
 ];
 
 @NgModule({

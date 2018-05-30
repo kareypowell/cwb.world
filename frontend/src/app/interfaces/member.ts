@@ -12,12 +12,12 @@ export interface User {
     city?:string;
     state?:string;
     dateOfBirth?:Date;
+    zipCode?:number;
     phoneNumber?:number;
     defaultDashView?:string; // to be set to where page redirects on Login/click dashboard link
     groupsJoined?:string[]; // save uid of groups joined
     roles?: Roles;
-
-    
+    linkedAccounts?:linkedAccounts; // keep track of which accounts are linked to user.  
 }
 
 export interface Roles{
@@ -31,7 +31,7 @@ export interface Roles{
 export interface Group{
     uid?:string;
     groupLead?:User[];
-    members?:User[];
+    members?:GrpMember[];
     title?:string;
     description?:string;
     meetingTimes?: string[];
@@ -39,4 +39,19 @@ export interface Group{
     sector?:string;
     community?:string;
     
+}
+
+export class GrpMember{
+    uid?:string;
+    dateJoined?:Date;
+    paymentTerms?:string; // may need another interface here!
+    paid?:boolean;
+    //files
+    //
+}
+export class linkedAccounts{
+    email?:boolean;
+    facebook?:boolean;
+    twitter?:boolean;
+    google?:boolean;
 }

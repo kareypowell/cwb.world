@@ -1,0 +1,80 @@
+<div class="body-wrapper">
+  <mat-horizontal-stepper [linear]="isLinear" #stepper>
+    <mat-step [stepControl]="firstFormGroup">
+      <form [formGroup]="firstFormGroup">
+        <ng-template matStepLabel>Tell us more about yourself</ng-template>
+        <div class="infoWrap">
+          <mat-form-field class="mr-3" appearance="outline">
+            <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Last Name </mat-label>
+            <input matInput formControlName="lastName" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="mr-3" appearance="outline">
+            <mat-label>Date of Birth</mat-label>
+            <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob" required>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input type="tel" matInput formControlName="phoneNumber" required>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>About me</mat-label>
+            <textarea matInput formControlName="about" required></textarea>
+          </mat-form-field>
+          <br>
+          <div>
+            <button mat-raised-button matStepperNext class="cwb-primary-button">Next</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Contact Information</ng-template>
+        <div class="infoWrap">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Street Address</mat-label>
+            <input matInput formControlName="streetAdd" required>
+          </mat-form-field>
+          <mat-form-field class="mr-3" appearance="outline">
+            <mat-label>City</mat-label>
+            <input matInput formControlName="city" required>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>State</mat-label>
+            <input matInput formControlName="state" required>
+          </mat-form-field>
+          <mat-form-field appearance="outline">
+            <mat-label>Zip code</mat-label>
+            <input matInput formControlName="zipCode" required>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button matStepperPrevious class="mr-3">Back</button>
+            <button mat-raised-button matStepperNext class="cwb-primary-button float-right">Next</button>
+          </div>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>All set</ng-template>
+      <div class="infoWrap text-center">
+        <h1 class="bighead text-center mb-5">You are all set to use CWB!</h1>
+        <div>
+          <button mat-button (click)="updateUserInfo()" class="cwb-primary-button text-center">Save Profile and Proceed to Dashboard</button><br>
+          <div class="gap50"></div>
+          <button mat-raised-button matStepperPrevious class="mr-3">Back</button>
+          <button mat-raised-button (click)="stepper.reset()">Reset</button>
+          <br>
+
+        </div>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+</div>

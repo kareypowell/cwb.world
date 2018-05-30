@@ -14,15 +14,15 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatListModule} from '@angular/material/list';
 import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
-
-
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 
 @NgModule({
   imports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule,MatListModule,MatDividerModule,MatRadioModule],
+    MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule],
   exports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule,MatListModule,MatDividerModule,MatRadioModule],
+    MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule],
 })
 export class MaterialModule { }

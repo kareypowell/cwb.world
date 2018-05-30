@@ -23,21 +23,21 @@
         <div class="gap"></div>
       </div>
       <div class="col-md-3">
-        <h2 class="smallhead">{{user?.displayName}}</h2>
+        <h2 *ngIf="(user?.firstName =='') && (user?.lastname =='')" class="smallhead">{{user?.displayName}}</h2>
+        <h2 *ngIf="!(user?.firstName =='') || !(user?.lastname =='')" class="smallhead">{{user?.firstName}} {{user?.lastname}}</h2>
         <h5 class="smallerhead">
-          <i class="far fa-calendar-alt mr-3"></i>DOB: 04/24/1999</h5>
+          <i class="far fa-calendar-alt mr-3"></i>DOB: {{user?.dateOfBirth['seconds'] | date}}</h5>
         <h5 class="smallerhead">
-          <i class="fas fa-map-marker-alt mr-3"></i>Address: 500 Joseph C. Wilson Blvd</h5>
+          <i class="fas fa-map-marker-alt mr-3"></i>Address: {{user?.addressLineOne}}</h5>
         <h5 class="smallerhead">
-          <i class="fas fa-at mr-3"></i>Email: cwb@gmail.com</h5>
+          <i class="fas fa-at mr-3"></i>Email: {{user?.email}}</h5>
         <h5 class="smallerhead">
-          <i class="fas fa-phone mr-3"></i>Phone: (555) 232-1234</h5>
+          <i class="fas fa-phone mr-3"></i>Phone: {{user?.phoneNumber}}</h5>
       </div>
       <div class="col-md-3">
         <h2 class="smallhead">About Me</h2>
         <p>
-          My name is Mikail. I am 12 years old. I love reading, writing, and long-distance running. One day I want to be an olympic
-          athlete..
+          {{user?.aboutUser}}
         </p>
         <span class="editProfile" (click)="openDialog('editProfile')">
           <i class="fas fa-user-edit mr-2"></i>Edit your profile</span> |

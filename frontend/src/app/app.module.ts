@@ -51,7 +51,10 @@ import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
- 
+import { UpdateUserProfileComponent } from './update-user-profile/update-user-profile.component';
+import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
+import { MatNativeDateModule} from '@angular/material';
+
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
@@ -86,7 +89,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AdminRoleInfoComponent,
     SectorLeadRoleInfoComponent,
     GroupLeadRoleInfoComponent,
-    HostPartnerRoleInfoComponent
+    HostPartnerRoleInfoComponent,
+    UpdateUserProfileComponent,
+    CompleteRegistrationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -101,7 +106,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFirestoreModule,
     NgbModalModule.forRoot(),
     CalendarModule.forRoot(),
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    MatNativeDateModule
   ],
   entryComponents:[DialogComponent],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard,HostPartnerGuard,

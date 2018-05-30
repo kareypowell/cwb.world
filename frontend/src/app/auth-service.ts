@@ -40,9 +40,19 @@ export class AuthService {
     }
     return userRef.set(data, { merge: true });
   }
+
+
+  // Complete User profile from information they provide after registration
+  completeRegistration(user:User, data){ 
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    userRef.set(data, { merge: true });
+    this.router.navigate(['/member-ui']);
+  }
+
+  // Registraton and Auth Methods
   register(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
-      credential => {this.updateUser(credential.user),this.router.navigate(['/member-ui'])}
+      credential => {this.updateUser(credential.user),this.router.navigate(['/complete-registration'])}
     )
     .catch(error => console.log(error))
   }
