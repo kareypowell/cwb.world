@@ -11,7 +11,7 @@ import { AuthService } from "../auth-service";
 export class CompleteRegistrationDetailsComponent implements OnInit {
   user: User;
 
-  isLinear = false;
+  isLinear = true; // force user to fill data before proceeding
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
 

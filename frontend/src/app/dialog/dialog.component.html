@@ -65,7 +65,7 @@
                 <br>
                 <mat-form-field class="mr-2" appearance="outline">
                   <mat-label>Date of Birth</mat-label>
-                  <input matInput [matDatepicker]="picker" placeholder="Date of birth" value = "{{birthDate}}" formControlName="dob">
+                  <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob">
                   <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
                   <mat-datepicker #picker></mat-datepicker>
                 </mat-form-field>
