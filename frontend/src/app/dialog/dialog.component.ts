@@ -3,6 +3,9 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { User } from "../interfaces/member";
 import { AuthService } from "../auth-service";
+import PerfectScrollbar from 'perfect-scrollbar';
+import { PerfectScrollbarConfigInterface,
+  PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-dialog',
@@ -11,7 +14,7 @@ import { AuthService } from "../auth-service";
 })
 export class DialogComponent implements OnInit {
   user: User;
-
+  public config: PerfectScrollbarConfigInterface = {};
   isLinear = false;
   updateUserForm: FormGroup;
 
@@ -53,7 +56,6 @@ export class DialogComponent implements OnInit {
       profilePublic: ['']
     });
   }
-  birthDate:Date = new Date();
   updateUserInfo(){
     const data: User = {
       firstName: this.updateUserForm.value.firstName,
@@ -66,7 +68,7 @@ export class DialogComponent implements OnInit {
       zipCode: this.updateUserForm.value.zip,
       email: this.updateUserForm.value.email,
       addressLineOne: this.updateUserForm.value.streetAdd,
-      profilePublic: this.updateUserForm.value.profilePublic
+      profilePublic: !!this.updateUserForm.value.profilePublic
     }
     this.auth.completeRegistration(this.user,data);
   }
