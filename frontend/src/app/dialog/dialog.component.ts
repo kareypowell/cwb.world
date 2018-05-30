@@ -18,17 +18,18 @@ export class DialogComponent implements OnInit {
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService) { }
-
+  update = {};
   ngOnInit() {
     this.auth.user$.subscribe(data => {this.user = data,
-      (<FormGroup>this.updateUserForm.controls['firstName'])
-      .setValue([this.user.firstName]),
-      (<FormGroup>this.updateUserForm.controls['lastName'])
-      .setValue([this.user.lastname]),
-      (<FormGroup>this.updateUserForm.controls['about'])
-      .setValue([this.user.aboutUser]),
-      (<FormGroup>this.updateUserForm.controls['phoneNumber'])
-      .setValue([this.user.phoneNumber])
+      
+      this.updateUserForm
+      .setValue(
+        {
+          firstName:this.user.firstName,
+          lastName:this.user.lastname,
+          about:this.user.aboutUser,
+          phoneNumber:this.user.phoneNumber
+      })  
     });
     
     this.updateUserForm = this._formBuilder.group({
@@ -44,8 +45,7 @@ export class DialogComponent implements OnInit {
       firstName: this.updateUserForm.value.firstName,
       lastname: this.updateUserForm.value.lastName,
       aboutUser: this.updateUserForm.value.about,
-      phoneNumber: this.updateUserForm.value.phoneNumber,
-      dateOfBirth: this.updateUserForm.value.dob
+      phoneNumber: this.updateUserForm.value.phoneNumber
     }
     this.auth.completeRegistration(this.user,data);
   }
