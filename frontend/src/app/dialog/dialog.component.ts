@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { User } from "../interfaces/member";
@@ -12,8 +12,9 @@ import { PerfectScrollbarConfigInterface,
   templateUrl: './dialog.component.html',
   styleUrls: ['./dialog.component.css']
 })
-export class DialogComponent implements OnInit{
+export class DialogComponent implements OnInit, OnDestroy{
   user: User;
+  private _subscription;
   public config: PerfectScrollbarConfigInterface = {};
   isLinear = false;
   updateUserForm: FormGroup;
@@ -36,7 +37,7 @@ export class DialogComponent implements OnInit{
       email: ['',[Validators.required, Validators.email]],
       profilePublic: ['']
     });
-    this.auth.user$.subscribe(data => {this.user = data,
+    this._subscription= this.auth.user$.subscribe(data => {this.user = data,
       
       this.updateUserForm.setValue(
         {
@@ -53,6 +54,10 @@ export class DialogComponent implements OnInit{
           profilePublic: this.user.profilePublic,
       })  
     });
+  }
+  ngOnDestroy() {
+    this._subscription.unsubscribe();
+    
   }
   updateUserInfo(){
     const data: User = {
