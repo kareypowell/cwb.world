@@ -1,0 +1,30 @@
+<div class="body-wrapper">
+  <h1 class="bighead">Create a new group</h1>
+  <form [formGroup]="createGroupForm" (submit)="createGroup()">
+    <mat-form-field class="mr-3" appearance="outline">
+      <mat-label>Group Name</mat-label>
+      <input matInput formControlName="grpName" required>
+    </mat-form-field><br>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="8" formControlName="description" required></textarea>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Bio</mat-label>
+      <textarea matInput rows="5" formControlName="bio" required></textarea>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>What to Expect</mat-label>
+      <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
+    </mat-form-field>
+    <mat-form-field>
+      <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="duration" [formControl]="myControl" [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of filteredDuration | async" [value]="option">
+          {{ option }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field><br>
+    <button mat-raised-button type="submit" class="cwb-primary-button">Create Group</button>
+  </form>
+</div>

@@ -29,6 +29,7 @@ import { HostPartnerRoleInfoComponent } from './roleInfo/host-partner-role-info/
 import { SectorLeadRoleInfoComponent } from './roleInfo/sector-lead-role-info/sector-lead-role-info.component';
 import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/group-lead-role-info.component';
 import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
+import { CreateGroupComponent } from './crud/create-group/create-group.component';
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -60,6 +61,7 @@ const routes: Routes = [
   { path: "get-involved", component: GetInvoledComponent },
   { path: "calendar", component: CalendarComponent },
   { path: "complete-registration", component: CompleteRegistrationDetailsComponent},
+  { path: "create-group", component: CreateGroupComponent},
   { path: '**', component: HomepageComponent }
   
 ];

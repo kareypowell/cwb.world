@@ -4,8 +4,7 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { User } from "../interfaces/member";
 import { AuthService } from "../auth-service";
 import PerfectScrollbar from 'perfect-scrollbar';
-import { PerfectScrollbarConfigInterface,
-  PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-dialog',
@@ -14,7 +13,7 @@ import { PerfectScrollbarConfigInterface,
 })
 export class DialogComponent implements OnInit, OnDestroy{
   user: User;
-  private _subscription;
+  private _subscription; // used to manage subscription. unsubscribe on destruction of component
   public config: PerfectScrollbarConfigInterface = {};
   isLinear = false;
   updateUserForm: FormGroup;

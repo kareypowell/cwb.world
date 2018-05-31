@@ -55,6 +55,13 @@ import { UpdateUserProfileComponent } from './update-user-profile/update-user-pr
 import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
 import { MatNativeDateModule} from '@angular/material';
 import {MatInputModule} from '@angular/material';
+import { CreateGroupComponent } from './crud/create-group/create-group.component';
+import { CreateEventComponent } from './crud/create-event/create-event.component';
+import { CreateCommunityComponent } from './crud/create-community/create-community.component';
+import { CreateSectorComponent } from './crud/create-sector/create-sector.component';
+import { AddUserComponent } from './crud/add-user/add-user.component';
+import { MakeLeadComponent } from './crud/make-lead/make-lead.component';
+import { MakeAdminComponent } from './crud/make-admin/make-admin.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -92,7 +99,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     GroupLeadRoleInfoComponent,
     HostPartnerRoleInfoComponent,
     UpdateUserProfileComponent,
-    CompleteRegistrationDetailsComponent
+    CompleteRegistrationDetailsComponent,
+    CreateGroupComponent,
+    CreateEventComponent,
+    CreateCommunityComponent,
+    CreateSectorComponent,
+    AddUserComponent,
+    MakeLeadComponent,
+    MakeAdminComponent
   ],
   imports: [
     BrowserModule,

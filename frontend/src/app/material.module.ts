@@ -16,13 +16,16 @@ import {MatDividerModule} from '@angular/material/divider';
 import {MatRadioModule} from '@angular/material/radio';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 
 @NgModule({
   imports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule],
+    MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule,
+    MatAutocompleteModule],
   exports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
-    MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule],
+    MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule,
+    MatAutocompleteModule],
 })
 export class MaterialModule { }
