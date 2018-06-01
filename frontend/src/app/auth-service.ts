@@ -62,6 +62,12 @@ export class AuthService {
     userRef.set(data, { merge: true });
     this.router.navigate(['/member-ui']);
   }
+  updateFeedback:boolean = true;
+  updateUserInfo(user:User, data){ 
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
+    userRef.set(data, { merge: true }).then(()=>this.updateFeedback=true).catch((error)=>this.updateFeedback = false);
+    return this.updateFeedback;
+  }
 
   // Registraton and Auth Methods
   register(email: string, password: string) {

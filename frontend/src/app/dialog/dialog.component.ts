@@ -58,7 +58,12 @@ export class DialogComponent implements OnInit, OnDestroy{
     this._subscription.unsubscribe();
     
   }
+  updateSuccess:boolean = false;
+  errorOccured:boolean = false;
+
   updateUserInfo(){
+    this.updateSuccess = false;
+    this.errorOccured = false;
     const data: User = {
       firstName: this.updateUserForm.value.firstName,
       lastname: this.updateUserForm.value.lastName,
@@ -72,11 +77,22 @@ export class DialogComponent implements OnInit, OnDestroy{
       addressLineOne: this.updateUserForm.value.streetAdd,
       profilePublic: !!this.updateUserForm.value.profilePublic
     }
-    this.auth.completeRegistration(this.user,data);
+    
+    
+    if(this.auth.updateUserInfo(this.user,data)){
+      this.updateSuccess = true;
+    }else{
+      this.errorOccured = true;
+    }
+    setTimeout(()=>{
+      this.updateSuccess = false; 
+      this.errorOccured = false;
+  }, 5000)
   }
 
   acceptTerms: boolean = false;
   notRobot:boolean = false;
+  
   onNoClick(data): void {
     this.dialogRef.close(data);
   }
