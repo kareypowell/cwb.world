@@ -101,7 +101,7 @@
       <br>
       <button mat-raised-button class="mr-3" (click)="onNoClick(false)">Cancel</button>
       <button type="submit" mat-raised-button class="cwb-primary-button" [disabled]="updateUserForm.invalid">Update Profile</button>
-      
+
       <!-- Update Feedback to User-->
       <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
         Update Successful!
@@ -109,7 +109,7 @@
       <div class="alert alert-danger" role="alert" *ngIf="errorOccured">
         Update failed. Try again later...
       </div>
-      
+
     </form>
   </div>
 

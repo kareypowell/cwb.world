@@ -18,7 +18,7 @@ export class AuthService {
     private router: Router,
     public afs: AngularFirestore) {
     this.user$ = afAuth.authState.pipe(
-    switchMap(user => {
+      switchMap(user => {
         if (user) {
           return this.afs.doc<User>(`users/${user.uid}`).valueChanges();
         } else {
@@ -27,9 +27,9 @@ export class AuthService {
       })
     );
   }
-  private updateUser(user:User, reg:boolean) {
+  private updateUser(user: User, reg: boolean) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    if(reg){
+    if (reg) {
       const data: User = {
         uid: user.uid,
         email: user.email,
@@ -37,12 +37,12 @@ export class AuthService {
         roles: {
           member: true
         },
-        
+
         profilePublic: true,
-        photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
+        photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
       }
       return userRef.set(data, { merge: true });
-    }else{
+    } else {
       const dataf: User = {
         uid: user.uid,
         email: user.email,
@@ -50,60 +50,60 @@ export class AuthService {
         roles: {
           member: true
         },
-        photoURL:user.photoURL || 'https://goo.gl/Fz9nrQ',
+        photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
       }
       return userRef.set(dataf, { merge: true });
     }
   }
   // I absolutely need to create new functions for registration!!
   // Complete User profile from information they provide after registration
-  completeRegistration(user:User, data){ 
+  completeRegistration(user: User, data) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     userRef.set(data, { merge: true });
     this.router.navigate(['/member-ui']);
   }
-  updateFeedback:boolean = true;
-  updateUserInfo(user:User, data){ 
+  updateFeedback: boolean = true;
+  updateUserInfo(user: User, data) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
-    userRef.set(data, { merge: true }).then(()=>this.updateFeedback=true).catch((error)=>this.updateFeedback = false);
+    userRef.set(data, { merge: true }).then(() => this.updateFeedback = true).catch((error) => this.updateFeedback = false);
     return this.updateFeedback;
   }
 
   // Registraton and Auth Methods
   register(email: string, password: string) {
     this.afAuth.auth.createUserWithEmailAndPassword(email, password).then(
-      credential => {this.updateUser(credential.user,true),this.router.navigate(['/complete-registration'])}
+      credential => { this.updateUser(credential.user, true), this.router.navigate(['/complete-registration']) }
     )
-    .catch(error => console.log(error))
+      .catch(error => console.log(error))
   }
   loginEmail(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(
-        (credential) => {this.updateUser(credential.user, false),this.router.navigate(['/member-ui'])}
+        (credential) => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']) }
       )
       .catch(error => console.log(error));
   }
   loginGoogle() {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider)
-    .then(
-      credential => {this.updateUser(credential.user, false),this.router.navigate(['/member-ui'])}
-    )
-    .catch(error => console.log(error))
-    }
+      .then(
+        credential => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']); }
+      )
+      .catch(error => console.log(error));
+  }
   loginTwitter() {
     const provider = new firebase.auth.TwitterAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      (credential) => {this.updateUser(credential.user,false),this.router.navigate(['/member-ui'])}
+      (credential) => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']); }
     )
-    .catch(error => console.log(error))
+      .catch(error => console.log(error))
   }
   loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      credential => {this.updateUser(credential.user,false),this.router.navigate(['/member-ui'])}
+      credential => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']); }
     )
-    .catch(error => console.log(error))
+      .catch(error => console.log(error))
   }
   logout() {
     this.afAuth.auth.signOut().then(() => this.router.navigate(['/']));
