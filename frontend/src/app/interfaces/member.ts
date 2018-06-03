@@ -39,6 +39,9 @@ export interface Group{
     members?:GrpMember[];
     title?:string;
     description?:string;
+    bio?:string;
+    whatToExpect?:string;
+    duration?: string; // may have to change to start and end dates
     meetingTimes?: string[];
     prices?:groupPrice[];
     sector?:string;

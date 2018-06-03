@@ -45,6 +45,25 @@ export class FirebaseDataService implements OnInit {
   addGroup(group:Group){
     this.groupCollection.add(group).catch(error=>console.log(error));
   }
+  joinGroup(group:Group, user:User){
+    if(group.members.find(function (obj) { return obj.uid === user.uid; })){ // check if user already joined group
+      console.log("User Exists");
+    }else{
+      console.log("User not in members list!");
+      if(group.members.length < group.capacity){ // check if group has space for new members
+        if(!!group.members){
+          group.members.push({uid:user.uid,dateJoined: new Date(), paid: false, paymentTerms:"Monthly"});
+          this.groupCollection.doc(group.uid).update({members:group.members}); // update with added member
+        }else{
+          group.members = [{uid:user.uid,dateJoined: new Date(), paid: false, paymentTerms:"Monthly"}];
+          this.groupCollection.doc(group.uid).update({members:group.members}); // add field and update with added member
+        }
+      }else{
+        console.log("Group Full")!
+      }
+    }
+    
+  }
   
 
   // ASSIGN NEW ROLES

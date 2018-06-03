@@ -36,12 +36,7 @@ export class CreateGroupComponent implements OnInit {
         bio: ['',Validators.required],
         whatToExpect: ['',Validators.required],
         duration: ['', Validators.required],
-        streetAdd: ['',Validators.required],
-        city: ['',Validators.required],
-        state: ['',Validators.required],
-        zip: ['',Validators.required],
-        email: ['',[Validators.required, Validators.email]],
-        profilePublic: ['']
+        capacity: [10,Validators.required]
       });
   }
 
@@ -66,9 +61,14 @@ export class CreateGroupComponent implements OnInit {
     this.newMember = {};
     this.newGroup = {};
     this.newGroup.title = this.createGroupForm.value.grpName;
-    this.newMember.uid = "34ggfbbr4";
+    this.newGroup.description = this.createGroupForm.value.description;
+    this.newGroup.capacity = this.createGroupForm.value.capacity;
+    this.newGroup.bio = this.createGroupForm.value.bio;
+    this.newGroup.whatToExpect = this.createGroupForm.value.whatToExpect;
+    this.newGroup.duration = this.createGroupForm.value.duration;
+    this.newGroup.members = [];
     console.log(this.newMember);
     //this.newGroup.members.push(this.newMember);
-    //this.fbData.addGroup(this.newGroup);
+    this.fbData.addGroup(this.newGroup);
   }
 }

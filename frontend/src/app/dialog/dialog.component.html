@@ -29,19 +29,19 @@
     </p>
     <h3>Payments</h3>
     <h5>Choose</h5>
-    <mat-radio-group>
-      <mat-radio-button value="1">Monthly Fee - {{data.grp.price.monthly| currency:'USD'}}</mat-radio-button>
+    <mat-radio-group [(ngModel)] ="termSelected">
+      <mat-radio-button value="1">Monthly Fee - {{data.grp.price?.monthly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="2">Quarterly Fee - {{data.grp.price.quarterly| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button value="2">Quarterly Fee - {{data.grp.price?.quarterly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="3">6-Monthly Fee - {{data.grp.price.sixmonthly| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button value="3">6-Monthly Fee - {{data.grp.price?.sixmonthly| currency:'USD'}}</mat-radio-button>
       <br>
-      <mat-radio-button value="4">Full Payment - {{data.grp.price.fullPayment| currency:'USD'}}</mat-radio-button>
+      <mat-radio-button value="4">Full Payment - {{data.grp.price?.fullPayment| currency:'USD'}}</mat-radio-button>
       <br>
     </mat-radio-group>
     <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
     <button type="reset" mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
-    <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot">Submit</button>
+    <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot" (click)="joinGroup()">Submit</button>
     <div class="gap"></div>
     <div class="gap"></div>
   </div>

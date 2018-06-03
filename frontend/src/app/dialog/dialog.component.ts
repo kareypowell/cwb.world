@@ -5,6 +5,7 @@ import { User } from "../interfaces/member";
 import { AuthService } from "../auth-service";
 import PerfectScrollbar from 'perfect-scrollbar';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { FirebaseDataService } from '../firebase-data.service';
 
 @Component({
   selector: 'app-dialog',
@@ -20,7 +21,7 @@ export class DialogComponent implements OnInit, OnDestroy{
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService, private fbData:FirebaseDataService) { }
   update = {};
   ngOnInit() {
     this.updateUserForm = this._formBuilder.group({
@@ -89,7 +90,10 @@ export class DialogComponent implements OnInit, OnDestroy{
       this.errorOccured = false;
   }, 5000)
   }
-
+  termSelected;
+  joinGroup(){
+    this.fbData.joinGroup(this.data.grp,this.user);
+  }
   acceptTerms: boolean = false;
   notRobot:boolean = false;
   
