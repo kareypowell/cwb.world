@@ -3,6 +3,9 @@ import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FirebaseDataService } from '../../firebase-data.service';
+import { Group } from '../../interfaces/member';
+import { GroupComponent } from '../../group/group.component';
 
 @Component({
   selector: 'app-create-group',
@@ -11,16 +14,19 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 })
 export class CreateGroupComponent implements OnInit {
   createGroupForm: FormGroup;
-
-  constructor(private _formBuilder: FormBuilder) { }
+  allGroups:Group[];
+  constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService) { }
   filteredDuration: Observable<string[]>;
   myControl: FormControl = new FormControl();
+  private subs;
+
   ngOnInit() {
     this.filteredDuration = this.myControl.valueChanges
       .pipe(
         startWith(''),
         map(val => this.filter(val))
       );
+      this.subs = this.fbData.getGroups().subscribe(data=>this.allGroups = data);
 
       this.createGroupForm = this._formBuilder.group({
         grpName: ['',Validators.required],
@@ -52,8 +58,12 @@ export class CreateGroupComponent implements OnInit {
     return this.options.filter(option =>
       option.toLowerCase().includes(val.toLowerCase()));
   }
+  newGroup:Group;
   createGroup(){
-    console.log(this.createGroupForm.value)
-    console.log(this.myControl.value);
+    this.newGroup = {};
+    this.newGroup.title = this.createGroupForm.value.grpName;
+    
+    console.log(this.newGroup);
+    this.fbData.addGroup(this.newGroup);
   }
 }

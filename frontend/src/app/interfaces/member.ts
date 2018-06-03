@@ -43,14 +43,15 @@ export interface Group{
     prices?:groupPrice[];
     sector?:string;
     community?:string;
+    capacity?: number;
     
 }
-export class groupPrice{
+export interface groupPrice{
     termDescription?:string;
     termPrice?:number;
 }
 
-export class GrpMember{
+export interface GrpMember{
     uid?:string;
     dateJoined?:Date;
     paymentTerms?:string; // may need another interface here!
@@ -58,7 +59,7 @@ export class GrpMember{
     //files
     //
 }
-export class linkedAccounts{
+export interface linkedAccounts{
     email?:boolean;
     facebook?:boolean;
     twitter?:boolean;

@@ -3,7 +3,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument,AngularFirestoreCollection } from 'angularfire2/firestore';
 import { Observable, of } from 'rxjs';
-import { switchMap, merge } from 'rxjs/operators';
+import { switchMap, merge, map } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { User } from './interfaces/member';
@@ -21,12 +21,18 @@ export class FirebaseDataService implements OnInit {
 
 
   constructor(public afs: AngularFirestore,private router: Router) { 
-    this.groupsFromDB$ = this.afs.collection('groups').valueChanges();
+    this.groupCollection = this.afs.collection('groups');
+    this.groupsFromDB$ = this.afs.collection('groups').snapshotChanges().pipe(map(actions =>{
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Group;
+        data.uid = a.payload.doc.id;
+        return data;
+      })
+    }))
   }
 
   ngOnInit(): void {
-    this.groupCollection = this.afs.collection('groups');
-    this.groupsFromDB$ = this.groupCollection.valueChanges();
+    //this.groupCollection = this.afs.collection('groups');
   }
 
   updateUser(user:User){
@@ -36,15 +42,11 @@ export class FirebaseDataService implements OnInit {
   getGroups(){
     return this.groupsFromDB$;
   }
-  
-  // create a new group
-  createGroup(data:Group){
-    
-    
-    const sendData: Group = {
-
-    }
+  addGroup(group:Group){
+    this.groupCollection.add(group).catch(error=>console.log(error));
   }
+  
+
   // ASSIGN NEW ROLES
   makeAdmin(user:User){
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
