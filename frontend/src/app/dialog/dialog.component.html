@@ -125,4 +125,8 @@
     <button mat-raised-button class="cwb-primary-button center-item" (click)="onNoClick(true)">Accept Terms</button>
   </div>
 
+  <div *ngIf="data.createGroup">
+      <app-create-group></app-create-group>
+  </div>
+
 </div>

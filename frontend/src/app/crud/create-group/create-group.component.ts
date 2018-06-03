@@ -4,8 +4,8 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { FirebaseDataService } from '../../firebase-data.service';
-import { Group } from '../../interfaces/member';
-import { GroupComponent } from '../../group/group.component';
+import { Group, GrpMember } from '../../interfaces/member';
+
 
 @Component({
   selector: 'app-create-group',
@@ -15,7 +15,9 @@ import { GroupComponent } from '../../group/group.component';
 export class CreateGroupComponent implements OnInit {
   createGroupForm: FormGroup;
   allGroups:Group[];
+
   constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService) { }
+
   filteredDuration: Observable<string[]>;
   myControl: FormControl = new FormControl();
   private subs;
@@ -59,11 +61,14 @@ export class CreateGroupComponent implements OnInit {
       option.toLowerCase().includes(val.toLowerCase()));
   }
   newGroup:Group;
+  newMember:GrpMember;
   createGroup(){
+    this.newMember = {};
     this.newGroup = {};
     this.newGroup.title = this.createGroupForm.value.grpName;
-    
-    console.log(this.newGroup);
-    this.fbData.addGroup(this.newGroup);
+    this.newMember.uid = "34ggfbbr4";
+    console.log(this.newMember);
+    //this.newGroup.members.push(this.newMember);
+    //this.fbData.addGroup(this.newGroup);
   }
 }

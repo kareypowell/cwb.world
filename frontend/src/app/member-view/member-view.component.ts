@@ -17,7 +17,7 @@ export class MemberViewComponent implements OnInit {
 
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
-  wid = "250px";
+  wid = "600px";
 
   constructor(private data: DataTransferService, public dialog: MatDialog, private fbData: FirebaseDataService) { }
   openDialog(source, grp): void {
