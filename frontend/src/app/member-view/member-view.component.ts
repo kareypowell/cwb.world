@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataTransferService } from '../data-transfer.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
@@ -13,7 +13,7 @@ import { Group } from '../interfaces/member';
   templateUrl: './member-view.component.html',
   styleUrls: ['./member-view.component.css']
 })
-export class MemberViewComponent implements OnInit {
+export class MemberViewComponent implements OnInit, OnDestroy {
 
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
@@ -36,7 +36,7 @@ export class MemberViewComponent implements OnInit {
   }
   currentGroup;
   ngOnInit() {
-    this.fbData.getGroups().subscribe(data => {this.groups = data, this.currentGroup = this.groups[0]});
+    this.sub = this.fbData.groupsFromDB$.subscribe(data => {this.groups = data, this.currentGroup = this.groups[0]});
     
   }
   groups:Group[];
@@ -71,6 +71,11 @@ export class MemberViewComponent implements OnInit {
   
   displayGroupInfo(grp) {
     this.currentGroup = grp;
+  }
+
+  private sub;
+  ngOnDestroy(): void {
+    this.sub.unsubscribe();
   }
 
 }

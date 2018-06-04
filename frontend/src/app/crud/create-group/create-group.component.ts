@@ -28,7 +28,7 @@ export class CreateGroupComponent implements OnInit {
         startWith(''),
         map(val => this.filter(val))
       );
-      this.subs = this.fbData.getGroups().subscribe(data=>this.allGroups = data);
+      //this.subs = this.fbData.getGroups().subscribe(data=>this.allGroups = data); // used to check if groupName exists
 
       this.createGroupForm = this._formBuilder.group({
         grpName: ['',Validators.required],
@@ -68,7 +68,6 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.duration = this.createGroupForm.value.duration;
     this.newGroup.members = [];
     console.log(this.newMember);
-    //this.newGroup.members.push(this.newMember);
     this.fbData.addGroup(this.newGroup);
   }
 }

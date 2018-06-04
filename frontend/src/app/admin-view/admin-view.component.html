@@ -11,6 +11,7 @@
         <div class="">
           <mat-tab-group [dynamicHeight]="true">
             <mat-tab label="Communities">
+              <button mat-button class="cwb-primary-button" (click)="openDialog('createCommunity')">Create New Community</button>
               <div class="gap"></div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
@@ -45,6 +46,7 @@
               <div class="gap"></div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
+                <button mat-button class="cwb-primary-button" (click)="openDialog('createSector')">Create New Sector</button>
                 <mat-list *ngFor="let sector of sectors">
                   <mat-list-item class="groupItemHover"> {{sector.viewValue}}
                     <span class="editables">

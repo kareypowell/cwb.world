@@ -1,81 +1,152 @@
 import { Injectable, OnInit } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
-import { AngularFirestore, AngularFirestoreDocument,AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable, of } from 'rxjs';
-import { switchMap, merge, map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable, of, BehaviorSubject, zip ,Subject} from 'rxjs';
+import { switchMap, merge, map, filter  } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { User } from './interfaces/member';
-import { Group } from './interfaces/member';
+import { User, Community, Sector, Group } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FirebaseDataService implements OnInit {
-  user:User;
-  userData:User;
-  
+  //user
+  user: User;
+  userData: User;
+  // all users
+  userCollection: AngularFirestoreCollection<User>;
+  usersFromDB$: Observable<User[]>;
+
+
+  // communties
+  communityCollection: AngularFirestoreCollection<Community>;
+  communitiesFromDB$: Observable<Community[]>;
+
+
+  //sectors
+  sectorCollection: AngularFirestoreCollection<Sector>;
+  sectorsFromDB$: Observable<Sector[]>;
+
+
+  // groups
   groupCollection: AngularFirestoreCollection<Group>;
-  groupsFromDB$ : Observable<Group[]>;
+  groupsFromDB$: Observable<Group[]>;
 
 
-  constructor(public afs: AngularFirestore,private router: Router) { 
+
+  constructor(public afs: AngularFirestore, private router: Router) {
     this.groupCollection = this.afs.collection('groups');
-    this.groupsFromDB$ = this.afs.collection('groups').snapshotChanges().pipe(map(actions =>{
+    this.communityCollection = this.afs.collection('communities');
+    this.sectorCollection = this.afs.collection('sectors');
+    this.userCollection = this.afs.collection('users');
+
+    // get community collection
+    this.communitiesFromDB$ = this.communityCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Community;
+        data.uid = a.payload.doc.id;
+        return data;
+      })
+    }));
+
+    // get sector collection
+    this.sectorsFromDB$ = this.sectorCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as Sector;
+        data.uid = a.payload.doc.id;
+        return data;
+      })
+    }));
+
+    // get group collection
+    this.groupsFromDB$ = this.afs.collection('groups').snapshotChanges().pipe(map(actions => {
       return actions.map(a => {
         const data = a.payload.doc.data() as Group;
         data.uid = a.payload.doc.id;
         return data;
       })
-    }))
+    }));
+
+    // get user collection
+    this.usersFromDB$ = this.userCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as User;
+        data.uid = a.payload.doc.id;
+        return data;
+      })
+    }));
   }
 
   ngOnInit(): void {
     //this.groupCollection = this.afs.collection('groups');
   }
 
-  updateUser(user:User){
+  updateUser(user: User) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
   }
+
+
+  // COMMUNITIES
+  addCommunity(newCommunity: Community) {
+    this.communityCollection.add(newCommunity).catch(error => console.log(error));
+  }
+  getCommunity(offset){
+    return offset.pipe(
+      filter(val => !!val), // filter empty strings
+      switchMap(offset => {
+        return this.afs.collection('communities', ref =>
+          ref.orderBy(`searchableIndex.${offset}`).limit(5)
+        )
+        .valueChanges()
+      })
+    )
+  }
+
+  // SECTORS
+  addSector(sector: Sector) {
+    this.sectorCollection.add(sector).catch(error => console.log(error));
+  }
+
   // GROUPS
-  getGroups(){
-    return this.groupsFromDB$;
+  getGroups() {
+    //return this.groupsFromDB$;
   }
-  addGroup(group:Group){
-    this.groupCollection.add(group).catch(error=>console.log(error));
+  addGroup(group: Group) {
+    this.groupCollection.add(group).catch(error => console.log(error));
   }
-  joinGroup(group:Group, user:User){
-    if(group.members.find(function (obj) { return obj.uid === user.uid; })){ // check if user already joined group
+  joinGroup(group: Group, user: User) {
+    if (group.members.find(function (obj) { return obj.uid === user.uid; })) { // check if user already joined group
       console.log("User Exists");
-    }else{
+    } else {
       console.log("User not in members list!");
-      if(group.members.length < group.capacity){ // check if group has space for new members
-        if(!!group.members){
-          group.members.push({uid:user.uid,dateJoined: new Date(), paid: false, paymentTerms:"Monthly"});
-          this.groupCollection.doc(group.uid).update({members:group.members}); // update with added member
-        }else{
-          group.members = [{uid:user.uid,dateJoined: new Date(), paid: false, paymentTerms:"Monthly"}];
-          this.groupCollection.doc(group.uid).update({members:group.members}); // add field and update with added member
+      if (group.members.length < group.capacity) { // check if group has space for new members
+        if (!!group.members) {
+          group.members.push({ uid: user.uid, dateJoined: new Date(), paid: false, paymentTerms: "Monthly" });
+          this.groupCollection.doc(group.uid).update({ members: group.members }); // update with added member
+        } else {
+          group.members = [{ uid: user.uid, dateJoined: new Date(), paid: false, paymentTerms: "Monthly" }];
+          this.groupCollection.doc(group.uid).update({ members: group.members }); // add field and update with added member
         }
-      }else{
+      } else {
         console.log("Group Full")!
       }
     }
-    
+
   }
-  
+
 
   // ASSIGN NEW ROLES
-  makeAdmin(user:User){
+  makeAdmin(user: User) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
-    const data: User ={
+    const data: User = {
       roles: {
         admin: true
       }
     }
   }
-  
+
 }
 
 

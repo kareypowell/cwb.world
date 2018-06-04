@@ -1,7 +1,4 @@
 <div class="body-wrapper">
-  <ul>
-    <li *ngFor="let grp of allGroups"> {{grp|json}}</li>
-  </ul>
   <h1 class="bighead">Create a new group</h1>
   <form [formGroup]="createGroupForm" (submit)="createGroup()">
     <mat-form-field class="mr-3" appearance="outline">

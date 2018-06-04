@@ -18,7 +18,7 @@ export interface User {
     defaultDashView?:string; // to be set to where page redirects on Login/click dashboard link
     groupsJoined?:string[]; // save uid of groups joined
     roles?: Roles;
-    linkedAccounts?:linkedAccounts; // keep track of which accounts are linked to user.  
+    linkedAccounts?:LinkedAccounts; // keep track of which accounts are linked to user.  
     groupsLead?:string[]; // Hold UIDs of groups the user leads
     sectorsLead?:string[]; // Hold UIDs of sectors the user leads
     profilePublic?:boolean;
@@ -35,6 +35,7 @@ export interface Roles{
 
 export interface Group{
     uid?:string;
+    approved?:boolean;
     groupLead?:string[]; // Hold UID of group lead
     members?:GrpMember[];
     title?:string;
@@ -47,24 +48,72 @@ export interface Group{
     sector?:string;
     community?:string;
     capacity?: number;
+    acceptPayments?:boolean;
+    bankInfo?:string;
+    routingNumber?:number;
+    accountNumber?:number;
     
 }
 export interface groupPrice{
+    allowedTerm?:boolean;
     termDescription?:string;
     termPrice?:number;
 }
 
 export interface GrpMember{
     uid?:string;
+    approved?:boolean;
     dateJoined?:Date;
     paymentTerms?:string; // may need another interface here!
     paid?:boolean;
     //files
     //
 }
-export interface linkedAccounts{
+export interface LinkedAccounts{
     email?:boolean;
     facebook?:boolean;
     twitter?:boolean;
     google?:boolean;
+}
+
+export interface Community{
+    uid?:string;
+    name?:string;
+    description?:string;
+    bio?:string;
+    whatToExpect?:string;
+    imageUri?:string;
+    // assignedTo?: perhaps a user
+    // files
+    // links
+
+}
+
+export interface Sector{
+    uid?:string;
+    name?:string;
+    description?:string;
+    bio?:string;
+    whatToExpect?:string;
+    community?:string; // community name
+    sectorLead?: string[]; // hold uid of sector lead(s)
+    imageUrl?:string;
+    // files
+    // links
+
+}
+
+export interface Event{
+    uid?:string;
+    group?:string; // get group UID
+    name?:string;
+    description?:string;
+    groupLead?:string[]; // group leads from group
+    additionalInfo?:string;
+    startDate?:Date;
+    startTime?:Date;
+    endDate?:Date;
+    endTime?:Date;
+    recurrence?: string;
+    startWithoutHost?:boolean;
 }

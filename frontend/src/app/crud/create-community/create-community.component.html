@@ -1,3 +1,25 @@
-<p>
-  create-community works!
-</p>
+<div class="body-wrapper">
+  <h1 class="bighead">Create a new Community</h1>
+  <form [formGroup]="createCommunityForm" (submit)="createCommunity()">
+    <mat-form-field class="mr-3" appearance="outline">
+      <mat-label>Community Name</mat-label>
+      <input matInput formControlName="name" required>
+    </mat-form-field>
+    <br>
+
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Description</mat-label>
+      <textarea matInput rows="8" formControlName="description" required></textarea>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>Bio</mat-label>
+      <textarea matInput rows="5" formControlName="bio" required></textarea>
+    </mat-form-field>
+    <mat-form-field class="full-width" appearance="outline">
+      <mat-label>What to Expect</mat-label>
+      <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
+    </mat-form-field>
+    <button class="mr-3" mat-raised-button>Cancel</button>
+    <button mat-raised-button type="submit" class="cwb-primary-button">Create Community</button>
+  </form>
+</div>
