@@ -25,7 +25,7 @@ export class CreateSectorComponent implements OnInit {
       bio: ['',Validators.required],
       whatToExpect: ['',Validators.required],
       duration: ['', Validators.required],
-      searchString: [10,Validators.required]
+      searchString: ['',Validators.required]
     });
   }
   createSector(){
@@ -36,17 +36,14 @@ export class CreateSectorComponent implements OnInit {
     this.fbData.addSector(this.newSector);
   }
 
-  commSearch:Observable<Community>;
+  commSearch:Community[];
   offset = new Subject<string>();
   results: Observable<any[]>;
 
-  onkeyup(e) {
-    this.offset.next(e.target.value.toLowerCase());
-    this.search();
-  }
-  
+
+  searchVal:string;
   search(){
     //this.results = this.fbData.getCommunity(this.offset);
-    this.fbData.getCommunity(String(this.createSectorForm.value.searchString)).subscribe(data => console.log(data));
+    this.fbData.getCommunity(String(this.searchVal)).subscribe(data => this.commSearch = data);
   }
 }

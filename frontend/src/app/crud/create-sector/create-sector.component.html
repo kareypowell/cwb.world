@@ -1,11 +1,12 @@
 <div class="body-wrapper">
   <h1 class="bighead">Create a new Sector</h1>
+  <input type="text" (keyup)="search()" [(ngModel)]="searchVal" placeholder="typeAhead...not working, lol">
+  <div class="search-result" *ngFor="let result of commSearch">
+    {{ result.name }}
+  </div>
   <form [formGroup]="createSectorForm" (submit)="createSector()">
 
-    <input type="text" (keyup)="search()" placeholder="typeAhead...not working, lol">
-    <div class="search-result" *ngFor="let result of commSearch | async">
-        {{ result.name }}
-      </div>
+
     <mat-form-field class="mr-3" appearance="outline">
       <mat-label>Sector Name</mat-label>
       <input matInput formControlName="name" required>
