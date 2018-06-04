@@ -46,7 +46,7 @@ export class CreateSectorComponent implements OnInit {
   }
   
   search(){
-    this.results = this.fbData.getCommunity(this.offset);
-    //this.fbData.getCommunity(String(this.createSectorForm.value.searchString)).subscribe(data => console.log(data));
+    //this.results = this.fbData.getCommunity(this.offset);
+    this.fbData.getCommunity(String(this.createSectorForm.value.searchString)).subscribe(data => console.log(data));
   }
 }
