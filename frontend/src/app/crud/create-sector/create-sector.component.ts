@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Sector, Community } from '../../interfaces/member';
+import { Sector, Community, User, Group } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Subject } from 'rxjs';
@@ -37,6 +37,7 @@ export class CreateSectorComponent implements OnInit {
   }
 
   commSearch:Community[];
+  groupSearch:Group[];
   offset = new Subject<string>();
   results: Observable<any[]>;
 
@@ -44,6 +45,6 @@ export class CreateSectorComponent implements OnInit {
   searchVal:string;
   search(){
     //this.results = this.fbData.getCommunity(this.offset);
-    this.fbData.getCommunity(String(this.searchVal)).subscribe(data => this.commSearch = data);
+    this.fbData.getCommunity(String(this.searchVal)).subscribe(data => this.groupSearch = data);
   }
 }

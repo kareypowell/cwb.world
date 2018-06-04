@@ -1,8 +1,8 @@
 <div class="body-wrapper">
   <h1 class="bighead">Create a new Sector</h1>
   <input type="text" (keyup)="search()" [(ngModel)]="searchVal" placeholder="typeAhead...not working, lol">
-  <div class="search-result" *ngFor="let result of commSearch">
-    {{ result.name }}
+  <div class="search-result" *ngFor="let result of groupSearch">
+    {{ result.title }}
   </div>
   <form [formGroup]="createSectorForm" (submit)="createSector()">
 
