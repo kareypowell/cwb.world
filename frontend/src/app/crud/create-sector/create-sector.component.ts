@@ -43,8 +43,12 @@ export class CreateSectorComponent implements OnInit {
 
 
   searchVal:string;
-  search(){
-    //this.results = this.fbData.getCommunity(this.offset);
-    this.fbData.getCommunity(String(this.searchVal)).subscribe(data => this.groupSearch = data);
+  lastKeypress: number = 0;
+  search($event){
+    if ($event.timeStamp - this.lastKeypress > 200) {
+      this.fbData.getCommunity(String(this.searchVal)).subscribe(data => this.groupSearch = data);
+    }
+    this.lastKeypress = $event.timeStamp;
+    
   }
 }

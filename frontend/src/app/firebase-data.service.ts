@@ -95,9 +95,9 @@ export class FirebaseDataService implements OnInit {
   getCommunity(searchValue){
     console.log(searchValue);
     return this.afs.collection(`groups`, ref => ref
-      .orderBy("title")
-      .startAt(searchValue)
-      .endAt(searchValue+"\uf8ff")
+      .orderBy("titleToLower")
+      .startAt(searchValue.toLowerCase())
+      .endAt(searchValue.toLowerCase()+"\uf8ff")
       .limit(2))
       .valueChanges();
   }
