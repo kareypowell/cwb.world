@@ -6,6 +6,7 @@ export interface User {
     aboutUser?: string;
     firstName?:string;
     lastname?:string;
+    fullnameLower?:string; // firstname + lastname cast to lowercase for searching
     addressLineOne?:string;
     addressLineTwo?:string;
     addressLineThree?:string;
@@ -22,8 +23,20 @@ export interface User {
     groupsLead?:string[]; // Hold UIDs of groups the user leads
     sectorsLead?:string[]; // Hold UIDs of sectors the user leads
     profilePublic?:boolean;
+    files?:FileInterface[];
+    myEvents?:MyEvents[];
 }
 
+export interface MyEvents{
+    uid?:string;
+    group?:string; // hold uid of group event is tied to
+    startDate?: Date;
+    startTime?:Date;
+    endDate?:Date;
+    endTime?:Date;
+    recurrence?: string;
+    attended?:boolean;
+}
 
 export interface Roles{
     member?:boolean;
@@ -39,6 +52,7 @@ export interface Group{
     groupLead?:string[]; // Hold UID of group lead
     members?:GrpMember[];
     title?:string;
+    titleToLower?:string; // convert group title to lower case for searching
     description?:string;
     bio?:string;
     whatToExpect?:string;
@@ -52,6 +66,7 @@ export interface Group{
     bankInfo?:string;
     routingNumber?:number;
     accountNumber?:number;
+    files?:FileInterface[];
     
 }
 export interface groupPrice{
@@ -66,8 +81,7 @@ export interface GrpMember{
     dateJoined?:Date;
     paymentTerms?:string; // may need another interface here!
     paid?:boolean;
-    //files
-    //
+    files?:FileInterface[];
 }
 export interface LinkedAccounts{
     email?:boolean;
@@ -79,27 +93,33 @@ export interface LinkedAccounts{
 export interface Community{
     uid?:string;
     name?:string;
+    nameToLower?:string; // convert name to lower case for search indexing
     description?:string;
     bio?:string;
     whatToExpect?:string;
     imageUri?:string;
-    // assignedTo?: perhaps a user
-    // files
-    // links
+    assignedTo?:string;
+    dateCreated?: Date;
+    files?:FileInterface[];
 
+}
+export interface FileInterface{
+    name?:string; // name of file or link
+    type?:string; // file or link
+    link?:{file?:boolean,link?:boolean}; // link to file or actual link of link, lool! Set only one to true with radio buttons
 }
 
 export interface Sector{
     uid?:string;
     name?:string;
+    nameToLower?:string;
     description?:string;
     bio?:string;
     whatToExpect?:string;
     community?:string; // community name
     sectorLead?: string[]; // hold uid of sector lead(s)
     imageUrl?:string;
-    // files
-    // links
+    files?:FileInterface[];
 
 }
 
@@ -107,6 +127,7 @@ export interface Event{
     uid?:string;
     group?:string; // get group UID
     name?:string;
+    nameToLower?:string; // convert name to lower case for index searching
     description?:string;
     groupLead?:string[]; // group leads from group
     additionalInfo?:string;
@@ -116,4 +137,5 @@ export interface Event{
     endTime?:Date;
     recurrence?: string;
     startWithoutHost?:boolean;
+    files?:FileInterface[];
 }

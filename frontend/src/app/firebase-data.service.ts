@@ -92,13 +92,12 @@ export class FirebaseDataService implements OnInit {
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
   }
-  getCommunity(searchValue){
-    console.log(searchValue);
-    return this.afs.collection(`groups`, ref => ref
-      .orderBy("titleToLower")
+  searchCollection(searchValue, collectionName, searchField, limitTo){
+    return this.afs.collection(collectionName, ref => ref
+      .orderBy(searchField)
       .startAt(searchValue.toLowerCase())
       .endAt(searchValue.toLowerCase()+"\uf8ff")
-      .limit(2))
+      .limit(limitTo))
       .valueChanges();
   }
 

@@ -25,7 +25,7 @@ export class CreateSectorComponent implements OnInit {
       bio: ['',Validators.required],
       whatToExpect: ['',Validators.required],
       duration: ['', Validators.required],
-      searchString: ['',Validators.required]
+      searchString: ''
     });
   }
   createSector(){
@@ -44,9 +44,11 @@ export class CreateSectorComponent implements OnInit {
 
   searchVal:string;
   lastKeypress: number = 0;
+
   search($event){
     if ($event.timeStamp - this.lastKeypress > 200) {
-      this.fbData.getCommunity(String(this.searchVal)).subscribe(data => this.groupSearch = data);
+      //console.log(this.createSectorForm.value.searchString);
+      this.fbData.searchCollection(String(this.createSectorForm.value.searchString),"groups","titleToLower",2).subscribe(data => this.groupSearch = data);
     }
     this.lastKeypress = $event.timeStamp;
     

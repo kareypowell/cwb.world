@@ -1,12 +1,6 @@
 <div class="body-wrapper">
   <h1 class="bighead">Create a new Sector</h1>
-  <input type="text" (keyup)="search($event)" [(ngModel)]="searchVal" placeholder="typeAhead...not working, lol">
-  <div class="search-result" *ngFor="let result of groupSearch">
-    {{ result.title }}
-  </div>
   <form [formGroup]="createSectorForm" (submit)="createSector()">
-
-
     <mat-form-field class="mr-3" appearance="outline">
       <mat-label>Sector Name</mat-label>
       <input matInput formControlName="name" required>
@@ -17,14 +11,38 @@
       <mat-label>Description</mat-label>
       <textarea matInput rows="8" formControlName="description" required></textarea>
     </mat-form-field>
+
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Bio</mat-label>
       <textarea matInput rows="5" formControlName="bio" required></textarea>
     </mat-form-field>
+
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>What to Expect</mat-label>
       <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
     </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mr-5">
+        <mat-label>Community</mat-label>
+      <input type="text" placeholder="Community" aria-label="Community" matInput [matAutocomplete]="auto" formControlName="searchString" (keyup)="search($event)">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of groupSearch" [value]="option.title">
+          {{ option.title }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Sector Lead</mat-label>
+      <input type="text" placeholder="Sector Lead" aria-label="Community" matInput [matAutocomplete]="auto" formControlName="searchString" (keyup)="search($event)">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let option of groupSearch" [value]="option.title">
+          {{ option.title }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br><br>
+    
     <button class="mr-3" mat-raised-button>Cancel</button>
     <button mat-raised-button type="submit" class="cwb-primary-button">Create Sector</button>
   </form>
