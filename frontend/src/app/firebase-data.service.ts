@@ -92,6 +92,7 @@ export class FirebaseDataService implements OnInit {
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
   }
+  
   searchCollection(searchValue, collectionName, searchField, limitTo){
     return this.afs.collection(collectionName, ref => ref
       .orderBy(searchField)
