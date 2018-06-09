@@ -104,17 +104,18 @@ export class FirebaseDataService implements OnInit {
   }
 
   // SECTORS
+
   addSector(sector: Sector, secLead: User) {
     this.sectorCollection.add(sector)
       .then((ref) => {
         if (secLead.sectorsLead) { // check if user has sectorsLead field
           secLead.sectorsLead.push(ref.id) // push new sector in
           const sectors = secLead.sectorsLead; // store new list to sectos
-          const data = { sectorsLead: sectors }; // create new data item
+          const data = { sectorsLead: sectors, roles:{sectorLead: true}}; // create new data item
           this.updateUser(secLead, data); // update user info to reflect new sector they now lead
         } else {
           const sectors = [ref.id]; // store new list to sectos
-          const data = { sectorsLead: sectors }; // create new data item
+          const data = { sectorsLead: sectors, roles:{sectorLead: true}}; // create new data item
           this.updateUser(secLead, data); // update user info to reflect new sector they now lead
         }
       })
