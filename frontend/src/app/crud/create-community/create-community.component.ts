@@ -31,6 +31,10 @@ export class CreateCommunityComponent implements OnInit {
     this.newCommunity.bio = this.createCommunityForm.value.bio;
     this.newCommunity.whatToExpect = this.createCommunityForm.value.whatToExpect;
     this.newCommunity.imageUri = "education.jpg"; // for testing
+    this.newCommunity.nameToLower = this.createCommunityForm.value.name.toLowerCase();
+    this.newCommunity.dateCreated = new Date();
+    this.newCommunity.files = []; // initialize files array
+    this.newCommunity.assignedTo = null; // set assigned to to null till you know what this means, either assign to person or what?
     this.fbData.addCommunity(this.newCommunity);
   }
 }

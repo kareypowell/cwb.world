@@ -26,8 +26,8 @@
         <mat-label>Community</mat-label>
       <input type="text" placeholder="Community" aria-label="Community" matInput [matAutocomplete]="auto1" formControlName="community" (keyup)="searchCommunity($event)">
       <mat-autocomplete #auto1="matAutocomplete">
-        <mat-option *ngFor="let option of groupSearch" [value]="option.title" (click)= "getCommunity(option)">
-          {{ option.title }}
+        <mat-option *ngFor="let option of commSearch" [value]="option.name" (click)= "getCommunity(option)">
+          {{ option.name }}
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>

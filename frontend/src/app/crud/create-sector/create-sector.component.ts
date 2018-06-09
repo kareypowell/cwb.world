@@ -34,16 +34,23 @@ export class CreateSectorComponent implements OnInit {
     this.newSector.whatToExpect = this.createSectorForm.value.whatToExpect;
     this.newSector.sectorLead = this.secLead;
     this.newSector.community = this.commSelected;
+    this.newSector.files = []; // initialize sector files
+    this.newSector.dateCreated = new Date();
+    this.newSector.imageUrl = null; // set image url to null for now
+    this.newSector.nameToLower = this.createSectorForm.value.name.toLowerCase(); // for search indexing
     //console.log(this.newSector);
-    this.fbData.addSector(this.newSector);
+    // call firebase to create sector
+    this.fbData.addSector(this.newSector, this.secLeadRef);
   }
-  private secLead;
-  getSectorLead(option){
+  private secLead:string;
+  secLeadRef:User;
+  getSectorLead(option:User){
+    this.secLeadRef = option;
     this.secLead = option.uid;
   }
   private commSelected;
   getCommunity(option){
-    this.commSelected = option.title;
+    this.commSelected = option.name;
   }
 
   commSearch:Community[];
@@ -56,7 +63,7 @@ export class CreateSectorComponent implements OnInit {
   searchCommunity($event){
     if ($event.timeStamp - this.lastKeypress > 200) {
       //console.log(this.createSectorForm.value.searchString);
-      this.fbData.searchCollection(String(this.createSectorForm.value.community),"groups","titleToLower",5).subscribe(data => this.groupSearch = data);
+      this.fbData.searchCollection(String(this.createSectorForm.value.community),"communities","nameToLower",5).subscribe(data => this.commSearch = data);
     }
     this.lastKeypress = $event.timeStamp;
   }

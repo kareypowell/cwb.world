@@ -67,7 +67,6 @@ export interface Group{
     routingNumber?:number;
     accountNumber?:number;
     files?:FileInterface[];
-    
 }
 export interface groupPrice{
     allowedTerm?:boolean;
@@ -101,7 +100,6 @@ export interface Community{
     assignedTo?:string;
     dateCreated?: Date;
     files?:FileInterface[];
-
 }
 export interface FileInterface{
     name?:string; // name of file or link
@@ -117,10 +115,10 @@ export interface Sector{
     bio?:string;
     whatToExpect?:string;
     community?:string; // community name
-    sectorLead?: string[]; // hold uid of sector lead(s)
+    sectorLead?: string; // hold uid of sector lead(s)
     imageUrl?:string;
     files?:FileInterface[];
-
+    dateCreated?: Date;
 }
 
 export interface Event{
