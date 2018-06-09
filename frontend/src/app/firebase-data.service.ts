@@ -85,7 +85,7 @@ export class FirebaseDataService implements OnInit {
 
   updateUser(user: User, data) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
-    userRef.set(data, { merge: true }).then().catch((error)=>console.log(error));
+    userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
 
 
@@ -107,10 +107,16 @@ export class FirebaseDataService implements OnInit {
   addSector(sector: Sector, secLead: User) {
     this.sectorCollection.add(sector)
       .then((ref) => {
-        secLead.sectorsLead.push(ref.id) // push new sector in
-        const sectors = secLead.sectorsLead; // store new list to sectos
-        const data = {sectorsLead: sectors}; // create new data item
-        this.updateUser(secLead, data); // update user info to reflect new sector they now lead
+        if (secLead.sectorsLead) { // check if user has sectorsLead field
+          secLead.sectorsLead.push(ref.id) // push new sector in
+          const sectors = secLead.sectorsLead; // store new list to sectos
+          const data = { sectorsLead: sectors }; // create new data item
+          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
+        } else {
+          const sectors = [ref.id]; // store new list to sectos
+          const data = { sectorsLead: sectors }; // create new data item
+          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
+        }
       })
       .catch(error => console.log(error));
   }
