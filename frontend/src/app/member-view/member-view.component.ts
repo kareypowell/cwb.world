@@ -34,12 +34,14 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-  currentGroup;
+  currentGroup:Group;
+  groups:Group[];
+  
   ngOnInit() {
     this.sub = this.fbData.groupsFromDB$.subscribe(data => {this.groups = data, this.currentGroup = this.groups[0]});
     
   }
-  groups:Group[];
+  
 
   searchVal = "";
   sectorVal = "";

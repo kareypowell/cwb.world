@@ -3,21 +3,22 @@
   <div class="gap"></div>
   <div class="row">
     <div class="col-md-4" *ngFor="let comm of communities">
-      
-        <mat-card class="no-p">
-          <div class="imageHolder">
-            <img src="../../assets/images/{{comm.imageUri}}" alt="{{comm.name}} Image">
-          </div>
-              <div class="padding20">
-                <div class="gap"></div>
-              <h3>{{comm.name}}</h3>
-              <div class="gap"></div>
-              <p>{{comm.description}}</p>
-              <div class="gap"></div>
-              <a routerLink = "../community" mat-button class="cwb-primary-button" (click) = "setCommunity(comm)">View Community</a>
-              </div>
-        </mat-card>
-      
+      <mat-card class="no-p">
+        <div class="imageHolder">
+          <img src="../../assets/images/{{comm.imageUri}}" alt="{{comm.name}} Image">
+        </div>
+        <div class="padding20">
+          <div class="gap"></div>
+          <h3>{{comm.name}}</h3>
+          <h3 class="smallerhead"><em>Created On {{comm.dateCreated['seconds']*1000 | date}}</em></h3>
+          <div class="gap"></div>
+          <p>{{comm.description}}</p>
+          <div class="gap"></div>
+          <a routerLink="../community" mat-button class="cwb-primary-button" (click)="setCommunity(comm)">View Community</a>
+        </div>
+      </mat-card>
+      <div class="gap"></div>
+      <div class="gap"></div>
       <div class="gap"></div>
     </div>
 

@@ -2,8 +2,8 @@ import { Injectable, OnInit } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable, of, BehaviorSubject, zip ,Subject} from 'rxjs';
-import { switchMap, merge, map, filter  } from 'rxjs/operators';
+import { Observable, of, BehaviorSubject, zip, Subject } from 'rxjs';
+import { switchMap, merge, map, filter } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { User, Community, Sector, Group } from './interfaces/member';
@@ -83,8 +83,9 @@ export class FirebaseDataService implements OnInit {
     //this.groupCollection = this.afs.collection('groups');
   }
 
-  updateUser(user: User) {
+  updateUser(user: User, data) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
+    userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
 
 
@@ -92,18 +93,33 @@ export class FirebaseDataService implements OnInit {
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
   }
-  searchCollection(searchValue, collectionName, searchField, limitTo){
+
+  searchCollection(searchValue, collectionName, searchField, limitTo) {
     return this.afs.collection(collectionName, ref => ref
       .orderBy(searchField)
       .startAt(searchValue.toLowerCase())
-      .endAt(searchValue.toLowerCase()+"\uf8ff")
+      .endAt(searchValue.toLowerCase() + "\uf8ff")
       .limit(limitTo))
       .valueChanges();
   }
 
   // SECTORS
-  addSector(sector: Sector) {
-    this.sectorCollection.add(sector).catch(error => console.log(error));
+
+  addSector(sector: Sector, secLead: User) {
+    this.sectorCollection.add(sector)
+      .then((ref) => {
+        if (secLead.sectorsLead) { // check if user has sectorsLead field
+          secLead.sectorsLead.push(ref.id) // push new sector in
+          const sectors = secLead.sectorsLead; // store new list to sectos
+          const data = { sectorsLead: sectors, roles:{sectorLead: true}}; // create new data item
+          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
+        } else {
+          const sectors = [ref.id]; // store new list to sectos
+          const data = { sectorsLead: sectors, roles:{sectorLead: true}}; // create new data item
+          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
+        }
+      })
+      .catch(error => console.log(error));
   }
 
   // GROUPS

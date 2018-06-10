@@ -1,36 +1,42 @@
-<div class="masterImage">
-  <img src="../../assets/images/{{community['imageUri']}}" alt="">
-  <div class="layer">
-      <h1>{{community['name']}}</h1>
-  </div>
-</div>
 <div class="body-wrapper">
-    
-    <div class="gap"></div>
-    <div class="row">
-        <div *ngIf="(groups |  groupFilter: {community : community.name}).length === 0">
-            <h3>No groups in this community yet.</h3>
-            <button mat-button class="cwb-primary-button">Create a new group</button>
-        </div>
-        <div class="col-md-4" *ngFor="let group of groups | groupFilter: {community : community.name}">
-          <div class="col-md-12">
-            <mat-card>
-                <div class="imageHolder">
-                    <img src="../../assets/images/{{group.imageUri}}" alt="{{group.name}} Image">
-                  </div>
-                  <div class="gap"></div>
-                  <h3>{{group.name}}</h3>
-                  <div class="gap"></div>
-                  <h5>{{group.leader}} - {{group.date}}</h5>
-                  <p>{{group.description}}</p>
-                  <div class="gap"></div>
-                  <a routerLink = "../group" mat-button class="cwb-primary-button" (click) = "setGroup(group)">View Group</a>
-            </mat-card>
-          </div>
-          <div class="gap"></div>
-        </div>
-    
-      </div>
-    
+  <h1 class="bighead">{{community['name']}}</h1>
+  <div class="gap"></div>
+  <div class="gap"></div>
+  <div class="row">
+    <div class="col-sm-4">
+        <h3 class="smallerhead" (click)="showFilterDiv = !showFilterDiv" style="cursor: pointer"><i class="fas fa-filter"></i> Filter Groups</h3>
+    </div>
+    <div class="col-sm-4 text-center">{{groups.length}} groups</div>
   </div>
+  <div class="gap"></div>
+  <div class="gap"></div>
+  <div class="filterDiv" *ngIf="showFilterDiv">
+      <input type="text" placeholder="Filter by this">
+    </div>
+  <div class="gap"></div>
+  <div class="gap"></div>
   
+  <div *ngIf="(groups |  groupFilter: {community : community.name}).length === 0">
+    <h3>No groups in this community yet.</h3>
+    <button mat-button class="cwb-primary-button">Create a new group</button>
+  </div>
+  <div class="row">
+    <div class="col-md-4" *ngFor="let group of groups | groupFilter: {community : community.name}">
+      <mat-card>
+          <div class="imageHolder">
+              <img src="../../assets/images/{{group.imageUri}}" alt="{{group.name}} Image">
+            </div>
+            <div class="dataHolder">
+              <h3 class="smallhead">{{group.name}}</h3>
+              <div class="gap"></div>
+              <h5 class="smallerhead"><i class="far fa-user"></i> {{group.leader}} </h5>
+              <h5 class="smallerhead"> <i class="far fa-calendar-alt"></i> {{group.date}}</h5>
+              <div class="gap"></div>
+              <p>{{group.description}}</p>
+              <a routerLink="../group" mat-button class="cwb-primary-button" (click)="setGroup(group)">View Group</a>
+            </div>
+      </mat-card>
+    </div>
+  </div>
+
+</div>
