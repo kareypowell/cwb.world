@@ -1,3 +1,54 @@
-<div class="body-wrapper">
-  <h1>Join our team</h1>
+<div class="body-wrapper grey-bg">
+  <div class="middle-center">
+    <mat-card>
+      <h3 class="text-center smallhead">Get Involved</h3>
+      <!--<div class="alert alert-danger" role="alert" *ngFor="let error of errors">
+        <strong>{{error}}</strong> 
+      </div>-->
+      <form #registerForm="ngForm" (submit)="submitRegister()">
+        <mat-form-field class="full-width">
+          <input matInput placeholder="First Name" class="full-width" name = "firstname" [(ngModel)] = registerDetails.firstname>
+        </mat-form-field>
+    
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Last Name" class="full-width" name = "lastname" [(ngModel)] = registerDetails.lastname>
+        </mat-form-field>
+        <mat-form-field class="full-width">
+            <input matInput placeholder="Username" class="full-width" name = "username" [(ngModel)] = registerDetails.username>
+        </mat-form-field>
+        <p></p>
+        <mat-form-field class="full-width">
+          <input type="email" matInput placeholder="Email" required class="full-width" name="email" [(ngModel)]=registerDetails.email>
+        </mat-form-field>
+        <p>OR</p>
+        <mat-label>First Name</mat-label>
+            <input matInput formControlName="firstName" required>
+        <mat-form-field class="full-width">
+          <input type="tel" matInput placeholder="Phone number" required class="full-width" name="phone" [(ngModel)]=registerDetails.phone>
+        </mat-form-field>
+        <p></p>
+
+        <mat-form-field class="full-width">
+          <input type="checkbox"   name="interests" [(ngModel)]=registerDetails.interests>Become a volunteer reader<br>
+          <input type="checkbox"   name="interests" [(ngModel)]=registerDetails.interests>Register volunteer readers<br>
+          <input type="checkbox"   name="interests" [(ngModel)]=registerDetails.interests>Train volunteer readers<br>
+          <input type="checkbox"   name="interests" [(ngModel)]=registerDetails.interests>Rent my church / Org Space<br>
+          <input type="checkbox"   name="interests" [(ngModel)]=registerDetails.interests>Register churches / orgs to rent space<br>
+          <input type="checkbox"   name="interests" [(ngModel)]=registerDetails.interests>Train orgs / churches to rent space<br>
+          
+        </mat-form-field>
+         
+        
+        <!--<div class="g-recaptcha" data-sitekey="6Lc0z1gUAAAAAPSpLcwLzO2QxmFd7e7xNaHddRMK"></div>-->
+        <p></p>
+        <mat-checkbox required name="readtos" [(ngModel)]=registerDetails.readTOS></mat-checkbox>
+        <h3 class="smallerhead" id="checkboxLabel">I have read and accepted the
+          <a class="noLink" (click)="openDialog()">terms and conditions</a> of use</h3>
+        <p></p>
+        <button type="submit" class="cwb-primary-button" mat-raised-button [disabled]="!registerDetails.readTOS">Register</button>
+        <button class="reset-button" type="reset" mat-raised-button>Reset Form</button>
+        <p></p>
+      </form>
+    </mat-card>
+  </div>
 </div>

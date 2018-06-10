@@ -20,18 +20,24 @@
                     </mat-form-field>
                     <p></p>-->
         <mat-form-field class="full-width">
-          <input type="email" matInput placeholder="Email" required class="full-width" name="email" [(ngModel)]=registerDetails.email>
+          <input type="email" #email1 matInput placeholder="Email" pattern="/^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/" required class="full-width" name="email" [(ngModel)]=registerDetails.email>
+          <mat-hint align="end" *ngIf="email1.touched && email1.value.errors?.required">Invalid email</mat-hint>
         </mat-form-field>
+
         <p></p>
+
         <mat-form-field class="full-width" hintLabel="Minimum of 6 characters">
           <input required #input type="password" matInput placeholder="Choose password" class="full-width" name="password" [(ngModel)]=registerDetails.password>
           <mat-hint align="end" *ngIf="input.value?.length<6">At least {{6-input.value?.length}} more</mat-hint>
         </mat-form-field>
         <p></p>
-        <mat-form-field class="full-width">
-          <input required type="password"#input2 matInput placeholder="Confirm password" class="full-width" name="password2" [(ngModel)]=registerDetails.confirmPassword>
-          <mat-hint align="end" *ngIf="input2.value.dirty && !(input2.value == input.value)">Passwords do not match</mat-hint>
+        <mat-form-field class="full-width"
+        [class.has-error]="input2.touched && input2.dirty">
+          <input required #input2 type="password" matInput placeholder="Confirm password"  class="full-width" name="password2" passwordEqualValidator="password" [(ngModel)]=registerDetails.confirmPassword>
+          <mat-hint align="end" *ngIf="input2.touched && input2.errors?.required">Confirm Password is required</mat-hint>
+          <mat-hint align="end" *ngIf="input2.touched && input2.errors?.notEqual">Passwords do not match</mat-hint>
         </mat-form-field>
+
         <p></p>
         <!--<div class="g-recaptcha" data-sitekey="6Lc0z1gUAAAAAPSpLcwLzO2QxmFd7e7xNaHddRMK"></div>-->
         <p></p>

@@ -62,6 +62,7 @@ import { CreateSectorComponent } from './crud/create-sector/create-sector.compon
 import { AddUserComponent } from './crud/add-user/add-user.component';
 import { MakeLeadComponent } from './crud/make-lead/make-lead.component';
 import { MakeAdminComponent } from './crud/make-admin/make-admin.component';
+import { CompareValidatorDirective } from './shared/compare-validator.directive';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -106,7 +107,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CreateSectorComponent,
     AddUserComponent,
     MakeLeadComponent,
-    MakeAdminComponent
+    MakeAdminComponent,
+    CompareValidatorDirective
   ],
   imports: [
     BrowserModule,
