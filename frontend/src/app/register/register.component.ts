@@ -29,7 +29,7 @@ export class RegisterComponent implements OnInit {
       this.registerDetails.readTOS = result;
     });
   }
-  errors:string[] = ['Wrong email format'];
+  errors:string[] = ['Wrong email format','Password Length should at least 6','Passwords do not match'];
 
   submitRegister(){
     this._auth.register(this.registerDetails.email,this.registerDetails.password);
