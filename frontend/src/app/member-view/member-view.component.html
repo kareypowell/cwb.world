@@ -28,7 +28,7 @@
         <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
           <div class="gap"></div>
           <mat-list *ngFor="let grp of groups | search:searchVal:'name' | search:sectorVal:'sector' | search: commVal:'community'">
-            <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp?.title}} </mat-list-item>
+            <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp?.name}} </mat-list-item>
             <mat-divider></mat-divider>
           </mat-list>
         </mat-card>

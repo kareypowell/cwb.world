@@ -126,9 +126,13 @@ export class FirebaseDataService implements OnInit {
   getGroups() {
     //return this.groupsFromDB$;
   }
-  addGroup(group: Group) {
+
+  
+  addGroup(group: Group, groupLead:User, sector:Sector, community: Community) {
     this.groupCollection.add(group).catch(error => console.log(error));
   }
+
+
   joinGroup(group: Group, user: User) {
     if (group.members.find(function (obj) { return obj.uid === user.uid; })) { // check if user already joined group
       console.log("User Exists");

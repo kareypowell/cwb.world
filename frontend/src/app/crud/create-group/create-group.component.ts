@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseDataService } from '../../firebase-data.service';
-import { Group, GrpMember, Community, Sector, User } from '../../interfaces/member';
+import { Group, GrpMember, Community, Sector, User, groupPrice } from '../../interfaces/member';
 import { AuthService } from '../../auth-service';
 
 
@@ -41,7 +41,15 @@ export class CreateGroupComponent implements OnInit {
       acceptPayment: false,
       bankInfo: '',
       routingNumber: '',
-      accountNumber: ''
+      accountNumber: '',
+      monthly: false,
+      semiannually: false,
+      quaterly: false,
+      fullpayment: false,
+      monthlyFee: '',
+      semiannuallyFee: '',
+      quaterlyFee: '',
+      fullpaymentFee: ''
     });
   }
 
@@ -62,25 +70,35 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.accountNumber = this.createGroupForm.value.accountNumber;
     this.newGroup.routingNumber = this.createGroupForm.value.routingNumber;
     this.newGroup.nameToLower = this.createGroupForm.value.grpName.toLowerCase();
-    this.newGroup.sector = "";
-    this.newGroup.community = "";
+    this.newGroup.sector = this.sectorSelected.name;
+    this.newGroup.community = this.commSelected.name;
+    this.newGroup.groupLead = this.groupLead.firstName + " " + this.groupLead.lastname;
     this.newGroup.createdBy = this.currentUser.firstName + " " + this.currentUser.lastname;
     this.newGroup.dateCreated = new Date();
     this.newGroup.approved = false; // set to true after admin approves
 
-
-    this.fbData.addGroup(this.newGroup);
+    this.fbData.addGroup(this.newGroup, this.groupLead,this.sectorSelected, this.commSelected);
+  }
+  customPayments: groupPrice[] = [];
+  p:groupPrice;
+  createNewPaymentField(){
+    this.p = {};
+    this.customPayments.push(this.p); 
   }
 
   lastKeypress: number = 0;
+
+  commSelected:Community;
   getCommunity(option) {
-
+    this.commSelected = option;
   }
+  sectorSelected:Sector;
   getSector(option) {
-
+    this.sectorSelected = option;
   }
+  groupLead:User;
   getGroupLead(option) {
-
+    this.groupLead = option;
   }
   searchCommunity($event) {
     this.fbData.searchCollection(String(this.createGroupForm.value.community), "communities", "nameToLower", 5).subscribe(data => this.commSearch = data);

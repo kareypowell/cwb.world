@@ -269,3 +269,7 @@ a {
 .disp-Inline{
   display: inline;
 }
+.fw-300{
+  font-weight: 300;
+  cursor: pointer;
+}

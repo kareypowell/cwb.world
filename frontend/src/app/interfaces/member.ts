@@ -50,7 +50,7 @@ export interface Group{
     uid?:string;
     approved?:boolean;
     dateCreated?: Date;
-    groupLead?:string[]; // Hold UID of group lead
+    groupLead?:string; // Hold UID of group lead
     members?:GrpMember[];
     name?:string;
     nameToLower?:string; // convert group title to lower case for searching
