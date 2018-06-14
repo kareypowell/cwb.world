@@ -5,16 +5,16 @@
         <h1 class="smallhead">ALL GROUPS</h1>
         <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Filter by Community" [(ngModel)]="commVal">
-            <mat-option *ngFor="let community of communities" [value]="community.value">
-              {{ community.viewValue }}
+            <mat-option *ngFor="let community of communities" [value]="community.uid">
+              {{ community.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Filter by Sector" [(ngModel)]="sectorVal">
-            <mat-option *ngFor="let sector of sectors" [value]="sector.value">
-              {{ sector.viewValue }}
+            <mat-option *ngFor="let sector of sectors" [value]="sector.uid">
+              {{ sector.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
@@ -43,11 +43,8 @@
                 {{currentGroup?.description}}
               </p>
               <h2 class="smallhead">Prices</h2>
-              <p>
-                Group session with an author (monthly) $25 per month
-              </p>
-              <p>
-                One-on- One with an author (2 times per month) $50 per month
+              <p *ngFor="let price of currentGroup?.prices">
+                {{price?.termDescription}} - {{price?.termPrice|currency:"USD"}}
               </p>
               <h2 class="smallhead">Times</h2>
               <p>Wednesday 9am to 10am CDT</p>

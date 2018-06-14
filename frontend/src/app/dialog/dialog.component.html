@@ -19,24 +19,18 @@
       and is hooked on the magic that happens when readers and authors connect. She’s a member of ALA, TASL, and SCBWI.
     </p>
     <p>
-      Community - {{data.grp.community}}
+      Community - {{community?.name}}
     </p>
     <p>
-      Sector - {{data.grp.sector}}
+      Sector - {{sector?.name}}
     </p>
     <p>
-      Group Lead - {{data.grp.leader}}
+      Group Lead - {{grpLead?.firstName + " " + grpLead?.lastname}}
     </p>
     <h3>Payments</h3>
     <h5>Choose</h5>
-    <mat-radio-group [(ngModel)] ="termSelected">
-      <mat-radio-button value="1">Monthly Fee - {{data.grp.price?.monthly| currency:'USD'}}</mat-radio-button>
-      <br>
-      <mat-radio-button value="2">Quarterly Fee - {{data.grp.price?.quarterly| currency:'USD'}}</mat-radio-button>
-      <br>
-      <mat-radio-button value="3">6-Monthly Fee - {{data.grp.price?.sixmonthly| currency:'USD'}}</mat-radio-button>
-      <br>
-      <mat-radio-button value="4">Full Payment - {{data.grp.price?.fullPayment| currency:'USD'}}</mat-radio-button>
+    <mat-radio-group [(ngModel)] ="termSelected" *ngFor="let price of data.grp?.prices">
+      <mat-radio-button value="price">{{price.termDescription}} - {{price.termPrice| currency:'USD'}}</mat-radio-button>
       <br>
     </mat-radio-group>
     <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>

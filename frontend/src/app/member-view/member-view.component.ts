@@ -6,7 +6,7 @@ import { SearchPipe } from '../pipes/search.pipe';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { FirebaseDataService } from '../firebase-data.service';
-import { Group } from '../interfaces/member';
+import { Group, Community, Sector } from '../interfaces/member';
 
 @Component({
   selector: 'app-member-view',
@@ -39,7 +39,8 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   
   ngOnInit() {
     this.sub = this.fbData.groupsFromDB$.subscribe(data => {this.groups = data, this.currentGroup = this.groups[0]});
-    
+    this.sub2 = this.fbData.communitiesFromDB$.subscribe(data => this.communities = data);
+    this.sub3 = this.fbData.sectorsFromDB$.subscribe(data => this.sectors = data);
   }
   
 
@@ -47,27 +48,9 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   sectorVal = "";
   commVal = "";
 
-  communities = [
-    { value: "", viewValue: 'All Communities' },
-    { value: 'education', viewValue: 'Education' },
-    { value: 'careers', viewValue: 'Careers' },
-    { value: 'business', viewValue: 'Business' },
-    { value: 'non-profit', viewValue: 'Non-Profit' },
-    { value: 'wellness', viewValue: 'Wellness' },
-    { value: 'government', viewValue: 'Government' },
-    { value: 'art-and-entertainment', viewValue: 'Art and Entertainment' },
-    { value: 'investment', viewValue: 'Investment' },
-    { value: 'hollywood', viewValue: 'Hollywood' }
-  ];
-  sectors = [
-    { value: "", viewValue: 'All Sectors' },
-    { value: 'pre-k', viewValue: 'Pre K' },
-    { value: 'k to 5', viewValue: 'K - 5th Grade' },
-    { value: '5-8-grade', viewValue: '5th Grade - 8th Grade' },
-    { value: 'high-school', viewValue: 'High School' },
-    { value: 'Undergraduate', viewValue: 'Undergraduate' },
-    { value: 'postgraduate', viewValue: 'Postgraduate' }
-  ];
+  communities: Community[];
+
+  sectors: Sector[];
 
 
   
@@ -76,8 +59,12 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   }
 
   private sub;
+  private sub2;
+  private sub3;
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
+    this.sub3.unsubscribe();
   }
 
 }

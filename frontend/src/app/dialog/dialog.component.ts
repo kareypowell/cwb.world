@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { User } from "../interfaces/member";
+import { User, Sector, Community } from "../interfaces/member";
 import { AuthService } from "../auth-service";
 import PerfectScrollbar from 'perfect-scrollbar';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
@@ -14,16 +14,23 @@ import { FirebaseDataService } from '../firebase-data.service';
 })
 export class DialogComponent implements OnInit, OnDestroy{
   user: User;
-  private _subscription; // used to manage subscription. unsubscribe on destruction of component
+  private _subscription;
+  private _sub2; 
+  private _sub3;
+  private _sub4;// used to manage subscription. unsubscribe on destruction of component
   public config: PerfectScrollbarConfigInterface = {};
   isLinear = false;
   updateUserForm: FormGroup;
 
   constructor(
     public dialogRef: MatDialogRef<DialogComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService, private fbData:FirebaseDataService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService, public fbData:FirebaseDataService) { }
   update = {};
   ngOnInit() {
+    this._sub2=this.fbData.userCollection.doc(this.data.grp.groupLead).valueChanges().subscribe(data => this.grpLead = data);
+    this._sub3=this.fbData.sectorCollection.doc(this.data.grp.sector).valueChanges().subscribe(data => this.sector = data);
+    this._sub4=this.fbData.communityCollection.doc(this.data.grp.community).valueChanges().subscribe(data => this.community = data);
+
     this.updateUserForm = this._formBuilder.group({
       firstName: ['',Validators.required],
       lastName: ['',Validators.required],
@@ -57,10 +64,16 @@ export class DialogComponent implements OnInit, OnDestroy{
   }
   ngOnDestroy() {
     this._subscription.unsubscribe();
-    
+    this._sub2.unsubscribe();
+    this._sub3.unsubscribe();
+    this._sub4.unsubscribe();
   }
   updateSuccess:boolean = false;
   errorOccured:boolean = false;
+
+  grpLead:User;
+  sector: Sector;
+  community: Community;
 
   updateUserInfo(){
     this.updateSuccess = false;

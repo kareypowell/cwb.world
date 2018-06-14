@@ -112,6 +112,10 @@ export class CreateGroupComponent implements OnInit {
       this.p.termPrice = this.createGroupForm.value.fullpaymentFee;
       this.newGroup.prices.push(this.p);
     }
+
+    // MEETING TIMES
+    this.newGroup.meetingTimes = []; // init meeting times
+
     //console.log(this.newGroup);
     this.fbData.addGroup(this.newGroup, this.groupLead,this.sectorSelected, this.commSelected);
   }
