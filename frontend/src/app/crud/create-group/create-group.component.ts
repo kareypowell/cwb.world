@@ -49,8 +49,7 @@ export class CreateGroupComponent implements OnInit {
       monthlyFee: '',
       semiannuallyFee: '',
       quaterlyFee: '',
-      fullpaymentFee: '',
-      customPay: this.customPayments
+      fullpaymentFee: ''
     });
   }
 

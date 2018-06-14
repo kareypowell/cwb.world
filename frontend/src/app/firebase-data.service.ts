@@ -154,7 +154,13 @@ export class FirebaseDataService {
       .startAt(searchValue.toLowerCase())
       .endAt(searchValue.toLowerCase() + "\uf8ff")
       .limit(limitTo))
-      .valueChanges();
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Group;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
   }
 
   getGroups() {
@@ -215,7 +221,7 @@ export class FirebaseDataService {
   deleteUser(userID: string) {
     // remove user as lead in groups, sectors
     // prompt admin to add new leads to groups and sectors
-    
+
     this.userCollection.doc(userID).delete();
   }
   deleteGroup(groupID: string) {
