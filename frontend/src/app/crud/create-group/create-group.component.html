@@ -91,13 +91,13 @@
         </mat-form-field>
         <br>
         <span *ngFor="let cusPay of customPayments">
-          <mat-checkbox formControlName="fullpayment"></mat-checkbox>
+          <mat-checkbox [(ngModel)]="cusPay['allowedTerm']" [ngModelOptions]="{standalone: true}"></mat-checkbox>
           <mat-form-field class="ml-3">
-            <input matInput formControlName="fullpaymentFee" placeholder="Payment name">
+            <input matInput [(ngModel)]="cusPay['termDescription']" [ngModelOptions]="{standalone: true}" placeholder="Payment name">
           </mat-form-field>
           <mat-form-field class="ml-3">
             <span matPrefix>$ &nbsp;</span>
-            <input matInput type="number" formControlName="fullpaymentFee" placeholder="Fee">
+            <input matInput type="number" [(ngModel)]="cusPay['termPrice']" [ngModelOptions]="{standalone: true}" placeholder="Fee">
           </mat-form-field>
           <br>
         </span>

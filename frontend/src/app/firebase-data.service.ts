@@ -1,4 +1,4 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
@@ -11,7 +11,7 @@ import { User, Community, Sector, Group } from './interfaces/member';
 @Injectable({
   providedIn: 'root'
 })
-export class FirebaseDataService implements OnInit {
+export class FirebaseDataService {
   //user
   user: User;
   userData: User;
@@ -79,20 +79,74 @@ export class FirebaseDataService implements OnInit {
     }));
   }
 
-  ngOnInit(): void {
-    //this.groupCollection = this.afs.collection('groups');
-  }
+  // CREATE ======================================================================================================================
 
-  updateUser(user: User, data) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
-    userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
-  }
-
-
-  // COMMUNITIES
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
   }
+
+  addSector(sector: Sector, secLead: User) {
+    this.sectorCollection.add(sector)
+      .then((ref) => {
+        if (secLead.sectorsLead) { // check if user has sectorsLead field
+          secLead.sectorsLead.push(ref.id) // push new sector in
+          const sectors = secLead.sectorsLead; // store new list to sectos
+          const data = { sectorsLead: sectors, roles: { sectorLead: true } }; // create new data item
+          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
+        } else {
+          const sectors = [ref.id]; // store new list to sectos
+          const data = { sectorsLead: sectors, roles: { sectorLead: true } }; // create new data item
+          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
+        }
+      })
+      .catch(error => console.log(error));
+  }
+
+
+  addGroup(group: Group, groupLead: User, sector: Sector, community: Community) {
+    this.groupCollection.add(group) // this should go to group creation request if creator is not an admin
+      .then((ref) => {
+        if (groupLead.groupsLead) { // add group to group lead's groups lead
+          groupLead.groupsLead.push(ref.id);
+          const groups = groupLead.groupsLead;
+          const data = { groupsLead: groups, roles: { groupLead: true } };
+          this.updateUser(groupLead, data);
+        } else {
+          const groups = [ref.id];
+          const data = { groupsLead: groups, roles: { groupLead: true } };
+          this.updateUser(groupLead, data);
+        }
+        // add group to sector's groups 
+        if (sector.groupsInSector) {
+          sector.groupsInSector.push(ref.id);
+          const groups = sector.groupsInSector;
+          const data = { groupsInSector: groups };
+          this.updateSector(sector, data);
+        } else {
+          const groups = [ref.id];
+          const data = { groupsInSector: groups };
+          this.updateSector(sector, data);
+        }
+        // add group to community's groups 
+        if (community.groupsInCommunity) {
+          community.groupsInCommunity.push(ref.id);
+          const groups = community.groupsInCommunity;
+          const data = { groupsInCommunity: groups };
+          this.updateCommunity(community, data);
+        }else{
+          const groups = [ref.id];
+          const data = { groupsInCommunity: groups };
+          this.updateCommunity(community, data);
+        }
+
+      })
+      .catch(error => console.log(error));
+  }
+
+  addUser(user: User) {
+    this.userCollection.add(user).catch(error => console.log(error));
+  }
+  // READ ==========================================================================================================================
 
   searchCollection(searchValue, collectionName, searchField, limitTo) {
     return this.afs.collection(collectionName, ref => ref
@@ -103,35 +157,38 @@ export class FirebaseDataService implements OnInit {
       .valueChanges();
   }
 
-  // SECTORS
-
-  addSector(sector: Sector, secLead: User) {
-    this.sectorCollection.add(sector)
-      .then((ref) => {
-        if (secLead.sectorsLead) { // check if user has sectorsLead field
-          secLead.sectorsLead.push(ref.id) // push new sector in
-          const sectors = secLead.sectorsLead; // store new list to sectos
-          const data = { sectorsLead: sectors, roles:{sectorLead: true}}; // create new data item
-          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
-        } else {
-          const sectors = [ref.id]; // store new list to sectos
-          const data = { sectorsLead: sectors, roles:{sectorLead: true}}; // create new data item
-          this.updateUser(secLead, data); // update user info to reflect new sector they now lead
-        }
-      })
-      .catch(error => console.log(error));
-  }
-
-  // GROUPS
   getGroups() {
     //return this.groupsFromDB$;
   }
 
-  
-  addGroup(group: Group, groupLead:User, sector:Sector, community: Community) {
-    this.groupCollection.add(group).catch(error => console.log(error));
+  // UPDATE =======================================================================================================================
+
+  updateUser(user: User, data) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
+    userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  }
+  updateSector(sector: Sector, data) {
+    const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`sectors/${sector.uid}`); //sector ref to update data
+    sectorRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  }
+  updateCommunity(community: Community, data) {
+    const communityRef: AngularFirestoreDocument<any> = this.afs.doc(`communities/${community.uid}`); //community ref to update data
+    communityRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  }
+  updateGroup(group: Group, data) {
+    const groupRef: AngularFirestoreDocument<any> = this.afs.doc(`groups/${group.uid}`); //group ref to update data
+    groupRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
 
+  // Assign Roles
+  makeAdmin(user: User) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
+    const data: User = {
+      roles: {
+        admin: true
+      }
+    }
+  }
 
   joinGroup(group: Group, user: User) {
     if (group.members.find(function (obj) { return obj.uid === user.uid; })) { // check if user already joined group
@@ -154,14 +211,31 @@ export class FirebaseDataService implements OnInit {
   }
 
 
-  // ASSIGN NEW ROLES
-  makeAdmin(user: User) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
-    const data: User = {
-      roles: {
-        admin: true
-      }
-    }
+  // DELETE ==================================================================================================================
+  deleteUser(userID: string) {
+    // remove user as lead in groups, sectors
+    // prompt admin to add new leads to groups and sectors
+    
+    this.userCollection.doc(userID).delete();
+  }
+  deleteGroup(groupID: string) {
+    
+    // remove groupID from groups in sector
+    // remove groupID from groups in community
+    // remove groupID from groupsLead by groupLead
+    //
+
+    this.groupCollection.doc(groupID).delete();
+  }
+  deleteSector(sectorID: string) {
+    // remove sectorID from sectors in community
+    // remove sectorID from sectorsLead by sectorLead
+    // prompt admin to re-assign groups assigned to this sector
+    this.sectorCollection.doc(sectorID).delete();
+  }
+  deleteCommunity(communityID: string) {
+    // prompt admin to re-assign all groups, sectors assigned to this community
+    this.communityCollection.doc(communityID).delete();
   }
 
 }

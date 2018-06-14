@@ -49,7 +49,8 @@ export class CreateGroupComponent implements OnInit {
       monthlyFee: '',
       semiannuallyFee: '',
       quaterlyFee: '',
-      fullpaymentFee: ''
+      fullpaymentFee: '',
+      customPay: this.customPayments
     });
   }
 
@@ -70,13 +71,49 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.accountNumber = this.createGroupForm.value.accountNumber;
     this.newGroup.routingNumber = this.createGroupForm.value.routingNumber;
     this.newGroup.nameToLower = this.createGroupForm.value.grpName.toLowerCase();
-    this.newGroup.sector = this.sectorSelected.name;
-    this.newGroup.community = this.commSelected.name;
-    this.newGroup.groupLead = this.groupLead.firstName + " " + this.groupLead.lastname;
-    this.newGroup.createdBy = this.currentUser.firstName + " " + this.currentUser.lastname;
+    this.newGroup.sector = this.sectorSelected.uid;
+    this.newGroup.community = this.commSelected.uid;
+    this.newGroup.groupLead = this.groupLead.uid;
+    this.newGroup.createdBy = this.currentUser.uid;
     this.newGroup.dateCreated = new Date();
     this.newGroup.approved = false; // set to true after admin approves
+    this.newGroup.prices = [];
+    this.customPayments.forEach(element => {
+      if(element.allowedTerm){
+        this.newGroup.prices.push(element);
+      }
+    });
+    if(this.createGroupForm.value.monthly){
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "monthly";
+      this.p.termPrice = this.createGroupForm.value.monthlyFee
 
+      this.newGroup.prices.push(this.p);
+    }
+    if(this.createGroupForm.value.quaterly){
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "Quarterly";
+      this.p.termPrice = this.createGroupForm.value.quaterlyFee;
+      this.newGroup.prices.push(this.p);
+    }
+    
+    if(this.createGroupForm.value.semiannually){
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "Semi-Annually";
+      this.p.termPrice = this.createGroupForm.value.semiannuallyFee;
+      this.newGroup.prices.push(this.p);
+    }
+    if(this.createGroupForm.value.fullpayment){
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "Full payment";
+      this.p.termPrice = this.createGroupForm.value.fullpaymentFee;
+      this.newGroup.prices.push(this.p);
+    }
+    //console.log(this.newGroup);
     this.fbData.addGroup(this.newGroup, this.groupLead,this.sectorSelected, this.commSelected);
   }
   customPayments: groupPrice[] = [];
