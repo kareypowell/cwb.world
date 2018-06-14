@@ -49,10 +49,11 @@ export interface Roles{
 export interface Group{
     uid?:string;
     approved?:boolean;
+    dateCreated?: Date;
     groupLead?:string[]; // Hold UID of group lead
     members?:GrpMember[];
-    title?:string;
-    titleToLower?:string; // convert group title to lower case for searching
+    name?:string;
+    nameToLower?:string; // convert group title to lower case for searching
     description?:string;
     bio?:string;
     whatToExpect?:string;
@@ -67,6 +68,8 @@ export interface Group{
     routingNumber?:number;
     accountNumber?:number;
     files?:FileInterface[];
+    createdBy?:string; // hold name of user who created it
+    partnershipCode?:string;
 }
 export interface groupPrice{
     allowedTerm?:boolean;
@@ -99,6 +102,10 @@ export interface Community{
     imageUri?:string;
     assignedTo?:string;
     dateCreated?: Date;
+    createdBy?:string; // hold name of person who created group
+    numberMembers?:number; //init to 0 on creation. increment when a group in this community has a new member
+    groupsInCommunity?:string[]; // hold UID of groups in this community
+    sectorsInCommunity?:string[]; // hold UIDs of sectors in this community
     files?:FileInterface[];
 }
 export interface FileInterface{
@@ -119,6 +126,10 @@ export interface Sector{
     imageUrl?:string;
     files?:FileInterface[];
     dateCreated?: Date;
+    createdBy?:string; // hold name of creator
+    groupsInSector?:string[]; // hold UIDs of all groups in this sector
+    numberMembers?:number; // sum of all members in all groups in this sector
+    sectorRequests?:string[]; // hold UIDs of new sector creation requests unless created by an Admin
 }
 
 export interface Event{

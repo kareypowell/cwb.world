@@ -263,3 +263,9 @@ a {
 .groupItemHover {
   width: 100% !important;
 }
+.half-width{
+  width: 49%;
+}
+.disp-Inline{
+  display: inline;
+}

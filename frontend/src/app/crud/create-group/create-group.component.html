@@ -1,34 +1,93 @@
 <div class="body-wrapper">
   <h1 class="bighead">Create a new group</h1>
   <form [formGroup]="createGroupForm" (submit)="createGroup()">
-    <mat-form-field class="mr-3" appearance="outline">
+    <mat-form-field class="mr-3 half-width" appearance="outline">
       <mat-label>Group Name</mat-label>
       <input matInput formControlName="grpName" required>
-    </mat-form-field><br>
-    <mat-form-field class="mr-3" appearance="outline">
-        <mat-label>Group Capcity</mat-label>
-        <input type="number" matInput formControlName="capacity" required>
-      </mat-form-field><br>
+    </mat-form-field>
+    <mat-form-field class="mr-0 half-width" appearance="outline">
+      <mat-label>Group Capcity</mat-label>
+      <input type="number" matInput formControlName="capacity" required>
+    </mat-form-field>
+    <br>
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Description</mat-label>
       <textarea matInput rows="8" formControlName="description" required></textarea>
     </mat-form-field>
-    <mat-form-field class="full-width" appearance="outline">
+    <mat-form-field class="half-width mr-3" appearance="outline">
       <mat-label>Bio</mat-label>
       <textarea matInput rows="5" formControlName="bio" required></textarea>
     </mat-form-field>
-    <mat-form-field class="full-width" appearance="outline">
+    <mat-form-field class="half-width" appearance="outline">
       <mat-label>What to Expect</mat-label>
       <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
     </mat-form-field>
-    <mat-form-field>
-      <input type="text" placeholder="Pick one" aria-label="Number" matInput formControlName="duration" [formControl]="myControl" [matAutocomplete]="auto">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let option of filteredDuration | async" [value]="option">
-          {{ option }}
+
+    <mat-form-field appearance="outline" class="mr-5">
+      <mat-label>Community</mat-label>
+      <input type="text" placeholder="Community" aria-label="Community" matInput [matAutocomplete]="auto1" formControlName="community"
+        (keyup)="searchCommunity($event)">
+      <mat-autocomplete #auto1="matAutocomplete">
+        <mat-option *ngFor="let option of commSearch" [value]="option.name" (click)="getCommunity(option)">
+          {{ option.name }}
         </mat-option>
       </mat-autocomplete>
-    </mat-form-field><br>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="mr-5">
+      <mat-label>Sector</mat-label>
+      <input type="text" placeholder="Sector" aria-label="Sector" matInput [matAutocomplete]="auto2" formControlName="searchStringSector"
+        (keyup)="searchSector($event)">
+
+      <mat-autocomplete #auto2="matAutocomplete">
+        <mat-option *ngFor="let option of sectorSearch" [value]="option.name" (click)="getSector(option)">
+          {{ option.name }}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Group Lead</mat-label>
+      <input type="text" placeholder="Group Lead" aria-label="Group Lead" matInput [matAutocomplete]="auto3" formControlName="searchStringGroupLead"
+        (keyup)="searchUser($event)">
+
+      <mat-autocomplete #auto3="matAutocomplete">
+        <mat-option *ngFor="let option of userSearch" [value]="option.firstName + ' '+option.lastname" (click)="getGroupLead(option)">
+          {{ option.firstName }} {{option.lastname}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <br>
+    <mat-checkbox formControlName="acceptPayment">Accept Payment</mat-checkbox>
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <div class="paymentSection full-width row" *ngIf="createGroupForm.value.acceptPayment">
+      <div class="col-md-6">
+        <div class="col-md-12">
+            <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Bank Information</mat-label>
+                <textarea matInput rows="6" formControlName="bankInfo"></textarea>
+              </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+          <div class="col-md-12">
+              <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Account Number</mat-label>
+                  <input matInput formControlName="accountNumber">
+                </mat-form-field>
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Routing Number</mat-label>
+                  <input matInput formControlName="routingNumber">
+                </mat-form-field>
+          </div>
+        </div>
+    </div>
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <br>
     <button mat-raised-button type="submit" class="cwb-primary-button">Create Group</button>
   </form>
 </div>
