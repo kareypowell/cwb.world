@@ -5,6 +5,9 @@
         <h1 class="smallhead">ALL GROUPS</h1>
         <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Filter by Community" [(ngModel)]="commVal">
+            <mat-option [value]="">
+              All Communities
+            </mat-option>
             <mat-option *ngFor="let community of communities" [value]="community.uid">
               {{ community.name }}
             </mat-option>
@@ -13,6 +16,9 @@
 
         <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Filter by Sector" [(ngModel)]="sectorVal">
+              <mat-option [value]="">
+                  All Sectors
+                </mat-option>
             <mat-option *ngFor="let sector of sectors" [value]="sector.uid">
               {{ sector.name }}
             </mat-option>
