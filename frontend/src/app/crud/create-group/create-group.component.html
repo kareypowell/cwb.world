@@ -62,45 +62,50 @@
     <div class="gap"></div>
     <div class="gap"></div>
     <div class="gap"></div>
-    
+
     <div class="paymentSection full-width row" *ngIf="createGroupForm.value.acceptPayment">
       <div class="col-sm-12 pl-5">
         <h1 class="smallerhead">Allow:</h1>
-          <mat-checkbox formControlName="monthly">Monthly Payment</mat-checkbox>
+        <mat-checkbox formControlName="monthly">Monthly Payment</mat-checkbox>
+        <mat-form-field class="ml-3">
+          <span matPrefix>$ &nbsp;</span>
+          <input [attr.disabled]="!createGroupForm.value.monthly" matInput type="number" formControlName="monthlyFee" placeholder="Monthly fee">
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="quaterly">Quaterly Payment</mat-checkbox>
+        <mat-form-field class="ml-3">
+          <span matPrefix>$ &nbsp;</span>
+          <input [attr.disabled]="!createGroupForm.value.quaterly" matInput type="number" formControlName="quaterlyFee" placeholder="Quaterly fee">
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="semiannually">Semi-annual Payment</mat-checkbox>
+        <mat-form-field class="ml-3">
+          <span matPrefix>$ &nbsp;</span>
+          <input [attr.disabled]="!createGroupForm.value.semiannually" matInput type="number" formControlName="semiannuallyFee" placeholder="Semi annual fee">
+        </mat-form-field>
+        <br>
+        <mat-checkbox formControlName="fullpayment">Full Payment</mat-checkbox>
+        <mat-form-field class="ml-3">
+          <span matPrefix>$ &nbsp;</span>
+          <input [attr.disabled]="!createGroupForm.value.fullpayment" matInput type="number" formControlName="fullpaymentFee" placeholder="Full fee">
+        </mat-form-field>
+        <br>
+        <span *ngFor="let cusPay of customPayments">
+          <mat-checkbox formControlName="fullpayment"></mat-checkbox>
           <mat-form-field class="ml-3">
-              <input [attr.disabled]="!createGroupForm.value.monthly" matInput formControlName="monthlyFee" placeholder="Monthly fee">
-            </mat-form-field>
-          <br>
-          <mat-checkbox formControlName="quaterly">Quaterly Payment</mat-checkbox>
+            <input matInput formControlName="fullpaymentFee" placeholder="Payment name">
+          </mat-form-field>
           <mat-form-field class="ml-3">
-              <input [attr.disabled]="!createGroupForm.value.quaterly" matInput formControlName="quaterlyFee" placeholder="Quaterly fee">
-            </mat-form-field>
+            <span matPrefix>$ &nbsp;</span>
+            <input matInput type="number" formControlName="fullpaymentFee" placeholder="Fee">
+          </mat-form-field>
           <br>
-          <mat-checkbox formControlName="semiannually">Semi-annual Payment</mat-checkbox>
-          <mat-form-field class="ml-3">
-              <input [attr.disabled]="!createGroupForm.value.semiannually" matInput formControlName="semiannuallyFee" placeholder="Semi annual fee">
-            </mat-form-field>
-          <br>
-          <mat-checkbox formControlName="fullpayment">Full Payment</mat-checkbox>
-          <mat-form-field class="ml-3">
-              <input [attr.disabled]="!createGroupForm.value.fullpayment" matInput formControlName="fullpaymentFee" placeholder="Full fee">
-            </mat-form-field>
-          <br>
-          <span *ngFor="let cusPay of customPayments">
-              <mat-checkbox formControlName="fullpayment"></mat-checkbox>
-              <mat-form-field class="ml-3">
-                  <input matInput formControlName="fullpaymentFee" placeholder="Payment name">
-                </mat-form-field>
-              <mat-form-field class="ml-3">
-                  <input matInput formControlName="fullpaymentFee" placeholder="Fee">
-                </mat-form-field>
-              <br>
-          </span>
-          
-          <i class="far fa-plus-square mr-2 fw-300" (click)="createNewPaymentField()">  New Custom Payment Plan</i>
-          <div class="gap"></div>
-          <div class="gap"></div>
-          <div class="gap"></div>
+        </span>
+
+        <i class="far fa-plus-square mr-2 fw-300" (click)="createNewPaymentField()"> New Custom Payment Plan</i>
+        <div class="gap"></div>
+        <div class="gap"></div>
+        <div class="gap"></div>
       </div>
       <div class="col-md-6">
         <div class="col-md-12">
