@@ -1,7 +1,7 @@
 import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import { User, Sector, Community } from "../interfaces/member";
+import { User, Sector, Community, GrpMember } from "../interfaces/member";
 import { AuthService } from "../auth-service";
 import PerfectScrollbar from 'perfect-scrollbar';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
@@ -104,8 +104,17 @@ export class DialogComponent implements OnInit, OnDestroy{
   }, 5000)
   }
   termSelected;
+  newGroupMember:GrpMember;
   joinGroup(){
-    this.fbData.joinGroup(this.data.grp,this.user);
+    this.newGroupMember = {};
+    this.newGroupMember.uid = this.user.uid;
+    this.newGroupMember.approved = false;
+    this.newGroupMember.attendance = [];
+    this.newGroupMember.dateJoined = new Date();
+    this.newGroupMember.files = [];
+    this.newGroupMember.paid = false;
+    this.newGroupMember.paymentTerms = this.termSelected;
+    this.fbData.joinGroup(this.data.grp,this.newGroupMember);
   }
   acceptTerms: boolean = false;
   notRobot:boolean = false;

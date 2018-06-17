@@ -53,11 +53,9 @@
                 {{price?.termDescription}} - {{price?.termPrice|currency:"USD"}}
               </p>
               <h2 class="smallhead">Times</h2>
-              <p>Wednesday 9am to 10am CDT</p>
-              <p>
-                Sunday 2pm to 3pm CDT
+              <p *ngFor="let day of currentGroup?.meetingTimes">
+                <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to {{day?.endTime['seconds']*1000 | date: 'shortTime'}} {{day?.recurrence}}
               </p>
-
             </mat-tab>
             <mat-tab label="Files">
 

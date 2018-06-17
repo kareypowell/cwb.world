@@ -58,7 +58,7 @@ export interface Group{
     bio?:string;
     whatToExpect?:string;
     duration?: string; // may have to change to start and end dates
-    meetingTimes?: string[];
+    meetingTimes?: meetingDays[];
     prices?:groupPrice[];
     sector?:string;
     community?:string;
@@ -70,9 +70,27 @@ export interface Group{
     files?:FileInterface[];
     createdBy?:string; // hold name of user who created it
     partnershipCode?:string;
+    events?: groupEvent[];
+}
+
+export interface meetingDays{
+    day?:string; // Monday, Tuesday, Wed, etc
+    meet?:boolean; // whether there is a meeting on this day or not
+    recurrence?:string; // every
+    startTime?: Date;
+    endTime?: Date;
+}
+
+export interface groupEvent{
+    uid?:string;
+    name?:string;
+    nameToLower?:string;
+    startTime?:Date;
+    endTime?:Date;
 }
 export interface groupPrice{
     allowedTerm?:boolean;
+    meetingType?:{group_meeting:boolean,one_on_one:boolean};
     termDescription?:string;
     termPrice?:number;
 }
@@ -84,6 +102,7 @@ export interface GrpMember{
     paymentTerms?:string; // may need another interface here!
     paid?:boolean;
     files?:FileInterface[];
+    attendance?:{event_uid:string,attended:boolean}[];
 }
 export interface LinkedAccounts{
     email?:boolean;

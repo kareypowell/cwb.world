@@ -1,0 +1,11 @@
+.meetingTimesUl{
+    list-style: none;
+    padding: 0px !important;
+}
+.meetingTimesUl li{
+    margin-bottom: 2px;
+    padding: 20px;
+}
+.even{
+    background-color: #efefef;
+}

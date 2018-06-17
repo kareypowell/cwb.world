@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseDataService } from '../../firebase-data.service';
-import { Group, GrpMember, Community, Sector, User, groupPrice } from '../../interfaces/member';
+import { Group, GrpMember, Community, Sector, User, groupPrice, meetingDays } from '../../interfaces/member';
 import { AuthService } from '../../auth-service';
 
 
@@ -18,12 +18,32 @@ export class CreateGroupComponent implements OnInit {
   sectorSearch: Sector[];
   userSearch: User[];
   currentUser: User;
+  recurrence: string[] = ['Every week', 'Twice a month', 'Thrice a month', 'Once a month', 'Once a quarter', 'Annually'];
+  now = new Date();
+  temp = new Date();
+  future = new Date();
+  meetings:meetingDays[];
+  dayItem:meetingDays;
 
   constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService, private auth: AuthService) { }
 
   myControl: FormControl = new FormControl();
 
   ngOnInit() {
+    this.now.setHours(9);
+    this.now.setMinutes(0);
+    this.future.setHours(11);
+    this.future.setMinutes(0);
+    this.meetings =
+    [
+      { day: 'Sunday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+      { day: 'Monday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+      { day: 'Tuesday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+      { day: 'Wednesday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+      { day: 'Thursday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+      { day: 'Friday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+      { day: 'Saturday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future }
+    ];
     this.auth.user$.subscribe(data => this.currentUser = data); // get current user info
 
     //this.subs = this.fbData.getGroups().subscribe(data=>this.allGroups = data); // used to check if groupName exists
@@ -55,6 +75,10 @@ export class CreateGroupComponent implements OnInit {
 
   newGroup: Group = {};
   newMember: GrpMember = {};
+  testDates(){
+    console.log(this.meetings);
+    console.log(this.meetings[0].endTime.getHours());
+  }
 
   createGroup() {
     this.newGroup.name = this.createGroupForm.value.grpName;
@@ -78,11 +102,11 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.approved = false; // set to true after admin approves
     this.newGroup.prices = [];
     this.customPayments.forEach(element => {
-      if(element.allowedTerm){
+      if (element.allowedTerm) {
         this.newGroup.prices.push(element);
       }
     });
-    if(this.createGroupForm.value.monthly){
+    if (this.createGroupForm.value.monthly) {
       this.p = {};
       this.p.allowedTerm = true;
       this.p.termDescription = "monthly";
@@ -90,22 +114,22 @@ export class CreateGroupComponent implements OnInit {
 
       this.newGroup.prices.push(this.p);
     }
-    if(this.createGroupForm.value.quaterly){
+    if (this.createGroupForm.value.quaterly) {
       this.p = {};
       this.p.allowedTerm = true;
       this.p.termDescription = "Quarterly";
       this.p.termPrice = this.createGroupForm.value.quaterlyFee;
       this.newGroup.prices.push(this.p);
     }
-    
-    if(this.createGroupForm.value.semiannually){
+
+    if (this.createGroupForm.value.semiannually) {
       this.p = {};
       this.p.allowedTerm = true;
       this.p.termDescription = "Semi-Annually";
       this.p.termPrice = this.createGroupForm.value.semiannuallyFee;
       this.newGroup.prices.push(this.p);
     }
-    if(this.createGroupForm.value.fullpayment){
+    if (this.createGroupForm.value.fullpayment) {
       this.p = {};
       this.p.allowedTerm = true;
       this.p.termDescription = "Full payment";
@@ -114,29 +138,40 @@ export class CreateGroupComponent implements OnInit {
     }
 
     // MEETING TIMES
-    this.newGroup.meetingTimes = []; // init meeting times
+  
 
+    this.newGroup.meetingTimes = []; // init meeting times
+    this.meetings.forEach(day => {
+      if(day.meet){
+        this.dayItem = {};
+        this.dayItem.day = day.day;
+        this.dayItem.recurrence = day.recurrence;
+        this.dayItem.startTime = day.startTime;
+        this.dayItem.endTime = day.endTime;
+        this.newGroup.meetingTimes.push(this.dayItem);
+      }
+    });
     //console.log(this.newGroup);
-    this.fbData.addGroup(this.newGroup, this.groupLead,this.sectorSelected, this.commSelected);
+    this.fbData.addGroup(this.newGroup, this.groupLead, this.sectorSelected, this.commSelected);
   }
   customPayments: groupPrice[] = [];
-  p:groupPrice;
-  createNewPaymentField(){
+  p: groupPrice;
+  createNewPaymentField() {
     this.p = {};
-    this.customPayments.push(this.p); 
+    this.customPayments.push(this.p);
   }
 
   lastKeypress: number = 0;
 
-  commSelected:Community;
+  commSelected: Community;
   getCommunity(option) {
     this.commSelected = option;
   }
-  sectorSelected:Sector;
+  sectorSelected: Sector;
   getSector(option) {
     this.sectorSelected = option;
   }
-  groupLead:User;
+  groupLead: User;
   getGroupLead(option) {
     this.groupLead = option;
   }
@@ -144,9 +179,9 @@ export class CreateGroupComponent implements OnInit {
     this.fbData.searchCollection(String(this.createGroupForm.value.community), "communities", "nameToLower", 5).subscribe(data => this.commSearch = data);
   }
   searchSector($event) {
-    this.fbData.searchCollection(String(this.createGroupForm.value.searchStringSector),"sectors","nameToLower",5).subscribe(data => this.sectorSearch = data);
+    this.fbData.searchCollection(String(this.createGroupForm.value.searchStringSector), "sectors", "nameToLower", 5).subscribe(data => this.sectorSearch = data);
   }
   searchUser($event) {
-    this.fbData.searchCollection(String(this.createGroupForm.value.searchStringGroupLead),"users","fullnameToLower",5).subscribe(data => this.userSearch = data);
+    this.fbData.searchCollection(String(this.createGroupForm.value.searchStringGroupLead), "users", "fullnameToLower", 5).subscribe(data => this.userSearch = data);
   }
 }

@@ -6,7 +6,7 @@ import { Observable, of, BehaviorSubject, zip, Subject } from 'rxjs';
 import { switchMap, merge, map, filter } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group } from './interfaces/member';
+import { User, Community, Sector, Group, GrpMember } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
@@ -133,7 +133,7 @@ export class FirebaseDataService {
           const groups = community.groupsInCommunity;
           const data = { groupsInCommunity: groups };
           this.updateCommunity(community, data);
-        }else{
+        } else {
           const groups = [ref.id];
           const data = { groupsInCommunity: groups };
           this.updateCommunity(community, data);
@@ -196,24 +196,20 @@ export class FirebaseDataService {
     }
   }
 
-  joinGroup(group: Group, user: User) {
+  joinGroup(group: Group, user: GrpMember) {
     if (group.members.find(function (obj) { return obj.uid === user.uid; })) { // check if user already joined group
       console.log("User Exists");
     } else {
       console.log("User not in members list!");
       if (group.members.length < group.capacity) { // check if group has space for new members
-        if (!!group.members) {
-          group.members.push({ uid: user.uid, dateJoined: new Date(), paid: false, paymentTerms: "Monthly" });
-          this.groupCollection.doc(group.uid).update({ members: group.members }); // update with added member
-        } else {
-          group.members = [{ uid: user.uid, dateJoined: new Date(), paid: false, paymentTerms: "Monthly" }];
-          this.groupCollection.doc(group.uid).update({ members: group.members }); // add field and update with added member
-        }
+        group.members.push(user);
+        this.groupCollection.doc(group.uid).set({ members: group.members }, {merge:true});
+        // push group UID to groups joined by user
+        //this.userCollection.doc(user.uid).set({groupsJoined:})
       } else {
         console.log("Group Full")!
       }
     }
-
   }
 
 
@@ -225,7 +221,7 @@ export class FirebaseDataService {
     this.userCollection.doc(userID).delete();
   }
   deleteGroup(groupID: string) {
-    
+
     // remove groupID from groups in sector
     // remove groupID from groups in community
     // remove groupID from groupsLead by groupLead

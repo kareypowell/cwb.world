@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 import { ApiLinkService } from './api-link.service';
-import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTransferService } from './data-transfer.service';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,11 +26,11 @@ import { GroupFilterPipe } from './group-filter.pipe';
 import { GroupComponent } from './group/group.component';
 import { GetInvoledComponent } from './get-involed/get-involed.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { environment } from '../environments/environment'; 
+import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
 import { MemberGuard } from './guards/member.guard';
 import { AdminGuard } from './guards/admin.guard';
-import { AngularFirestore , AngularFirestoreModule} from 'angularfire2/firestore';
+import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
 import { CalendarModule } from 'angular-calendar';
 import { CalendarComponent } from './calendar/calendar.component';
 import { MemberViewComponent } from './member-view/member-view.component';
@@ -53,8 +53,8 @@ import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UpdateUserProfileComponent } from './update-user-profile/update-user-profile.component';
 import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
-import { MatNativeDateModule} from '@angular/material';
-import {MatInputModule} from '@angular/material';
+import { MatNativeDateModule } from '@angular/material';
+import { MatInputModule } from '@angular/material';
 import { CreateGroupComponent } from './crud/create-group/create-group.component';
 import { CreateEventComponent } from './crud/create-event/create-event.component';
 import { CreateCommunityComponent } from './crud/create-community/create-community.component';
@@ -63,6 +63,7 @@ import { AddUserComponent } from './crud/add-user/add-user.component';
 import { MakeLeadComponent } from './crud/make-lead/make-lead.component';
 import { MakeAdminComponent } from './crud/make-admin/make-admin.component';
 import { CompareValidatorDirective } from './shared/compare-validator.directive';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -125,12 +126,16 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CalendarModule.forRoot(),
     PerfectScrollbarModule,
     MatNativeDateModule,
-    MatInputModule
+    MatInputModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
   ],
-  entryComponents:[DialogComponent],
-  providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard,HostPartnerGuard,
-    SectorLeadGuard,{provide: PERFECT_SCROLLBAR_CONFIG,
-    useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG}],
+  entryComponents: [DialogComponent],
+  providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard, HostPartnerGuard,
+    SectorLeadGuard, {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
