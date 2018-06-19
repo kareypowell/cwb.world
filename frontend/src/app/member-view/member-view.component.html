@@ -1,5 +1,6 @@
+<button id="toggleGrpPane"(click)="hideGroupSearch()">Toggle Groups Pane</button>
 <div class="row">
-  <div class="col-md-5">
+  <div class="col-md-{{groupPaneWidth}}" *ngIf="showGroupSearch">
     <div class="col-md-12 no-padding">
       <mat-card>
         <h1 class="smallhead">ALL GROUPS</h1>
@@ -73,7 +74,7 @@
       </mat-card>
     </div>
   </div>
-  <div class="col-md-7">
+  <div class="col-md-{{eventPaneWidth}}">
     <div class="col-md-12 no-padding">
       <mat-card>
         <h1 class="smallhead text-center">MY EVENTS</h1>

@@ -14,6 +14,8 @@ import { Group, Community, Sector } from '../interfaces/member';
   styleUrls: ['./member-view.component.css']
 })
 export class MemberViewComponent implements OnInit, OnDestroy {
+  groupPaneWidth:number = 4;
+  eventPaneWidth:number = (12-this.groupPaneWidth);
 
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
@@ -30,8 +32,7 @@ export class MemberViewComponent implements OnInit, OnDestroy {
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
-      //this.animal = result;
+      //console.log(result);
     });
   }
   currentGroup:Group;
@@ -56,6 +57,15 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   
   displayGroupInfo(grp) {
     this.currentGroup = grp;
+  }
+  showGroupSearch:boolean = true;
+  hideGroupSearch(){
+    this.showGroupSearch = !this.showGroupSearch;
+    if(this.showGroupSearch){
+      this.eventPaneWidth = 12-this.groupPaneWidth;
+    }else{
+      this.eventPaneWidth = 12;
+    }
   }
 
   private sub;

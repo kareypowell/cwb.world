@@ -27,46 +27,56 @@ export class DialogComponent implements OnInit, OnDestroy{
     @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService, public fbData:FirebaseDataService) { }
   update = {};
   ngOnInit() {
-    this._sub2=this.fbData.userCollection.doc(this.data.grp.groupLead).valueChanges().subscribe(data => this.grpLead = data);
-    this._sub3=this.fbData.sectorCollection.doc(this.data.grp.sector).valueChanges().subscribe(data => this.sector = data);
-    this._sub4=this.fbData.communityCollection.doc(this.data.grp.community).valueChanges().subscribe(data => this.community = data);
-
-    this.updateUserForm = this._formBuilder.group({
-      firstName: ['',Validators.required],
-      lastName: ['',Validators.required],
-      about: ['',Validators.required],
-      phoneNumber: ['',Validators.required],
-      dob: [''],
-      streetAdd: ['',Validators.required],
-      city: ['',Validators.required],
-      state: ['',Validators.required],
-      zip: ['',Validators.required],
-      email: ['',[Validators.required, Validators.email]],
-      profilePublic: ['']
-    });
-    this._subscription= this.auth.user$.subscribe(data => {this.user = data,
-      
-      this.updateUserForm.setValue(
-        {
-          firstName:this.user.firstName,
-          lastName:this.user.lastname,
-          about:this.user.aboutUser,
-          phoneNumber:this.user.phoneNumber,
-          dob: new Date(this.user.dateOfBirth['seconds']*1000),
-          streetAdd: this.user.addressLineOne,
-          city: this.user.city,
-          state: this.user.state,
-          zip: this.user.zipCode,
-          email:this.user.email,
-          profilePublic: this.user.profilePublic,
-      })  
-    });
+    if(this.data.source == "reqToJoin"){
+      this._sub2=this.fbData.userCollection.doc(this.data.grp.groupLead).valueChanges().subscribe(data => this.grpLead = data);
+      this._sub3=this.fbData.sectorCollection.doc(this.data.grp.sector).valueChanges().subscribe(data => this.sector = data);
+      this._sub4=this.fbData.communityCollection.doc(this.data.grp.community).valueChanges().subscribe(data => this.community = data);
+    }
+    if(this.data.source =="editProfile"){
+      this.updateUserForm = this._formBuilder.group({
+        firstName: ['',Validators.required],
+        lastName: ['',Validators.required],
+        about: ['',Validators.required],
+        phoneNumber: ['',Validators.required],
+        dob: [''],
+        streetAdd: ['',Validators.required],
+        city: ['',Validators.required],
+        state: ['',Validators.required],
+        zip: ['',Validators.required],
+        email: ['',[Validators.required, Validators.email]],
+        profilePublic: ['']
+      });
+      this._subscription= this.auth.user$.subscribe(data => {this.user = data,
+        
+        this.updateUserForm.setValue(
+          {
+            firstName:this.user.firstName,
+            lastName:this.user.lastname,
+            about:this.user.aboutUser,
+            phoneNumber:this.user.phoneNumber,
+            dob: new Date(this.user.dateOfBirth['seconds']*1000),
+            streetAdd: this.user.addressLineOne,
+            city: this.user.city,
+            state: this.user.state,
+            zip: this.user.zipCode,
+            email:this.user.email,
+            profilePublic: this.user.profilePublic,
+        })  
+      });
+    }
+    
   }
   ngOnDestroy() {
-    this._subscription.unsubscribe();
-    this._sub2.unsubscribe();
-    this._sub3.unsubscribe();
-    this._sub4.unsubscribe();
+    if(this.data.source =="editProfile"){
+      this._subscription.unsubscribe();
+    }
+  
+    if(this.data.source == "reqToJoin"){
+      this._sub2.unsubscribe();
+      this._sub3.unsubscribe();
+      this._sub4.unsubscribe();
+    }
+    
   }
   updateSuccess:boolean = false;
   errorOccured:boolean = false;

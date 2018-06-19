@@ -64,6 +64,9 @@ import { MakeLeadComponent } from './crud/make-lead/make-lead.component';
 import { MakeAdminComponent } from './crud/make-admin/make-admin.component';
 import { CompareValidatorDirective } from './shared/compare-validator.directive';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { RequestToJoinGroupComponent } from './dialog-components/request-to-join-group/request-to-join-group.component';
+import { EditProfileComponent } from './dialog-components/edit-profile/edit-profile.component';
+import { PreviewProfileComponent } from './dialog-components/preview-profile/preview-profile.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -109,7 +112,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AddUserComponent,
     MakeLeadComponent,
     MakeAdminComponent,
-    CompareValidatorDirective
+    CompareValidatorDirective,
+    RequestToJoinGroupComponent,
+    EditProfileComponent,
+    PreviewProfileComponent
   ],
   imports: [
     BrowserModule,
