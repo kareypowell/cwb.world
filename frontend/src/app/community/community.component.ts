@@ -11,10 +11,11 @@ import {ActivatedRoute} from '@angular/router';
 })
 export class CommunityComponent implements OnInit, OnDestroy {
 
-  constructor(private fbData:FirebaseDataService, private route:ActivatedRoute) { }
+  constructor(public fbData:FirebaseDataService, private route:ActivatedRoute) { }
   private sub;
   private sub2;
   private sub3;
+  unsub3:boolean = false;
   groups: Group[];
   creator:User;
   community:Community;
@@ -22,7 +23,14 @@ export class CommunityComponent implements OnInit, OnDestroy {
     this.sub = this.fbData.communityCollection.doc(this.route.snapshot.params['id']).valueChanges().subscribe(data => 
       {
         this.community = data;
-        this.sub3 = this.fbData.userCollection.doc(this.community.createdBy).valueChanges().subscribe(data => this.creator = data);
+        if(this.community.createdBy){
+          this.sub3 = this.fbData.userCollection.doc(this.community.createdBy).valueChanges().subscribe(data => this.creator = data);
+          this.unsub3 = true;
+        }else{
+          this.creator = {};
+          this.creator.firstName = "--";
+          this.creator.lastname = "";
+        }
       });
     this.sub2 = this.fbData.getSpecificItems(this.route.snapshot.params['id']).subscribe(data => this.groups = data);
 
@@ -33,6 +41,8 @@ export class CommunityComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.sub.unsubscribe();
     this.sub2.unsubscribe();
-    this.sub3.unsubscribe();
+    if(this.unsub3){
+      this.sub3.unsubscribe();
+    }
   }
 }

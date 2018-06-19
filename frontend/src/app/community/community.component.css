@@ -35,6 +35,7 @@ mat-card {
   min-height: 100%;
   height: auto;
   border-radius: 3px;
+  margin-bottom: 20px;
 }
 .community-info h1{
     font-size: 48px;

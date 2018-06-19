@@ -3,11 +3,8 @@
     <div class="col-md-4 community-info">
       <div class="col-sm-12">
         <h1>{{community?.name}}</h1>
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <h4>Created On {{community?.dateCreated['seconds']*1000|date}}</h4>
-        <div class="gap"></div>
-        <h4>By {{creator?.firstName}} {{creator?.lastname}}</h4>
+        <hr>
+        <em>Created On {{community?.dateCreated['seconds']*1000|date}} By {{creator?.firstName}} {{creator?.lastname}}</em>
         <div class="gap"></div>
         <h4>Description</h4>
         <p>{{community?.description}}</p>
@@ -19,6 +16,9 @@
         <p>{{community?.whatToExpect}}</p>
         <div class="gap"></div>
       </div>
+      <div class="gap"></div>
+      <div class="gap"></div>
+      <div class="gap"></div>
     </div>
     <div class="col-md-8">
       <div *ngIf="groups?.length === 0; else showInfo">
@@ -48,16 +48,19 @@
               <h3 class="smallhead">{{group?.name}}</h3>
               <div class="gap"></div>
               <h5 class="smallerhead">
-                <i class="far fa-user"></i> {{group?.groupLead}} </h5>
-              <h5 class="smallerhead">
                 <i class="far fa-calendar-alt"></i> {{group?.dateCreated['seconds']*1000| date}}</h5>
               <div class="gap"></div>
               <p>{{(group?.description.length>100)? (group?.description | slice:0:100)+'...':(group?.description)}}</p>
               <a routerLink="../../group/{{group.uid}}" mat-button class="cwb-primary-button">View Group</a>
             </div>
           </mat-card>
+          <div class="gap"></div>
+          <div class="gap"></div>
         </div>
       </div>
+      <div class="gap"></div>
+      <div class="gap"></div>
+      <div class="gap"></div>
     </div>
   </div>
 

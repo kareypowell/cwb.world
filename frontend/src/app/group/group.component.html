@@ -1,3 +1,28 @@
-<div class="body-wrapper">
-  <h3>{{group?.name}}</h3>
+<div class="masthead">
+  <img src="../../assets/images/education.jpg">
+  <div class="layer">
+
+  </div>
+  <div class="content">
+    <h1>{{group?.name}}</h1>
+  </div>
+</div>
+<div class="body-wrapper grey-bg">
+  <div class="body-content">
+    <div class="row">
+      <div class="col-md-8">
+
+      </div>
+      <div class="col-md-4 right-pane">
+        <div class="memberCount">
+          <h3 class="smallhead">{{(group?.members.length ==1)? (group?.members.length)+' Member':(group?.members.length)+' Members'}}</h3>
+        </div>
+        <h3 class="smallhead">Upcoming Events</h3>
+        <h3 class="smallhead">Description</h3>
+        <p>{{group?.description}}</p>
+        <h3 class="smallhead">What to Expect</h3>
+        <p>{{group?.whatToExpect}}</p>
+      </div>
+    </div>
+  </div>
 </div>

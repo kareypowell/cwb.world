@@ -162,6 +162,7 @@ export class FirebaseDataService {
         })
       }));
   }
+  dummyUser: User;
   getSpecificItems(uid:string){
     return this.afs.collection('groups', ref => ref
       .orderBy('community')
@@ -172,7 +173,6 @@ export class FirebaseDataService {
         return actions.map(a => {
           const data = a.payload.doc.data() as Community;
           data.uid = a.payload.doc.id;
-          data.createdBy = 'qFVjrtvQGnWPhkCqrtf2gXNcYMv2'; // for old community testing...new communities will have createdby uids.
           return data;
         })
       }));
