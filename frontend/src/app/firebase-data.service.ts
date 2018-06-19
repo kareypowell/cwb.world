@@ -162,6 +162,20 @@ export class FirebaseDataService {
         })
       }));
   }
+  getSpecificItems(uid:string){
+    return this.afs.collection('groups', ref => ref
+      .orderBy('community')
+      .startAt(uid)
+      .endAt(uid + "\uf8ff")
+      .limit(100))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Group;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
 
   getGroups() {
     //return this.groupsFromDB$;

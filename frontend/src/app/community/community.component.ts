@@ -1,7 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataTransferService } from '../data-transfer.service';
 import { FirebaseDataService } from '../firebase-data.service';
-import { Group } from '../interfaces/member';
+import { Group, Community } from '../interfaces/member';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -11,22 +12,23 @@ import { Group } from '../interfaces/member';
 })
 export class CommunityComponent implements OnInit, OnDestroy {
 
-  constructor(private data:DataTransferService, private fbData:FirebaseDataService) { }
+  constructor(private data:DataTransferService, private fbData:FirebaseDataService, private route:ActivatedRoute) { }
   community: object = this.data.community;
   private sub;
-  groupss: Group[];
+  private sub2;
+  groups: Group[];
+  communityy:Community;
   ngOnInit() {
-    this.sub = this.fbData.groupsFromDB$.subscribe(data => this.groupss = data);
-    console.log(this.groupss);
+    this.sub = this.fbData.communityCollection.doc(this.route.snapshot.params['id']).valueChanges().subscribe(data => this.communityy = data);
+    this.sub2 = this.fbData.getSpecificItems(this.route.snapshot.params['id']).subscribe(data => this.groups = data);
+
   }
   
-  groups = this.data.groups;
 
   showFilterDiv:boolean = false;
-  setGroup(group){
-    this.data.groupPassed = group;
-  }
+  
   ngOnDestroy(): void {
     this.sub.unsubscribe();
+    this.sub2.unsubscribe();
   }
 }

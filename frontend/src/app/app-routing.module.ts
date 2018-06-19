@@ -30,6 +30,7 @@ import { SectorLeadRoleInfoComponent } from './roleInfo/sector-lead-role-info/se
 import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/group-lead-role-info.component';
 import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
 import { CreateGroupComponent } from './crud/create-group/create-group.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -56,13 +57,13 @@ const routes: Routes = [
     ]
   },
   { path: "communities", component: CommunitiesComponent },
-  { path: "community", component: CommunityComponent },
-  { path: "group", component: GroupComponent },
+  { path: "community/:id", component: CommunityComponent },
+  { path: "group/:id", component: GroupComponent },
   { path: "get-involved", component: GetInvoledComponent },
   { path: "calendar", component: CalendarComponent },
   { path: "complete-registration", component: CompleteRegistrationDetailsComponent},
   { path: "create-group", component: CreateGroupComponent},
-  { path: '**', component: HomepageComponent }
+  { path: '**', component: PageNotFoundComponent }
   
 ];
 

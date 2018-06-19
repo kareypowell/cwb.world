@@ -67,6 +67,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { RequestToJoinGroupComponent } from './dialog-components/request-to-join-group/request-to-join-group.component';
 import { EditProfileComponent } from './dialog-components/edit-profile/edit-profile.component';
 import { PreviewProfileComponent } from './dialog-components/preview-profile/preview-profile.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -115,7 +116,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CompareValidatorDirective,
     RequestToJoinGroupComponent,
     EditProfileComponent,
-    PreviewProfileComponent
+    PreviewProfileComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
