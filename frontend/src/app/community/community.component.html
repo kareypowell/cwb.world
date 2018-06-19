@@ -2,46 +2,41 @@
   <div class="row">
     <div class="col-md-4 community-info">
       <div class="col-sm-12">
-        <h1>{{communityy?.name}}</h1>
+        <h1>{{community?.name}}</h1>
         <div class="gap"></div>
         <div class="gap"></div>
-        <h3 class="smallhead">Created On {{communityy?.dateCreated['seconds']*1000|date}}</h3>
+        <h4>Created On {{community?.dateCreated['seconds']*1000|date}}</h4>
         <div class="gap"></div>
-        <h3 class="smallhead">By Dummy Name</h3>
+        <h4>By {{creator?.firstName}} {{creator?.lastname}}</h4>
         <div class="gap"></div>
-        <h3 class="smallhead">Description</h3>
-        <p>{{communityy?.description}}</p>
+        <h4>Description</h4>
+        <p>{{community?.description}}</p>
         <div class="gap"></div>
-        <h3 class="smallhead">Bio</h3>
-        <p>{{communityy?.bio}}</p>
+        <h4>Bio</h4>
+        <p>{{community?.bio}}</p>
         <div class="gap"></div>
-        <h3 class="smallhead">What to Expect</h3>
-        <p>{{communityy?.whatToExpect}}</p>
+        <h4>What to Expect</h4>
+        <p>{{community?.whatToExpect}}</p>
         <div class="gap"></div>
       </div>
     </div>
     <div class="col-md-8">
-      
-
       <div *ngIf="groups?.length === 0; else showInfo">
         <h3>No groups in this community yet.</h3>
         <button mat-button class="cwb-primary-button">Create a new group</button>
       </div>
       <ng-template #showInfo>
-          <div class="row">
-              <div class="col-sm-4">
-                <h3 class="smallerhead" (click)="showFilterDiv = !showFilterDiv" style="cursor: pointer">
-                  <i class="fas fa-filter"></i> Filter Groups</h3>
-              </div>
-              <div class="col-sm-4 text-center">{{groups?.length}} groups</div>
-            </div>
-            <div class="gap"></div>
-            <div class="gap"></div>
-            <div class="filterDiv" *ngIf="showFilterDiv">
-              <input type="text" placeholder="Filter by this">
-            </div>
-            <div class="gap"></div>
-            <div class="gap"></div>
+        <div class="row">
+          <div class="col-sm-4">
+            <h3 class="smallerhead" (click)="showFilterDiv = !showFilterDiv" style="cursor: pointer">
+              <i class="fas fa-filter"></i> Filter Groups</h3>
+          </div>
+          <div class="col-sm-4 text-center">{{groups?.length}} groups</div>
+        </div>
+        <div class="filterDiv" *ngIf="showFilterDiv">
+          <input type="text" placeholder="Filter by this">
+        </div>
+        <div class="gap"></div>
       </ng-template>
       <div class="row">
         <div class="col-md-4" *ngFor="let group of groups">
@@ -57,8 +52,8 @@
               <h5 class="smallerhead">
                 <i class="far fa-calendar-alt"></i> {{group?.dateCreated['seconds']*1000| date}}</h5>
               <div class="gap"></div>
-              <p>{{group?.description}}</p>
-              <a routerLink="../group" mat-button class="cwb-primary-button">View Group</a>
+              <p>{{(group?.description.length>100)? (group?.description | slice:0:100)+'...':(group?.description)}}</p>
+              <a routerLink="../../group/{{group.uid}}" mat-button class="cwb-primary-button">View Group</a>
             </div>
           </mat-card>
         </div>

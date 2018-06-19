@@ -101,6 +101,7 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.dateCreated = new Date();
     this.newGroup.approved = false; // set to true after admin approves
     this.newGroup.prices = [];
+    this.newGroup.imageUri = "education.jpg"; // dummy image for now
     this.customPayments.forEach(element => {
       if (element.allowedTerm) {
         this.newGroup.prices.push(element);

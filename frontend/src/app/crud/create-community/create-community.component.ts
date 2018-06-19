@@ -42,7 +42,7 @@ export class CreateCommunityComponent implements OnInit {
     this.newCommunity.numberMembers = 0;
     this.newCommunity.sectorsInCommunity = []; // hold uids of sectors
     this.newCommunity.groupsInCommunity = []; // hold uids of groups in this community
-    this.newCommunity.createdBy = this.currentUser.firstName + " " + this.currentUser.lastname; // get who created community
+    this.newCommunity.createdBy = this.currentUser.uid; // get who created community
 
     this.fbData.addCommunity(this.newCommunity); // call firebase service to add new community
   }

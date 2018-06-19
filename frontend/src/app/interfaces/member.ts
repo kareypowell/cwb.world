@@ -53,6 +53,7 @@ export interface Group{
     groupLead?:string; // Hold UID of group lead
     members?:GrpMember[];
     name?:string;
+    imageUri?:string; // hold url to display image
     nameToLower?:string; // convert group title to lower case for searching
     description?:string;
     bio?:string;
@@ -121,7 +122,7 @@ export interface Community{
     imageUri?:string;
     assignedTo?:string;
     dateCreated?: Date;
-    createdBy?:string; // hold name of person who created group
+    createdBy?:string; // hold uid of person who created group
     numberMembers?:number; //init to 0 on creation. increment when a group in this community has a new member
     groupsInCommunity?:string[]; // hold UID of groups in this community
     sectorsInCommunity?:string[]; // hold UIDs of sectors in this community

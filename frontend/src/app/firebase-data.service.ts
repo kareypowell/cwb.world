@@ -170,15 +170,12 @@ export class FirebaseDataService {
       .limit(100))
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
-          const data = a.payload.doc.data() as Group;
+          const data = a.payload.doc.data() as Community;
           data.uid = a.payload.doc.id;
+          data.createdBy = 'qFVjrtvQGnWPhkCqrtf2gXNcYMv2'; // for old community testing...new communities will have createdby uids.
           return data;
         })
       }));
-  }
-
-  getGroups() {
-    //return this.groupsFromDB$;
   }
 
   // UPDATE =======================================================================================================================
