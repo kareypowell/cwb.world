@@ -77,3 +77,11 @@
   height: 80px !important;
   border: 2px solid #fff;
 }
+.memberCount{
+  display: grid;
+  grid-template-columns: 50% 50%;
+  margin-bottom: 20px;
+}
+.view-all{
+  color: #2980b9;
+}

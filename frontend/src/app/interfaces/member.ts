@@ -6,7 +6,7 @@ export interface User {
     aboutUser?: string;
     firstName?:string;
     lastname?:string;
-    fullnameLower?:string; // firstname + lastname cast to lowercase for searching
+    fullnameToLower?:string; // firstname + lastname cast to lowercase for searching
     addressLineOne?:string;
     addressLineTwo?:string;
     addressLineThree?:string;

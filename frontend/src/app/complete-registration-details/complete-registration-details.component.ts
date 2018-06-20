@@ -38,6 +38,7 @@ export class CompleteRegistrationDetailsComponent implements OnInit {
     const data: User = {
       firstName: this.firstFormGroup.value.firstName,
       lastname: this.firstFormGroup.value.lastName,
+      fullnameToLower: this.firstFormGroup.value.firstName.toLowerCase() + " " + this.firstFormGroup.value.lastName.toLowerCase(),
       aboutUser: this.firstFormGroup.value.about,
       phoneNumber: this.firstFormGroup.value.phoneNumber,
       dateOfBirth: this.firstFormGroup.value.dob,
