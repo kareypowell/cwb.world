@@ -7,6 +7,7 @@
 
 .masthead img {
   width: 100%;
+  min-height: 100%;
   height: auto;
 }
 
@@ -22,10 +23,7 @@
 }
 .content h1{
     font-size: 58px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+    
 }
 
 .layer {
@@ -44,18 +42,38 @@
   opacity: 0.5;
 }
 .body-content{
-    position: relative;
-    top: -70px;
+    position: absolute;
+    top: -50px;
+    left: 50px;
+    right: 50px;
+    bottom: 5px;
     z-index: 40;
     background-color: #fff;
     border-radius: 3px;
+    min-height: 100%;
+    height: auto;
+    overflow: hidden;
+}
+.tabContent{
+  padding: 20px !important;
 }
 .right-pane{
-    border-left: 1px solid grey;
+    border-left: 2px groove #f2f2f2;;
     padding: 20px;
-    min-height: 100%;
+    min-height: 100vh;
     height: auto;
 }
 .padd-5{
     padding: 5px;
+}
+.bannerContent{
+  position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.groupLogo{
+  width: 80px!important;
+  height: 80px !important;
+  border: 2px solid #fff;
 }

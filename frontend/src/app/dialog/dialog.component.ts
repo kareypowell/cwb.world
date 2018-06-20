@@ -28,6 +28,7 @@ export class DialogComponent implements OnInit, OnDestroy{
   update = {};
   ngOnInit() {
     if(this.data.source == "reqToJoin"){
+      this._subscription= this.auth.user$.subscribe(data => {this.user = data});
       this._sub2=this.fbData.userCollection.doc(this.data.grp.groupLead).valueChanges().subscribe(data => this.grpLead = data);
       this._sub3=this.fbData.sectorCollection.doc(this.data.grp.sector).valueChanges().subscribe(data => this.sector = data);
       this._sub4=this.fbData.communityCollection.doc(this.data.grp.community).valueChanges().subscribe(data => this.community = data);
@@ -72,6 +73,7 @@ export class DialogComponent implements OnInit, OnDestroy{
     }
   
     if(this.data.source == "reqToJoin"){
+      this._subscription.unsubscribe();
       this._sub2.unsubscribe();
       this._sub3.unsubscribe();
       this._sub4.unsubscribe();
