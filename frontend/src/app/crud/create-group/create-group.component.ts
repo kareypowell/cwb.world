@@ -106,7 +106,7 @@ export class CreateGroupComponent implements OnInit {
     if (this.createGroupForm.value.monthly) {
       this.p = {};
       this.p.allowedTerm = true;
-      this.p.termDescription = "monthly";
+      this.p.termDescription = "Monthly";
       this.p.termPrice = this.createGroupForm.value.monthlyFee
 
       this.newGroup.prices.push(this.p);

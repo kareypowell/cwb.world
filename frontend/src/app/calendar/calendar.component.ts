@@ -35,8 +35,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
   viewDate: Date = new Date();
 
   modalData: {
-    action: string;
-    event: CalendarEvent;
+    action?: string;
+    event?: CalendarEvent;
+    eventData?: EventItem;
   };
  
   actions: CalendarEventAction[] = [
@@ -71,10 +72,11 @@ export class CalendarComponent implements OnInit, OnDestroy {
       start: singleEv.start,
       end: singleEv.end,
       color: singleEv.color,
-      draggable: true,
+      draggable: false,
+      moreInfo: singleEv.moreInfo,
       resizable: {
-        beforeStart: true,
-        afterEnd: true
+        beforeStart: false,
+        afterEnd: false
       }
     });
     this.refresh.next();
@@ -84,7 +86,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
       this.eventsFromDB = data;
       this.events = []; // flush calendar
       this.eventsFromDB.forEach(event => {
-        this.singleEvent = {'start': new Date(event.startDate['seconds']*1000), 'end': new Date(event.endDate['seconds']*1000), 'title':event.name, 'color': colors.blue};
+        this.singleEvent = {'start': new Date(event.startDate['seconds']*1000), 'end': new Date(event.endDate['seconds']*1000), 'title':event.name, 'color': colors.blue, 'moreInfo': event};
         this.addEvent(this.singleEvent);
       });
     });
@@ -120,7 +122,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.refresh.next();
   }
 
-  handleEvent(action: string, event: CalendarEvent): void {
+  handleEvent(action?: string, event?: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
   }

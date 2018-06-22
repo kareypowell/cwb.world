@@ -51,7 +51,7 @@
               </p>
               <h2 class="smallhead">Prices</h2>
               <p *ngFor="let price of currentGroup?.prices">
-                {{price?.termDescription}} - {{price?.termPrice|currency:"USD"}}
+                <strong>{{price?.termDescription}}</strong> - {{price?.termPrice|currency:"USD"}}
               </p>
               <h2 class="smallhead">Times</h2>
               <p *ngFor="let day of currentGroup?.meetingTimes">
@@ -65,12 +65,10 @@
         </div>
         <button mat-button class="cwb-primary-button" (click)="openDialog('reqToJoin',currentGroup)">Join Group</button>
         <div class="gap"></div>
-        <button mat-button class="cwb-primary-button cwb-mr-2">
-          <i class="fab fa-facebook-f mr-2"></i>Share</button>
-        <button mat-button class="cwb-primary-button cwb-mr-2">
-          <i class="fab fa-twitter mr-2"></i>Share</button>
-        <button mat-button class="cwb-primary-button cwb-mr-2">
-          <i class="fab fa-google-plus-g mr-2"></i>Share</button>
+          <span class="smallhead mr-2">Share:</span>
+          <i class="fab fa-facebook-f mr-2 shareIcon"></i>
+          <i class="fab fa-twitter mr-2 shareIcon"></i>
+          <i class="fab fa-google-plus-g mr-2 shareIcon"></i>
       </mat-card>
     </div>
   </div>
