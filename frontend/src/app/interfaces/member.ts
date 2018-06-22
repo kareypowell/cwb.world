@@ -71,7 +71,7 @@ export interface Group{
     files?:FileInterface[];
     createdBy?:string; // hold name of user who created it
     partnershipCode?:string;
-    events?: groupEvent[];
+    events?: string[];
 }
 
 export interface meetingDays{
@@ -82,13 +82,6 @@ export interface meetingDays{
     endTime?: Date;
 }
 
-export interface groupEvent{
-    uid?:string;
-    name?:string;
-    nameToLower?:string;
-    startTime?:Date;
-    endTime?:Date;
-}
 export interface groupPrice{
     allowedTerm?:boolean;
     meetingType?:{group_meeting:boolean,one_on_one:boolean};
@@ -152,7 +145,7 @@ export interface Sector{
     sectorRequests?:string[]; // hold UIDs of new sector creation requests unless created by an Admin
 }
 
-export interface Event{
+export interface EventItem{
     uid?:string;
     group?:string; // get group UID
     name?:string;

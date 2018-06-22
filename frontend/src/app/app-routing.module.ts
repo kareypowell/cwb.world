@@ -31,6 +31,7 @@ import { GroupLeadRoleInfoComponent } from './roleInfo/group-lead-role-info/grou
 import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
 import { CreateGroupComponent } from './crud/create-group/create-group.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { CreateEventComponent } from './crud/create-event/create-event.component';
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -60,9 +61,8 @@ const routes: Routes = [
   { path: "community/:id", component: CommunityComponent },
   { path: "group/:id", component: GroupComponent },
   { path: "get-involved", component: GetInvoledComponent },
-  { path: "calendar", component: CalendarComponent },
+  { path: "create-event", component: CreateEventComponent },
   { path: "complete-registration", component: CompleteRegistrationDetailsComponent},
-  { path: "create-group", component: CreateGroupComponent},
   { path: '**', component: PageNotFoundComponent }
   
 ];

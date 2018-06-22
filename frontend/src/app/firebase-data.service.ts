@@ -6,7 +6,7 @@ import { Observable, of, BehaviorSubject, zip, Subject } from 'rxjs';
 import { switchMap, merge, map, filter } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group, GrpMember } from './interfaces/member';
+import { User, Community, Sector, Group, GrpMember, EventItem } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
@@ -34,6 +34,10 @@ export class FirebaseDataService {
   groupCollection: AngularFirestoreCollection<Group>;
   groupsFromDB$: Observable<Group[]>;
 
+  // Events
+  eventCollection: AngularFirestoreCollection<EventItem>;
+  eventsFromDB$: Observable<EventItem[]>;
+
 
 
   constructor(public afs: AngularFirestore, private router: Router) {
@@ -41,6 +45,7 @@ export class FirebaseDataService {
     this.communityCollection = this.afs.collection('communities');
     this.sectorCollection = this.afs.collection('sectors');
     this.userCollection = this.afs.collection('users');
+    this.eventCollection = this.afs.collection('events');
 
     // get community collection
     this.communitiesFromDB$ = this.communityCollection.snapshotChanges().pipe(map(actions => {
@@ -77,6 +82,15 @@ export class FirebaseDataService {
         return data;
       })
     }));
+
+    // get events
+    this.eventsFromDB$ = this.eventCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as EventItem;
+        data.uid = a.payload.doc.id;
+        return data;
+      })
+    }))
   }
 
   // CREATE ======================================================================================================================
@@ -142,6 +156,23 @@ export class FirebaseDataService {
       })
       .catch(error => console.log(error));
   }
+  addEvent(event:EventItem,group:Group){
+    // add event to events collections
+    this.eventCollection.add(event)
+    .then( // then get event id and add to events list of group
+      (ref) => {
+        if(group.events){
+          group.events.push(ref.id);
+          const data = {events: group.events};
+          this.updateGroup(group,data);
+        }else{
+          const data = {events: [ref.id]};
+          this.updateGroup(group,data);
+        }
+      }
+    )
+    .catch( error => console.log(error)); // if there is an error
+  }
 
   addUser(user: User) {
     this.userCollection.add(user).catch(error => console.log(error));
@@ -199,15 +230,13 @@ export class FirebaseDataService {
 
   // Assign Roles
   makeAdmin(user: User) {
-    const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
-    const data: User = {
-      roles: {
-        admin: true
-      }
-    }
+    const data: User = {roles: {admin: true}};
+    this.updateUser(user,data);
   }
 
   joinGroup(group: Group, user: GrpMember) {
+    const grpUID = group.uid;
+    const members = this.groupCollection.doc(grpUID).update({})
     if (group.members.find(function (obj) { return obj.uid === user.uid; })) { // check if user already joined group
       console.log("User Exists");
     } else {
@@ -221,6 +250,10 @@ export class FirebaseDataService {
         console.log("Group Full")!
       }
     }
+  }
+
+  leaveGroup(){
+
   }
 
 
