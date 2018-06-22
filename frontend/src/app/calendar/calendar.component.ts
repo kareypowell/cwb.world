@@ -18,6 +18,10 @@ const colors: any = {
   yellow: {
     primary: '#e3bc08',
     secondary: '#FDF1BA'
+  },
+  green: {
+    primary: '#2def54',
+    secondary: '#baffc8'
   }
 };
 
@@ -81,12 +85,20 @@ export class CalendarComponent implements OnInit, OnDestroy {
     });
     this.refresh.next();
   }
+  colorChosen:any;
   ngOnInit(): void {
     this.subEvents = this.fbData.eventCollection.valueChanges().subscribe(data => {
       this.eventsFromDB = data;
       this.events = []; // flush calendar
       this.eventsFromDB.forEach(event => {
-        this.singleEvent = {'start': new Date(event.startDate['seconds']*1000), 'end': new Date(event.endDate['seconds']*1000), 'title':event.name, 'color': colors.blue, 'moreInfo': event};
+        if(new Date(event.endDate['seconds']*1000) < new Date()){
+          this.colorChosen = colors.red; // event has passed;
+        }else if(new Date(event.endDate['seconds']*1000) > new Date() && new Date(event.startDate['seconds']*1000) < new Date()) {
+          this.colorChosen = colors.yellow; // event is in progress
+        }else if (new Date(event.startDate['seconds']*1000) > new Date()){
+          this.colorChosen = colors.green; // event is in the future
+        }
+        this.singleEvent = {'start': new Date(event.startDate['seconds']*1000), 'end': new Date(event.endDate['seconds']*1000), 'title':event.name, 'color': this.colorChosen, 'moreInfo': event};
         this.addEvent(this.singleEvent);
       });
     });
