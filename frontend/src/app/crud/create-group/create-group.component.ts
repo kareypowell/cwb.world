@@ -75,10 +75,6 @@ export class CreateGroupComponent implements OnInit {
 
   newGroup: Group = {};
   newMember: GrpMember = {};
-  testDates(){
-    console.log(this.meetings);
-    console.log(this.meetings[0].endTime.getHours());
-  }
 
   createGroup() {
     this.newGroup.name = this.createGroupForm.value.grpName;

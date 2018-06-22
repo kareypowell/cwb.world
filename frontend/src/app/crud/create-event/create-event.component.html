@@ -1,3 +1,123 @@
-<p>
-  create-event works!
-</p>
+<div class="body-wrapper">
+  <h1 class="bighead">Create a new group</h1>
+  <form [formGroup]="createEventForm" (submit)="createEvent()" autocomplete="off">
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Event Name</mat-label>
+          <input matInput formControlName="name" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Event Capcity</mat-label>
+          <input type="number" matInput formControlName="capacity" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Affiliated Group</mat-label>
+          <input type="text" placeholder="Group" aria-label="Group" matInput [matAutocomplete]="auto1" formControlName="group"
+            (keyup)="searchGroup()" required>
+          <mat-autocomplete #auto1="matAutocomplete">
+            <mat-option *ngFor="let option of groupSearch" [value]="option.name" (click)="getGroup(option)">
+              {{ option.name }}
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </div>
+    </div>
+    <br>
+    <div class="row">
+      <div class="col-md-4">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Start</mat-label>
+              <input matInput [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" required autocomplete="off" formControlName="start">
+              <owl-date-time  #dt1></owl-date-time>
+            </mat-form-field>
+      </div>
+      <div class="col-md-4">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>End</mat-label>
+              <input matInput [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required autocomplete="off" formControlName="end">
+              <owl-date-time  #dt2></owl-date-time>
+            </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <br>
+          <mat-checkbox formControlName="startWithoutHost">Start Without Host</mat-checkbox>
+          </div>
+    </div>
+    <mat-form-field class="half-width mr-3" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="5" formControlName="description"></textarea>
+      </mat-form-field>
+    <mat-form-field class="half-width" appearance="outline">
+      <mat-label>What to Expect</mat-label>
+      <textarea matInput rows="5" formControlName="whatToExpect"></textarea>
+    </mat-form-field>
+    
+    <br>
+    <h3 class="smallhead">Event Location</h3>
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-checkbox formControlName="locationOnline">Online</mat-checkbox>
+      </div>
+      <div class="col-md-6">
+          <mat-checkbox formControlName="locationPhysical">Physical Location</mat-checkbox>
+          <div *ngIf="createEventForm.value.locationPhysical">
+              <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Address</mat-label>
+                  <textarea matInput rows="4" formControlName="locationPhysicalAddress"></textarea>
+                </mat-form-field>
+          </div>
+        </div>
+    </div>
+    <h3 class="smallhead">Event Media</h3>
+      <br>
+    <div class="row">
+      <div class="col-md-6">
+          <mat-checkbox formControlName="image">Event Image</mat-checkbox>
+          <div *ngIf="createEventForm.value.image">
+              <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Image URL</mat-label>
+                  <input matInput formControlName="imageURL">
+                </mat-form-field>
+          </div>
+      </div>
+      <div class="col-md-6">
+          <mat-checkbox formControlName="video">Event Video</mat-checkbox>
+          <div *ngIf="createEventForm.value.video">
+              <mat-form-field class="full-width" appearance="outline">
+                  <mat-label>Video URL</mat-label>
+                  <input matInput formControlName="videoURL">
+                </mat-form-field>
+          </div>
+      </div>
+    </div>
+    <br>
+    <h3 class="smallhead">Event Pricing</h3>
+    <p>If you wish to accept payment for this event, please check the box below to enter details about event fees. Payment will be processed to group account.</p>
+    <mat-checkbox formControlName="paidEvent">Paid Event</mat-checkbox>
+
+    <div class="row" *ngIf="createEventForm.value.paidEvent">
+      <div class="col-md-6">
+          <mat-form-field class="mr-3" appearance="outline">
+              <mat-label>Event Fee</mat-label>
+              <input type="number" matInput formControlName="fee">
+            </mat-form-field>
+            <mat-checkbox formControlName="refundable">Refundable fee</mat-checkbox>
+      
+      <mat-form-field class="full-width" appearance="outline" *ngIf="createEventForm.value.refundable">
+          <mat-label>Refund Policy</mat-label>
+          <textarea matInput rows="5" formControlName="refundPolicy"></textarea>
+        </mat-form-field>
+      </div>
+      
+    </div>
+    <div class="gap"></div>
+    <br>
+    <button mat-raised-button type="submit" class="cwb-primary-button" [disabled]="!createEventForm.valid">Create Event</button>
+  </form>
+</div>

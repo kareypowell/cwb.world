@@ -62,6 +62,7 @@ const routes: Routes = [
   { path: "group/:id", component: GroupComponent },
   { path: "get-involved", component: GetInvoledComponent },
   { path: "create-event", component: CreateEventComponent },
+  { path: "create-group", component: CreateGroupComponent},
   { path: "complete-registration", component: CompleteRegistrationDetailsComponent},
   { path: '**', component: PageNotFoundComponent }
   

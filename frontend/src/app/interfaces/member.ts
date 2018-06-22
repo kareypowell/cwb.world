@@ -148,16 +148,30 @@ export interface Sector{
 export interface EventItem{
     uid?:string;
     group?:string; // get group UID
+    eventImageUri?:string; // hold url to event image
     name?:string;
+    videoDisplay?:boolean;
+    videoUrl?:string; // if video available, give url
+    eventImage?:boolean;
+    eventImageUrl?:string; // image to url
     nameToLower?:string; // convert name to lower case for index searching
     description?:string;
-    groupLead?:string[]; // group leads from group
+    whatToExpect?:string;
+    groupLead?:string; // group leads from group
     additionalInfo?:string;
-    startDate?:Date;
-    startTime?:Date;
-    endDate?:Date;
-    endTime?:Date;
-    recurrence?: string;
+    startDate?:Date; // date and time of event start
+    timeZone?:string; //time zone
+    endDate?:Date;// end time
+    eventOnline?:boolean;
+    eventPhysical?:boolean;
+    eventVenue?:string; // if not physical, give venue
+    isRecurrent?:boolean; // if one time or recurrent
+    recurrence?: string; // if recurrent, set recurrence
+    eventCapacity?:number; // if open to all users
     startWithoutHost?:boolean;
+    paidEvent?:boolean;
+    eventFee?:boolean;
+    refundable?:boolean;
+    refundPolicy?:string;
     files?:FileInterface[];
 }
