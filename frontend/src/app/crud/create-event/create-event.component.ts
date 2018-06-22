@@ -44,8 +44,10 @@ export class CreateEventComponent implements OnInit, OnDestroy{
     this.subGroup = this.fbData.searchCollection(String(this.createEventForm.value.group), "groups", "nameToLower", 5).subscribe(data => this.groupSearch = data);
   }
   selectedGroup:string;
+  grp:Group;
   groupLead: string;
   getGroup(option){
+    this.grp = option;
     this.selectedGroup = option.uid;
     this.groupLead = option.groupLead;
   }
@@ -73,7 +75,7 @@ export class CreateEventComponent implements OnInit, OnDestroy{
     if(this.newEvent.eventPhysical){
       this.newEvent.eventVenue = this.createEventForm.value.locationPhysicalAddress;
     }
-    console.log(this.newEvent);
+    this.fbData.addEvent(this.newEvent, this.grp);
   }
 
 

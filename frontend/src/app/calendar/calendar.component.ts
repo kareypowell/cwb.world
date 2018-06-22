@@ -1,8 +1,10 @@
-import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef} from '@angular/core';
+import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef, OnInit, OnDestroy} from '@angular/core';
 import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
+import { FirebaseDataService } from '../firebase-data.service';
+import { EventItem } from '../interfaces/member';
 
 const colors: any = {
   red: {
@@ -25,7 +27,7 @@ const colors: any = {
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.css']
 })
-export class CalendarComponent {
+export class CalendarComponent implements OnInit, OnDestroy {
   @ViewChild('modalContent') modalContent: TemplateRef<any>;
 
   view: string = 'month';
@@ -55,43 +57,43 @@ export class CalendarComponent {
 
   refresh: Subject<any> = new Subject();
 
-  events: CalendarEvent[] = [
-    {
-      start: subDays(startOfDay(new Date()), 1),
-      end: addDays(new Date(), 1),
-      title: 'A 3 day event',
-      color: colors.red,
-      actions: this.actions
-    },
-    {
-      start: startOfDay(new Date()),
-      title: 'An event with no end date',
-      color: colors.yellow,
-      actions: this.actions
-    },
-    {
-      start: subDays(endOfMonth(new Date()), 3),
-      end: addDays(endOfMonth(new Date()), 3),
-      title: 'A long event that spans 2 months',
-      color: colors.blue
-    },
-    {
-      start: addHours(startOfDay(new Date()), 2),
-      end: new Date(),
-      title: 'A draggable and resizable event',
-      color: colors.yellow,
-      actions: this.actions,
+  events: CalendarEvent[] = [];
+  singleEvent: CalendarEvent;
+  activeDayIsOpen: boolean = true;
+
+  constructor(private modal: NgbModal, private fbData: FirebaseDataService) { }
+  private subEvents;
+  eventsFromDB: EventItem[];
+
+  addEvent(singleEv): void {
+    this.events.push({
+      title: singleEv.title,
+      start: singleEv.start,
+      end: singleEv.end,
+      color: singleEv.color,
+      draggable: true,
       resizable: {
         beforeStart: true,
         afterEnd: true
-      },
-      draggable: true
-    }
-  ];
+      }
+    });
+    this.refresh.next();
+  }
+  ngOnInit(): void {
+    this.subEvents = this.fbData.eventCollection.valueChanges().subscribe(data => {
+      this.eventsFromDB = data;
+      this.events = []; // flush calendar
+      this.eventsFromDB.forEach(event => {
+        this.singleEvent = {'start': new Date(event.startDate['seconds']*1000), 'end': new Date(event.endDate['seconds']*1000), 'title':event.name, 'color': colors.blue};
+        this.addEvent(this.singleEvent);
+      });
+    });
+    
+  }
 
-  activeDayIsOpen: boolean = true;
-
-  constructor(private modal: NgbModal) { }
+  ngOnDestroy(): void {
+    this.subEvents.unsubscribe();
+  }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -123,18 +125,5 @@ export class CalendarComponent {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  addEvent(): void {
-    this.events.push({
-      title: 'New event',
-      start: startOfDay(new Date()),
-      end: endOfDay(new Date()),
-      color: colors.red,
-      draggable: true,
-      resizable: {
-        beforeStart: true,
-        afterEnd: true
-      }
-    });
-    this.refresh.next();
-  }
+  
 }
