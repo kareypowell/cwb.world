@@ -6,3 +6,12 @@ h3 {
     background-color: #f5f5f5;
     padding: 15px;
   }
+  .linkToBBB img{
+    width: 50px;
+    height: auto;
+  }
+  .linkToBBB{
+    outline: none;
+    border: 0px;
+    cursor: pointer;
+  }

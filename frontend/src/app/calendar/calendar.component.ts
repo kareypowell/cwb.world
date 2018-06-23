@@ -4,7 +4,8 @@ import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
 import { FirebaseDataService } from '../firebase-data.service';
-import { EventItem } from '../interfaces/member';
+import { EventItem, User } from '../interfaces/member';
+import { AuthService } from '../auth-service';
 
 const colors: any = {
   red: {
@@ -66,7 +67,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   singleEvent: CalendarEvent;
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private fbData: FirebaseDataService) { }
+  constructor(private modal: NgbModal, private fbData: FirebaseDataService, private _auth:AuthService) { }
   private subEvents;
   eventsFromDB: EventItem[];
 
@@ -86,27 +87,42 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.refresh.next();
   }
   colorChosen:any;
+  user: User;
+  private userSub;
   ngOnInit(): void {
-    this.subEvents = this.fbData.eventCollection.valueChanges().subscribe(data => {
-      this.eventsFromDB = data;
-      this.events = []; // flush calendar
-      this.eventsFromDB.forEach(event => {
-        if(new Date(event.endDate['seconds']*1000) < new Date()){
-          this.colorChosen = colors.red; // event has passed;
-        }else if(new Date(event.endDate['seconds']*1000) > new Date() && new Date(event.startDate['seconds']*1000) < new Date()) {
-          this.colorChosen = colors.yellow; // event is in progress
-        }else if (new Date(event.startDate['seconds']*1000) > new Date()){
-          this.colorChosen = colors.green; // event is in the future
-        }
-        this.singleEvent = {'start': new Date(event.startDate['seconds']*1000), 'end': new Date(event.endDate['seconds']*1000), 'title':event.name, 'color': this.colorChosen, 'moreInfo': event};
-        this.addEvent(this.singleEvent);
+    this.userSub = this._auth.user$.subscribe(data => {
+      this.user = data;
+      // after getting user's groups, sub to all events
+      this.subEvents = this.fbData.eventCollection.valueChanges().subscribe(data => {
+        this.eventsFromDB = data;
+        this.events = []; // flush calendar
+        this.eventsFromDB.forEach(event => {
+          if(this.user.groupsJoined.indexOf(event.group) > -1 || this.user.groupsLead.indexOf(event.group) > -1){ // check if event's group is part of user's groups joined
+            // set appropriate color code for event based on event time
+            if(new Date(event.endDate['seconds']*1000) < new Date()){
+              this.colorChosen = colors.red; // event has passed;
+            }else if(new Date(event.endDate['seconds']*1000) > new Date() && new Date(event.startDate['seconds']*1000) < new Date()) {
+              this.colorChosen = colors.yellow; // event is in progress
+            }else if (new Date(event.startDate['seconds']*1000) > new Date()){
+              this.colorChosen = colors.green; // event is in the future
+            }
+            this.singleEvent = {
+              'start': new Date(event.startDate['seconds']*1000),
+              'end': new Date(event.endDate['seconds']*1000),
+              'title':event.name,
+              'color': this.colorChosen,
+              'moreInfo': event
+            };
+            this.addEvent(this.singleEvent);
+          }
+        });
       });
-    });
-    
+    });   
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy(): void { // unsubscribe from all subscriptions
     this.subEvents.unsubscribe();
+    this.userSub.unsubscribe();
   }
 
   dayClicked({ date, events }: { date: Date; events: CalendarEvent[] }): void {

@@ -6,7 +6,7 @@ import { Observable, of, BehaviorSubject, zip, Subject } from 'rxjs';
 import { switchMap, merge, map, filter } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group, GrpMember, EventItem } from './interfaces/member';
+import { User, Community, Sector, Group, GroupMember, EventItem } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
@@ -38,6 +38,10 @@ export class FirebaseDataService {
   eventCollection: AngularFirestoreCollection<EventItem>;
   eventsFromDB$: Observable<EventItem[]>;
 
+  // Group Members
+  groupMemberCollection: AngularFirestoreCollection<GroupMember>;
+  groupMembersFromDB$: Observable<GroupMember[]>;
+
 
 
   constructor(public afs: AngularFirestore, private router: Router) {
@@ -46,6 +50,7 @@ export class FirebaseDataService {
     this.sectorCollection = this.afs.collection('sectors');
     this.userCollection = this.afs.collection('users');
     this.eventCollection = this.afs.collection('events');
+    this.groupMemberCollection = this.afs.collection('group-members');
 
     // get community collection
     this.communitiesFromDB$ = this.communityCollection.snapshotChanges().pipe(map(actions => {
@@ -90,7 +95,15 @@ export class FirebaseDataService {
         data.uid = a.payload.doc.id;
         return data;
       })
-    }))
+    }));
+    // get groupMembers
+    this.groupMembersFromDB$ = this.groupMemberCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as GroupMember;
+        data.uid = a.payload.doc.id;
+        return data;
+      })
+    }));
   }
 
   // CREATE ======================================================================================================================
@@ -234,17 +247,19 @@ export class FirebaseDataService {
     this.updateUser(user,data);
   }
 
-  joinGroup(group: Group, user: GrpMember) {
+  joinGroup(group: Group, user: GroupMember) {
     const grpUID = group.uid;
     const members = this.groupCollection.doc(grpUID).update({})
-    if (group.members.find(function (obj) { return obj.uid === user.uid; })) { // check if user already joined group
+    if (group.members.indexOf(user.uid) > -1) { // check if user already joined group
       console.log("User Exists");
     } else {
       console.log("User not in members list!");
       if (group.members.length < group.capacity) { // check if group has space for new members
-        group.members.push(user);
+        group.members.push(user.uid);
         this.groupCollection.doc(group.uid).set({ members: group.members }, {merge:true});
+
         // push group UID to groups joined by user
+        //const userGroups = this.us
         //this.userCollection.doc(user.uid).set({groupsJoined:})
       } else {
         console.log("Group Full")!

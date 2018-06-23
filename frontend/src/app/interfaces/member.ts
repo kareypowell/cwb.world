@@ -18,30 +18,21 @@ export interface User {
     phoneNumber?:number;
     defaultDashView?:string; // to be set to where page redirects on Login/click dashboard link
     groupsJoined?:string[]; // save uid of groups joined
+    independentEvents?:string[]; // events joined without actually joining affiliated groups
     roles?: Roles;
     linkedAccounts?:LinkedAccounts; // keep track of which accounts are linked to user.  
     groupsLead?:string[]; // Hold UIDs of groups the user leads
     sectorsLead?:string[]; // Hold UIDs of sectors the user leads
     profilePublic?:boolean;
-    files?:FileInterface[];
-    myEvents?:MyEvents[];
+    files?:string[];
 }
 
-export interface MyEvents{
-    uid?:string;
-    group?:string; // hold uid of group event is tied to
-    startDate?: Date;
-    startTime?:Date;
-    endDate?:Date;
-    endTime?:Date;
-    recurrence?: string;
-    attended?:boolean;
-}
 
 export interface Roles{
     member?:boolean;
     admin?:boolean;
     groupLead?: boolean;
+    guestHost?:boolean;
     sectorLead?: boolean;
     hostPartner?: boolean;
 }
@@ -51,7 +42,7 @@ export interface Group{
     approved?:boolean;
     dateCreated?: Date;
     groupLead?:string; // Hold UID of group lead
-    members?:GrpMember[];
+    members?:string[];
     name?:string;
     imageUri?:string; // hold url to display image
     nameToLower?:string; // convert group title to lower case for searching
@@ -68,7 +59,7 @@ export interface Group{
     bankInfo?:string;
     routingNumber?:number;
     accountNumber?:number;
-    files?:FileInterface[];
+    files?:string[];
     createdBy?:string; // hold name of user who created it
     partnershipCode?:string;
     events?: string[];
@@ -89,13 +80,14 @@ export interface groupPrice{
     termPrice?:number;
 }
 
-export interface GrpMember{
-    uid?:string;
+export interface GroupMember{
+    uid?:string; // member uid
+    groupUID?:string; // group uid
     approved?:boolean;
     dateJoined?:Date;
     paymentTerms?:string; // may need another interface here!
     paid?:boolean;
-    files?:FileInterface[];
+    files?:string[];
     attendance?:{event_uid:string,attended:boolean}[];
 }
 export interface LinkedAccounts{
@@ -119,9 +111,9 @@ export interface Community{
     numberMembers?:number; //init to 0 on creation. increment when a group in this community has a new member
     groupsInCommunity?:string[]; // hold UID of groups in this community
     sectorsInCommunity?:string[]; // hold UIDs of sectors in this community
-    files?:FileInterface[];
+    files?:string[];
 }
-export interface FileInterface{
+export interface Files{
     name?:string; // name of file or link
     type?:string; // file or link
     link?:{file?:boolean,link?:boolean}; // link to file or actual link of link, lool! Set only one to true with radio buttons
@@ -137,7 +129,7 @@ export interface Sector{
     community?:string; // community name
     sectorLead?: string; // hold uid of sector lead(s)
     imageUrl?:string;
-    files?:FileInterface[];
+    files?:string[];
     dateCreated?: Date;
     createdBy?:string; // hold name of creator
     groupsInSector?:string[]; // hold UIDs of all groups in this sector
@@ -173,5 +165,5 @@ export interface EventItem{
     eventFee?:boolean;
     refundable?:boolean;
     refundPolicy?:string;
-    files?:FileInterface[];
+    files?:string[];
 }

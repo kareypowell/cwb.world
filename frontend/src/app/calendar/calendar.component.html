@@ -1,24 +1,36 @@
 <ng-template #modalContent let-close="close()">
   <div class="modal-header">
-    <h5 class="modal-title"><strong>{{modalData?.event.moreInfo?.name}}</strong></h5>
+    <h5 class="modal-title">
+      <strong>{{modalData?.event.moreInfo?.name}}</strong>
+    </h5>
     <button type="button" class="close" (click)="close">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div>
-        <h3 class="smallhead">Description</h3>
-        {{modalData?.event.moreInfo?.description}}
-        <br>
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <h3 class="smallhead">Starting Time:</h3>
-        {{modalData?.event.moreInfo?.startDate['seconds']*1000 | date}} at {{modalData?.event.moreInfo?.startDate['seconds']*1000 | date : 'shortTime'}}
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <h3 class="smallhead">Ending Time:</h3>
-        {{modalData?.event.moreInfo?.endDate['seconds']*1000 | date}} at {{modalData?.event.moreInfo?.startDate['seconds']*1000 | date : 'shortTime'}}
-        
+      <h3 class="smallhead">Description</h3>
+      {{modalData?.event.moreInfo?.description}}
+      <br>
+      <div class="gap"></div>
+      <div class="gap"></div>
+      <h3 class="smallhead">Starting Time:</h3>
+      {{modalData?.event.moreInfo?.startDate['seconds']*1000 | date}} at {{modalData?.event.moreInfo?.startDate['seconds']*1000
+      | date : 'shortTime'}}
+      <div class="gap"></div>
+      <div class="gap"></div>
+      <h3 class="smallhead">Ending Time:</h3>
+      {{modalData?.event.moreInfo?.endDate['seconds']*1000 | date}} at {{modalData?.event.moreInfo?.startDate['seconds']*1000 |
+      date : 'shortTime'}}
+      <div class="gap"></div>
+      <div class="gap"></div>
+      <div class="gap"></div>
+      <a href="https://bigbluebutton.org/" target="blank">
+        <button matButton class="linkToBBB cwb-primary-button">
+          <img src="./../../assets/images/BigBlueButton.png" class="align-middle mr-3 ml-3" alt="BBB">
+          <span class="smallhead align-middle mr-3">Join Live Event</span>
+        </button>
+      </a>
     </div>
   </div>
   <div class="modal-footer">
