@@ -97,7 +97,8 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.eventsFromDB = data;
         this.events = []; // flush calendar
         this.eventsFromDB.forEach(event => {
-          if(this.user.groupsJoined.indexOf(event.group) > -1 || this.user.groupsLead.indexOf(event.group) > -1){ // check if event's group is part of user's groups joined
+          if(this.user.groupsJoined){
+            if(this.user.groupsJoined.indexOf(event.group) > -1){ // check if event's group is part of user's groups joined
             // set appropriate color code for event based on event time
             if(new Date(event.endDate['seconds']*1000) < new Date()){
               this.colorChosen = colors.red; // event has passed;
@@ -114,6 +115,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
               'moreInfo': event
             };
             this.addEvent(this.singleEvent);
+          }
           }
         });
       });
