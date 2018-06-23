@@ -42,7 +42,7 @@ export interface Group{
     approved?:boolean;
     dateCreated?: Date;
     groupLead?:string; // Hold UID of group lead
-    members?:string[];
+    members?:{userUID?:string,memberUID?:string}[];
     name?:string;
     imageUri?:string; // hold url to display image
     nameToLower?:string; // convert group title to lower case for searching
@@ -88,6 +88,9 @@ export interface GroupMember{
     paymentTerms?:string; // may need another interface here!
     paid?:boolean;
     files?:string[];
+    firstName?:string;
+    lastName?:string;
+    photoURL?:string;
     attendance?:{event_uid:string,attended:boolean}[];
 }
 export interface LinkedAccounts{

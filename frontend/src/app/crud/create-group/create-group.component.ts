@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseDataService } from '../../firebase-data.service';
-import { Group, GrpMember, Community, Sector, User, groupPrice, meetingDays } from '../../interfaces/member';
+import { Group, Community, Sector, User, groupPrice, meetingDays } from '../../interfaces/member';
 import { AuthService } from '../../auth-service';
 
 
@@ -74,7 +74,6 @@ export class CreateGroupComponent implements OnInit {
   }
 
   newGroup: Group = {};
-  newMember: GrpMember = {};
 
   createGroup() {
     this.newGroup.name = this.createGroupForm.value.grpName;

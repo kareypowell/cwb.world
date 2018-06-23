@@ -85,3 +85,16 @@
 .view-all{
   color: #2980b9;
 }
+.memberThumbImg{
+  width: 30px;
+  height: auto;
+}
+.thumbnails{
+  list-style: none;
+  padding: 0px !important;
+}
+
+.thumbnails li{
+  padding: 5px;
+  display: inline;
+}

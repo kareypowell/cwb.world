@@ -45,19 +45,30 @@
               <i class="fas fa-users mr-2"></i>
               <strong>{{(group?.members.length ==1)? (group?.members.length)+' MEMBER':(group?.members.length)+' MEMBERS'}}</strong>
             </h3>
+            
           </div>
           <div class="text-right pr-2 view-all">
-            <h3 class="smallerhead"><strong>VIEW ALL</strong></h3>
+            <h3 class="smallerhead">
+              <strong>VIEW ALL</strong>
+            </h3>
           </div>
-          <div class="gap"></div>
-          <div class="gap"></div>
+
         </div>
+        <div class="memberThumbnails">
+          <ul class="thumbnails">
+            <li *ngFor="let user of groupMembers">
+              <img src="{{user?.photoURL}}" alt="" class="rounded-circle memberThumbImg" matTooltip="{{user?.firstName}} {{user?.lastName}}">
+            </li>
+          </ul>
+        </div>
+        <div class="gap"></div>
+        <div class="gap"></div>
         <h3 class="smallerhead">
           <i class="far fa-calendar-alt mr-2"></i>
           <strong>UPCOMING EVENTS</strong>
         </h3>
         <hr>
-        <p *ngIf="!group.events || group.events?.length == 0; else showEvents">No Events Yet</p>
+        <p *ngIf="!group?.events || group?.events?.length == 0; else showEvents">No Events Yet</p>
         <ng-template #showEvents>
           <ul>
             <li *ngFor="let event of group.events">

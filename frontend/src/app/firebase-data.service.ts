@@ -211,11 +211,22 @@ export class FirebaseDataService {
     return this.afs.collection('groups', ref => ref
       .orderBy('community')
       .startAt(uid)
-      .endAt(uid + "\uf8ff")
-      .limit(100))
+      .endAt(uid + "\uf8ff"))
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Community;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  
+  getGroupMembers(groupUID:string){
+    return this.afs.collection('group-members', ref => ref
+      .where('groupUID', '==', groupUID))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as GroupMember;
           data.uid = a.payload.doc.id;
           return data;
         })
@@ -247,20 +258,28 @@ export class FirebaseDataService {
     this.updateUser(user,data);
   }
 
-  joinGroup(group: Group, user: GroupMember) {
-    const grpUID = group.uid;
-    const members = this.groupCollection.doc(grpUID).update({})
-    if (group.members.indexOf(user.uid) > -1) { // check if user already joined group
+  joinGroup(group: Group, user: GroupMember, userData: User) {
+    if (group.members.find(function (obj) { return obj.userUID === userData.uid; })) { // check if user already joined group
       console.log("User Exists");
     } else {
-      console.log("User not in members list!");
+      console.log("User can be added!");
       if (group.members.length < group.capacity) { // check if group has space for new members
-        group.members.push(user.uid);
-        this.groupCollection.doc(group.uid).set({ members: group.members }, {merge:true});
-
         // push group UID to groups joined by user
-        //const userGroups = this.us
-        //this.userCollection.doc(user.uid).set({groupsJoined:})
+        if(userData.groupsJoined){
+          userData.groupsJoined.push(group.uid); // push new group in user groups
+          this.updateUser(userData, {groupsJoined: userData.groupsJoined}); // use this new list to update user info
+        }else{
+          this.updateUser(userData, {groupsJoined: [group.uid]});
+        }
+        // push group member to group member collection
+        this.groupMemberCollection.add(user).then(ref =>{
+          // then push this new uid of member to group members array and update it
+          group.members.push({userUID:userData.uid,memberUID: ref.id});
+          this.groupCollection.doc(group.uid).set({ members: group.members }, {merge:true});
+          // set firebase backend rule to allow this write only when members are less than group capacity
+        }).catch(error => {
+          console.log(error);
+        })
       } else {
         console.log("Group Full")!
       }
