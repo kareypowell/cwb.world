@@ -35,7 +35,7 @@
         <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
           <div class="gap"></div>
           <mat-list *ngFor="let grp of groups | search:searchVal:'name' | search:sectorVal:'sector' | search: commVal:'community'">
-            <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp?.name}} </mat-list-item>
+            <mat-list-item class="groupItemHover" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)"> {{grp?.name}} </mat-list-item>
             <mat-divider></mat-divider>
           </mat-list>
         </mat-card>
@@ -63,7 +63,8 @@
             </mat-tab>
           </mat-tab-group>
         </div>
-        <button mat-button class="cwb-primary-button" (click)="openDialog('reqToJoin',currentGroup)">Join Group</button>
+        <button mat-button class="cwb-primary-button mr-3" (click)="openDialog('reqToJoin',currentGroup)">Join Group</button>
+        <a routerLink="./../../group/{{currentGroup?.uid}}" class="ml-3"><button mat-raised-button>Visit Group Page</button></a>
         <div class="gap"></div>
           <span class="smallhead mr-2">Share:</span>
           <i class="fab fa-facebook-f mr-2 shareIcon"></i>

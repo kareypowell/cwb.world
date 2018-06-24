@@ -17,7 +17,9 @@ export class GroupComponent implements OnInit, OnDestroy {
     {path:'events',label:'Events'},
     {path:'posts',label:'Posts'},
     {path:'files',label:'Files'},
+    {path:'all-members',label:'Members'}
   ];
+  activeLink = this.navLinks[0];
 
   id:string;
   group:Group;
