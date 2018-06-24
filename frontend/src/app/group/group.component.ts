@@ -11,6 +11,14 @@ import { Group, GroupMember, EventItem } from '../interfaces/member';
 export class GroupComponent implements OnInit, OnDestroy {
 
   constructor(private fbData: FirebaseDataService, private route: ActivatedRoute) { }
+
+  navLinks = [
+    {path:'./',label:'Home'},
+    {path:'events',label:'Events'},
+    {path:'posts',label:'Posts'},
+    {path:'files',label:'Files'},
+  ];
+
   id:string;
   group:Group;
   groupMembers:GroupMember[];

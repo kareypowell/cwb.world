@@ -68,6 +68,13 @@ import { RequestToJoinGroupComponent } from './dialog-components/request-to-join
 import { EditProfileComponent } from './dialog-components/edit-profile/edit-profile.component';
 import { PreviewProfileComponent } from './dialog-components/preview-profile/preview-profile.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { EventViewComponent } from './group-pages/event-view/event-view.component';
+import { EventsViewComponent } from './group-pages/events-view/events-view.component';
+import { PostsComponent } from './group-pages/posts/posts.component';
+import { PostComponent } from './group-pages/post/post.component';
+import { FilesComponent } from './group-pages/files/files.component';
+import { AllMembersComponent } from './group-pages/all-members/all-members.component';
+import { GroupHomeComponent } from './group-pages/group-home/group-home.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -117,7 +124,14 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     RequestToJoinGroupComponent,
     EditProfileComponent,
     PreviewProfileComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    EventViewComponent,
+    EventsViewComponent,
+    PostsComponent,
+    PostComponent,
+    FilesComponent,
+    AllMembersComponent,
+    GroupHomeComponent
   ],
   imports: [
     BrowserModule,

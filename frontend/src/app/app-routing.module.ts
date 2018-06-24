@@ -15,7 +15,6 @@ import { GroupComponent } from './group/group.component';
 import { GetInvoledComponent } from './get-involed/get-involed.component';
 import { MemberGuard } from './guards/member.guard';
 import { AdminGuard } from './guards/admin.guard';
-import { CalendarComponent } from './calendar/calendar.component';
 import { MemberViewComponent } from './member-view/member-view.component';
 import { AdminViewComponent } from './admin-view/admin-view.component';
 import { GroupLeadViewComponent } from './group-lead-view/group-lead-view.component';
@@ -32,6 +31,11 @@ import { CompleteRegistrationDetailsComponent } from './complete-registration-de
 import { CreateGroupComponent } from './crud/create-group/create-group.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { CreateEventComponent } from './crud/create-event/create-event.component';
+import { EventsViewComponent } from './group-pages/events-view/events-view.component';
+import { PostsComponent } from './group-pages/posts/posts.component';
+import { FilesComponent } from './group-pages/files/files.component';
+import { GroupHomeComponent } from './group-pages/group-home/group-home.component';
+import { AllMembersComponent } from './group-pages/all-members/all-members.component';
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -59,7 +63,16 @@ const routes: Routes = [
   },
   { path: "communities", component: CommunitiesComponent },
   { path: "community/:id", component: CommunityComponent },
-  { path: "group/:id", component: GroupComponent },
+  { 
+    path: "group/:id", component: GroupComponent ,
+    children:[
+      { path: '', component: GroupHomeComponent },
+      { path: 'events', component: EventsViewComponent },
+      { path: 'posts', component: PostsComponent },
+      { path: 'files', component: FilesComponent },
+      { path: 'all-members', component: AllMembersComponent }
+    ]
+  },
   { path: "get-involved", component: GetInvoledComponent },
   { path: "create-event", component: CreateEventComponent },
   { path: "create-group", component: CreateGroupComponent},
@@ -72,4 +85,6 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule { 
+  
+}

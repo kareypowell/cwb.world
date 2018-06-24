@@ -15,28 +15,17 @@
   <div class="body-content">
     <div class="row">
       <div class="col-md-8 mainTab">
-        <mat-tab-group>
-          <mat-tab label="Home">
-            <div class="tabContent">
-              Home content
-            </div>
-          </mat-tab>
-          <mat-tab label="Events">
-            <ng-template matTabContent class="tabContent">
-              Events
-            </ng-template>
-          </mat-tab>
-          <mat-tab label="Posts">
-            <ng-template matTabContent class="tabContent">
-              Posts
-            </ng-template>
-          </mat-tab>
-          <mat-tab label="Files">
-            <ng-template matTabContent class="tabContent">
-              Files
-            </ng-template>
-          </mat-tab>
-        </mat-tab-group>
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link
+               *ngFor="let link of navLinks"
+               [routerLink]="link.path"
+               routerLinkActive #rla="routerLinkActive"
+               [active]="rla.isActive">
+              {{link.label}}
+            </a>
+          </nav>
+          
+          <router-outlet></router-outlet>
       </div>
       <div class="col-md-4 right-pane">
         <div class="memberCount">
@@ -49,7 +38,7 @@
           </div>
           <div class="text-right pr-2 view-all">
             <h3 class="smallerhead">
-              <strong>VIEW ALL</strong>
+              <a routerLink ="all-members"><strong>VIEW ALL</strong></a>
             </h3>
           </div>
 
@@ -68,7 +57,7 @@
           <strong>UPCOMING EVENTS</strong>
         </h3>
         <hr>
-        <p *ngIf="upcomingEvents?.length == 0; else showEvents">No Events Yet</p>
+        <p *ngIf="upcomingEvents?.length == 0; else showEvents">No Upcoming Events</p>
         <ng-template #showEvents>
           <ul class="eventUL">
             <li *ngFor="let event of upcomingEvents">
