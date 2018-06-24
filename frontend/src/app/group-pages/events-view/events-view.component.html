@@ -1,3 +1,37 @@
-<p>
-  events-view works!
-</p>
+<div class="body-wrapper">
+  <ng-template #singleEvent>
+    <h3 class="bighead">{{selectedEvent?.name}}</h3>
+    <br>
+    <h3 class="smallhead">Description</h3>
+    <p>{{selectedEvent?.description}}</p>
+  </ng-template>
+  <div *ngIf="!singleEventView; else singleEvent">
+    <h1 class="bighead">Events</h1>
+    <br>
+    <div *ngFor="let event of events">
+      <a routerLink="./{{event?.uid}}">
+        <div class="row eventTile">
+          <div class="col-md-3 datePane text-center">
+            <h1 class="display-2">
+              <strong>{{event?.startDate['seconds']*1000 | date:'dd'}}</strong>
+            </h1>
+            <h1 class="smallhead">{{event?.startDate['seconds']*1000 | date:'MMM'}} {{event?.startDate['seconds']*1000 | date:'yyyy'}}</h1>
+            <br> {{event?.startDate['seconds']*1000 | date:'shortTime'}}
+          </div>
+          <div class="col-md-9 infoPane">
+            <h2 class="smallhead">{{event?.name}}</h2>
+            <hr>
+            <h3 class="smallerhead">
+              <i class="far fa-clock mr-2"></i>
+              <strong>To: </strong> {{event?.endDate['seconds']*1000 | date}}</h3>
+            <h3 class="smallerhead">
+              <i class="fas fa-users mr-2"></i>
+              <strong>Capacity:</strong> {{event?.eventCapacity}}</h3>
+            <p>{{(event?.description.length>200)? (event?.description | slice:0:200)+' ...':(event?.description)}}</p>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+
+</div>

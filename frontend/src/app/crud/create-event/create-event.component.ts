@@ -99,7 +99,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       this.newEvent.eventImageUrl = this.createEventForm.value.imageURL;
     }
     if (this.createEventForm.value.video) {
-      this.newEvent.eventImageUrl = this.createEventForm.value.videoURL;
+      this.newEvent.videoUrl = this.createEventForm.value.videoURL;
     }
     this.fbData.addEvent(this.newEvent, this.grp);
   }

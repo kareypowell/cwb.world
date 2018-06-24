@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { FirebaseDataService } from '../firebase-data.service';
 import { Group, GroupMember, EventItem } from '../interfaces/member';
 
@@ -10,16 +10,16 @@ import { Group, GroupMember, EventItem } from '../interfaces/member';
 })
 export class GroupComponent implements OnInit, OnDestroy {
 
-  constructor(private fbData: FirebaseDataService, private route: ActivatedRoute) { }
+  constructor(private fbData: FirebaseDataService, private route: ActivatedRoute, private router: Router) { }
 
   navLinks = [
-    {path:'./',label:'Home'},
-    {path:'events',label:'Events'},
-    {path:'posts',label:'Posts'},
-    {path:'files',label:'Files'},
-    {path:'all-members',label:'Members'}
+    {path:'./',label:'HOME'},
+    {path:'events',label:'EVENTS'},
+    {path:'posts',label:'POSTS'},
+    {path:'files',label:'FILES'},
+    {path:'all-members',label:'MEMBERS'}
   ];
-  activeLink = this.navLinks[0];
+  activeLink = 0;
 
   id:string;
   group:Group;

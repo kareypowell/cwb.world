@@ -14,13 +14,13 @@
 <div class="body-wrapper grey-bg">
   <div class="body-content">
     <div class="row">
-      <div class="col-md-8 mainTab">
+      <div class="col-md-8 mainTab"> 
         <nav mat-tab-nav-bar>
             <a mat-tab-link
                *ngFor="let link of navLinks; let i = index"
                [routerLink]="link.path"
-               (click)="activeLink = link"
-               [active]="activeLink == link">
+               (click)="activeLink = i"
+               [active]="activeLink == i">
               {{link.label}}
             </a>
           </nav>
@@ -38,7 +38,7 @@
           </div>
           <div class="text-right pr-2 view-all">
             <h3 class="smallerhead">
-              <a routerLink ="all-members" (click)="activeLink = navLinks[4]"><strong>VIEW ALL</strong></a>
+              <a routerLink ="all-members" (click)="activeLink = 4"><strong>VIEW ALL</strong></a>
             </h3>
           </div>
 
@@ -61,7 +61,7 @@
         <ng-template #showEvents>
           <ul class="eventUL">
             <li *ngFor="let event of upcomingEvents">
-              <p><span class="eventNameSpan"><strong>{{event?.name}}</strong></span> <span class="eventTimeSpan">{{event?.startDate['seconds']*1000 | date}}</span></p>
+              <a routerLink="events/{{event.uid}}" (click)="activeLink = 1"><p><span class="eventNameSpan"><strong>{{event?.name}}</strong></span> <span class="eventTimeSpan">{{event?.startDate['seconds']*1000 | date}}</span></p></a>
             </li>
           </ul>
         </ng-template>

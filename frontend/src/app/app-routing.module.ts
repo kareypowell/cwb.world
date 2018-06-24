@@ -68,6 +68,7 @@ const routes: Routes = [
     children:[
       { path: '', component: GroupHomeComponent },
       { path: 'events', component: EventsViewComponent },
+      { path: 'events/:id', component: EventsViewComponent },
       { path: 'posts', component: PostsComponent },
       { path: 'files', component: FilesComponent },
       { path: 'all-members', component: AllMembersComponent }

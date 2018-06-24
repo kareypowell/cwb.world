@@ -1,0 +1,14 @@
+.datePane{
+    color: #fff;
+    background-color: #21B799;
+    padding: 15px;
+}
+
+.infoPane{
+    background-color: #34495e;
+    color: #fff;
+    padding: 15px;
+}
+.eventTile{
+    cursor: pointer;
+}
