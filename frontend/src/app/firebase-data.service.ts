@@ -232,6 +232,17 @@ export class FirebaseDataService {
         })
       }));
   }
+  getGroupEvents(groupUID:string){
+    return this.afs.collection('events', ref => ref
+      .where('group', '==', groupUID))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as EventItem;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
 
   // UPDATE =======================================================================================================================
 

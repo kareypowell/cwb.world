@@ -68,11 +68,11 @@
           <strong>UPCOMING EVENTS</strong>
         </h3>
         <hr>
-        <p *ngIf="!group?.events || group?.events?.length == 0; else showEvents">No Events Yet</p>
+        <p *ngIf="upcomingEvents?.length == 0; else showEvents">No Events Yet</p>
         <ng-template #showEvents>
-          <ul>
-            <li *ngFor="let event of group.events">
-              {{event}}
+          <ul class="eventUL">
+            <li *ngFor="let event of upcomingEvents">
+              <p><span class="eventNameSpan"><strong>{{event?.name}}</strong></span> <span class="eventTimeSpan">{{event?.startDate['seconds']*1000 | date}}</span></p>
             </li>
           </ul>
         </ng-template>

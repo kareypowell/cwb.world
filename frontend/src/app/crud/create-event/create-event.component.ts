@@ -8,11 +8,11 @@ import { FirebaseDataService } from '../../firebase-data.service';
   templateUrl: './create-event.component.html',
   styleUrls: ['./create-event.component.css']
 })
-export class CreateEventComponent implements OnInit, OnDestroy{
+export class CreateEventComponent implements OnInit, OnDestroy {
 
   constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService) { }
   createEventForm: FormGroup;
-  groupSearch:Group[];
+  groupSearch: Group[];
   ngOnInit() {
 
     this.createEventForm = this._formBuilder.group({
@@ -24,10 +24,12 @@ export class CreateEventComponent implements OnInit, OnDestroy{
       start: [new Date, Validators.required],
       end: [new Date, Validators.required],
       paidEvent: false,
+      eventType: 'single',
+      eventFrequency: 'weekly',
       fee: 0,
-      image:false,
+      image: false,
       imageURL: '',
-      video:false,
+      video: false,
       videoURL: '',
       refundable: false,
       refundPolicy: '',
@@ -35,45 +37,69 @@ export class CreateEventComponent implements OnInit, OnDestroy{
       timeZone: 'GMT',
       locationOnline: true,
       locationPhysical: false,
-      locationPhysicalAddress: ''
+      locationPhysicalAddress: '',
+      includeWeekends: true,
+      openToOnlyGroupMembers: false,
+      registrationRequired: false
     });
   }
 
   private subGroup;
-  searchGroup(){
+  searchGroup() {
     this.subGroup = this.fbData.searchCollection(String(this.createEventForm.value.group), "groups", "nameToLower", 5).subscribe(data => this.groupSearch = data);
   }
-  selectedGroup:string;
-  grp:Group;
+  selectedGroup: string;
+  grp: Group;
   groupLead: string;
-  getGroup(option){
+  getGroup(option) {
     this.grp = option;
     this.selectedGroup = option.uid;
     this.groupLead = option.groupLead;
   }
 
-  newEvent:EventItem;
-  createEvent(){
+  newEvent: EventItem;
+  createEvent() {
     this.newEvent = {};
     this.newEvent.name = this.createEventForm.value.name;
+    this.newEvent.nameToLower = this.createEventForm.value.name.toLowerCase();
     this.newEvent.description = this.createEventForm.value.description;
     this.newEvent.whatToExpect = this.createEventForm.value.whatToExpect;
     this.newEvent.startDate = this.createEventForm.value.start;
     this.newEvent.groupLead = this.groupLead;
     this.newEvent.group = this.selectedGroup;
+    this.newEvent.files = [];
     this.newEvent.endDate = this.createEventForm.value.end;
     this.newEvent.startWithoutHost = this.createEventForm.value.startWithoutHost;
     this.newEvent.eventCapacity = this.createEventForm.value.capacity;
+    this.newEvent.eventType = this.createEventForm.value.eventType;
+    this.newEvent.openToOnlyGroupMembers = this.createEventForm.value.openToOnlyGroupMembers;
+    this.newEvent.registrationRequired = this.createEventForm.value.registrationRequired;
+
+    if (this.createEventForm.value.eventType === 'single') {
+      this.newEvent.includeWeekends = this.createEventForm.value.includeWeekends;
+    } else {
+      this.newEvent.isRecurrent = true;
+      this.newEvent.recurrence = this.createEventForm.value.eventFrequency;
+    }
     this.newEvent.paidEvent = this.createEventForm.value.paidEvent;
-    if(this.newEvent.paidEvent){
+    if (this.newEvent.paidEvent) {
       this.newEvent.eventFee = this.createEventForm.value.fee;
       this.newEvent.refundable = this.createEventForm.value.refundable;
       this.newEvent.refundPolicy = this.createEventForm.value.refundPolicy;
     }
     this.newEvent.eventOnline = this.createEventForm.value.locationOnline;
     this.newEvent.eventPhysical = this.createEventForm.value.locationPhysical;
-    if(this.newEvent.eventPhysical){
+    if (this.newEvent.eventPhysical) {
       this.newEvent.eventVenue = this.createEventForm.value.locationPhysicalAddress;
+    }
+    this.newEvent.eventStatus = 'active';
+    this.newEvent.eventImage = this.createEventForm.value.image;
+    this.newEvent.videoUrl = this.createEventForm.value.video;
+    if (this.createEventForm.value.image) {
+      this.newEvent.eventImageUrl = this.createEventForm.value.imageURL;
+    }
+    if (this.createEventForm.value.video) {
+      this.newEvent.eventImageUrl = this.createEventForm.value.videoURL;
     }
     this.fbData.addEvent(this.newEvent, this.grp);
   }
