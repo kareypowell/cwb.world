@@ -171,7 +171,8 @@ export interface EventItem {
     eventVenue?: string; // if not physical, give venue
     isRecurrent?: boolean; // if one time or recurrent
     recurrence?: string; // if recurrent, set recurrence
-    duration?:string; // 3 weeks, one month, 10 weeks, etc Use a dropdown for days, weeks, months and a number to indicate number of days, weeks, etc
+    durationNumber?:number; //1, 2, 10, etc => hold the count for duration and duration holds the term, month, year, weeks etc
+    durationTerm?:string; //weeks, one month, 10 weeks, etc
     eventCapacity?: number; // if open to all users
     startWithoutHost?: boolean;
     paidEvent?: boolean;
@@ -193,5 +194,5 @@ export interface eventSession{
     startDate?: Date;
     endDate?:Date;
     timeZone?:string;
-    
+
 }

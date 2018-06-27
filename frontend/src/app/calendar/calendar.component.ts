@@ -1,8 +1,8 @@
-import {Component,ChangeDetectionStrategy,ViewChild,TemplateRef, OnInit, OnDestroy} from '@angular/core';
-import {startOfDay,endOfDay,subDays,addDays,endOfMonth,isSameDay,isSameMonth,addHours} from 'date-fns';
+import { Component, ChangeDetectionStrategy, ViewChild, TemplateRef, OnInit, OnDestroy } from '@angular/core';
+import { startOfDay, endOfDay, subDays, addDays, endOfMonth, isSameDay, isSameMonth, addHours } from 'date-fns';
 import { Subject } from 'rxjs';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import {CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent} from 'angular-calendar';
+import { CalendarEvent, CalendarEventAction, CalendarEventTimesChangedEvent } from 'angular-calendar';
 import { FirebaseDataService } from '../firebase-data.service';
 import { EventItem, User } from '../interfaces/member';
 import { AuthService } from '../auth-service';
@@ -44,7 +44,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     event?: CalendarEvent;
     eventData?: EventItem;
   };
- 
+
   actions: CalendarEventAction[] = [
     {
       label: '<i class="fa fa-fw fa-pencil"></i>',
@@ -67,9 +67,12 @@ export class CalendarComponent implements OnInit, OnDestroy {
   singleEvent: CalendarEvent;
   activeDayIsOpen: boolean = true;
 
-  constructor(private modal: NgbModal, private fbData: FirebaseDataService, private _auth:AuthService) { }
+  constructor(private modal: NgbModal, private fbData: FirebaseDataService, private _auth: AuthService) { }
   private subEvents;
   eventsFromDB: EventItem[];
+
+  private startDT;
+  private endDT;
 
   addEvent(singleEv): void {
     this.events.push({
@@ -86,7 +89,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
     });
     this.refresh.next();
   }
-  colorChosen:any;
+  colorChosen: any;
   user: User;
   private userSub;
   ngOnInit(): void {
@@ -97,29 +100,68 @@ export class CalendarComponent implements OnInit, OnDestroy {
         this.eventsFromDB = data;
         this.events = []; // flush calendar
         this.eventsFromDB.forEach(event => {
-          if(this.user.groupsJoined){
-            if(this.user.groupsJoined.indexOf(event.group) > -1){ // check if event's group is part of user's groups joined
-            // set appropriate color code for event based on event time
-            if(new Date(event.endDate['seconds']*1000) < new Date()){
-              this.colorChosen = colors.red; // event has passed;
-            }else if(new Date(event.endDate['seconds']*1000) > new Date() && new Date(event.startDate['seconds']*1000) < new Date()) {
-              this.colorChosen = colors.yellow; // event is in progress
-            }else if (new Date(event.startDate['seconds']*1000) > new Date()){
-              this.colorChosen = colors.green; // event is in the future
+          if (this.user.groupsJoined) {
+            if (this.user.groupsJoined.indexOf(event.group) > -1) { // check if event's group is part of user's groups joined
+              // set appropriate color code for event based on event time
+              
+              if (event.eventType === 'single') {
+                if (new Date(event.endDate['seconds'] * 1000) < new Date()) {
+                  this.colorChosen = colors.red; // event has passed;
+                } else if (new Date(event.endDate['seconds'] * 1000) > new Date() && new Date(event.startDate['seconds'] * 1000) < new Date()) {
+                  this.colorChosen = colors.yellow; // event is in progress
+                } else if (new Date(event.startDate['seconds'] * 1000) > new Date()) {
+                  this.colorChosen = colors.green; // event is in the future
+                }
+                this.singleEvent = {
+                  'start': new Date(event.startDate['seconds'] * 1000),
+                  'end': new Date(event.endDate['seconds'] * 1000),
+                  'title': event.name,
+                  'color': this.colorChosen,
+                  'moreInfo': event
+                };
+                this.addEvent(this.singleEvent);
+              } else if (event.eventType === 'recurring') {
+                const durationNum = event.durationNumber;
+                const durationTerm = event.durationTerm;
+                // loop number of recurrence
+                if (durationTerm === 'week') {
+                  for (let index = 0; index < durationNum; index++) {
+                    this.startDT = new Date(event.startDate['seconds']*1000);
+                    this.startDT.setDate(this.startDT.getDate() + index*7);
+                    this.endDT = new Date(event.endDate['seconds']*1000);
+                    this.endDT.setDate(this.endDT.getDate() + index*7);
+
+                    // set colors
+                    if (this.startDT < new Date()) {
+                      this.colorChosen = colors.red; // event has passed;
+                    } else if (this.endDT > new Date() && this.startDT < new Date()) {
+                      this.colorChosen = colors.yellow; // event is in progress
+                    } else if (this.startDT > new Date()) {
+                      this.colorChosen = colors.green; // event is in the future
+                    }
+                    // set event params
+                    this.singleEvent = {
+                      'start': this.startDT,
+                      'end': this.endDT,
+                      'title': event.name,
+                      'color': this.colorChosen,
+                      'moreInfo': event
+                    };
+                    this.addEvent(this.singleEvent);
+
+                  }
+                } else if (durationTerm === 'month') {
+
+                } else if (durationTerm === 'year') {
+
+                }
+
+              }
             }
-            this.singleEvent = {
-              'start': new Date(event.startDate['seconds']*1000),
-              'end': new Date(event.endDate['seconds']*1000),
-              'title':event.name,
-              'color': this.colorChosen,
-              'moreInfo': event
-            };
-            this.addEvent(this.singleEvent);
-          }
           }
         });
       });
-    });   
+    });
   }
 
   ngOnDestroy(): void { // unsubscribe from all subscriptions
@@ -157,5 +199,5 @@ export class CalendarComponent implements OnInit, OnDestroy {
     this.modal.open(this.modalContent, { size: 'lg' });
   }
 
-  
+
 }

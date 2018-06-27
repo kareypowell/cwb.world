@@ -15,12 +15,12 @@
       <div class="gap"></div>
       <div class="gap"></div>
       <h3 class="smallhead">Starting Time:</h3>
-      {{modalData?.event.moreInfo?.startDate['seconds']*1000 | date}} at {{modalData?.event.moreInfo?.startDate['seconds']*1000
+      {{modalData?.event?.start | date}} at {{modalData?.event?.start
       | date : 'shortTime'}}
       <div class="gap"></div>
       <div class="gap"></div>
       <h3 class="smallhead">Ending Time:</h3>
-      {{modalData?.event.moreInfo?.endDate['seconds']*1000 | date}} at {{modalData?.event.moreInfo?.startDate['seconds']*1000 |
+      {{modalData?.event?.end | date}} at {{modalData?.event?.end |
       date : 'shortTime'}}
       <div class="gap"></div>
       <div class="gap"></div>
