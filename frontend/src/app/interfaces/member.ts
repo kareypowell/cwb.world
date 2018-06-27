@@ -161,12 +161,17 @@ export interface EventItem {
     additionalInfo?: string;
     startDate?: Date; // date and time of event start
     timeZone?: string; //time zone
+    prerequisiteRequired?:boolean;
+    prereqs?:string[];
+    sessionChoice?:boolean;
+    sessions?:eventSession[];
     endDate?: Date;// end time
     eventOnline?: boolean;
     eventPhysical?: boolean;
     eventVenue?: string; // if not physical, give venue
     isRecurrent?: boolean; // if one time or recurrent
     recurrence?: string; // if recurrent, set recurrence
+    duration?:string; // 3 weeks, one month, 10 weeks, etc Use a dropdown for days, weeks, months and a number to indicate number of days, weeks, etc
     eventCapacity?: number; // if open to all users
     startWithoutHost?: boolean;
     paidEvent?: boolean;
@@ -174,4 +179,19 @@ export interface EventItem {
     refundable?: boolean;
     refundPolicy?: string;
     files?: string[];
+}
+
+export interface eventSession{
+    name?:string;
+    description?:string;
+    price?:number;
+    required?:boolean;
+    locationSameAsMainEvent?:boolean;
+    locationOnline?:boolean;
+    physicalLocation?:boolean;
+    physicalLocationAddress?:boolean;
+    startDate?: Date;
+    endDate?:Date;
+    timeZone?:string;
+    
 }

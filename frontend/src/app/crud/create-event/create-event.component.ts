@@ -12,7 +12,9 @@ export class CreateEventComponent implements OnInit, OnDestroy {
 
   constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService) { }
   createEventForm: FormGroup;
+  createEventForm2: FormGroup;
   groupSearch: Group[];
+  isLinear: boolean = true;
   ngOnInit() {
 
     this.createEventForm = this._formBuilder.group({
@@ -40,7 +42,13 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       locationPhysicalAddress: '',
       includeWeekends: true,
       openToOnlyGroupMembers: false,
-      registrationRequired: false
+      registrationRequired: false,
+      eventDurationNumber: 2,
+      eventDurationTerm: 'week'
+    });
+
+    this.createEventForm2 = this._formBuilder.group({
+      name: ['', Validators.required]
     });
   }
 
@@ -104,6 +112,10 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     this.fbData.addEvent(this.newEvent, this.grp);
   }
 
+  // add sessions to event
+  addSessions(){
+
+  }
 
   // unsubscribe from group search observable
   ngOnDestroy(): void {

@@ -75,6 +75,12 @@ import { PostComponent } from './group-pages/post/post.component';
 import { FilesComponent } from './group-pages/files/files.component';
 import { AllMembersComponent } from './group-pages/all-members/all-members.component';
 import { GroupHomeComponent } from './group-pages/group-home/group-home.component';
+import { AdminCalendarComponent } from './calendars/admin-calendar/admin-calendar.component';
+import { GroupLeadCalendarComponent } from './calendars/group-lead-calendar/group-lead-calendar.component';
+import { SectorLeadCalendarComponent } from './calendars/sector-lead-calendar/sector-lead-calendar.component';
+import { HostPartnerCalendarComponent } from './calendars/host-partner-calendar/host-partner-calendar.component';
+import { GuestHostCalendarComponent } from './calendars/guest-host-calendar/guest-host-calendar.component';
+import { EventRegistrationComponent } from './event-registration/event-registration.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -131,7 +137,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PostComponent,
     FilesComponent,
     AllMembersComponent,
-    GroupHomeComponent
+    GroupHomeComponent,
+    AdminCalendarComponent,
+    GroupLeadCalendarComponent,
+    SectorLeadCalendarComponent,
+    HostPartnerCalendarComponent,
+    GuestHostCalendarComponent,
+    EventRegistrationComponent
   ],
   imports: [
     BrowserModule,
