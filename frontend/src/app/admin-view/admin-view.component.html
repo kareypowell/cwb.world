@@ -11,15 +11,17 @@
         <div class="">
           <mat-tab-group [dynamicHeight]="true">
             <mat-tab label="Communities">
-              <button mat-button class="cwb-primary-button" (click)="openDialog('createCommunity')">Create New Community</button>
+                {{communities?.length}} Communities
+                <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('createCommunity')"><i class="fas fa-plus mr-2"></i>New</button>
+                
               <div class="gap"></div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
                 <mat-list *ngFor="let comm of communities">
-                  <mat-list-item class="groupItemHover"> {{comm.viewValue}}
+                  <mat-list-item class="groupItemHover" [class.activeListItem]="currentCommunity == comm" (click)="currentCommunity = comm"> {{comm?.name}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
-                      <i class="far fa-minus-square"></i>
+                      <i class="far fa-minus-square" (click)="deleteCommunity(comm?.uid)"></i>
                     </span>
                   </mat-list-item>
                   <mat-divider></mat-divider>
@@ -35,7 +37,8 @@
                   <div class="gap"></div>
                 </mat-tab>
                 <mat-tab label="Details">
-
+                  {{currentCommunity?.name}} <br>
+                  {{currentCommunity?.description}}
                 </mat-tab>
                 <mat-tab label="Sectors">
 
@@ -43,12 +46,14 @@
               </mat-tab-group>
             </mat-tab>
             <mat-tab label="Sectors">
+                {{sectors?.length}} Sectors
+                <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('createSector')"><i class="fas fa-plus mr-2"></i>New</button>
+                
               <div class="gap"></div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
-                <button mat-button class="cwb-primary-button" (click)="openDialog('createSector')">Create New Sector</button>
-                <mat-list *ngFor="let sector of sectors">
-                  <mat-list-item class="groupItemHover"> {{sector.viewValue}}
+               <mat-list *ngFor="let sector of sectors">
+                  <mat-list-item class="groupItemHover" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector"> {{sector?.name}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
                       <i class="far fa-minus-square"></i>
@@ -76,10 +81,14 @@
             </mat-tab>
             <mat-tab label="Groups">
               <div class="gap"></div>
+              {{groups?.length}} Groups
+                  <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('createGroup')"><i class="fas fa-plus mr-2"></i>New</button>
+                  
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                  
                 <div class="gap"></div>
                 <mat-list *ngFor="let grp of groups">
-                  <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp.name}}
+                  <mat-list-item class="groupItemHover" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)"> {{grp?.name}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
                       <i class="far fa-minus-square"></i>
@@ -109,8 +118,8 @@
               <div class="gap"></div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
-                <mat-list *ngFor="let grp of groups">
-                  <mat-list-item class="groupItemHover" (click)="displayGroupInfo(grp)"> {{grp.name}}
+                <mat-list *ngFor="let user of members">
+                  <mat-list-item class="groupItemHover" [class.activeListItem]="currentMember==user" (click)="currentMember = user"> {{user?.firstName}} {{user?.lastname}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
                       <i class="far fa-minus-square"></i>
@@ -144,12 +153,12 @@
   <div class="col-md-7">
     <div class="col-md-12 no-padding">
       <mat-card>
-        <h1 class="smallhead text-center">MY EVENTS</h1>
+        <h1 class="smallhead text-center">ALL EVENTS</h1>
         <h2 class="smallerhead text-center">{{todayDate|date:'fullDate'}}</h2>
         <div class="gap"></div>
         <div class="gap"></div>
         <div class="gap"></div>
-        <app-calendar></app-calendar>
+        <app-admin-calendar></app-admin-calendar>
       </mat-card>
     </div>
   </div>

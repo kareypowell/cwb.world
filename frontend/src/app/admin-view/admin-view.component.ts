@@ -1,23 +1,61 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataTransferService } from '../data-transfer.service';
 import { PerfectScrollbarConfigInterface,
   PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
+import { Community, Sector, Group, User, EventItem } from '../interfaces/member';
+import { FirebaseDataService } from '../firebase-data.service';
 
 @Component({
   selector: 'app-admin-view',
   templateUrl: './admin-view.component.html',
   styleUrls: ['./admin-view.component.css']
 })
-export class AdminViewComponent implements OnInit {
+export class AdminViewComponent implements OnInit, OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
-  constructor(private data: DataTransferService, private dialog:MatDialog) { }
+  constructor(private data: DataTransferService, private dialog:MatDialog, private fbData: FirebaseDataService) { }
+
+  private communitySub;
+  private sectorSub;
+  private groupSub;
+  private memberSub;
+  private eventSub;
+
+  communities: Community[];
+  sectors: Sector[];
+  groups: Group[];
+  members: User[];
+  events: EventItem[]
+
+  currentCommunity;
+  currentSector;
+  currentGroup;
+  currentMember;
+
 
   ngOnInit() {
+    this. communitySub = this.fbData.communitiesFromDB$.subscribe(data =>{
+      this.communities = data;
+      this.currentCommunity = this.communities[0];
+    });
+    this. sectorSub = this.fbData.sectorsFromDB$.subscribe(data =>{
+      this.sectors = data;
+      this.currentSector = this.sectors[0];
+    });
+    this. groupSub = this.fbData.groupsFromDB$.subscribe(data =>{
+      this.groups = data;
+      this.currentGroup = this.groups[0];
+    });
+    this. memberSub = this.fbData.usersFromDB$.subscribe(data =>{
+      this.members = data;
+      this.currentMember = this.members[0];
+    });
   }
   dataset = {};
+
+  dialogWidth = '90%';
 
   openDialog(source): void {
     if(source == 'createCommunity'){
@@ -26,9 +64,11 @@ export class AdminViewComponent implements OnInit {
       this.dataset = { createSector: true }
     }else if(source == 'createGroup'){  // create group already exists, check and correct according...
       this.dataset = { createGroup: true }
+    }else if(source == 'deleteConfirm'){
+      this.dialogWidth = '300px'
     }
     let dialogRef = this.dialog.open(DialogComponent, {
-      width: '90%',
+      width: this.dialogWidth,
       data: this.dataset
     });
 
@@ -38,29 +78,20 @@ export class AdminViewComponent implements OnInit {
   }
 
   searchVal = "";
-  communities = [
-    {value: 'education', viewValue: 'Education'},
-    {value: 'careers', viewValue: 'Careers'},
-    {value: 'business', viewValue: 'Business'},
-    {value: 'non-profit', viewValue: 'Non-Profit'},
-    {value: 'wellness', viewValue: 'Wellness'},
-    {value: 'government', viewValue: 'Government'},
-    {value: 'art-and-entertainment', viewValue: 'Art and Entertainment'},
-    {value: 'investment', viewValue: 'Investment'},
-    {value: 'hollywood', viewValue: 'Hollywood'}
-  ];
-  sectors = [
-    {value: 'pre-k', viewValue: 'Pre K'},
-    {value: 'k-5-grade', viewValue: 'K - 5th Grade'},
-    {value: '5-8-grade', viewValue: '5th Grade - 8th Grade'},
-    {value: 'high-school', viewValue: 'High School'},
-    {value: 'undergrad', viewValue: 'Undergraduate'},
-    {value: 'postgrad', viewValue: 'Postgraduate'}
-  ];
-
-  groups = this.data.groups;
-  currentGroup = this.groups[0];
+  
+  
   displayGroupInfo(grp){
     this.currentGroup = grp;
+  }
+  deleteCommunity(uid:string){
+    this.fbData.deleteCommunity(uid);
+  }
+  ngOnDestroy(): void {
+    this.communitySub.unsubscribe();
+    this.sectorSub.unsubscribe();
+    this.groupSub.unsubscribe();
+    this.memberSub.unsubscribe();
+    //this.eventSub.unsubscribe()
+    
   }
 }

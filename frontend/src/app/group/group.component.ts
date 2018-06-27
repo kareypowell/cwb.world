@@ -28,13 +28,24 @@ export class GroupComponent implements OnInit, OnDestroy {
   private sub2;
   private subEvents;
   upcomingEvents:EventItem[];
+  actualUpcomingEvents: EventItem[];
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
     this.sub1 = this.fbData.groupCollection.doc(this.id).valueChanges().subscribe(data => 
       {
         this.group = data;
         this.sub2 = this.fbData.getGroupMembers(this.id).subscribe(data => this.groupMembers = data);
-        this.subEvents = this.fbData.getGroupEvents(this.id).subscribe(data => this.upcomingEvents = data);
+        this.subEvents = this.fbData.getGroupEvents(this.id).subscribe(data => {
+          this.upcomingEvents = data;
+          this.upcomingEvents.forEach(event => {
+            if(new Date(event.endDate['seconds']*1000) > new Date() && event.eventType === 'single'){
+              this.actualUpcomingEvents.push(event);
+            }else if(new Date(event.endDate['seconds']*1000) < new Date() && event.eventType === 'recurring'){
+              //while() while loop through added recurrence to new date till current upcoming event
+              // if any found, append to actualUpcomingEvents
+            }
+          });
+        });
       }); 
   }
 
