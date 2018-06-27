@@ -181,9 +181,9 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 } else if (durationTerm === 'year') {
                   for (let index = 0; index < durationNum; index++) {
                     this.startDT = new Date(event.startDate['seconds']*1000);
-                    this.startDT.setYear(this.startDT.getYear() + index);
+                    this.startDT.setFullYear(this.startDT.getFullYear() + index);
                     this.endDT = new Date(event.endDate['seconds']*1000);
-                    this.endDT.setYear(this.endDT.getYear() + index);
+                    this.endDT.setFullYear(this.endDT.getFullYear() + index);
 
                     // set colors
                     if (this.startDT < new Date()) {
