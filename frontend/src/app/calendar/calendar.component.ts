@@ -125,11 +125,39 @@ export class CalendarComponent implements OnInit, OnDestroy {
                 const durationTerm = event.durationTerm;
                 // loop number of recurrence
                 if (durationTerm === 'week') {
+                  if(event.recurrence ==='weekly'){
+                    for (let index = 0; index < durationNum; index++) {
+                      this.startDT = new Date(event.startDate['seconds']*1000);
+                      this.startDT.setDate(this.startDT.getDate() + index*7);
+                      this.endDT = new Date(event.endDate['seconds']*1000);
+                      this.endDT.setDate(this.endDT.getDate() + index*7);
+  
+                      // set colors
+                      if (this.startDT < new Date()) {
+                        this.colorChosen = colors.red; // event has passed;
+                      } else if (this.endDT > new Date() && this.startDT < new Date()) {
+                        this.colorChosen = colors.yellow; // event is in progress
+                      } else if (this.startDT > new Date()) {
+                        this.colorChosen = colors.green; // event is in the future
+                      }
+                      // set event params
+                      this.singleEvent = {
+                        'start': this.startDT,
+                        'end': this.endDT,
+                        'title': event.name,
+                        'color': this.colorChosen,
+                        'moreInfo': event
+                      };
+                      this.addEvent(this.singleEvent);
+  
+                    }
+                  }
+                } else if (durationTerm === 'month') {
                   for (let index = 0; index < durationNum; index++) {
                     this.startDT = new Date(event.startDate['seconds']*1000);
-                    this.startDT.setDate(this.startDT.getDate() + index*7);
+                    this.startDT.setMonth(this.startDT.getMonth() + index);
                     this.endDT = new Date(event.endDate['seconds']*1000);
-                    this.endDT.setDate(this.endDT.getDate() + index*7);
+                    this.endDT.setMonth(this.endDT.getMonth() + index);
 
                     // set colors
                     if (this.startDT < new Date()) {
@@ -150,10 +178,32 @@ export class CalendarComponent implements OnInit, OnDestroy {
                     this.addEvent(this.singleEvent);
 
                   }
-                } else if (durationTerm === 'month') {
-
                 } else if (durationTerm === 'year') {
+                  for (let index = 0; index < durationNum; index++) {
+                    this.startDT = new Date(event.startDate['seconds']*1000);
+                    this.startDT.setYear(this.startDT.getYear() + index);
+                    this.endDT = new Date(event.endDate['seconds']*1000);
+                    this.endDT.setYear(this.endDT.getYear() + index);
 
+                    // set colors
+                    if (this.startDT < new Date()) {
+                      this.colorChosen = colors.red; // event has passed;
+                    } else if (this.endDT > new Date() && this.startDT < new Date()) {
+                      this.colorChosen = colors.yellow; // event is in progress
+                    } else if (this.startDT > new Date()) {
+                      this.colorChosen = colors.green; // event is in the future
+                    }
+                    // set event params
+                    this.singleEvent = {
+                      'start': this.startDT,
+                      'end': this.endDT,
+                      'title': event.name,
+                      'color': this.colorChosen,
+                      'moreInfo': event
+                    };
+                    this.addEvent(this.singleEvent);
+
+                  }
                 }
 
               }
