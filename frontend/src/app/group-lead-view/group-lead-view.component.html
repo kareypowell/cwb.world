@@ -13,7 +13,7 @@
             <mat-tab label="Groups">
               <div class="gap"></div>
               <div class="topItems">
-                <span class="align-center"><strong>You lead {{groups?.length}} Group(s)</strong></span>
+               <!-- <span class="align-center"><strong>You lead {{groups?.length}} Group(s)</strong></span> -->
               <span class="buttonRight"><button mat-button class="cwb-primary-button ml-5" (click)="openDialog('createGroup')">
                 <i class="fas fa-plus mr-2"></i>New</button></span>
               </div>
@@ -95,7 +95,7 @@
 
             <div class="gap"></div>
             <div class="topItems">
-                <span class="align-center"><strong>{{events?.length}} Event(s) across your groups</strong></span>
+                <!--<span class="align-center"><strong>{{events?.length}} Event(s) across your groups</strong></span> -->
               <span class="buttonRight"><button mat-button class="cwb-primary-button ml-5" (click)="openDialog('createEvent')">
                 <i class="fas fa-plus mr-2"></i>New</button></span>
               </div>
@@ -122,7 +122,7 @@
                   <strong>Description</strong>
                   <p>{{currentEvent?.description}}</p>
                   <strong>Capacity</strong>
-                  <p>{{currentEvent?.capacity}}</p>
+                  <p>{{currentEvent?.eventCapacity}}</p>
               </mat-tab>
               <mat-tab label="Payment">
 
