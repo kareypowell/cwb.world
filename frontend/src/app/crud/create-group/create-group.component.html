@@ -1,52 +1,70 @@
 <div class="body-wrapper">
   <h1 class="bighead">Create a new group</h1>
   <form [formGroup]="createGroupForm" (submit)="createGroup()" autocomplete="off">
-    <mat-form-field class="mr-3 half-width" appearance="outline">
-      <mat-label>Group Name</mat-label>
-      <input matInput formControlName="grpName" required>
-    </mat-form-field>
-    <mat-form-field class="mr-0 half-width" appearance="outline">
-      <mat-label>Group Capcity</mat-label>
-      <input type="number" matInput formControlName="capacity" required>
-    </mat-form-field>
-    <br>
+    <div class="row">
+      <div class="col-sm-6">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Group Name</mat-label>
+              <input matInput formControlName="grpName" required>
+            </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Group Capcity</mat-label>
+              <input type="number" matInput formControlName="capacity" required>
+            </mat-form-field>
+        </div>
+    </div>
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Description</mat-label>
       <textarea matInput rows="8" formControlName="description" required></textarea>
     </mat-form-field>
-    <mat-form-field class="half-width mr-3" appearance="outline">
-      <mat-label>Bio</mat-label>
-      <textarea matInput rows="5" formControlName="bio" required></textarea>
-    </mat-form-field>
-    <mat-form-field class="half-width" appearance="outline">
-      <mat-label>What to Expect</mat-label>
-      <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Bio</mat-label>
+              <textarea matInput rows="5" formControlName="bio" required></textarea>
+            </mat-form-field>
+      </div>
+      <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>What to Expect</mat-label>
+              <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
+            </mat-form-field>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Community</mat-label>
+              <input type="text" placeholder="Community" aria-label="Community" matInput [matAutocomplete]="auto1" formControlName="community"
+                (keyup)="searchCommunity($event)">
+              <mat-autocomplete #auto1="matAutocomplete">
+                <mat-option *ngFor="let option of commSearch" [value]="option.name" (click)="getCommunity(option)">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+          <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Sector</mat-label>
+              <input type="text" placeholder="Sector" aria-label="Sector" matInput [matAutocomplete]="auto2" formControlName="searchStringSector"
+                (keyup)="searchSector($event)">
+        
+              <mat-autocomplete #auto2="matAutocomplete">
+                <mat-option *ngFor="let option of sectorSearch" [value]="option.name" (click)="getSector(option)">
+                  {{ option.name }}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+        </div>
+    </div>
+    
 
-    <mat-form-field appearance="outline" class="mr-5">
-      <mat-label>Community</mat-label>
-      <input type="text" placeholder="Community" aria-label="Community" matInput [matAutocomplete]="auto1" formControlName="community"
-        (keyup)="searchCommunity($event)">
-      <mat-autocomplete #auto1="matAutocomplete">
-        <mat-option *ngFor="let option of commSearch" [value]="option.name" (click)="getCommunity(option)">
-          {{ option.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="mr-5">
-      <mat-label>Sector</mat-label>
-      <input type="text" placeholder="Sector" aria-label="Sector" matInput [matAutocomplete]="auto2" formControlName="searchStringSector"
-        (keyup)="searchSector($event)">
-
-      <mat-autocomplete #auto2="matAutocomplete">
-        <mat-option *ngFor="let option of sectorSearch" [value]="option.name" (click)="getSector(option)">
-          {{ option.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
+   
+    <!--
+      <mat-form-field appearance="outline">
       <mat-label>Group Lead</mat-label>
       <input type="text" placeholder="Group Lead" aria-label="Group Lead" matInput [matAutocomplete]="auto3" formControlName="searchStringGroupLead"
         (keyup)="searchUser($event)">
@@ -57,7 +75,7 @@
         </mat-option>
       </mat-autocomplete>
     </mat-form-field>
-    <br>
+    -->
     <div class="meetingTimes">
       <h2 class="smallhead">Set meeting times:</h2>
       <ul class="meetingTimesUl">

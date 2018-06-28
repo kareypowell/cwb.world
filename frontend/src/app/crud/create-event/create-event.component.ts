@@ -53,8 +53,9 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   }
 
   private subGroup;
+  isSubGrp:boolean = false;
   searchGroup() {
-    this.subGroup = this.fbData.searchCollection(String(this.createEventForm.value.group), "groups", "nameToLower", 5).subscribe(data => this.groupSearch = data);
+    this.subGroup = this.fbData.searchCollection(String(this.createEventForm.value.group), "groups", "nameToLower", 5).subscribe(data => {this.groupSearch = data; this.isSubGrp = true;});
   }
   selectedGroup: string;
   grp: Group;
@@ -103,6 +104,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     this.newEvent.eventStatus = 'active';
     this.newEvent.eventImage = this.createEventForm.value.image;
     this.newEvent.videoUrl = this.createEventForm.value.video;
+    this.newEvent.durationNumber = this.createEventForm.value.eventDurationNumber;
+    this.newEvent.durationTerm = this.createEventForm.value.eventDurationTerm;
     if (this.createEventForm.value.image) {
       this.newEvent.eventImageUrl = this.createEventForm.value.imageURL;
     }
@@ -119,6 +122,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
 
   // unsubscribe from group search observable
   ngOnDestroy(): void {
-    this.subGroup.unsubscribe();
+    if(this.isSubGrp){
+      this.subGroup.unsubscribe();
+    }
   }
 }

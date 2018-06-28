@@ -285,3 +285,12 @@ a {
   background-color: #f39c12;
   color: #fff;
 }
+.linkToBBB img{
+  width: 50px;
+  height: auto;
+}
+.linkToBBB{
+  outline: none;
+  border: 0px;
+  cursor: pointer;
+}

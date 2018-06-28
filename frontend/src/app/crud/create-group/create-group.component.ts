@@ -91,7 +91,7 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.nameToLower = this.createGroupForm.value.grpName.toLowerCase();
     this.newGroup.sector = this.sectorSelected.uid;
     this.newGroup.community = this.commSelected.uid;
-    this.newGroup.groupLead = this.groupLead.uid;
+    this.newGroup.groupLead = this.currentUser.uid;
     this.newGroup.createdBy = this.currentUser.uid;
     this.newGroup.dateCreated = new Date();
     this.newGroup.approved = false; // set to true after admin approves
@@ -148,7 +148,7 @@ export class CreateGroupComponent implements OnInit {
       }
     });
     //console.log(this.newGroup);
-    this.fbData.addGroup(this.newGroup, this.groupLead, this.sectorSelected, this.commSelected);
+    this.fbData.addGroup(this.newGroup, this.currentUser, this.sectorSelected, this.commSelected);
   }
   customPayments: groupPrice[] = [];
   p: groupPrice;
