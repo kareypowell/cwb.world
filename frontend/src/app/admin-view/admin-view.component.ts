@@ -84,7 +84,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     this.currentGroup = grp;
   }
   deleteCommunity(uid:string){
-    this.fbData.deleteCommunity(uid);
+    //this.fbData.deleteCommunity(uid);
   }
   ngOnDestroy(): void {
     this.communitySub.unsubscribe();
