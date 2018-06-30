@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Group, EventItem } from '../../interfaces/member';
+import { Group, EventItem, eventSession } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
 
 @Component({
@@ -14,7 +14,9 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   createEventForm: FormGroup;
   createEventForm2: FormGroup;
   groupSearch: Group[];
-  isLinear: boolean = true;
+  isLinear: boolean = false; // set to true to insist user completes first page before moving to next page
+  session:eventSession = {};
+  sessions:eventSession[] = [];
   ngOnInit() {
 
     this.createEventForm = this._formBuilder.group({
@@ -46,9 +48,9 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       eventDurationNumber: 2,
       eventDurationTerm: 'week'
     });
-
+    
     this.createEventForm2 = this._formBuilder.group({
-      name: ['', Validators.required]
+      
     });
   }
 
@@ -119,7 +121,13 @@ export class CreateEventComponent implements OnInit, OnDestroy {
   addSessions(){
 
   }
-
+  addSessionBlock(){
+    this.session = {};
+    this.sessions.push(this.session);
+  }
+  testSessions(){
+    console.log(this.sessions);
+  }
   // unsubscribe from group search observable
   ngOnDestroy(): void {
     if(this.isSubGrp){

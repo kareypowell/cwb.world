@@ -211,11 +211,18 @@
     <mat-step [stepControl]="createEventForm2">
       <form [formGroup]="createEventForm2" (submit)="addSessions()">
         <ng-template matStepLabel>Sessions and Pricing</ng-template>
-        <mat-form-field appearance ="outline">
-          <input matInput placeholder="Session name" formControlName="name" required>
-        </mat-form-field>
+        
+        <div class="sessionBlock" *ngFor="let session of sessions;  let isOdd=odd; let isEven=even" [class.odd]="isOdd" [class.even]="isEven">
+          <mat-form-field appearance ="outline">
+            <input matInput placeholder="Session name" [(ngModel)]="session.name" [ngModelOptions]="{standalone: true}">
+          </mat-form-field>
+        </div>
+        <div class="gap"></div>
+        <div class="gap"></div>
+        <button mat-button class="cwb-primary-button" (click)="addSessionBlock()">Add session</button>
         <div>
           <button mat-button matStepperPrevious>Back</button>
+          <button (click)="testSessions()">Test</button>
           <button mat-button matStepperNext type="submit" class="cwb-primary-button" [disabled]="!createEventForm2.valid">Add Sessions</button>
         </div>
       </form>

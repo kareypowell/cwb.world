@@ -294,3 +294,6 @@ a {
   border: 0px;
   cursor: pointer;
 }
+.even{
+  background-color: #efefef;
+}
