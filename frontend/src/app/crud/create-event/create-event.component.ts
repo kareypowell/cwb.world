@@ -25,7 +25,6 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       description: ['', Validators.required],
       whatToExpect: [''],
       capacity: [50, Validators.required],
-      group: ['', Validators.required],
       start: [new Date, Validators.required],
       end: [new Date, Validators.required],
       paidEvent: false,

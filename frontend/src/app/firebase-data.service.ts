@@ -165,7 +165,8 @@ export class FirebaseDataService {
           const data = { groupsInCommunity: groups };
           this.updateCommunity(community, data);
         }
-
+        //route to group-lead view
+        this.router.navigate(['/member-ui/group-lead']);
       })
       .catch(error => console.log(error));
   }
