@@ -121,7 +121,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
 
   // add sessions to event
   addSessions(){
-
+    console.log("Sessions to be added...");
   }
   addSessionBlock(){
     this.session = {};

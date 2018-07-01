@@ -184,6 +184,7 @@ export interface EventItem {
 
 export interface eventSession{
     name?:string;
+    capacity?:number;
     description?:string;
     price?:number;
     required?:boolean;

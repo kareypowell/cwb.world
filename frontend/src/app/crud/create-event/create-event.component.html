@@ -28,10 +28,12 @@
         <mat-radio-group formControlName="eventType">
           <mat-radio-button value="single" class="mr-3">Single Event</mat-radio-button>
           <p>An event that takes place on a single day or a consecutive number of days. Including or excluding weekends, if
-            any.</p>
+            any.
+          </p>
           <mat-radio-button value="recurring">Repeating Event</mat-radio-button>
           <p>An event that takes place over a single day or a number of consecutive days but repeats regularly for some time
-            period.</p>
+            period.
+          </p>
         </mat-radio-group>
         <div class="row" *ngIf="createEventForm.value.eventType ==='single'; else recurringEvent">
           <div class="col-md-4">
@@ -204,30 +206,42 @@
     <mat-step [stepControl]="createEventForm2">
       <form [formGroup]="createEventForm2" (submit)="addSessions()">
         <ng-template matStepLabel>Sessions and Pricing</ng-template>
-        
+        <p>Sessions are a great way to add flexible meeting groups for your event. You can add multiple sessions for each event
+          day or for the entire event duration.
+        </p>
+        <div class="gap"></div>
         <div class="sessionBlock" *ngFor="let session of sessions;  let isOdd=odd; let isEven=even" [class.odd]="isOdd" [class.even]="isEven">
-          <mat-form-field appearance ="outline">
-            <input matInput placeholder="Session name" [(ngModel)]="session.name" [ngModelOptions]="{standalone: true}">
-          </mat-form-field>
+          <div class="row">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Session name" [(ngModel)]="session.name" [ngModelOptions]="{standalone: true}">
+              </mat-form-field>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline">
+                <input matInput placeholder="Capacity" [(ngModel)]="session.capacity" [ngModelOptions]="{standalone: true}">
+              </mat-form-field>
+            </div>
+          </div>
           <p>More session form fields to be added...</p>
         </div>
         <div class="gap"></div>
         <div class="gap"></div>
-        <button mat-button class="cwb-primary-button" (click)="addSessionBlock()">Add session</button>
+        <button class="btn btn-success" (click)="addSessionBlock()">
+          <i class="fas fa-plus mr-2"></i>Add New Session</button>
+        <div class="gap"></div>
+        <div class="gap"></div>
+        <div class="gap"></div>
         <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button (click)="testSessions()">Test</button>
+          <button mat-button matStepperNext class="mr-4">skip</button>
+          <!--<button (click)="testSessions()">Test</button>-->
           <button mat-button matStepperNext type="submit" class="cwb-primary-button" [disabled]="!createEventForm2.valid">Add Sessions</button>
         </div>
       </form>
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Done</ng-template>
-      You are now done.
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
+      <p class="bighead no-matches">You are now done</p>
     </mat-step>
   </mat-horizontal-stepper>
 </div>
