@@ -1,4 +1,5 @@
 <div class="body-wrapper">
+  <h3 class="bighead">Create Event For {{dataTransfer.createEventGroup.name}}</h3>
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="createEventForm">
       <form [formGroup]="createEventForm" (submit)="createEvent()" autocomplete="off">
@@ -18,16 +19,8 @@
             </mat-form-field>
           </div>
           <div class="col-md-4">
-            <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Affiliated Group</mat-label>
-              <input type="text" placeholder="Group" aria-label="Group" matInput [matAutocomplete]="auto1" formControlName="group" (keyup)="searchGroup()"
-                required>
-              <mat-autocomplete #auto1="matAutocomplete">
-                <mat-option *ngFor="let option of groupSearch" [value]="option.name" (click)="getGroup(option)">
-                  {{ option.name }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
+            <h3 class="smallerhead">Affiliated group</h3>
+            <p>{{dataTransfer.createEventGroup.name}}</p>
           </div>
         </div>
         <br>

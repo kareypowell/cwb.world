@@ -2,6 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Group, EventItem, eventSession } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
+import { DataTransferService } from '../../data-transfer.service';
 
 @Component({
   selector: 'app-create-event',
@@ -10,7 +11,7 @@ import { FirebaseDataService } from '../../firebase-data.service';
 })
 export class CreateEventComponent implements OnInit, OnDestroy {
 
-  constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService) { }
+  constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService, public dataTransfer: DataTransferService) { }
   createEventForm: FormGroup;
   createEventForm2: FormGroup;
   groupSearch: Group[];
@@ -60,13 +61,14 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     this.subGroup = this.fbData.searchCollection(String(this.createEventForm.value.group), "groups", "nameToLower", 5).subscribe(data => {this.groupSearch = data; this.isSubGrp = true;});
   }
   selectedGroup: string;
-  grp: Group;
-  groupLead: string;
-  getGroup(option) {
-    this.grp = option;
-    this.selectedGroup = option.uid;
-    this.groupLead = option.groupLead;
-  }
+
+  //grp: Group;
+  //groupLead: string;
+  //getGroup(option) {
+  //  this.grp = option;
+  //  this.selectedGroup = option.uid;
+  //  this.groupLead = option.groupLead;
+  //}
 
   newEvent: EventItem;
   createEvent() {
@@ -76,8 +78,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     this.newEvent.description = this.createEventForm.value.description;
     this.newEvent.whatToExpect = this.createEventForm.value.whatToExpect;
     this.newEvent.startDate = this.createEventForm.value.start;
-    this.newEvent.groupLead = this.groupLead;
-    this.newEvent.group = this.selectedGroup;
+    this.newEvent.groupLead = this.dataTransfer.createEventGroup.groupLead;
+    this.newEvent.group = this.dataTransfer.createEventGroup.uid;
     this.newEvent.files = [];
     this.newEvent.endDate = this.createEventForm.value.end;
     this.newEvent.startWithoutHost = this.createEventForm.value.startWithoutHost;
@@ -114,7 +116,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     if (this.createEventForm.value.video) {
       this.newEvent.videoUrl = this.createEventForm.value.videoURL;
     }
-    this.fbData.addEvent(this.newEvent, this.grp);
+    this.fbData.addEvent(this.newEvent, this.dataTransfer.createEventGroup);
   }
 
   // add sessions to event

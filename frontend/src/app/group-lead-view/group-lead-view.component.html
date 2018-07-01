@@ -1,141 +1,123 @@
 <div class="row">
   <div class="col-md-5">
     <div class="col-md-12 no-padding">
-      <mat-card>
-
+      <div>
         <div class="gap"></div>
-        <mat-form-field class="full-width">
-          <input matInput type="text" name="filterSearch" placeholder="Search within results">
-        </mat-form-field>
+        <mat-card>
+          
+          
+          <div class="topItems">
+            <span class="align-center"><strong>You lead {{groups?.length}} Group(s)</strong></span>
+            <span class="buttonRight">
+              <button mat-button class="cwb-primary-button ml-5" (click)="openDialog('createGroup')">
+                <i class="fas fa-plus mr-2"></i>New Group</button>
+            </span>
+          </div>
+          <div class="gap"></div>
+          <mat-form-field class="full-width">
+              <input matInput type="text" name="filterSearch" placeholder="Search within results" [(ngModel)]="filterSearch">
+            </mat-form-field>
+          <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
 
-        <div class="">
+            <div class="gap"></div>
+            <p *ngIf="(groups | search: filterSearch: 'name')?.length == 0" class="no-matches smallhead">No matches</p>
+            <mat-list *ngFor="let grp of groups | search: filterSearch: 'name'">
+              <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)">
+                {{grp?.name}}
+                <span class="editables">
+                  <i class="far fa-edit"></i>
+                  <i class="far fa-minus-square"></i>
+                </span>
+              </mat-list-item>
+              <mat-divider></mat-divider>
+            </mat-list>
+          </mat-card>
+          <div class="gap"></div>
+          <div class="gap"></div>
           <mat-tab-group [dynamicHeight]="true">
-            <mat-tab label="Groups">
+            <mat-tab label="Details">
+              <strong>Name</strong>
+              <p>{{currentGroup?.name}}</p>
+              <strong>Description</strong>
+              <p>{{currentGroup?.description}}</p>
+              <strong>Capacity</strong>
+              <p>{{currentGroup?.capacity}}</p>
+              <strong>Members</strong>
+              <p>{{currentGroup?.members.length}}</p>
+            </mat-tab>
+            <mat-tab label="Events">
+
               <div class="gap"></div>
               <div class="topItems">
-               <!-- <span class="align-center"><strong>You lead {{groups?.length}} Group(s)</strong></span> -->
-              <span class="buttonRight"><button mat-button class="cwb-primary-button ml-5" (click)="openDialog('createGroup')">
-                <i class="fas fa-plus mr-2"></i>New</button></span>
-              </div>
-
-              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
-
-                <div class="gap"></div>
-                <mat-list *ngFor="let grp of groups">
-                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)">
-                  {{grp?.name}}
-                    <span class="editables">
-                      <i class="far fa-edit"></i>
-                      <i class="far fa-minus-square"></i>
-                    </span>
-                  </mat-list-item>
-                  <mat-divider></mat-divider>
-                </mat-list>
-              </mat-card>
-              <div class="gap"></div>
-              <div class="gap"></div>
-              <mat-tab-group [dynamicHeight]="true">
-
-                <mat-tab label="Stats">
-                  <div class="gap"></div>
-                  <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
-                  <div class="gap"></div>
-                </mat-tab>
-                <mat-tab label="Details">
-                  <strong>Name</strong>
-                  <p>{{currentGroup?.name}}</p>
-                  <strong>Description</strong>
-                  <p>{{currentGroup?.description}}</p>
-                  <strong>Capacity</strong>
-                  <p>{{currentGroup?.capacity}}</p>
-                  <strong>Members</strong>
-                  <p>{{currentGroup?.members.length}}</p>
-                </mat-tab>
-                <mat-tab label="Payments">
-
-                </mat-tab>
-              </mat-tab-group>
-            </mat-tab>
-            <!--
-            <mat-tab label="Members">
-              <div class="gap"></div>
-              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
-                <div class="gap"></div>
-                <mat-list *ngFor="let user of members">
-                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==user" (click)="currentMember = user">
-                  {{user?.firstName}} {{user?.lastname}}
-                    <span class="editables">
-                      <i class="far fa-edit"></i>
-                      <i class="far fa-minus-square"></i>
-                    </span>
-                  </mat-list-item>
-                  <mat-divider></mat-divider>
-                </mat-list>
-              </mat-card>
-              <div class="gap"></div>
-              <div class="gap"></div>
-              <mat-tab-group [dynamicHeight]="true">
-
-                <mat-tab label="Details">
-                  <div class="gap"></div>
-                  <div class="gap"></div>
-                </mat-tab>
-                <mat-tab label="Payment">
-
-                </mat-tab>
-                <mat-tab label="Groups">
-
-                </mat-tab>
-              </mat-tab-group>
-            </mat-tab>
-            
-              
-            -->
-          <mat-tab label="Events">
-
-            <div class="gap"></div>
-            <div class="topItems">
                 <!--<span class="align-center"><strong>{{events?.length}} Event(s) across your groups</strong></span> -->
-              <span class="buttonRight"><button mat-button class="cwb-primary-button ml-5" (click)="openDialog('createEvent')">
-                <i class="fas fa-plus mr-2"></i>New</button></span>
+                <span class="buttonRight">
+                  <button mat-button class="cwb-primary-button ml-5" (click)="openDialog('createEvent')">
+                    <i class="fas fa-plus mr-2"></i>New Event</button>
+                </span>
               </div>
-            <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                <div class="gap"></div>
+                <mat-list *ngFor="let event of events | search:currentGroup?.uid:'group'">
+                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentEvent==event" (click)="currentEvent = event">
+                    {{event.name}}
+                    <span class="editables">
+                      <i class="far fa-edit"></i>
+                      <i class="far fa-minus-square"></i>
+                    </span>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                </mat-list>
+                <h3 class="smallhead" *ngIf="(events | search:currentGroup?.uid:'group').length == 0">No Events in this group</h3>
+              </mat-card>
               <div class="gap"></div>
-              <mat-list *ngFor="let event of events">
-                <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentEvent==event" (click)="currentEvent = event">
-                {{event.name}}
-                  <span class="editables">
-                    <i class="far fa-edit"></i>
-                    <i class="far fa-minus-square"></i>
-                  </span>
-                </mat-list-item>
-                <mat-divider></mat-divider>
-              </mat-list>
-            </mat-card>
-            <div class="gap"></div>
-            <div class="gap"></div>
-            <mat-tab-group [dynamicHeight]="true">
+              <div class="gap"></div>
+              <mat-tab-group [dynamicHeight]="true">
 
-              <mat-tab label="Details">
+                <mat-tab label="Details">
                   <strong>Name</strong>
                   <p>{{currentEvent?.name}}</p>
                   <strong>Description</strong>
                   <p>{{currentEvent?.description}}</p>
                   <strong>Capacity</strong>
                   <p>{{currentEvent?.eventCapacity}}</p>
-              </mat-tab>
-              <mat-tab label="Payment">
+                </mat-tab>
+                <mat-tab label="Payment">
 
-              </mat-tab>
-              <mat-tab label="Registration">
+                </mat-tab>
+                <mat-tab label="Registration">
 
-              </mat-tab>
-            </mat-tab-group>
-          </mat-tab>
+                </mat-tab>
+              </mat-tab-group>
+            </mat-tab>
+            <mat-tab label="Members">
+              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                <div class="gap"></div>
+                <mat-list *ngFor="let member of members | search:currentGroup?.uid:'groupUID'">
+                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==member" (click)="currentMember = member">
+                    {{member?.firstName}} {{member?.lastName}}
+                    <span class="editables">
+                      <i class="far fa-edit"></i>
+                      <i class="far fa-minus-square"></i>
+                    </span>
+                  </mat-list-item>
+                  <mat-divider></mat-divider>
+                </mat-list>
+                <h3 class="smallhead" *ngIf="(members | search:currentGroup?.uid:'groupUID').length == 0">No members in this group</h3>
+              </mat-card>
+            </mat-tab>
+            <mat-tab label="Payments">
+
+            </mat-tab>
+            <mat-tab label="Stats">
+              <div class="gap"></div>
+              <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
+              <div class="gap"></div>
+            </mat-tab>
           </mat-tab-group>
-        </div>
+        </mat-card>
+
         <div class="gap"></div>
-      </mat-card>
+      </div>
     </div>
   </div>
   <div class="col-md-7">

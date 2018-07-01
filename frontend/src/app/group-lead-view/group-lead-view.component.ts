@@ -4,7 +4,7 @@ import { PerfectScrollbarConfigInterface,
   PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
-import { Community, Sector, Group, User, EventItem } from '../interfaces/member';
+import { Community, Sector, Group, User, EventItem, GroupMember } from '../interfaces/member';
 import { FirebaseDataService } from '../firebase-data.service';
 import { AuthService } from '../auth-service';
 
@@ -16,8 +16,9 @@ import { AuthService } from '../auth-service';
 export class GroupLeadViewComponent implements OnInit, OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
-  constructor(private dialog:MatDialog, private fbData: FirebaseDataService, private auth: AuthService) { }
+  constructor(private dialog:MatDialog, private fbData: FirebaseDataService, private auth: AuthService, private dataTransfer: DataTransferService) { }
 
+  filterSearch: string = "";
   
   private groupSub;
   private memberSub;
@@ -25,7 +26,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
   private subUser;
 
   groups: Group[];
-  members: User[] =[];
+  members: GroupMember[] =[];
   events: EventItem[] = [];
   user: User;
 
@@ -42,13 +43,17 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
       // sub for user groups lead
       this. groupSub = this.fbData.getGroupsLead(this.user.uid).subscribe(data =>{
         this.groups = data;
-        this.currentGroup = this.groups[0];
+        if(this.groups.length != 0){
+          this.currentGroup = this.groups[0];
+        }
       });
 
       // sub for members in user's groups
-      this.memberSub = this.fbData.usersFromDB$.subscribe(data =>{
+      this.memberSub = this.fbData.groupMembersFromDB$.subscribe(data =>{
         this.members = data;
-        this.currentMember = this.members[0];
+        if(this.members.length != 0){
+          this.currentMember = this.members[0];
+        }
       });
       
       // sub for events in user's groups
@@ -58,7 +63,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
             this.events.push(event);
           }
         });
-        this.currentEvent = this.events[0];
+        //this.currentEvent = this.events[0];
       });
 
     });
@@ -76,6 +81,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
       this.dataset = { createGroup: true }
     }else if(source == 'createEvent'){
       this.dataset = { createEvent: true }
+      this.dataTransfer.createEventGroup = this.currentGroup;
     }else if(source == 'deleteConfirm'){
       this.dialogWidth = '300px'
     }

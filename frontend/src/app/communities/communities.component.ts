@@ -19,10 +19,6 @@ export class CommunitiesComponent implements OnInit,OnDestroy {
     this.sub = this.fbData.communitiesFromDB$.subscribe(data => this.communities = data);
   }
 
-  setCommunity(comm){
-    this.data.community = comm;
-  }
-
   ngOnDestroy(): void {
     this.sub.unsubscribe();
   }

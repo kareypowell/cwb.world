@@ -297,3 +297,9 @@ a {
 .even{
   background-color: #efefef;
 }
+.no-matches{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
