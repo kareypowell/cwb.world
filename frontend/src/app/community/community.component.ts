@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FirebaseDataService } from '../firebase-data.service';
-import { Group, Community, User } from '../interfaces/member';
+import { Group, Community, User, Sector } from '../interfaces/member';
 import {ActivatedRoute} from '@angular/router';
 
 
@@ -17,8 +17,16 @@ export class CommunityComponent implements OnInit, OnDestroy {
   private sub3;
   unsub3:boolean = false;
   groups: Group[];
+  sectors: Sector[];
   creator:User;
   community:Community;
+  filterSearch:string = "";
+  sectorVal: string = "";
+  private subSectors;
+  angleDirection: string = "down";
+
+
+
   ngOnInit() {
     this.sub = this.fbData.communityCollection.doc(this.route.snapshot.params['id']).valueChanges().subscribe(data => 
       {
@@ -33,16 +41,25 @@ export class CommunityComponent implements OnInit, OnDestroy {
         }
       });
     this.sub2 = this.fbData.getSpecificItems(this.route.snapshot.params['id']).subscribe(data => this.groups = data);
+    this.subSectors = this.fbData.sectorsFromDB$.subscribe( data => this.sectors = data);
 
   }
 
   showFilterDiv:boolean = false;
-  
+
+  changeCaret(){
+    if(this.angleDirection === 'down'){
+      this.angleDirection = 'up';
+    }else{
+      this.angleDirection = 'down';
+    }
+  }
   ngOnDestroy(): void {
     this.sub.unsubscribe();
     this.sub2.unsubscribe();
     if(this.unsub3){
       this.sub3.unsubscribe();
     }
+    this.subSectors.unsubscribe();
   }
 }

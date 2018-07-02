@@ -27,19 +27,34 @@
       </div>
       <ng-template #showInfo>
         <div class="row">
-          <div class="col-sm-4">
-            <h3 class="smallerhead" (click)="showFilterDiv = !showFilterDiv" style="cursor: pointer">
-              <i class="fas fa-filter"></i> Filter Groups</h3>
-          </div>
-          <div class="col-sm-4 text-center">{{groups?.length}} groups</div>
+          <div class="col-sm-12">
+              <h3 class="smallhead" (click)="showFilterDiv = !showFilterDiv; changeCaret()" style="cursor: pointer">
+                <i class="fas fa-filter mr-3"></i> Filter Groups <i class="fas fa-angle-{{angleDirection}} ml-3"></i></h3>
+              <div class="filterDiv" *ngIf="showFilterDiv">
+                <div class="gap"></div>
+                <mat-form-field class="full-width" appearance="outline">
+                  <mat-icon matSuffix>search</mat-icon>
+                  <input matInput type="text" name="filterSearch" placeholder="Search Groups" [(ngModel)]="filterSearch">
+                </mat-form-field><br>
+                <mat-form-field class="full-width" appearance="outline">
+                    <mat-select placeholder="Filter by Sector" [(ngModel)]="sectorVal">
+                        <mat-option [value]="">
+                            All Sectors
+                          </mat-option>
+                      <mat-option *ngFor="let sector of sectors" [value]="sector.uid">
+                        {{ sector.name }}
+                      </mat-option>
+                    </mat-select>
+                  </mat-form-field>
+              </div>
+            </div>
         </div>
-        <div class="filterDiv" *ngIf="showFilterDiv">
-          <input type="text" placeholder="Filter by this">
-        </div>
+
         <div class="gap"></div>
       </ng-template>
+      <p class="no-matches smallhead" *ngIf="(groups | search: filterSearch:'name' | search:sectorVal:'sector')?.length === 0">No matches found</p>
       <div class="row">
-        <div class="col-md-4" *ngFor="let group of groups">
+        <div class="col-md-4" *ngFor="let group of groups | search: filterSearch:'name' | search:sectorVal:'sector'">
           <mat-card>
             <div class="imageHolder">
               <img src="../../assets/images/education.jpg" alt="{{group?.name}} Image">

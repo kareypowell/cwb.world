@@ -14,6 +14,7 @@ export class CommunitiesComponent implements OnInit,OnDestroy {
   }
   private sub;
   communities: Community[];
+  filterSearch: string = "";
 
   ngOnInit() {
     this.sub = this.fbData.communitiesFromDB$.subscribe(data => this.communities = data);
