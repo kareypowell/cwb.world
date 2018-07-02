@@ -18,7 +18,7 @@
         <mat-label>What to Expect</mat-label>
         <textarea matInput rows="5" formControlName="whatToExpect" value="{{community?.whatToExpect}}" required></textarea>
       </mat-form-field>
-      <button class="mr-3" type="button" mat-raised-button (click) = "onNoClick()">Cancel</button>
+      <button class="mr-3" type="button" mat-raised-button (click) = "onNoClick(false)">Cancel</button>
       <button mat-raised-button type="submit" class="cwb-primary-button">Update Community</button>
     </form>
 </div>
