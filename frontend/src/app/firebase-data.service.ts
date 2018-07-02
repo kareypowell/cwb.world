@@ -159,11 +159,11 @@ export class FirebaseDataService {
           community.groupsInCommunity.push(ref.id);
           const groups = community.groupsInCommunity;
           const data = { groupsInCommunity: groups };
-          this.updateCommunity(community, data);
+          this.updateCommunity(community.uid, data);
         } else {
           const groups = [ref.id];
           const data = { groupsInCommunity: groups };
-          this.updateCommunity(community, data);
+          this.updateCommunity(community.uid, data);
         }
         //route to group-lead view
         this.router.navigate(['/member-ui/group-lead']);
@@ -266,8 +266,8 @@ export class FirebaseDataService {
     const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`sectors/${sector.uid}`); //sector ref to update data
     sectorRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  updateCommunity(community: Community, data) {
-    const communityRef: AngularFirestoreDocument<any> = this.afs.doc(`communities/${community.uid}`); //community ref to update data
+  updateCommunity(communityuid:string, data) {
+    const communityRef: AngularFirestoreDocument<any> = this.afs.doc(`communities/${communityuid}`); //community ref to update data
     communityRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
   updateGroup(group: Group, data) {
@@ -339,6 +339,11 @@ export class FirebaseDataService {
   deleteCommunity(communityID: string) {
     // prompt admin to re-assign all groups, sectors assigned to this community
     this.communityCollection.doc(communityID).delete();
+  }
+  deleteEvent(eventID: string){
+    // remove event ID from group events
+    
+    this.eventCollection.doc(eventID).delete();
   }
 
 }

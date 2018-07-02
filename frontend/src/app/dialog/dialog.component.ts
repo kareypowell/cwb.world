@@ -3,7 +3,6 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { User, Sector, Community, GroupMember } from "../interfaces/member";
 import { AuthService } from "../auth-service";
-import PerfectScrollbar from 'perfect-scrollbar';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { FirebaseDataService } from '../firebase-data.service';
 

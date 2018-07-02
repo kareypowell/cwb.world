@@ -1,0 +1,24 @@
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <h1 class="smallhead">Update {{community?.name}}</h1>
+  <form [formGroup]="updateCommunityForm" (submit)="updateCommunity()">
+      <mat-form-field class="mr-3" appearance="outline">
+        <mat-label>Community Name</mat-label>
+        <input matInput formControlName="name" value="{{community?.name}}" required>
+      </mat-form-field>
+      <br>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea matInput rows="8" formControlName="description" value="{{community?.description}}" required></textarea>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>Bio</mat-label>
+        <textarea matInput rows="5" formControlName="bio" value="{{community?.bio}}" required></textarea>
+      </mat-form-field>
+      <mat-form-field class="full-width" appearance="outline">
+        <mat-label>What to Expect</mat-label>
+        <textarea matInput rows="5" formControlName="whatToExpect" value="{{community?.whatToExpect}}" required></textarea>
+      </mat-form-field>
+      <button class="mr-3" type="button" mat-raised-button (click) = "onNoClick()">Cancel</button>
+      <button mat-raised-button type="submit" class="cwb-primary-button">Update Community</button>
+    </form>
+</div>

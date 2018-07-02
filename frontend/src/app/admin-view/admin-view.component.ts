@@ -6,6 +6,9 @@ import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Community, Sector, Group, User, EventItem } from '../interfaces/member';
 import { FirebaseDataService } from '../firebase-data.service';
+import { UpdateCommunityComponent } from '../crud/update-community/update-community.component';
+import { ConfirmDeleteComponent } from '../crud/confirm-delete/confirm-delete.component';
+import { UpdateSectorComponent } from '../crud/update-sector/update-sector.component';
 
 @Component({
   selector: 'app-admin-view',
@@ -77,15 +80,52 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  updateCommunity(commUID): void {
+    this.dataset = {uid: commUID}
+    let dialogRef = this.dialog.open(UpdateCommunityComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+  updateSector(sectoruid){
+    this.dataset = {uid: sectoruid}
+    let dialogRef = this.dialog.open(UpdateSectorComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+
+  deleteItem(itemuid, collection): void {
+    this.dataset = {
+      uid: itemuid,
+      collection: collection
+    };
+    let dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '400px',
+      data: this.dataset
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+
+  
+
   searchVal = "";
   
   
   displayGroupInfo(grp){
     this.currentGroup = grp;
   }
-  deleteCommunity(uid:string){
-    //this.fbData.deleteCommunity(uid);
-  }
+  
   ngOnDestroy(): void {
     this.communitySub.unsubscribe();
     this.sectorSub.unsubscribe();

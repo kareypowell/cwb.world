@@ -81,6 +81,11 @@ import { SectorLeadCalendarComponent } from './calendars/sector-lead-calendar/se
 import { HostPartnerCalendarComponent } from './calendars/host-partner-calendar/host-partner-calendar.component';
 import { GuestHostCalendarComponent } from './calendars/guest-host-calendar/guest-host-calendar.component';
 import { EventRegistrationComponent } from './event-registration/event-registration.component';
+import { UpdateGroupComponent } from './crud/update-group/update-group.component';
+import { UpdateEventComponent } from './crud/update-event/update-event.component';
+import { UpdateCommunityComponent } from './crud/update-community/update-community.component';
+import { UpdateSectorComponent } from './crud/update-sector/update-sector.component';
+import { ConfirmDeleteComponent } from './crud/confirm-delete/confirm-delete.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -143,7 +148,12 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SectorLeadCalendarComponent,
     HostPartnerCalendarComponent,
     GuestHostCalendarComponent,
-    EventRegistrationComponent
+    EventRegistrationComponent,
+    UpdateGroupComponent,
+    UpdateEventComponent,
+    UpdateCommunityComponent,
+    UpdateSectorComponent,
+    ConfirmDeleteComponent
   ],
   imports: [
     BrowserModule,
@@ -164,7 +174,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
   ],
-  entryComponents: [DialogComponent],
+  entryComponents:
+    [ DialogComponent, UpdateCommunityComponent, UpdateEventComponent, UpdateGroupComponent, UpdateSectorComponent,
+      ConfirmDeleteComponent
+    ],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard, HostPartnerGuard,
     SectorLeadGuard, {
       provide: PERFECT_SCROLLBAR_CONFIG,
