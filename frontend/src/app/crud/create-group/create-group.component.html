@@ -98,7 +98,7 @@
                 <mat-form-field class="mr-3" appearance="outline">
                   <mat-label>Start time</mat-label>
                   <input matInput [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" required autocomplete="off" [(ngModel)]="day.startTime" [ngModelOptions]="{standalone: true}">
-                  <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+                  <owl-date-time [pickerType]="'timer'" #dt4 [hour12Timer] ="true"></owl-date-time>
                 </mat-form-field>
                 <span class="smallhead mr-3">
                   <strong>End Time:</strong>
@@ -107,7 +107,7 @@
                   <mat-label>End time</mat-label>
                   
                   <input matInput [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" required autocomplete="off" [(ngModel)]="day.endTime" [ngModelOptions]="{standalone: true}">
-                  <owl-date-time [pickerType]="'timer'" #dt5></owl-date-time>
+                  <owl-date-time [pickerType]="'timer'" #dt5 [hour12Timer] ="true"></owl-date-time>
                 </mat-form-field>
           </div>
         </li>

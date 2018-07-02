@@ -39,23 +39,6 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subUser = this.auth.user$.subscribe(data => {
       this.user = data;
-
-      // sub for user groups lead
-      this. groupSub = this.fbData.getGroupsLead(this.user.uid).subscribe(data =>{
-        this.groups = data;
-        if(this.groups.length != 0){
-          this.currentGroup = this.groups[0];
-        }
-      });
-
-      // sub for members in user's groups
-      this.memberSub = this.fbData.groupMembersFromDB$.subscribe(data =>{
-        this.members = data;
-        if(this.members.length != 0){
-          this.currentMember = this.members[0];
-        }
-      });
-      
       // sub for events in user's groups
       this.eventSub = this.fbData.eventsFromDB$.subscribe(data =>{
         data.forEach(event => {
@@ -63,8 +46,28 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
             this.events.push(event);
           }
         });
-        //this.currentEvent = this.events[0];
+        if(this.events.length != 0){
+          this.currentEvent = this.events[0];
+        }
       });
+
+      // sub for user groups lead
+      this. groupSub = this.fbData.getGroupsLead(this.user.uid).subscribe(data =>{
+        this.groups = data;
+        if(data.length != 0){
+          this.currentGroup = this.groups[0]; 
+        }
+      });
+
+      // sub for members in user's groups
+      this.memberSub = this.fbData.groupMembersFromDB$.subscribe(data =>{
+        this.members = data;
+        if(data.length != 0){
+          this.currentMember = this.members[0];
+        }
+      });
+      
+      
 
     });
   }

@@ -27,6 +27,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       capacity: [50, Validators.required],
       start: [new Date, Validators.required],
       end: [new Date, Validators.required],
+      recurringEndTime: [new Date, Validators.required],
       paidEvent: false,
       eventType: 'single',
       eventFrequency: 'weekly',
@@ -92,6 +93,11 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     } else {
       this.newEvent.isRecurrent = true;
       this.newEvent.recurrence = this.createEventForm.value.eventFrequency;
+      this.newEvent.endDate = this.newEvent.startDate; // if recurring, set end date to start date then get the end times
+      const mins = this.createEventForm.value.recurringEndTime.getMinutes();
+      const hrs = this.createEventForm.value.recurringEndTime.getHours();
+      this.newEvent.endDate.setMinutes(mins);
+      this.newEvent.endDate.setHours(hrs);
     }
     this.newEvent.paidEvent = this.createEventForm.value.paidEvent;
     if (this.newEvent.paidEvent) {
@@ -115,7 +121,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     if (this.createEventForm.value.video) {
       this.newEvent.videoUrl = this.createEventForm.value.videoURL;
     }
-    this.fbData.addEvent(this.newEvent, this.dataTransfer.createEventGroup);
+    //this.fbData.addEvent(this.newEvent, this.dataTransfer.createEventGroup);
+    console.log(this.newEvent);
   }
 
   // add sessions to event

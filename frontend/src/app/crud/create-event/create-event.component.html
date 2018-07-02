@@ -40,14 +40,14 @@
             <mat-form-field class="full-width" appearance="outline">
               <mat-label>Start</mat-label>
               <input matInput [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" required autocomplete="off" formControlName="start">
-              <owl-date-time #dt1></owl-date-time>
+              <owl-date-time #dt1 [hour12Timer] ="true"></owl-date-time>
             </mat-form-field>
           </div>
           <div class="col-md-4">
             <mat-form-field class="full-width" appearance="outline">
               <mat-label>End</mat-label>
               <input matInput [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required autocomplete="off" formControlName="end">
-              <owl-date-time #dt2></owl-date-time>
+              <owl-date-time #dt2 [hour12Timer] ="true"></owl-date-time>
             </mat-form-field>
           </div>
           <div class="col-md-4">
@@ -62,13 +62,13 @@
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>Start</mat-label>
                 <input matInput [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" required autocomplete="off" formControlName="start">
-                <owl-date-time #dt3></owl-date-time>
+                <owl-date-time #dt3 [hour12Timer] ="true"></owl-date-time>
               </mat-form-field>
               <br>
               <mat-form-field class="full-width" appearance="outline">
                 <mat-label>End</mat-label>
-                <input matInput [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" required autocomplete="off" formControlName="end">
-                <owl-date-time #dt4></owl-date-time>
+                <input matInput [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" required autocomplete="off" formControlName="recurringEndTime">
+                <owl-date-time #dt4 [hour12Timer] ="true" [pickerType] ="'timer'"></owl-date-time>
               </mat-form-field>
             </div>
             <div class="col-md-4">
@@ -109,7 +109,7 @@
                   </mat-form-field>
                 </div>
               </div>
-              <mat-checkbox formControlName="startWithoutHost">Start Without Host</mat-checkbox>
+              <!--<mat-checkbox formControlName="startWithoutHost">Start Without Host</mat-checkbox>-->
               <br>
             </div>
           </div>
