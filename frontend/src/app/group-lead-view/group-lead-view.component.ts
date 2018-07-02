@@ -7,6 +7,9 @@ import { DialogComponent } from '../dialog/dialog.component';
 import { Community, Sector, Group, User, EventItem, GroupMember } from '../interfaces/member';
 import { FirebaseDataService } from '../firebase-data.service';
 import { AuthService } from '../auth-service';
+import { ConfirmDeleteComponent } from '../crud/confirm-delete/confirm-delete.component';
+import { UpdateGroupComponent } from '../crud/update-group/update-group.component';
+import { UpdateEventComponent } from '../crud/update-event/update-event.component';
 
 @Component({
   selector: 'app-group-lead-view',
@@ -104,9 +107,43 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
   displayGroupInfo(grp){
     this.currentGroup = grp;
   }
-  deleteCommunity(uid:string){
-    this.fbData.deleteCommunity(uid);
+  updateGroup(groupID){
+    this.dataset = {uid: groupID}
+    let dialogRef = this.dialog.open(UpdateGroupComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
   }
+  updateEvent(eventID){
+    this.dataset = {uid: eventID}
+    let dialogRef = this.dialog.open(UpdateEventComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+  deleteItem(itemID:string, collection:string){
+    this.dataset = {
+      uid: itemID,
+      collection: collection
+    };
+    let dialogRef = this.dialog.open(ConfirmDeleteComponent, {
+      width: '400px',
+      data: this.dataset
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+
+
   ngOnDestroy(): void {
     this.groupSub.unsubscribe();
     this.memberSub.unsubscribe();

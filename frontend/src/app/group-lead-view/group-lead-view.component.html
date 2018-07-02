@@ -15,7 +15,7 @@
           </div>
           <div class="gap"></div>
           <mat-form-field class="full-width">
-              <input matInput type="text" name="filterSearch" placeholder="Search within results" [(ngModel)]="filterSearch">
+              <input matInput type="text" name="filterSearch" placeholder="Search Groups" [(ngModel)]="filterSearch">
             </mat-form-field>
           <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
 
@@ -25,8 +25,8 @@
               <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)">
                 {{grp?.name}}
                 <span class="editables">
-                  <i class="far fa-edit"></i>
-                  <i class="far fa-minus-square"></i>
+                  <i class="far fa-edit" (click)="updateGroup(grp.uid)"></i>
+                  <i class="far fa-minus-square" (click)="deleteItem(grp.uid, 'groups')"></i>
                 </span>
               </mat-list-item>
               <mat-divider></mat-divider>
@@ -61,8 +61,8 @@
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentEvent==event" (click)="currentEvent = event">
                     {{event.name}}
                     <span class="editables">
-                      <i class="far fa-edit"></i>
-                      <i class="far fa-minus-square"></i>
+                      <i class="far fa-edit" (click)="updateEvent(event.uid)"></i>
+                      <i class="far fa-minus-square" (click)="deleteItem(event.uid, 'events')"></i>
                     </span>
                   </mat-list-item>
                   <mat-divider></mat-divider>
