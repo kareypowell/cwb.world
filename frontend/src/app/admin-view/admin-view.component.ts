@@ -9,6 +9,7 @@ import { FirebaseDataService } from '../firebase-data.service';
 import { UpdateCommunityComponent } from '../crud/update-community/update-community.component';
 import { ConfirmDeleteComponent } from '../crud/confirm-delete/confirm-delete.component';
 import { UpdateSectorComponent } from '../crud/update-sector/update-sector.component';
+import { UpdateGroupComponent } from '../crud/update-group/update-group.component';
 
 @Component({
   selector: 'app-admin-view',
@@ -23,7 +24,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   private communitySub;
   private sectorSub;
   private groupSub;
-  private memberSub;
+  public memberSub;
   private eventSub;
 
   communities: Community[];
@@ -51,10 +52,11 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       this.groups = data;
       this.currentGroup = this.groups[0];
     });
-    this. memberSub = this.fbData.usersFromDB$.subscribe(data =>{
+    this. memberSub = this.fbData.usersFromDB$; // using async pipe
+    /*.subscribe(data =>{
       this.members = data;
       this.currentMember = this.members[0];
-    });
+    });*/
   }
   dataset = {};
 
@@ -102,7 +104,31 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
+  updateGroup(groupID){
+    this.dataset = {uid: groupID}
+    let dialogRef = this.dialog.open(UpdateGroupComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+
+  updateEvent(eventID){
+    this.dataset = {uid: eventID}
+    let dialogRef = this.dialog.open(UpdateGroupComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+
+  
   deleteItem(itemuid, collection): void {
     this.dataset = {
       uid: itemuid,
@@ -130,7 +156,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     this.communitySub.unsubscribe();
     this.sectorSub.unsubscribe();
     this.groupSub.unsubscribe();
-    this.memberSub.unsubscribe();
+    //this.memberSub.unsubscribe();
     //this.eventSub.unsubscribe()
     
   }

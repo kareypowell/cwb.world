@@ -1,207 +1,207 @@
 <div class="body-wrapper">
-  <h3 class="bighead">Create Event For {{dataTransfer.createEventGroup.name}}</h3>
+  <h3 class="bighead" mat-dialog-title>Create Event For {{dataTransfer.createEventGroup.name}}</h3>
+  <form [formGroup]="createEventForm" (submit)="createEvent()" autocomplete="off">
+    <h3 class="smallhead">Basic Information</h3>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Event Name</mat-label>
+          <input matInput formControlName="name" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Event Capcity</mat-label>
+          <input type="number" matInput formControlName="capacity" required>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <h3 class="smallerhead">Affiliated group</h3>
+        <p>{{dataTransfer.createEventGroup.name}}</p>
+      </div>
+    </div>
+    <br>
+    <h3 class="smallhead">Choose Event Recurrence:</h3>
+    <mat-radio-group formControlName="eventType">
+      <mat-radio-button value="single" class="mr-3">Single Event</mat-radio-button>
+      <p>An event that takes place on a single day or a consecutive number of days. Including or excluding weekends, if
+        any.
+      </p>
+      <mat-radio-button value="recurring">Repeating Event</mat-radio-button>
+      <p>An event that takes place over a single day or a number of consecutive days but repeats regularly for some time
+        period.
+      </p>
+    </mat-radio-group>
+    <div class="row" *ngIf="createEventForm.value.eventType ==='single'; else recurringEvent">
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Start</mat-label>
+          <input matInput [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" required autocomplete="off" formControlName="start">
+          <owl-date-time #dt1 [hour12Timer] ="true"></owl-date-time>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>End</mat-label>
+          <input matInput [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required autocomplete="off" formControlName="end">
+          <owl-date-time #dt2 [hour12Timer] ="true"></owl-date-time>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-checkbox formControlName="startWithoutHost">Start Without Host</mat-checkbox>
+        <br>
+        <mat-checkbox formControlName="includeWeekends">Include Weekends</mat-checkbox>
+      </div>
+    </div>
+    <ng-template #recurringEvent>
+      <div class="row">
+        <div class="col-md-4">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Start</mat-label>
+            <input matInput [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" required autocomplete="off" formControlName="start">
+            <owl-date-time #dt3 [hour12Timer] ="true"></owl-date-time>
+          </mat-form-field>
+          <br>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>End</mat-label>
+            <input matInput [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" required autocomplete="off" formControlName="recurringEndTime">
+            <owl-date-time #dt4 [hour12Timer] ="true" [pickerType] ="'timer'"></owl-date-time>
+          </mat-form-field>
+        </div>
+        <div class="col-md-4">
+          <h4 class="smallerhead">Frequency:</h4>
+          <mat-radio-group formControlName="eventFrequency">
+            <mat-radio-button value="weekly" class="mr-3">Every week</mat-radio-button>
+            <mat-radio-button value="twoWeeks" class="mr-3">Every Two Weeks</mat-radio-button>
+            <br>
+            <mat-radio-button value="monthly" class="mr-3">Every Month</mat-radio-button>
+            <mat-radio-button value="quarterly" class="mr-3">Every Quarter</mat-radio-button>
+            <br>
+            <mat-radio-button value="yearly" class="mr-3">Every Year</mat-radio-button>
+            <br>
+          </mat-radio-group>
+        </div>
+        <div class="col-md-4">
+          <h4 class="smallerhead">Event Duration</h4>
+          <div class="row">
+            <div class="col-sm-6">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-label>Duration</mat-label>
+                <input type="number" matInput formControlName="eventDurationNumber" required>
+              </mat-form-field>
+            </div>
+            <div class="col-sm-6">
+              <mat-form-field class="full-width" appearance="outline">
+                <mat-select placeholder="Duration" formControlName="eventDurationTerm">
+                  <mat-option value="week">
+                    Weeks
+                  </mat-option>
+                  <mat-option value="month">
+                    Months
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+          <!--<mat-checkbox formControlName="startWithoutHost">Start Without Host</mat-checkbox>-->
+          <br>
+        </div>
+      </div>
+    </ng-template>
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <h3 class="smallhead">More Information</h3>
+    <br>
+    <div class="row">
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="5" formControlName="description"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>What to Expect</mat-label>
+          <textarea matInput rows="5" formControlName="whatToExpect"></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-md-4">
+        <mat-checkbox formControlName="registrationRequired">Registration required to join event</mat-checkbox>
+        <br>
+        <mat-checkbox formControlName="openToOnlyGroupMembers">Open to members only</mat-checkbox>
+        <br>
+      </div>
+    </div>
+    <br>
+    <h3 class="smallhead">Event Location</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-checkbox formControlName="locationOnline">Online</mat-checkbox>
+      </div>
+      <div class="col-md-6">
+        <mat-checkbox formControlName="locationPhysical">Physical Location</mat-checkbox>
+        <div *ngIf="createEventForm.value.locationPhysical">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Address</mat-label>
+            <textarea matInput rows="4" formControlName="locationPhysicalAddress"></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h3 class="smallhead">Event Media</h3>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-checkbox formControlName="image">Event Image</mat-checkbox>
+        <div *ngIf="createEventForm.value.image">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Image URL</mat-label>
+            <input matInput formControlName="imageURL">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <mat-checkbox formControlName="video">Event Video</mat-checkbox>
+        <div *ngIf="createEventForm.value.video">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Video URL</mat-label>
+            <input matInput formControlName="videoURL">
+          </mat-form-field>
+        </div>
+      </div>
+    </div>
+    <br>
+    <h3 class="smallhead">Event Pricing</h3>
+    <p>If you wish to accept payment for this event, please check the box below to enter details about event fees. Payment
+      will be processed to group account.</p>
+    <mat-checkbox formControlName="paidEvent">Paid Event</mat-checkbox>
+
+    <div class="row" *ngIf="createEventForm.value.paidEvent">
+      <div class="col-md-6">
+        <mat-form-field class="mr-3" appearance="outline">
+          <mat-label>Event Fee</mat-label>
+          <input type="number" matInput formControlName="fee">
+        </mat-form-field>
+        <mat-checkbox formControlName="refundable">Refundable fee</mat-checkbox>
+        <br>
+        <mat-form-field class="full-width" appearance="outline" *ngIf="createEventForm.value.refundable">
+          <mat-label>Refund Policy</mat-label>
+          <textarea matInput rows="5" formControlName="refundPolicy"></textarea>
+        </mat-form-field>
+      </div>
+
+    </div>
+    <div class="gap"></div>
+    <br>
+    <!--<button mat-raised-button type="button" (click)="onNoClick(false);">Cancel</button>-->
+    <button mat-raised-button type="submit" class="cwb-primary-button" [disabled]="!createEventForm.valid">Create Event</button>
+
+  </form>
+
+  <!--
   <mat-horizontal-stepper [linear]="isLinear" #stepper>
     <mat-step [stepControl]="createEventForm">
-      <form [formGroup]="createEventForm" (submit)="createEvent()" autocomplete="off">
-        <ng-template matStepLabel>Basic Information</ng-template>
-        <h3 class="smallhead">Basic Information</h3>
-        <div class="row">
-          <div class="col-md-4">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Event Name</mat-label>
-              <input matInput formControlName="name" required>
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Event Capcity</mat-label>
-              <input type="number" matInput formControlName="capacity" required>
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <h3 class="smallerhead">Affiliated group</h3>
-            <p>{{dataTransfer.createEventGroup.name}}</p>
-          </div>
-        </div>
-        <br>
-        <h3 class="smallhead">Choose Event Recurrence:</h3>
-        <mat-radio-group formControlName="eventType">
-          <mat-radio-button value="single" class="mr-3">Single Event</mat-radio-button>
-          <p>An event that takes place on a single day or a consecutive number of days. Including or excluding weekends, if
-            any.
-          </p>
-          <mat-radio-button value="recurring">Repeating Event</mat-radio-button>
-          <p>An event that takes place over a single day or a number of consecutive days but repeats regularly for some time
-            period.
-          </p>
-        </mat-radio-group>
-        <div class="row" *ngIf="createEventForm.value.eventType ==='single'; else recurringEvent">
-          <div class="col-md-4">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Start</mat-label>
-              <input matInput [owlDateTimeTrigger]="dt1" [owlDateTime]="dt1" required autocomplete="off" formControlName="start">
-              <owl-date-time #dt1 [hour12Timer] ="true"></owl-date-time>
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>End</mat-label>
-              <input matInput [owlDateTimeTrigger]="dt2" [owlDateTime]="dt2" required autocomplete="off" formControlName="end">
-              <owl-date-time #dt2 [hour12Timer] ="true"></owl-date-time>
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-checkbox formControlName="startWithoutHost">Start Without Host</mat-checkbox>
-            <br>
-            <mat-checkbox formControlName="includeWeekends">Include Weekends</mat-checkbox>
-          </div>
-        </div>
-        <ng-template #recurringEvent>
-          <div class="row">
-            <div class="col-md-4">
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Start</mat-label>
-                <input matInput [owlDateTimeTrigger]="dt3" [owlDateTime]="dt3" required autocomplete="off" formControlName="start">
-                <owl-date-time #dt3 [hour12Timer] ="true"></owl-date-time>
-              </mat-form-field>
-              <br>
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>End</mat-label>
-                <input matInput [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" required autocomplete="off" formControlName="recurringEndTime">
-                <owl-date-time #dt4 [hour12Timer] ="true" [pickerType] ="'timer'"></owl-date-time>
-              </mat-form-field>
-            </div>
-            <div class="col-md-4">
-              <h4 class="smallerhead">Frequency:</h4>
-              <mat-radio-group formControlName="eventFrequency">
-                <mat-radio-button value="weekly" class="mr-3">Every week</mat-radio-button>
-                <mat-radio-button value="twoWeeks" class="mr-3">Every Two Weeks</mat-radio-button>
-                <br>
-                <mat-radio-button value="monthly" class="mr-3">Every Month</mat-radio-button>
-                <mat-radio-button value="quarterly" class="mr-3">Every Quarter</mat-radio-button>
-                <br>
-                <mat-radio-button value="yearly" class="mr-3">Every Year</mat-radio-button>
-                <br>
-              </mat-radio-group>
-            </div>
-            <div class="col-md-4">
-              <h4 class="smallerhead">Event Duration</h4>
-              <div class="row">
-                <div class="col-sm-6">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-label>Duration</mat-label>
-                    <input type="number" matInput formControlName="eventDurationNumber" required>
-                  </mat-form-field>
-                </div>
-                <div class="col-sm-6">
-                  <mat-form-field class="full-width" appearance="outline">
-                    <mat-select placeholder="Duration" formControlName="eventDurationTerm">
-                      <mat-option value="week">
-                        Weeks
-                      </mat-option>
-                      <mat-option value="month">
-                        Months
-                      </mat-option>
-                      <mat-option value="year">
-                        Years
-                      </mat-option>
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-              </div>
-              <!--<mat-checkbox formControlName="startWithoutHost">Start Without Host</mat-checkbox>-->
-              <br>
-            </div>
-          </div>
-        </ng-template>
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <h3 class="smallhead">More Information</h3>
-        <br>
-        <div class="row">
-          <div class="col-md-4">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Description</mat-label>
-              <textarea matInput rows="5" formControlName="description"></textarea>
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-form-field class="full-width" appearance="outline">
-              <mat-label>What to Expect</mat-label>
-              <textarea matInput rows="5" formControlName="whatToExpect"></textarea>
-            </mat-form-field>
-          </div>
-          <div class="col-md-4">
-            <mat-checkbox formControlName="registrationRequired">Registration required to join event</mat-checkbox>
-            <br>
-            <mat-checkbox formControlName="openToOnlyGroupMembers">Open to members only</mat-checkbox>
-            <br>
-          </div>
-        </div>
-        <br>
-        <h3 class="smallhead">Event Location</h3>
-        <div class="row">
-          <div class="col-md-6">
-            <mat-checkbox formControlName="locationOnline">Online</mat-checkbox>
-          </div>
-          <div class="col-md-6">
-            <mat-checkbox formControlName="locationPhysical">Physical Location</mat-checkbox>
-            <div *ngIf="createEventForm.value.locationPhysical">
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Address</mat-label>
-                <textarea matInput rows="4" formControlName="locationPhysicalAddress"></textarea>
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <br>
-        <h3 class="smallhead">Event Media</h3>
-        <div class="row">
-          <div class="col-md-6">
-            <mat-checkbox formControlName="image">Event Image</mat-checkbox>
-            <div *ngIf="createEventForm.value.image">
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Image URL</mat-label>
-                <input matInput formControlName="imageURL">
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <mat-checkbox formControlName="video">Event Video</mat-checkbox>
-            <div *ngIf="createEventForm.value.video">
-              <mat-form-field class="full-width" appearance="outline">
-                <mat-label>Video URL</mat-label>
-                <input matInput formControlName="videoURL">
-              </mat-form-field>
-            </div>
-          </div>
-        </div>
-        <br>
-        <h3 class="smallhead">Event Pricing</h3>
-        <p>If you wish to accept payment for this event, please check the box below to enter details about event fees. Payment
-          will be processed to group account.</p>
-        <mat-checkbox formControlName="paidEvent">Paid Event</mat-checkbox>
-
-        <div class="row" *ngIf="createEventForm.value.paidEvent">
-          <div class="col-md-6">
-            <mat-form-field class="mr-3" appearance="outline">
-              <mat-label>Event Fee</mat-label>
-              <input type="number" matInput formControlName="fee">
-            </mat-form-field>
-            <mat-checkbox formControlName="refundable">Refundable fee</mat-checkbox>
-            <br>
-            <mat-form-field class="full-width" appearance="outline" *ngIf="createEventForm.value.refundable">
-              <mat-label>Refund Policy</mat-label>
-              <textarea matInput rows="5" formControlName="refundPolicy"></textarea>
-            </mat-form-field>
-          </div>
-
-        </div>
-        <div class="gap"></div>
-        <br>
-        <button mat-raised-button type="submit" class="cwb-primary-button" [disabled]="!createEventForm.valid" matStepperNext>Create Event</button>
-
-      </form>
+      
     </mat-step>
     <mat-step [stepControl]="createEventForm2">
       <form [formGroup]="createEventForm2" (submit)="addSessions()">
@@ -234,7 +234,7 @@
         <div class="gap"></div>
         <div>
           <button mat-button matStepperNext class="mr-4">skip</button>
-          <!--<button (click)="testSessions()">Test</button>-->
+          <button (click)="testSessions()">Test</button>
           <button mat-button matStepperNext type="submit" class="cwb-primary-button" [disabled]="!createEventForm2.valid">Add Sessions</button>
         </div>
       </form>
@@ -244,4 +244,6 @@
       <p class="bighead no-matches">You are now done</p>
     </mat-step>
   </mat-horizontal-stepper>
+
+-->
 </div>

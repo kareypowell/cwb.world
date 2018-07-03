@@ -93,6 +93,7 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
     this.updatedGroup = {};
     
     console.log(this.updatedGroup);
+    alert("Update functionality still in the works...");
   }
   commSearch:Community[];
   sectorSearch: Sector[];

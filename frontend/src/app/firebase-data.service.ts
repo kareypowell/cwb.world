@@ -12,6 +12,8 @@ import { User, Community, Sector, Group, GroupMember, EventItem } from './interf
   providedIn: 'root'
 })
 export class FirebaseDataService {
+  status:any = {success:false, fail:false, message:""}; // to send back status messages to pages
+
   //user
   user: User;
   userData: User;
@@ -338,7 +340,14 @@ export class FirebaseDataService {
   }
   deleteCommunity(communityID: string) {
     // prompt admin to re-assign all groups, sectors assigned to this community
-    this.communityCollection.doc(communityID).delete();
+    this.communityCollection.doc(communityID).delete().then(()=>{console.log( "successful")}).catch(err => {console.error( err)});
+    /*.then(()=>{
+      this.status.success = true;
+      return this.status;
+    })
+    .catch((err) => {
+      return {success:false, fail:true, message:err};
+    })*/
   }
   deleteEvent(eventID: string){
     // remove event ID from group events

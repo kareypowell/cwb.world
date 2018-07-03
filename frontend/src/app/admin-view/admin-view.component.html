@@ -127,7 +127,7 @@
               <div class="gap"></div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
-                <mat-list *ngFor="let user of members">
+                <mat-list *ngFor="let user of memberSub | async">
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==user" (click)="currentMember = user">
                   {{user?.firstName}} {{user?.lastname}}
                     <span class="editables">

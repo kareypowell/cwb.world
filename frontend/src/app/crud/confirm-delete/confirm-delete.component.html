@@ -1,9 +1,18 @@
 <div class="text-center">
-    <p class="smallhead">
-        Confirm Deletion?
-      </p>
-      <div class="gap"></div>
-      
-      <button class="btn btn-secondary mr-3" (click) = "onNoClick(false)">Cancel</button>
-      <button class="btn btn-danger" (click)= "deleteItem()">Delete</button>
+<!--
+    <div class="alert alert-success" role="alert" *ngIf="status?.success">
+    Successfully deleted
+  </div>
+  <div class="alert alert-danger" role="alert" *ngIf="status?.fail">
+    Failed to delete. Try again...
+  </div>
+-->
+  
+  <p class="smallhead">
+    Confirm Deletion?
+  </p>
+  <div class="gap"></div>
+
+  <button class="btn btn-secondary mr-3" (click)="onNoClick(false)">Cancel</button>
+  <button class="btn btn-danger" (click)="deleteItem()">Delete</button>
 </div>
