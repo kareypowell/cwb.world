@@ -130,6 +130,7 @@ export interface Sector {
     bio?: string;
     whatToExpect?: string;
     community?: string; // community name
+    communityID?:string;
     sectorLead?: string; // hold uid of sector lead(s)
     imageUrl?: string;
     files?: string[];

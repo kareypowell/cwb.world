@@ -13,7 +13,9 @@
             <mat-tab label="Communities">
               <div class="padding-15">
                 <div class="topItems">
-                  <span class="mr-5"><strong>{{communities?.length}} Communities</strong></span>
+                  <span class="mr-5">
+                    <strong>{{communities?.length}} Communities</strong>
+                  </span>
                   <button mat-button class="cwb-primary-button text-right" (click)="openDialog('createCommunity')">
                     <i class="fas fa-plus mr-2"></i>New</button>
                 </div>
@@ -21,8 +23,8 @@
                 <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                   <div class="gap"></div>
                   <mat-list *ngFor="let comm of communities">
-                    <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentCommunity == comm" (click)="currentCommunity = comm">
-                    {{comm?.name}}
+                    <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentCommunity == comm" (click)="currentCommunity = comm; getSectorsForComm(currentCommunity?.uid); getGroupsForComm(currentCommunity?.uid)">
+                      {{comm?.name}}
                       <span class="editables">
                         <i class="far fa-edit" (click)="updateCommunity(comm?.uid)"></i>
                         <i class="far fa-minus-square" (click)="deleteItem(comm?.uid, 'communities')"></i>
@@ -34,57 +36,109 @@
                 <div class="gap"></div>
                 <div class="gap"></div>
                 <mat-tab-group [dynamicHeight]="true">
-
+                  <mat-tab label="Details">
+                    <strong>Name: </strong>{{currentCommunity?.name}}
+                    <br>
+                    <br>
+                    <strong>Description: </strong>{{currentCommunity?.description}}
+                    <br>
+                    <br>
+                    <strong>What to Expect: </strong>{{currentCommunity?.whatToExpect}}
+                    <br>
+                    <br>
+                  </mat-tab>
+                  <mat-tab label="Sectors">
+                    <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                      <div class="gap"></div>
+                      <mat-list *ngFor="let sector of sectorsInComm | async">
+                        <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector">
+                          {{sector?.name}}
+                          <span class="editables">
+                            <i class="far fa-edit" (click)="updateSector(sector?.uid)"></i>
+                            <i class="far fa-minus-square" (click)="deleteItem(sector?.uid, 'sectors')"></i>
+                          </span>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                      </mat-list>
+                    </mat-card>
+                  </mat-tab>
+                  <mat-tab label="Groups">
+                    <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                      <div class="gap"></div>
+                      <mat-list *ngFor="let group of groupsInComm | async">
+                        <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup == group" (click)="currentGroup = group">
+                          {{group?.name}}
+                          <span class="editables">
+                            <i class="far fa-edit" (click)="updateGroup(group?.uid)"></i>
+                            <i class="far fa-minus-square" (click)="deleteItem(group?.uid, 'groups')"></i>
+                          </span>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                      </mat-list>
+                    </mat-card>
+                  </mat-tab>
                   <mat-tab label="Stats">
                     <div class="gap"></div>
                     <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
                     <div class="gap"></div>
                   </mat-tab>
-                  <mat-tab label="Details">
-                    {{currentCommunity?.name}}
-                    <br> {{currentCommunity?.description}}
-                  </mat-tab>
-                  <mat-tab label="Sectors">
-
-                  </mat-tab>
                 </mat-tab-group>
               </div>
             </mat-tab>
             <mat-tab label="Sectors">
-              {{sectors?.length}} Sectors
-              <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('createSector')">
-                <i class="fas fa-plus mr-2"></i>New</button>
+              <div class="padding-15">
+                <div class="topItems">
+                  <span class="mr-5">
+                    <strong>{{sectors?.length}} Sectors</strong>
+                  </span>
+                  <button mat-button class="cwb-primary-button fl-right text-right" (click)="openDialog('createSector')">
+                    <i class="fas fa-plus mr-2"></i>New</button>
+                </div>
 
-              <div class="gap"></div>
-              <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
-                <mat-list *ngFor="let sector of sectors">
-                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector">
-                  {{sector?.name}}
-                    <span class="editables">
-                      <i class="far fa-edit" (click)="updateSector(sector?.uid)"></i>
-                      <i class="far fa-minus-square" (click)="deleteItem(sector?.uid, 'sectors')"></i>
-                    </span>
-                  </mat-list-item>
-                  <mat-divider></mat-divider>
-                </mat-list>
-              </mat-card>
-              <div class="gap"></div>
-              <div class="gap"></div>
-              <mat-tab-group [dynamicHeight]="true">
-
-                <mat-tab label="Stats">
+                <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                   <div class="gap"></div>
-                  <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
-                  <div class="gap"></div>
-                </mat-tab>
-                <mat-tab label="Details">
-
-                </mat-tab>
-                <mat-tab label="Groups">
-
-                </mat-tab>
-              </mat-tab-group>
+                  <mat-list *ngFor="let sector of sectors">
+                    <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector; getGroupsForSec();">
+                      {{sector?.name}}
+                      <span class="editables">
+                        <i class="far fa-edit" (click)="updateSector(sector?.uid)"></i>
+                        <i class="far fa-minus-square" (click)="deleteItem(sector?.uid, 'sectors')"></i>
+                      </span>
+                    </mat-list-item>
+                    <mat-divider></mat-divider>
+                  </mat-list>
+                </mat-card>
+                <div class="gap"></div>
+                <div class="gap"></div>
+                <mat-tab-group [dynamicHeight]="false">
+                  <mat-tab label="Details">
+                    <strong>Name: </strong>{{currentSector?.name}} <br> <br>
+                    <strong>Description: </strong>{{currentSector?.description}} <br> <br>
+                    <strong>What to Expect: </strong>{{currentSector?.whatToExpect}} <br> <br>
+                  </mat-tab>
+                  <mat-tab label="Groups">
+                      <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                          <div class="gap"></div>
+                          <mat-list *ngFor="let group of groupsInSec | async">
+                            <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup == group" (click)="currentGroup = group">
+                              {{group?.name}}
+                              <span class="editables">
+                                <i class="far fa-edit" (click)="updateGroup(group?.uid)"></i>
+                                <i class="far fa-minus-square" (click)="deleteItem(group?.uid, 'groups')"></i>
+                              </span>
+                            </mat-list-item>
+                            <mat-divider></mat-divider>
+                          </mat-list>
+                        </mat-card>
+                  </mat-tab>
+                  <mat-tab label="Stats">
+                    <div class="gap"></div>
+                    <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
+                    <div class="gap"></div>
+                  </mat-tab>
+                </mat-tab-group>
+              </div>
             </mat-tab>
             <mat-tab label="Groups">
               <div class="gap"></div>
@@ -97,7 +151,7 @@
                 <div class="gap"></div>
                 <mat-list *ngFor="let grp of groups">
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)">
-                  {{grp?.name}}
+                    {{grp?.name}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
                       <i class="far fa-minus-square"></i>
@@ -129,7 +183,7 @@
                 <div class="gap"></div>
                 <mat-list *ngFor="let user of memberSub | async">
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==user" (click)="currentMember = user">
-                  {{user?.firstName}} {{user?.lastname}}
+                    {{user?.firstName}} {{user?.lastname}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
                       <i class="far fa-minus-square"></i>

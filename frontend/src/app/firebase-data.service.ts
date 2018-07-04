@@ -194,7 +194,46 @@ export class FirebaseDataService {
     this.userCollection.add(user).catch(error => console.log(error));
   }
   // READ ==========================================================================================================================
+  getSectorsInCommunity(communityID: string){
+    return this.afs.collection('sectors', ref => ref
+      .orderBy('communityID')
+      .startAt(communityID)
+      .endAt(communityID + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Sector;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getGroupsInCommunity(communityID: string){
+    return this.afs.collection('groups', ref => ref
+      .orderBy('community')
+      .startAt(communityID)
+      .endAt(communityID + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Sector;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
 
+  getGroupsInSector(secID: string){
+    return this.afs.collection('groups', ref => ref
+      .orderBy('sector')
+      .startAt(secID)
+      .endAt(secID + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Sector;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
   searchCollection(searchValue, collectionName, searchField, limitTo) {
     return this.afs.collection(collectionName, ref => ref
       .orderBy(searchField)

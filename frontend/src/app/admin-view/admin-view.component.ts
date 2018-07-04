@@ -27,6 +27,11 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   public memberSub;
   private eventSub;
 
+  public sectorsInComm;
+  public groupsInComm;
+
+  public groupsInSec;
+
   communities: Community[];
   sectors: Sector[];
   groups: Group[];
@@ -40,13 +45,17 @@ export class AdminViewComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
+    
     this. communitySub = this.fbData.communitiesFromDB$.subscribe(data =>{
       this.communities = data;
       this.currentCommunity = this.communities[0];
+      this.sectorsInComm = this.fbData.getSectorsInCommunity(this.currentCommunity.uid);
+      this.groupsInComm = this.fbData.getGroupsInCommunity(this.currentCommunity.uid);
     });
     this. sectorSub = this.fbData.sectorsFromDB$.subscribe(data =>{
       this.sectors = data;
       this.currentSector = this.sectors[0];
+      this.groupsInSec = this.fbData.getGroupsInSector(this.currentSector.uid);
     });
     this. groupSub = this.fbData.groupsFromDB$.subscribe(data =>{
       this.groups = data;
@@ -61,6 +70,16 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   dataset = {};
 
   dialogWidth = '90%';
+
+  getSectorsForComm(commID:string){
+    this.sectorsInComm = this.fbData.getSectorsInCommunity(commID);
+  }
+  getGroupsForComm(commID:string){
+    this.groupsInComm = this.fbData.getGroupsInCommunity(commID);
+  }
+  getGroupsForSec(){
+    this.groupsInSec = this.fbData.getGroupsInSector(this.currentSector.uid);
+  }
 
   openDialog(source): void {
     if(source == 'createCommunity'){

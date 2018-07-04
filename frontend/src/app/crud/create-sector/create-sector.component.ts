@@ -37,7 +37,8 @@ export class CreateSectorComponent implements OnInit, OnDestroy {
     this.newSector.bio = this.createSectorForm.value.bio;
     this.newSector.whatToExpect = this.createSectorForm.value.whatToExpect;
     this.newSector.sectorLead = this.secLead;
-    this.newSector.community = this.commSelected;
+    this.newSector.community = this.commSelected.name;
+    this.newSector.communityID = this.commSelected.uid;
     this.newSector.files = []; // initialize sector files
     this.newSector.dateCreated = new Date();
     this.newSector.imageUrl = null; // set image url to null for now
@@ -56,7 +57,7 @@ export class CreateSectorComponent implements OnInit, OnDestroy {
   }
   private commSelected;
   getCommunity(option) {
-    this.commSelected = option.name;
+    this.commSelected = option;
   }
 
   commSearch: Community[];
