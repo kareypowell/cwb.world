@@ -150,7 +150,7 @@
 
                 <div class="gap"></div>
                 <mat-list *ngFor="let grp of groups">
-                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)">
+                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp); getMembersForGroup();">
                     {{grp?.name}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
@@ -164,17 +164,39 @@
               <div class="gap"></div>
               <mat-tab-group [dynamicHeight]="true">
 
-                <mat-tab label="Stats">
-                  <div class="gap"></div>
-                  <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
-                  <div class="gap"></div>
-                </mat-tab>
+                
                 <mat-tab label="Details">
-
+                  <strong>Name: </strong> {{currentGroup?.name}} <br><br>
+                  <strong>Description: </strong> {{currentGroup?.description}} <br><br>
+                  <strong>What to Expect: </strong> {{currentGroup?.whatToExpect}} <br><br>
                 </mat-tab>
-                <mat-tab label="Payments">
-
+                <mat-tab label="Members">
+                    <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                        <div class="gap"></div>
+                        <p *ngIf="(membersInGroup | async)?.length === 0" class="smallhead no-matches">
+                          No Members Yet...
+                          <button mat-raised-button class="cwb-primary-button">Add Members (Not implemented)</button>
+                        </p>
+                        <mat-list *ngFor="let member of membersInGroup | async as membersInGrp">
+                          <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember == member" (click)="currentMember = member; showHiddenDeets = !showHiddenDeets;">
+                            {{member?.firstName}} {{member?.lastName}}
+                            <span class="editables">
+                              <!--<i class="far fa-edit" (click)="updateGroup(member?.uid)"></i>-->
+                              <i class="far fa-minus-square" (click)="deleteItem(member?.uid, 'group-members'); $event.stopPropagation()"></i>
+                            </span>
+                          </mat-list-item>
+                          <mat-divider></mat-divider>
+                          <div class="hiddenDetails" *ngIf="showHiddenDeets && currentMember == member">
+                              Member Details go here... Eg. Payments
+                            </div>
+                        </mat-list>
+                      </mat-card>
                 </mat-tab>
+                <mat-tab label="Stats">
+                    <div class="gap"></div>
+                    <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
+                    <div class="gap"></div>
+                  </mat-tab>
               </mat-tab-group>
             </mat-tab>
             <mat-tab label="Members">

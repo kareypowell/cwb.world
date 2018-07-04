@@ -228,7 +228,21 @@ export class FirebaseDataService {
       .endAt(secID + "\uf8ff"))
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
-          const data = a.payload.doc.data() as Sector;
+          const data = a.payload.doc.data() as Group;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+
+  getMembersInGroup(groupID: string){
+    return this.afs.collection('group-members', ref => ref
+      .orderBy('groupUID')
+      .startAt(groupID)
+      .endAt(groupID + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as GroupMember;
           data.uid = a.payload.doc.id;
           return data;
         })

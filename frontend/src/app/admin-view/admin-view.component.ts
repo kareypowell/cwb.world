@@ -20,7 +20,8 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
   constructor(private data: DataTransferService, private dialog:MatDialog, private fbData: FirebaseDataService) { }
-
+  
+  showHiddenDeets: boolean = false;
   private communitySub;
   private sectorSub;
   private groupSub;
@@ -31,6 +32,8 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   public groupsInComm;
 
   public groupsInSec;
+
+  public membersInGroup;
 
   communities: Community[];
   sectors: Sector[];
@@ -60,6 +63,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     this. groupSub = this.fbData.groupsFromDB$.subscribe(data =>{
       this.groups = data;
       this.currentGroup = this.groups[0];
+      this.membersInGroup = this.fbData.getMembersInGroup(this.currentGroup.uid);
     });
     this. memberSub = this.fbData.usersFromDB$; // using async pipe
     /*.subscribe(data =>{
@@ -79,6 +83,9 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   }
   getGroupsForSec(){
     this.groupsInSec = this.fbData.getGroupsInSector(this.currentSector.uid);
+  }
+  getMembersForGroup(){
+    this.membersInGroup = this.fbData.getMembersInGroup(this.currentGroup.uid);
   }
 
   openDialog(source): void {
