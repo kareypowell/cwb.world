@@ -20,7 +20,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
   constructor(private data: DataTransferService, private dialog:MatDialog, private fbData: FirebaseDataService) { }
-  
+
   showHiddenDeets: boolean = false;
   private communitySub;
   private sectorSub;
@@ -28,12 +28,18 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   public memberSub;
   private eventSub;
 
+  searchValComm:string = "";
+  searchValSec:string = "";
+  searchValGrp:string = "";
+  searchValMem:string = "";
+
   public sectorsInComm;
   public groupsInComm;
 
   public groupsInSec;
 
   public membersInGroup;
+  public memberGroups;
 
   communities: Community[];
   sectors: Sector[];
@@ -65,11 +71,12 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       this.currentGroup = this.groups[0];
       this.membersInGroup = this.fbData.getMembersInGroup(this.currentGroup.uid);
     });
-    this. memberSub = this.fbData.usersFromDB$; // using async pipe
-    /*.subscribe(data =>{
+    this. memberSub = this.fbData.getAllUsers()
+    .subscribe(data =>{
       this.members = data;
       this.currentMember = this.members[0];
-    });*/
+      this.memberGroups = this.getGrpInfo();
+    });
   }
   dataset = {};
 
@@ -171,7 +178,12 @@ export class AdminViewComponent implements OnInit, OnDestroy {
 
   
 
-  searchVal = "";
+  getGrpInfo(){
+    this.memberGroups =  this.fbData.getGroupsJoinedByMember(this.currentMember.uid);
+  }
+  getGroupName(id:string){
+    return this.fbData.getGroupName(id);
+  }
   
   
   displayGroupInfo(grp){

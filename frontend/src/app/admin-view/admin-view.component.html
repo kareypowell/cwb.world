@@ -4,14 +4,13 @@
       <mat-card>
 
         <div class="gap"></div>
-        <mat-form-field class="full-width">
-          <input matInput type="text" name="filterSearch" [(ngModel)]="searchVal" placeholder="Search within results">
-        </mat-form-field>
-
         <div class="">
           <mat-tab-group [dynamicHeight]="true">
             <mat-tab label="Communities">
               <div class="padding-15">
+                <mat-form-field class="full-width">
+                  <input matInput type="text" name="filterSearch" [(ngModel)]="searchValComm" placeholder="Search Communities">
+                </mat-form-field>
                 <div class="topItems">
                   <span class="mr-5">
                     <strong>{{communities?.length}} Communities</strong>
@@ -22,7 +21,7 @@
                 <div class="gap"></div>
                 <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                   <div class="gap"></div>
-                  <mat-list *ngFor="let comm of communities">
+                  <mat-list *ngFor="let comm of communities | search : searchValComm : 'name'">
                     <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentCommunity == comm" (click)="currentCommunity = comm; getSectorsForComm(currentCommunity?.uid); getGroupsForComm(currentCommunity?.uid)">
                       {{comm?.name}}
                       <span class="editables">
@@ -48,9 +47,10 @@
                     <br>
                   </mat-tab>
                   <mat-tab label="Sectors">
+                    
                     <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                       <div class="gap"></div>
-                      <mat-list *ngFor="let sector of sectorsInComm | async">
+                      <mat-list *ngFor="let sector of sectorsInComm | async | search: searchValSec: 'name'">
                         <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector">
                           {{sector?.name}}
                           <span class="editables">
@@ -87,6 +87,9 @@
             </mat-tab>
             <mat-tab label="Sectors">
               <div class="padding-15">
+                  <mat-form-field class="full-width">
+                      <input matInput type="text" name="filterSearch" [(ngModel)]="searchValSec" placeholder="Search Sectors">
+                    </mat-form-field>
                 <div class="topItems">
                   <span class="mr-5">
                     <strong>{{sectors?.length}} Sectors</strong>
@@ -98,7 +101,7 @@
                 <div class="gap"></div>
                 <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                   <div class="gap"></div>
-                  <mat-list *ngFor="let sector of sectors">
+                  <mat-list *ngFor="let sector of sectors | search: searchValSec: 'name'">
                     <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector; getGroupsForSec();">
                       {{sector?.name}}
                       <span class="editables">
@@ -113,24 +116,30 @@
                 <div class="gap"></div>
                 <mat-tab-group [dynamicHeight]="false">
                   <mat-tab label="Details">
-                    <strong>Name: </strong>{{currentSector?.name}} <br> <br>
-                    <strong>Description: </strong>{{currentSector?.description}} <br> <br>
-                    <strong>What to Expect: </strong>{{currentSector?.whatToExpect}} <br> <br>
+                    <strong>Name: </strong>{{currentSector?.name}}
+                    <br>
+                    <br>
+                    <strong>Description: </strong>{{currentSector?.description}}
+                    <br>
+                    <br>
+                    <strong>What to Expect: </strong>{{currentSector?.whatToExpect}}
+                    <br>
+                    <br>
                   </mat-tab>
                   <mat-tab label="Groups">
-                      <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
-                          <div class="gap"></div>
-                          <mat-list *ngFor="let group of groupsInSec | async">
-                            <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup == group" (click)="currentGroup = group">
-                              {{group?.name}}
-                              <span class="editables">
-                                <i class="far fa-edit" (click)="updateGroup(group?.uid)"></i>
-                                <i class="far fa-minus-square" (click)="deleteItem(group?.uid, 'groups')"></i>
-                              </span>
-                            </mat-list-item>
-                            <mat-divider></mat-divider>
-                          </mat-list>
-                        </mat-card>
+                    <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                      <div class="gap"></div>
+                      <mat-list *ngFor="let group of groupsInSec | async">
+                        <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup == group" (click)="currentGroup = group">
+                          {{group?.name}}
+                          <span class="editables">
+                            <i class="far fa-edit" (click)="updateGroup(group?.uid)"></i>
+                            <i class="far fa-minus-square" (click)="deleteItem(group?.uid, 'groups')"></i>
+                          </span>
+                        </mat-list-item>
+                        <mat-divider></mat-divider>
+                      </mat-list>
+                    </mat-card>
                   </mat-tab>
                   <mat-tab label="Stats">
                     <div class="gap"></div>
@@ -142,14 +151,19 @@
             </mat-tab>
             <mat-tab label="Groups">
               <div class="gap"></div>
-              {{groups?.length}} Groups
-              <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('createGroup')">
-                <i class="fas fa-plus mr-2"></i>New</button>
+              <mat-form-field class="full-width">
+                  <input matInput type="text" name="filterSearch" [(ngModel)]="searchValGrp" placeholder="Search Sectors">
+                </mat-form-field>
+              <div class="topItems">
+                  <span class="mr-5"><strong>{{groups?.length}} Groups</strong></span>
+                  <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('createGroup')">
+                    <i class="fas fa-plus mr-2"></i>New</button>
+              </div>
 
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
 
                 <div class="gap"></div>
-                <mat-list *ngFor="let grp of groups">
+                <mat-list *ngFor="let grp of groups | search: searchValGrp: 'name'">
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp); getMembersForGroup();">
                     {{grp?.name}}
                     <span class="editables">
@@ -164,47 +178,69 @@
               <div class="gap"></div>
               <mat-tab-group [dynamicHeight]="true">
 
-                
+
                 <mat-tab label="Details">
-                  <strong>Name: </strong> {{currentGroup?.name}} <br><br>
-                  <strong>Description: </strong> {{currentGroup?.description}} <br><br>
-                  <strong>What to Expect: </strong> {{currentGroup?.whatToExpect}} <br><br>
+                  <strong>Name: </strong> {{currentGroup?.name}}
+                  <br>
+                  <br>
+                  <strong>Capacity: </strong> {{currentGroup?.capacity}}
+                  <br>
+                  <br>
+                  <strong>Members: </strong> {{(membersInGroup | async)?.length}}
+                  <br>
+                  <br>
+                  <strong>Description: </strong> {{currentGroup?.description}}
+                  <br>
+                  <br>
+                  <strong>What to Expect: </strong> {{currentGroup?.whatToExpect}}
+                  <br>
+                  <br>
                 </mat-tab>
                 <mat-tab label="Members">
-                    <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
-                        <div class="gap"></div>
-                        <p *ngIf="(membersInGroup | async)?.length === 0" class="smallhead no-matches">
-                          No Members Yet...
-                          <button mat-raised-button class="cwb-primary-button">Add Members (Not implemented)</button>
-                        </p>
-                        <mat-list *ngFor="let member of membersInGroup | async as membersInGrp">
-                          <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember == member" (click)="currentMember = member; showHiddenDeets = !showHiddenDeets;">
-                            {{member?.firstName}} {{member?.lastName}}
-                            <span class="editables">
-                              <!--<i class="far fa-edit" (click)="updateGroup(member?.uid)"></i>-->
-                              <i class="far fa-minus-square" (click)="deleteItem(member?.uid, 'group-members'); $event.stopPropagation()"></i>
-                            </span>
-                          </mat-list-item>
-                          <mat-divider></mat-divider>
-                          <div class="hiddenDetails" *ngIf="showHiddenDeets && currentMember == member">
-                              Member Details go here... Eg. Payments
-                            </div>
-                        </mat-list>
-                      </mat-card>
+                  <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                    <div class="gap"></div>
+                    <p *ngIf="(membersInGroup | async)?.length === 0" class="smallhead no-matches">
+                      No Members Yet...
+                      <button mat-raised-button class="cwb-primary-button">Add Members (Not implemented)</button>
+                    </p>
+                    <mat-list *ngFor="let member of membersInGroup | async as membersInGrp">
+                      <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember == member" (click)="currentMember = member; showHiddenDeets = !showHiddenDeets">
+                        {{member?.firstName}} {{member?.lastName}}
+                        <span class="editables">
+                          <!--<i class="far fa-edit" (click)="updateGroup(member?.uid)"></i>-->
+                          <i class="far fa-minus-square" (click)="deleteItem(member?.uid, 'group-members'); $event.stopPropagation()"></i>
+                        </span>
+                      </mat-list-item>
+                      <mat-divider></mat-divider>
+                      <div class="hiddenDetails padding-15" *ngIf="showHiddenDeets && currentMember == member">
+                        Member Details go here... Eg. Payments
+                      </div>
+                    </mat-list>
+                  </mat-card>
                 </mat-tab>
                 <mat-tab label="Stats">
-                    <div class="gap"></div>
-                    <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
-                    <div class="gap"></div>
-                  </mat-tab>
+                  <div class="gap"></div>
+                  <img src="../../assets/images/graphDemo.png" alt="Graph Sits here">
+                  <div class="gap"></div>
+                </mat-tab>
               </mat-tab-group>
             </mat-tab>
-            <mat-tab label="Members">
+            <mat-tab label="Users">
+              <div class="padding-15">
               <div class="gap"></div>
+              <mat-form-field class="full-width">
+                  <input matInput type="text" name="filterSearch" [(ngModel)]="searchValMem" placeholder="Search Users">
+                </mat-form-field>
+            <div class="gap"></div>
+            <div class="topItems">
+                <span class="mr-5"><strong>{{members?.length}} Users</strong></span>
+                <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('addMember')">
+                  <i class="fas fa-plus mr-2"></i>New</button>
+            </div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
-                <mat-list *ngFor="let user of memberSub | async">
-                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==user" (click)="currentMember = user">
+                <mat-list *ngFor="let user of members | search: searchValMem: 'fullnameToLower'">
+                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==user" (click)="currentMember = user; getGrpInfo();">
                     {{user?.firstName}} {{user?.lastname}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
@@ -219,16 +255,34 @@
               <mat-tab-group [dynamicHeight]="true">
 
                 <mat-tab label="Details">
-                  <div class="gap"></div>
-                  <div class="gap"></div>
+                  <br>
+                  <strong>Firstname: </strong>{{currentMember?.firstName}} <br>
+                  <strong>Lastname: </strong>{{currentMember?.lastname}} <br>
+                  <!--<strong>DOB: </strong>{{currentMember?.dateOfBirth['seconds']*1000 | date}} <br>-->
+                  <!--<strong>Date Joined: </strong>{{currentMember?.dateJoined | date}} <br>-->
+                  <!--<strong>Number of groups joined: </strong>{{currentMember?.groupsJoined.length}} <br>-->
                 </mat-tab>
-                <mat-tab label="Payment">
+                <mat-tab label="Groups Joined">
+                    <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                        <div class="gap"></div>
+                        <mat-list *ngFor="let grp of memberGroups | async">
+                          <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="">
+                            <strong>Group: </strong>{{grp?.groupUID}}
+                            <br>
+                            <strong>Date Joined: </strong>{{grp?.dateJoined['seconds']*1000| date}}
+                          </mat-list-item>
+                          <mat-divider></mat-divider>
+                        </mat-list>
+                      </mat-card>
+                </mat-tab>
+                <!--
+                  <mat-tab label="Payment">
 
                 </mat-tab>
-                <mat-tab label="Groups">
-
-                </mat-tab>
+                -->
+                
               </mat-tab-group>
+              </div>
             </mat-tab>
           </mat-tab-group>
         </div>

@@ -194,6 +194,32 @@ export class FirebaseDataService {
     this.userCollection.add(user).catch(error => console.log(error));
   }
   // READ ==========================================================================================================================
+  getAllUsers(){
+    return this.afs.collection('users')
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as User;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getGroupsJoinedByMember(memberID: string){
+    return this.afs.collection('group-members', ref => ref
+      .orderBy('uid')
+      .startAt(memberID)
+      .endAt(memberID + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as GroupMember;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getGroupName(id:string){
+    return this.groupCollection.doc(id).valueChanges();
+  }
   getSectorsInCommunity(communityID: string){
     return this.afs.collection('sectors', ref => ref
       .orderBy('communityID')
