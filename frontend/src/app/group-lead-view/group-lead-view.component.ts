@@ -145,8 +145,8 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-  updateEvent(eventID){
-    this.dataset = {uid: eventID}
+  updateEvent(event){
+    this.dataset = {event: event}
     let dialogRef = this.dialog.open(UpdateEventComponent, {
       width: this.dialogWidth,
       data: this.dataset

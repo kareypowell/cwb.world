@@ -13,6 +13,7 @@ export class UpdateEventComponent implements OnInit {
     public config: PerfectScrollbarConfigInterface = {};
 
   ngOnInit() {
+    
   }
 
 

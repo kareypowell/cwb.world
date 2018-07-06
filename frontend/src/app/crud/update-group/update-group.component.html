@@ -6,66 +6,59 @@
   <form [formGroup]="updateGroupForm" (submit)="updateGroup()" autocomplete="off">
     <div class="row">
       <div class="col-sm-6">
-          <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Group Name</mat-label>
-              <input matInput formControlName="grpName" required>
-            </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Group Name</mat-label>
+          <input matInput formControlName="grpName" required>
+        </mat-form-field>
       </div>
       <div class="col-sm-6">
-          <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Group Capcity</mat-label>
-              <input type="number" matInput formControlName="capacity" required>
-            </mat-form-field>
-        </div>
-    </div>
-    <mat-form-field class="full-width" appearance="outline">
-      <mat-label>Description</mat-label>
-      <textarea matInput rows="8" formControlName="description" required></textarea>
-    </mat-form-field>
-    <div class="row">
-      <div class="col-md-6">
-          <mat-form-field class="full-width" appearance="outline">
-              <mat-label>Bio</mat-label>
-              <textarea matInput rows="5" formControlName="bio" required></textarea>
-            </mat-form-field>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Group Capcity</mat-label>
+          <input type="number" matInput formControlName="capacity" required>
+        </mat-form-field>
       </div>
-      <div class="col-md-6">
-          <mat-form-field class="full-width" appearance="outline">
-              <mat-label>What to Expect</mat-label>
-              <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
-            </mat-form-field>
-        </div>
     </div>
-    <div class="row">
-      <div class="col-sm-6">
-          <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Community</mat-label>
-              <input type="text" placeholder="Community" aria-label="Community" matInput [matAutocomplete]="auto1" formControlName="community"
-                (keyup)="searchCommunity($event)">
-              <mat-autocomplete #auto1="matAutocomplete">
-                <mat-option *ngFor="let option of commSearch" [value]="option.name" (click)="getCommunity(option)">
-                  {{ option.name }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-      </div>
-      <div class="col-sm-6">
-          <mat-form-field appearance="outline" class="full-width">
-              <mat-label>Sector</mat-label>
-              <input type="text" placeholder="Sector" aria-label="Sector" matInput [matAutocomplete]="auto2" formControlName="searchStringSector"
-                (keyup)="searchSector($event)">
-        
-              <mat-autocomplete #auto2="matAutocomplete">
-                <mat-option *ngFor="let option of sectorSearch" [value]="option.name" (click)="getSector(option)">
-                  {{ option.name }}
-                </mat-option>
-              </mat-autocomplete>
-            </mat-form-field>
-        </div>
-    </div>
-    
 
-   
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="5" formControlName="description" required></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>What to Expect</mat-label>
+          <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-6">
+        <mat-form-field class="full-width smallerhead" appearance="outline">
+          <mat-select placeholder="Select Community" formControlName="comm" required>
+            <mat-option *ngFor="let comm of communities" [value]="comm" (click)="getSectorsInCommunity(comm?.uid)">
+              {{ comm?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-sm-6">
+        <mat-form-field class="full-width smallerhead" appearance="outline">
+          <mat-select placeholder="Select Sector" formControlName="sect" required>
+            <mat-option *ngFor="let sector of sectors; let i = index" [value]="sector">
+              {{ sector?.name }}
+            </mat-option>
+            <mat-option *ngIf="sectors?.length ===0">
+              No Sectors in this community
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+
+
     <!--
       <mat-form-field appearance="outline">
       <mat-label>Group Lead</mat-label>
@@ -88,30 +81,30 @@
           </mat-checkbox>
           <br>
           <div *ngIf="day.meet">
-              <span class="smallhead mr-3">
-                  <strong>Recurrence:</strong>
-                </span>
-                <mat-radio-group [(ngModel)]="day.recurrence" [ngModelOptions]="{standalone: true}">
-                  <mat-radio-button *ngFor="let rec of recurrence" class="mr-2" [value]="rec">{{rec}}</mat-radio-button>
-                </mat-radio-group>
-                <br>
-                <span class="smallhead mr-3">
-                  <strong>Start Time:</strong>
-                </span>
-                <mat-form-field class="mr-3" appearance="outline">
-                  <mat-label>Start time</mat-label>
-                  <input matInput [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" required autocomplete="off" [(ngModel)]="day.startTime" [ngModelOptions]="{standalone: true}">
-                  <owl-date-time [pickerType]="'timer'" #dt4 [hour12Timer] ="true"></owl-date-time>
-                </mat-form-field>
-                <span class="smallhead mr-3">
-                  <strong>End Time:</strong>
-                </span>
-                <mat-form-field class="mr-3" appearance="outline">
-                  <mat-label>End time</mat-label>
-                  
-                  <input matInput [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" required autocomplete="off" [(ngModel)]="day.endTime" [ngModelOptions]="{standalone: true}">
-                  <owl-date-time [pickerType]="'timer'" #dt5 [hour12Timer] ="true"></owl-date-time>
-                </mat-form-field>
+            <span class="smallhead mr-3">
+              <strong>Recurrence:</strong>
+            </span>
+            <mat-radio-group [(ngModel)]="day.recurrence" [ngModelOptions]="{standalone: true}">
+              <mat-radio-button *ngFor="let rec of recurrence" class="mr-2" [value]="rec">{{rec}}</mat-radio-button>
+            </mat-radio-group>
+            <br>
+            <span class="smallhead mr-3">
+              <strong>Start Time:</strong>
+            </span>
+            <mat-form-field class="mr-3" appearance="outline">
+              <mat-label>Start time</mat-label>
+              <input matInput [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4" required autocomplete="off" [(ngModel)]="day.startTime" [ngModelOptions]="{standalone: true}">
+              <owl-date-time [pickerType]="'timer'" #dt4 [hour12Timer]="true"></owl-date-time>
+            </mat-form-field>
+            <span class="smallhead mr-3">
+              <strong>End Time:</strong>
+            </span>
+            <mat-form-field class="mr-3" appearance="outline">
+              <mat-label>End time</mat-label>
+
+              <input matInput [owlDateTimeTrigger]="dt5" [owlDateTime]="dt5" required autocomplete="off" [(ngModel)]="day.endTime" [ngModelOptions]="{standalone: true}">
+              <owl-date-time [pickerType]="'timer'" #dt5 [hour12Timer]="true"></owl-date-time>
+            </mat-form-field>
           </div>
         </li>
       </ul>
@@ -148,19 +141,6 @@
           <input matInput type="number" formControlName="fullpaymentFee" placeholder="Full fee">
         </mat-form-field>
         <br>
-        <span *ngFor="let cusPay of customPayments">
-          <mat-checkbox [(ngModel)]="cusPay['allowedTerm']" [ngModelOptions]="{standalone: true}"></mat-checkbox>
-          <mat-form-field class="ml-3">
-            <input matInput [(ngModel)]="cusPay['termDescription']" [ngModelOptions]="{standalone: true}" placeholder="Payment name">
-          </mat-form-field>
-          <mat-form-field class="ml-3">
-            <span matPrefix>$ &nbsp;</span>
-            <input matInput type="number" [(ngModel)]="cusPay['termPrice']" [ngModelOptions]="{standalone: true}" placeholder="Fee">
-          </mat-form-field>
-          <br>
-        </span>
-
-        <i class="far fa-plus-square mr-2 fw-300" (click)="createNewPaymentField()"> New Custom Payment Plan</i>
         <div class="gap"></div>
       </div>
       <div class="col-md-6">
