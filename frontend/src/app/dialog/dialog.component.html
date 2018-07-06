@@ -6,6 +6,12 @@
     <a href="#"></a>
     <h2>Request to Join Group - {{data.grp.name}}</h2>
     <div class="gap"></div>
+    <div class="alert alert-success" role="alert" *ngIf="status?.success">
+      {{status.msg}}
+    </div>
+    <div class="alert alert-danger" role="alert" *ngIf="status?.fail">
+      {{status.msg}}
+    </div>
     <h3>Description</h3>
     <p>
       {{data.grp.description}}

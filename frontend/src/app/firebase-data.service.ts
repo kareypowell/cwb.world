@@ -362,11 +362,12 @@ export class FirebaseDataService {
     this.updateUser(user,data);
   }
 
+  st: any;
   joinGroup(group: Group, user: GroupMember, userData: User) {
     if (group.members.find(function (obj) { return obj.userUID === userData.uid; })) { // check if user already joined group
       console.log("User Exists");
+      this.st = {success: false, fail: true, msg: "User already joined"};
     } else {
-      console.log("User can be added!");
       if (group.members.length < group.capacity) { // check if group has space for new members
         // push group UID to groups joined by user
         if(userData.groupsJoined){
@@ -376,18 +377,22 @@ export class FirebaseDataService {
           this.updateUser(userData, {groupsJoined: [group.uid]});
         }
         // push group member to group member collection
-        this.groupMemberCollection.add(user).then(ref =>{
+        this.groupMemberCollection.add(user).then((ref) =>{
+          this.st = {success: true, fail: false, msg: "Successfully joined"};
           // then push this new uid of member to group members array and update it
           group.members.push({userUID:userData.uid,memberUID: ref.id});
           this.groupCollection.doc(group.uid).set({ members: group.members }, {merge:true});
-          // set firebase backend rule to allow this write only when members are less than group capacity
+          // set firestore backend rule to allow this write only when members are less than group capacity
+          
         }).catch(error => {
           console.log(error);
         })
       } else {
         console.log("Group Full")!
+        this.st = {success: false, fail: true, msg: "Group is full!"};
       }
     }
+    return this.st;
   }
 
   leaveGroup(){

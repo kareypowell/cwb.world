@@ -28,12 +28,21 @@ export class CreateGroupComponent implements OnInit {
   constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService, private auth: AuthService) { }
 
   myControl: FormControl = new FormControl();
+  sectors:Sector[];
+  communities:Community[];
+
+  private subUser;
+  private subComm;
+  private subSect;
 
   ngOnInit() {
     this.now.setHours(9);
     this.now.setMinutes(0);
     this.future.setHours(11);
     this.future.setMinutes(0);
+
+    
+
     this.meetings =
     [
       { day: 'Sunday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
@@ -44,20 +53,20 @@ export class CreateGroupComponent implements OnInit {
       { day: 'Friday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
       { day: 'Saturday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future }
     ];
-    this.auth.user$.subscribe(data => this.currentUser = data); // get current user info
-
+    this.subUser = this.auth.user$.subscribe(data => this.currentUser = data); // get current user info
+    this.subComm = this.fbData.communitiesFromDB$.subscribe(data => {
+      this.communities = data;
+      this.subSect = this.fbData.getSectorsInCommunity(this.communities[0].uid).subscribe(data => this.sectors = data);
+    });
     //this.subs = this.fbData.getGroups().subscribe(data=>this.allGroups = data); // used to check if groupName exists
 
     this.createGroupForm = this._formBuilder.group({
       grpName: ['', Validators.required],
       description: ['', Validators.required],
-      bio: ['', Validators.required],
       whatToExpect: ['', Validators.required],
-      duration: ['', Validators.required],
       capacity: [10, Validators.required],
-      searchStringGroupLead: '',
-      community: '',
-      searchStringSector: '',
+      comm: ['', Validators.required],
+      sect: ['', Validators.required],
       acceptPayment: false,
       bankInfo: '',
       routingNumber: '',
@@ -81,7 +90,6 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.capacity = this.createGroupForm.value.capacity;
     this.newGroup.bio = this.createGroupForm.value.bio;
     this.newGroup.whatToExpect = this.createGroupForm.value.whatToExpect;
-    this.newGroup.duration = this.createGroupForm.value.duration;
     this.newGroup.members = [];
     this.newGroup.files = [];
     this.newGroup.acceptPayments = this.createGroupForm.value.acceptPayment;
@@ -89,8 +97,8 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.accountNumber = this.createGroupForm.value.accountNumber;
     this.newGroup.routingNumber = this.createGroupForm.value.routingNumber;
     this.newGroup.nameToLower = this.createGroupForm.value.grpName.toLowerCase();
-    this.newGroup.sector = this.sectorSelected.uid;
-    this.newGroup.community = this.commSelected.uid;
+    this.newGroup.sector = this.createGroupForm.value.sect;
+    this.newGroup.community = this.createGroupForm.value.comm;
     this.newGroup.groupLead = this.currentUser.uid;
     this.newGroup.createdBy = this.currentUser.uid;
     this.newGroup.dateCreated = new Date();
@@ -147,15 +155,23 @@ export class CreateGroupComponent implements OnInit {
         this.newGroup.meetingTimes.push(this.dayItem);
       }
     });
-    //console.log(this.newGroup);
-    this.fbData.addGroup(this.newGroup, this.currentUser, this.sectorSelected, this.commSelected);
+    console.log(this.createGroupForm.value);
+    //this.fbData.addGroup(this.newGroup, this.currentUser, this.sectorSelected, this.commSelected);
   }
+
   customPayments: groupPrice[] = [];
   p: groupPrice;
   createNewPaymentField() {
     this.p = {};
     this.customPayments.push(this.p);
   }
+
+  getSectorsInCommunity(communityID:string){
+    this.subSect.unsubscribe();
+    this.subSect = this.fbData.getSectorsInCommunity(communityID).subscribe(data => this.sectors = data);
+  }
+
+  /*
 
   lastKeypress: number = 0;
 
@@ -180,4 +196,6 @@ export class CreateGroupComponent implements OnInit {
   searchUser($event) {
     this.fbData.searchCollection(String(this.createGroupForm.value.searchStringGroupLead), "users", "fullnameToLower", 5).subscribe(data => this.userSearch = data);
   }
+
+  */
 }

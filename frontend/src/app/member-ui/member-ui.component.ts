@@ -37,7 +37,7 @@ export class MemberUiComponent implements OnInit {
       { value: 'group-lead', viewValue: 'Group Lead', param: 'groupLead' },
       { value: 'sector-lead', viewValue: 'Sector Lead',param: 'sectorLead' },
       { value: 'admin', viewValue: 'Admin', param:'admin' },
-      { value: 'host-partner', viewValue: 'Host Partner' ,param: 'hostPartner' }
+      { value: 'host-partner', viewValue: 'AIR RMS Host' ,param: 'hostPartner' }
     ]
     }
   ];

@@ -5,7 +5,7 @@
         <img src="{{user?.photoURL}}" alt="User Image" class="rounded-circle userImage">
         <div class="gap"></div>
 
-        <mat-form-field class="full-width smallerhead">
+        <mat-form-field class="full-width smallerhead mx-wd">
           <mat-select placeholder="Switch Roles" [(ngModel)]="url" (ngModelChange)="routeToDash()" [(value)]="url">
             <mat-optgroup *ngFor="let role of roles; let i = index" [label]="role.name">
               <mat-option *ngFor="let rolegrp of role.rolegrp" [value]="rolegrp.value" [hidden]="(!user?.roles[rolegrp.param] && i==0) || (user?.roles[rolegrp.param] && i==1)">
