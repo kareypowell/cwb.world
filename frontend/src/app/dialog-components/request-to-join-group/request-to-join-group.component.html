@@ -1,3 +1,49 @@
-<p>
-  request-to-join-group works!
-</p>
+<div class="body-wrapper dialogHeight scroll-container reqToJoin ps" [perfectScrollbar]="config">
+    <span class="closedialog" (click)="onNoClick(false)">
+      <i class="far fa-window-close"></i>
+    </span>
+    <a href="#"></a>
+    <h2>Request to Join Group - {{data.grp.name}}</h2>
+    <div class="gap"></div>
+    
+    <h3>Description</h3>
+    <p>
+      {{data.grp.description}}
+    </p>
+    <h3>What to Expect</h3>
+    <p>{{data.grp.bio}}</p>
+    <h3>Bio</h3>
+    <p>
+      {{data.grp.whatToExpect}}
+    </p>
+    <h3>More Information</h3>
+    <p>
+      Community - {{community?.name}}
+    </p>
+    <p>
+      Sector - {{sector?.name}}
+    </p>
+    <p>
+      Group Lead - {{grpLead?.firstName + " " + grpLead?.lastname}}
+    </p>
+    <div *ngIf="data.grp?.acceptPayments">
+        <h3>Payments</h3>
+        <h5>Choose One</h5>
+        <mat-radio-group [(ngModel)] ="termSelected">
+          <mat-radio-button class="display-block mr-3" *ngFor="let price of data.grp?.prices" [value]="price">{{price.termDescription}} - {{price.termPrice| currency:'USD'}}</mat-radio-button>
+          <br>
+        </mat-radio-group>
+    </div>
+    <br>
+    <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox> <br>
+    <div class="alert alert-success" role="alert" *ngIf="status?.success">
+        {{status?.msg}}
+      </div>
+      <div class="alert alert-danger" role="alert" *ngIf="status?.fail">
+        {{status?.msg}}
+      </div>
+    <button type="button" mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
+    <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot" (click)="joinGroup()">Submit</button>
+    <div class="gap"></div>
+    <div class="gap"></div>
+</div>

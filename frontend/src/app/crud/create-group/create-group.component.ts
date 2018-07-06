@@ -160,11 +160,10 @@ export class CreateGroupComponent implements OnInit, OnDestroy {
         this.newGroup.meetingTimes.push(this.dayItem);
       }
     });
-    console.log(this.newGroup);
+    //console.log(this.newGroup);
     //console.log(this.createGroupForm.value.sect, this.createGroupForm.value.comm);
     this.sector = this.createGroupForm.value.sect;
     this.community = this.createGroupForm.value.comm;
-    console.log(this.community);
     this.fbData.addGroup(this.newGroup, this.currentUser, this.sector, this.community);
   }
 

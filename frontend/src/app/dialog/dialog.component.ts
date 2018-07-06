@@ -3,7 +3,7 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { User, Sector, Community, GroupMember } from "../interfaces/member";
 import { AuthService } from "../auth-service";
-import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FirebaseDataService } from '../firebase-data.service';
 
 @Component({
@@ -114,26 +114,8 @@ export class DialogComponent implements OnInit, OnDestroy{
       this.errorOccured = false;
   }, 5000)
   }
-  termSelected;
-  newGroupMember:GroupMember;
+  
   status = {success:false,fail:false, msg:""};
-  joinGroup(){
-    this.newGroupMember = {};
-    this.newGroupMember.uid = this.user.uid;
-    this.newGroupMember.groupUID = this.data.grp.uid;
-    this.newGroupMember.approved = false;
-    this.newGroupMember.attendance = [];
-    this.newGroupMember.dateJoined = new Date();
-    this.newGroupMember.files = [];
-    this.newGroupMember.paid = false;
-    this.newGroupMember.paymentTerms = this.termSelected;
-    //console.log(this.termSelected);
-    this.newGroupMember.approved = false;
-    this.newGroupMember.firstName = this.user.firstName;
-    this.newGroupMember.lastName = this.user.lastname;
-    this.newGroupMember.photoURL = this.user.photoURL;
-    this.status = this.fbData.joinGroup(this.data.grp,this.newGroupMember, this.user);
-  }
   acceptTerms: boolean = false;
   notRobot:boolean = false;
   

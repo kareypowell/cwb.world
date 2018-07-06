@@ -49,10 +49,11 @@
               <p>
                 {{currentGroup?.description}}
               </p>
-              <h2 class="smallhead">Prices</h2>
+              <h2 class="smallhead">Price</h2>
               <p *ngFor="let price of currentGroup?.prices">
                 <strong>{{price?.termDescription}}</strong> - {{price?.termPrice|currency:"USD"}}
               </p>
+              <p *ngIf="currentGroup?.prices.length ===0 || !currentGroup?.acceptPayments"><strong>Free</strong></p>
               <h2 class="smallhead">Times</h2>
               <p *ngFor="let day of currentGroup?.meetingTimes">
                 <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to {{day?.endTime['seconds']*1000 | date: 'shortTime'}} {{day?.recurrence}}
@@ -63,7 +64,8 @@
             </mat-tab>
           </mat-tab-group>
         </div>
-        <button mat-button class="cwb-primary-button mr-3" (click)="openDialog('reqToJoin',currentGroup)">Join Group</button>
+
+        <button *ngIf="showJoinButton" mat-button class="cwb-primary-button mr-3" (click)="joinGroup(currentGroup)">Join Group</button>
         <a routerLink="./../../group/{{currentGroup?.uid}}" class="ml-3"><button mat-raised-button>Visit Group Page</button></a>
         <div class="gap"></div>
           <span class="smallhead mr-2">Share:</span>

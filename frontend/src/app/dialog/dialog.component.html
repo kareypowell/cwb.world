@@ -2,50 +2,8 @@
   <span class="closedialog" (click)="onNoClick(false)">
     <i class="far fa-window-close"></i>
   </span>
-  <div *ngIf="data.source =='reqToJoin'" class="reqToJoin">
-    <a href="#"></a>
-    <h2>Request to Join Group - {{data.grp.name}}</h2>
-    <div class="gap"></div>
-    <div class="alert alert-success" role="alert" *ngIf="status?.success">
-      {{status.msg}}
-    </div>
-    <div class="alert alert-danger" role="alert" *ngIf="status?.fail">
-      {{status.msg}}
-    </div>
-    <h3>Description</h3>
-    <p>
-      {{data.grp.description}}
-    </p>
-    <h3>What to Expect</h3>
-    <p>{{data.grp.bio}}</p>
-    <h3>Bio</h3>
-    <p>
-      {{data.grp.whatToExpect}}
-    </p>
-    <p>
-      Community - {{community?.name}}
-    </p>
-    <p>
-      Sector - {{sector?.name}}
-    </p>
-    <p>
-      Group Lead - {{grpLead?.firstName + " " + grpLead?.lastname}}
-    </p>
-    <h3>Payments</h3>
-    <h5>Choose</h5>
-    <mat-radio-group [(ngModel)] ="termSelected">
-      <mat-radio-button class="display-block mr-3" *ngFor="let price of data.grp?.prices" [value]="price">{{price.termDescription}} - {{price.termPrice| currency:'USD'}}</mat-radio-button>
-      <br>
-    </mat-radio-group>
-    <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox>
-    <button type="reset" mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
-    <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot" (click)="joinGroup()">Submit</button>
-    <div class="gap"></div>
-    <div class="gap"></div>
-  </div>
 
   <!-- EDIT PROFILE CONTENT-->
-
   <div *ngIf="data.source =='editProfile'" class="editProfileDialog">
     <h2>Edit Profile</h2>
     <form [formGroup]="updateUserForm" (submit)="updateUserInfo()">
@@ -97,16 +55,18 @@
         <textarea matInput rows="8" formControlName="about" value="{{user?.aboutUser}}" required></textarea>
       </mat-form-field>
       <br>
-      <button mat-raised-button class="mr-3" (click)="onNoClick(false)">Cancel</button>
-      <button type="submit" mat-raised-button class="cwb-primary-button" [disabled]="updateUserForm.invalid">Update Profile</button>
-
       <!-- Update Feedback to User-->
       <div class="alert alert-success" role="alert" *ngIf="updateSuccess">
-        Update Successful!
-      </div>
-      <div class="alert alert-danger" role="alert" *ngIf="errorOccured">
-        Update failed. Try again later...
-      </div>
+          Update Successful!
+        </div>
+        <div class="alert alert-danger" role="alert" *ngIf="errorOccured">
+          Update failed. Try again later...
+        </div>
+        <br>
+      <button mat-raised-button class="mr-3" (click)="onNoClick(false)">Cancel</button>
+      <button type="submit" mat-raised-button class="cwb-primary-button" [disabled]="updateUserForm.invalid || !updateUserForm.dirty">Update Profile</button>
+
+      
 
     </form>
   </div>
@@ -133,13 +93,8 @@
     <app-create-sector></app-create-sector>
   </div>
   
-  <!-- Create Group-->
-  <div *ngIf="data.createGroup">
-      <h1>Retired</h1>
-  </div>
 
   <div *ngIf="data.createEvent">
     <app-create-event></app-create-event>
   </div>
-
 </div>

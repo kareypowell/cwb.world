@@ -178,7 +178,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   ],
   entryComponents:
     [ DialogComponent, UpdateCommunityComponent, UpdateEventComponent, UpdateGroupComponent, UpdateSectorComponent,
-      ConfirmDeleteComponent, CreateAirRmsSpaceComponent, CreateGroupComponent, CreateEventComponent, CreateCommunityComponent
+      ConfirmDeleteComponent, CreateAirRmsSpaceComponent, CreateGroupComponent, CreateEventComponent, CreateCommunityComponent,
+      RequestToJoinGroupComponent, EditProfileComponent, PreviewProfileComponent
     ],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard, HostPartnerGuard,
     SectorLeadGuard, {
