@@ -64,9 +64,8 @@
             </mat-tab>
           </mat-tab-group>
         </div>
-
-        <button *ngIf="showJoinButton" mat-button class="cwb-primary-button mr-3" (click)="joinGroup(currentGroup)">Join Group</button>
-        <a routerLink="./../../group/{{currentGroup?.uid}}" class="ml-3"><button mat-raised-button>Visit Group Page</button></a>
+        <a routerLink="./../../group/{{currentGroup?.uid}}" class="mr-3"><button mat-raised-button>Visit Group Page</button></a>
+        <button *ngIf="showJoinButton" mat-button class="cwb-primary-button" (click)="joinGroup(currentGroup)">Join Group</button>
         <div class="gap"></div>
           <span class="smallhead mr-2">Share:</span>
           <i class="fab fa-facebook-f mr-2 shareIcon"></i>

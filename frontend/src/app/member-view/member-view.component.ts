@@ -54,10 +54,21 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   private sub4;
 
   ngOnInit() {
-    this.sub = this.fbData.groupsFromDB$.subscribe(data => {this.groups = data, this.currentGroup = this.groups[0]});
+    this.sub = this.fbData.groupsFromDB$.subscribe(data => {this.groups = data;
+      this.currentGroup = this.groups[0];
+      this.sub4 = this.auth.user$.subscribe(data => {
+        this.user = data;
+        const uid = this.user.uid;
+        if(this.currentGroup.members.find(function (obj) { return obj.userUID == uid })){
+          this.showJoinButton = false;
+        }else{
+          this.showJoinButton = true;
+        }
+      })
+    });
     this.sub2 = this.fbData.communitiesFromDB$.subscribe(data => this.communities = data);
     this.sub3 = this.fbData.sectorsFromDB$.subscribe(data => this.sectors = data);
-    this.sub4 = this.auth.user$.subscribe(data => this.user = data);
+    
   }
   
 
@@ -73,7 +84,8 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   showJoinButton:boolean = true;
   displayGroupInfo(grp) {
     this.showJoinButton = false;
-    if(grp.members.find(function (obj) { return obj.userUID === this.user.uid; })){
+    const uid = this.user.uid;
+    if(grp.members.find(function (obj) { return obj.userUID == uid })){
       this.showJoinButton = false;
     }else{
       this.showJoinButton = true;
