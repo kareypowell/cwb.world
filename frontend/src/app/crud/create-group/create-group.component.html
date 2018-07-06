@@ -1,4 +1,7 @@
-<div class="body-wrapper">
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
   <h1 class="bighead">Create a new group</h1>
   <form [formGroup]="createGroupForm" (submit)="createGroup()" autocomplete="off">
     <div class="row">
@@ -19,7 +22,7 @@
       <div class="col-md-6">
         <mat-form-field class="full-width" appearance="outline">
           <mat-label>Description</mat-label>
-          <textarea matInput rows="8" formControlName="description" required></textarea>
+          <textarea matInput rows="5" formControlName="description" required></textarea>
         </mat-form-field>
       </div>
       <div class="col-md-6">
@@ -31,9 +34,9 @@
     </div>
     <div class="row">
       <div class="col-sm-6">
-        <mat-form-field class="full-width smallerhead">
-          <mat-select placeholder="Select Community" formControlName="comm">
-            <mat-option *ngFor="let comm of communities" [value]="comm?.uid" (click)="getSectorsInCommunity(comm?.uid)">
+        <mat-form-field class="full-width smallerhead"  appearance="outline">
+          <mat-select placeholder="Select Community" formControlName="comm" required>
+            <mat-option *ngFor="let comm of communities" [value]="comm" (click)="getSectorsInCommunity(comm?.uid)">
               {{ comm?.name }}
             </mat-option>
           </mat-select>
@@ -51,9 +54,9 @@
             </mat-form-field>-->
       </div>
       <div class="col-sm-6">
-        <mat-form-field class="full-width smallerhead">
-          <mat-select placeholder="Select Sector" formControlName="sect">
-            <mat-option *ngFor="let sector of sectors; let i = index" [value]="sector?.uid">
+        <mat-form-field class="full-width smallerhead"  appearance="outline">
+          <mat-select placeholder="Select Sector" formControlName="sect" required>
+            <mat-option *ngFor="let sector of sectors; let i = index" [value]="sector">
               {{ sector?.name }}
             </mat-option>
             <mat-option *ngIf="sectors?.length ===0">
@@ -128,11 +131,11 @@
         </li>
       </ul>
     </div>
+    <div class="gap"></div>
+    <div class="gap"></div>
     <mat-checkbox formControlName="acceptPayment">Accept Payment</mat-checkbox>
     <div class="gap"></div>
     <div class="gap"></div>
-    <div class="gap"></div>
-
     <div class="paymentSection full-width row" *ngIf="createGroupForm.value.acceptPayment">
       <div class="col-sm-12 pl-5">
         <h2 class="smallerhead">Allow:</h2>
@@ -160,7 +163,8 @@
           <input matInput type="number" formControlName="fullpaymentFee" placeholder="Full fee">
         </mat-form-field>
         <br>
-        <span *ngFor="let cusPay of customPayments">
+        <!--
+          <span *ngFor="let cusPay of customPayments">
           <mat-checkbox [(ngModel)]="cusPay['allowedTerm']" [ngModelOptions]="{standalone: true}"></mat-checkbox>
           <mat-form-field class="ml-3">
             <input matInput [(ngModel)]="cusPay['termDescription']" [ngModelOptions]="{standalone: true}" placeholder="Payment name">
@@ -172,7 +176,9 @@
           <br>
         </span>
 
-        <!--<i class="far fa-plus-square mr-2 fw-300" (click)="createNewPaymentField()"> New Custom Payment Plan</i>-->
+        <i class="far fa-plus-square mr-2 fw-300" (click)="createNewPaymentField()"> New Custom Payment Plan</i>
+        -->
+        
         <div class="gap"></div>
       </div>
       <div class="col-md-6">
@@ -198,6 +204,7 @@
     </div>
     <div class="gap"></div>
     <br>
+    <button mat-raised-button type="button" class="mr-5" (click)="onNoClick(false)">Cancel</button>
     <button mat-raised-button type="submit" class="cwb-primary-button" [disabled]="createGroupForm.invalid">Create Group</button>
   </form>
 </div>

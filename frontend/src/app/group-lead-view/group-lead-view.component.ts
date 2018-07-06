@@ -10,6 +10,7 @@ import { AuthService } from '../auth-service';
 import { ConfirmDeleteComponent } from '../crud/confirm-delete/confirm-delete.component';
 import { UpdateGroupComponent } from '../crud/update-group/update-group.component';
 import { UpdateEventComponent } from '../crud/update-event/update-event.component';
+import { CreateGroupComponent } from '../crud/create-group/create-group.component';
 
 @Component({
   selector: 'app-group-lead-view',
@@ -93,6 +94,17 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
     }
     let dialogRef = this.dialog.open(DialogComponent, {
       width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+
+  createGroup(){
+    let dialogRef = this.dialog.open(CreateGroupComponent, {
+      width: '99%',
       data: this.dataset
     });
 

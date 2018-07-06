@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FirebaseDataService } from '../../firebase-data.service';
 import { Group, Community, Sector, User, groupPrice, meetingDays } from '../../interfaces/member';
 import { AuthService } from '../../auth-service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 
 @Component({
@@ -11,7 +13,7 @@ import { AuthService } from '../../auth-service';
   templateUrl: './create-group.component.html',
   styleUrls: ['./create-group.component.css']
 })
-export class CreateGroupComponent implements OnInit {
+export class CreateGroupComponent implements OnInit, OnDestroy {
   createGroupForm: FormGroup;
   allGroups: Group[];
   commSearch: Community[];
@@ -22,14 +24,18 @@ export class CreateGroupComponent implements OnInit {
   now = new Date();
   temp = new Date();
   future = new Date();
-  meetings:meetingDays[];
-  dayItem:meetingDays;
+  meetings: meetingDays[];
+  dayItem: meetingDays;
 
-  constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService, private auth: AuthService) { }
+  constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService, private auth: AuthService, public dialogRef: MatDialogRef<CreateGroupComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
+  public config: PerfectScrollbarConfigInterface = {};
 
   myControl: FormControl = new FormControl();
-  sectors:Sector[];
-  communities:Community[];
+  sector:Sector = {};
+  community: Community = {};
+  sectors: Sector[];
+  communities: Community[];
 
   private subUser;
   private subComm;
@@ -41,18 +47,18 @@ export class CreateGroupComponent implements OnInit {
     this.future.setHours(11);
     this.future.setMinutes(0);
 
-    
+
 
     this.meetings =
-    [
-      { day: 'Sunday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
-      { day: 'Monday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
-      { day: 'Tuesday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
-      { day: 'Wednesday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
-      { day: 'Thursday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
-      { day: 'Friday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
-      { day: 'Saturday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future }
-    ];
+      [
+        { day: 'Sunday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+        { day: 'Monday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+        { day: 'Tuesday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+        { day: 'Wednesday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+        { day: 'Thursday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+        { day: 'Friday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future },
+        { day: 'Saturday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future }
+      ];
     this.subUser = this.auth.user$.subscribe(data => this.currentUser = data); // get current user info
     this.subComm = this.fbData.communitiesFromDB$.subscribe(data => {
       this.communities = data;
@@ -88,7 +94,6 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.name = this.createGroupForm.value.grpName;
     this.newGroup.description = this.createGroupForm.value.description;
     this.newGroup.capacity = this.createGroupForm.value.capacity;
-    this.newGroup.bio = this.createGroupForm.value.bio;
     this.newGroup.whatToExpect = this.createGroupForm.value.whatToExpect;
     this.newGroup.members = [];
     this.newGroup.files = [];
@@ -97,8 +102,8 @@ export class CreateGroupComponent implements OnInit {
     this.newGroup.accountNumber = this.createGroupForm.value.accountNumber;
     this.newGroup.routingNumber = this.createGroupForm.value.routingNumber;
     this.newGroup.nameToLower = this.createGroupForm.value.grpName.toLowerCase();
-    this.newGroup.sector = this.createGroupForm.value.sect;
-    this.newGroup.community = this.createGroupForm.value.comm;
+    this.newGroup.sector = this.createGroupForm.value.sect.uid;
+    this.newGroup.community = this.createGroupForm.value.comm.uid;
     this.newGroup.groupLead = this.currentUser.uid;
     this.newGroup.createdBy = this.currentUser.uid;
     this.newGroup.dateCreated = new Date();
@@ -142,11 +147,11 @@ export class CreateGroupComponent implements OnInit {
     }
 
     // MEETING TIMES
-  
+
 
     this.newGroup.meetingTimes = []; // init meeting times
     this.meetings.forEach(day => {
-      if(day.meet){
+      if (day.meet) {
         this.dayItem = {};
         this.dayItem.day = day.day;
         this.dayItem.recurrence = day.recurrence;
@@ -155,8 +160,12 @@ export class CreateGroupComponent implements OnInit {
         this.newGroup.meetingTimes.push(this.dayItem);
       }
     });
-    console.log(this.createGroupForm.value);
-    //this.fbData.addGroup(this.newGroup, this.currentUser, this.sectorSelected, this.commSelected);
+    console.log(this.newGroup);
+    //console.log(this.createGroupForm.value.sect, this.createGroupForm.value.comm);
+    this.sector = this.createGroupForm.value.sect;
+    this.community = this.createGroupForm.value.comm;
+    console.log(this.community);
+    this.fbData.addGroup(this.newGroup, this.currentUser, this.sector, this.community);
   }
 
   customPayments: groupPrice[] = [];
@@ -166,7 +175,8 @@ export class CreateGroupComponent implements OnInit {
     this.customPayments.push(this.p);
   }
 
-  getSectorsInCommunity(communityID:string){
+  getSectorsInCommunity(communityID: string) {
+    this.createGroupForm.value.sect = null;
     this.subSect.unsubscribe();
     this.subSect = this.fbData.getSectorsInCommunity(communityID).subscribe(data => this.sectors = data);
   }
@@ -198,4 +208,14 @@ export class CreateGroupComponent implements OnInit {
   }
 
   */
+
+  onNoClick(data): void {
+    this.dialogRef.close(data);
+  }
+
+  ngOnDestroy(): void {
+    this.subComm.unsubscribe();
+    this.subUser.unsubscribe();
+    this.subSect.unsubscribe();
+  }
 }
