@@ -11,6 +11,7 @@ import { ConfirmDeleteComponent } from '../crud/confirm-delete/confirm-delete.co
 import { UpdateGroupComponent } from '../crud/update-group/update-group.component';
 import { UpdateEventComponent } from '../crud/update-event/update-event.component';
 import { CreateGroupComponent } from '../crud/create-group/create-group.component';
+import { CreateEventComponent } from '../crud/create-event/create-event.component';
 
 @Component({
   selector: 'app-group-lead-view',
@@ -23,6 +24,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
   constructor(private dialog:MatDialog, private fbData: FirebaseDataService, private auth: AuthService, private dataTransfer: DataTransferService) { }
 
   filterSearch: string = "";
+  searchVal = "";
   
   private groupSub;
   private memberSub;
@@ -38,6 +40,9 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
   currentMember;
   currentEvent;
 
+  dataset = {};
+
+  dialogWidth = '90%';
 
 
   ngOnInit() {
@@ -75,9 +80,10 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
 
     });
   }
-  dataset = {};
-
-  dialogWidth = '90%';
+  displayGroupInfo(grp){
+    this.currentGroup = grp;
+  }
+ 
 
   openDialog(source): void {
     if(source == 'createCommunity'){
@@ -102,6 +108,9 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
     });
   }
 
+
+
+
   createGroup(){
     let dialogRef = this.dialog.open(CreateGroupComponent, {
       width: '99%',
@@ -113,16 +122,22 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  searchVal = "";
-  
-  
-  displayGroupInfo(grp){
-    this.currentGroup = grp;
-  }
   updateGroup(groupID){
     this.dataset = {uid: groupID}
     let dialogRef = this.dialog.open(UpdateGroupComponent, {
       width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+
+  createEvent(){
+    this.dataset = {grp: this.currentGroup};
+    let dialogRef = this.dialog.open(CreateEventComponent, {
+      width: '99%',
       data: this.dataset
     });
 
@@ -141,6 +156,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
+
   deleteItem(itemID:string, collection:string){
     this.dataset = {
       uid: itemID,
@@ -154,7 +170,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-
+  
 
   ngOnDestroy(): void {
     this.groupSub.unsubscribe();

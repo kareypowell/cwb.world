@@ -1,5 +1,8 @@
-<div class="body-wrapper">
-  <h3 class="bighead" mat-dialog-title>Create Event For {{dataTransfer.createEventGroup.name}}</h3>
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
+  <h3 class="bighead" mat-dialog-title>Create Event For {{data.grp.name}}</h3>
   <form [formGroup]="createEventForm" (submit)="createEvent()" autocomplete="off">
     <h3 class="smallhead">Basic Information</h3>
     <div class="row">
@@ -17,7 +20,7 @@
       </div>
       <div class="col-md-4">
         <h3 class="smallerhead">Affiliated group</h3>
-        <p>{{dataTransfer.createEventGroup.name}}</p>
+        <p>{{data.grp.name}}</p>
       </div>
     </div>
     <br>
@@ -193,57 +196,8 @@
     </div>
     <div class="gap"></div>
     <br>
-    <!--<button mat-raised-button type="button" (click)="onNoClick(false);">Cancel</button>-->
+    <button mat-raised-button type="button" class="mr-3" (click)="onNoClick(false)">Cancel</button>
     <button mat-raised-button type="submit" class="cwb-primary-button" [disabled]="!createEventForm.valid">Create Event</button>
 
   </form>
-
-  <!--
-  <mat-horizontal-stepper [linear]="isLinear" #stepper>
-    <mat-step [stepControl]="createEventForm">
-      
-    </mat-step>
-    <mat-step [stepControl]="createEventForm2">
-      <form [formGroup]="createEventForm2" (submit)="addSessions()">
-        <ng-template matStepLabel>Sessions and Pricing</ng-template>
-        <p>Sessions are a great way to add flexible meeting groups for your event. You can add multiple sessions for each event
-          day or for the entire event duration.
-        </p>
-        <div class="gap"></div>
-        <div class="sessionBlock" *ngFor="let session of sessions;  let isOdd=odd; let isEven=even" [class.odd]="isOdd" [class.even]="isEven">
-          <div class="row">
-            <div class="col-md-6">
-              <mat-form-field appearance="outline">
-                <input matInput placeholder="Session name" [(ngModel)]="session.name" [ngModelOptions]="{standalone: true}">
-              </mat-form-field>
-            </div>
-            <div class="col-md-6">
-              <mat-form-field appearance="outline">
-                <input matInput placeholder="Capacity" [(ngModel)]="session.capacity" [ngModelOptions]="{standalone: true}">
-              </mat-form-field>
-            </div>
-          </div>
-          <p>More session form fields to be added...</p>
-        </div>
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <button class="btn btn-success" (click)="addSessionBlock()">
-          <i class="fas fa-plus mr-2"></i>Add New Session</button>
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <div>
-          <button mat-button matStepperNext class="mr-4">skip</button>
-          <button (click)="testSessions()">Test</button>
-          <button mat-button matStepperNext type="submit" class="cwb-primary-button" [disabled]="!createEventForm2.valid">Add Sessions</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p class="bighead no-matches">You are now done</p>
-    </mat-step>
-  </mat-horizontal-stepper>
-
--->
 </div>

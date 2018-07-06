@@ -59,7 +59,7 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       this.sub4 = this.auth.user$.subscribe(data => {
         this.user = data;
         const uid = this.user.uid;
-        if(this.currentGroup.members.find(function (obj) { return obj.userUID == uid })){
+        if(this.currentGroup.members.find(function (obj) { return obj.userUID == uid }) || this.currentGroup.members.length >= this.currentGroup.capacity){
           this.showJoinButton = false;
         }else{
           this.showJoinButton = true;
@@ -85,7 +85,7 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   displayGroupInfo(grp) {
     this.showJoinButton = false;
     const uid = this.user.uid;
-    if(grp.members.find(function (obj) { return obj.userUID == uid })){
+    if(grp.members.find(function (obj) { return obj.userUID == uid }) || this.currentGroup.members.length >= this.currentGroup.capacity){
       this.showJoinButton = false;
     }else{
       this.showJoinButton = true;

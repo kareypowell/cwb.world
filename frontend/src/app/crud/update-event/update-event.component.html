@@ -1,3 +1,7 @@
-<p>
-  update-event works!
-</p>
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
+  <h1 class="bighead">Update Event: {{data?.uid}}</h1>
+
+</div>

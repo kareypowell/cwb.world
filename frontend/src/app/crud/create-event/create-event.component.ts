@@ -1,8 +1,9 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Group, EventItem, eventSession } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
-import { DataTransferService } from '../../data-transfer.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-create-event',
@@ -11,9 +12,11 @@ import { DataTransferService } from '../../data-transfer.service';
 })
 export class CreateEventComponent implements OnInit, OnDestroy {
 
-  constructor(private _formBuilder: FormBuilder, private fbData: FirebaseDataService, public dataTransfer: DataTransferService) { }
+  constructor(public dialogRef: MatDialogRef<CreateEventComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any,private _formBuilder: FormBuilder, private fbData: FirebaseDataService) { }
   createEventForm: FormGroup;
   createEventForm2: FormGroup;
+  public config: PerfectScrollbarConfigInterface = {};
   groupSearch: Group[];
   isLinear: boolean = false; // set to true to insist user completes first page before moving to next page
   session:eventSession = {};
@@ -55,21 +58,6 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     });
   }
 
-  private subGroup;
-  isSubGrp:boolean = false;
-  searchGroup() {
-    this.subGroup = this.fbData.searchCollection(String(this.createEventForm.value.group), "groups", "nameToLower", 5).subscribe(data => {this.groupSearch = data; this.isSubGrp = true;});
-  }
-  selectedGroup: string;
-
-  //grp: Group;
-  //groupLead: string;
-  //getGroup(option) {
-  //  this.grp = option;
-  //  this.selectedGroup = option.uid;
-  //  this.groupLead = option.groupLead;
-  //}
-
   newEvent: EventItem;
   createEvent() {
     this.newEvent = {};
@@ -78,8 +66,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     this.newEvent.description = this.createEventForm.value.description;
     this.newEvent.whatToExpect = this.createEventForm.value.whatToExpect;
     this.newEvent.startDate = this.createEventForm.value.start;
-    this.newEvent.groupLead = this.dataTransfer.createEventGroup.groupLead;
-    this.newEvent.group = this.dataTransfer.createEventGroup.uid;
+    this.newEvent.groupLead = this.data.grp.groupLead;
+    this.newEvent.group = this.data.grp.uid;
     this.newEvent.files = [];
     this.newEvent.endDate = this.createEventForm.value.end;
     this.newEvent.startWithoutHost = this.createEventForm.value.startWithoutHost;
@@ -121,25 +109,15 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     if (this.createEventForm.value.video) {
       this.newEvent.videoUrl = this.createEventForm.value.videoURL;
     }
-    this.fbData.addEvent(this.newEvent, this.dataTransfer.createEventGroup);
+    this.fbData.addEvent(this.newEvent, this.data.grp);
     //console.log(this.newEvent);
   }
 
-  // add sessions to event
-  addSessions(){
-    console.log("Sessions to be added...");
-  }
-  addSessionBlock(){
-    this.session = {};
-    this.sessions.push(this.session);
-  }
-  testSessions(){
-    console.log(this.sessions);
-  }
   // unsubscribe from group search observable
   ngOnDestroy(): void {
-    if(this.isSubGrp){
-      this.subGroup.unsubscribe();
-    }
+
+  }
+  onNoClick(data): void {
+    this.dialogRef.close(data);
   }
 }

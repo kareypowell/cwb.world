@@ -2,10 +2,8 @@
   <div class="col-md-5">
     <div class="col-md-12 no-padding">
       <div>
-        <div class="gap"></div>
         <mat-card>
-          
-          
+          <div class="gap"></div>
           <div class="topItems">
             <span class="align-center"><strong>You lead {{groups?.length}} Group(s)</strong></span>
             <span class="buttonRight">
@@ -51,7 +49,7 @@
               <div class="topItems">
                 <!--<span class="align-center"><strong>{{events?.length}} Event(s) across your groups</strong></span> -->
                 <span class="buttonRight">
-                  <button mat-button class="cwb-primary-button ml-5" (click)="openDialog('createEvent')">
+                  <button mat-button class="cwb-primary-button ml-5" (click)="createEvent()">
                     <i class="fas fa-plus mr-2"></i>New Event</button>
                 </span>
               </div>
