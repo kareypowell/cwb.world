@@ -34,44 +34,43 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-sm-6">
-        <mat-form-field class="full-width smallerhead" appearance="outline">
-          <mat-select placeholder="Select Community" formControlName="comm" required>
-            <mat-option *ngFor="let comm of communities" [value]="comm" (click)="getSectorsInCommunity(comm?.uid)">
-              {{ comm?.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <div class="col-md-6">
+          <p>Community: {{commName}}
+            <i class="fas fa-edit ml-3 showPointer" (click)="showCommEdit = !showCommEdit"></i>
+          </p>
+          <div *ngIf="showCommEdit">
+            <mat-form-field class="full-width smallerhead" appearance="outline">
+              <mat-select placeholder="Select New Community" formControlName="comm" required>
+                <mat-option *ngFor="let comm of communities" [value]="comm" (click)="getSectorsInCommunity(comm?.uid)">
+                  {{ comm?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button type="button" (click)="showCommEdit = false" class="mr-2">Cancel</button>
+            <button mat-raised-button type="button" (click)="saveNewComm(); showCommEdit = false; showSecEdit = true" class="cwb-primary-button">Save</button>
+          </div>
+        </div>
+        <div class="col-md-6">
+            <p>Sector: {{secName}}
+                <i class="fas fa-edit ml-3 showPointer" (click)="showSecEdit = !showSecEdit"></i>
+              </p>
+          <div *ngIf="showSecEdit">
+              <mat-form-field class="full-width smallerhead" appearance="outline">
+                  <mat-select placeholder="Select New Sector" formControlName="sect" required>
+                    <mat-option *ngFor="let sec of sectors" [value]="sec">
+                      {{ sec?.name }}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+            <br>
+            <button mat-raised-button type="button" (click)="showSecEdit = false" class="mr-2">Cancel</button>
+            <button mat-raised-button type="button" (click)="saveNewSector(); showSecEdit = false" class="cwb-primary-button">Save</button>
+          </div>
+  
+        </div>
       </div>
-      <div class="col-sm-6">
-        <mat-form-field class="full-width smallerhead" appearance="outline">
-          <mat-select placeholder="Select Sector" formControlName="sect" required>
-            <mat-option *ngFor="let sector of sectors; let i = index" [value]="sector">
-              {{ sector?.name }}
-            </mat-option>
-            <mat-option *ngIf="sectors?.length ===0">
-              No Sectors in this community
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-    </div>
 
-
-
-    <!--
-      <mat-form-field appearance="outline">
-      <mat-label>Group Lead</mat-label>
-      <input type="text" placeholder="Group Lead" aria-label="Group Lead" matInput [matAutocomplete]="auto3" formControlName="searchStringGroupLead"
-        (keyup)="searchUser($event)">
-
-      <mat-autocomplete #auto3="matAutocomplete">
-        <mat-option *ngFor="let option of userSearch" [value]="option.firstName + ' '+option.lastname" (click)="getGroupLead(option)">
-          {{ option.firstName }} {{option.lastname}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    -->
     <div class="meetingTimes">
       <h2 class="smallhead">Set meeting times:</h2>
       <ul class="meetingTimesUl">

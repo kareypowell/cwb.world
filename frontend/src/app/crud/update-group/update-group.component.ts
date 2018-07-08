@@ -18,6 +18,13 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
   communities: Community[];
   sectors: Sector[];
 
+  showSecEdit: boolean = false;
+  showCommEdit: boolean = false;
+  secChanged: boolean = false;
+  commChanged: boolean = false;
+  commName : string = "Test Comm";
+  secName : string = "Test Sector";
+
   private subComm;
   private subSect;
   private sub;
@@ -55,7 +62,7 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
       fullpaymentFee: ''
     });
 
-    this.subComm = this.fbData.communitiesFromDB$.subscribe(data => {
+    this.subComm = this.fbData.getAllCommunities().subscribe(data => {
       this.communities = data;
       
       this.subSect = this.fbData.getSectorsInCommunity(this.communities[0].uid).subscribe(data => {
@@ -64,13 +71,13 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
         this.sub = this.fbData.groupCollection.doc(this.data.uid).valueChanges().subscribe(data =>{
           this.group = data;
           this.communities.forEach(comm =>{
-            if(comm.uid === this.group.sector){
-              this.grpComm = comm;
+            if(comm.uid === this.group.community){
+              this.commName = comm.name;
             }
           })
           this.sectors.forEach(sec =>{
             if(sec.uid === this.group.sector){
-              this.grpSect = sec;
+              this.secName = sec.name;
             }
           })
           this.updateGroupForm.setValue({
@@ -127,6 +134,15 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
     this.subSect = this.fbData.getSectorsInCommunity(commID).subscribe(data => this.sectors = data);
   }
   
+
+  saveNewComm(){
+
+  }
+
+  saveNewSector(){
+
+  }
+
 
   onNoClick(data): void {
     this.dialogRef.close(data);
