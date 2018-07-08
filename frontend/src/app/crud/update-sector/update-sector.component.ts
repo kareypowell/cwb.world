@@ -2,7 +2,7 @@ import { Component, OnInit, Inject, OnDestroy} from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Community, User } from '../../interfaces/member';
+import { Community, User, Sector } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
 
 @Component({
@@ -14,7 +14,7 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
 
   public config: PerfectScrollbarConfigInterface = {};
   communities: Community[];
-  private users: User[];
+  users: User[];
   private commSub;
 
   showCommEdit: boolean = false;
@@ -59,25 +59,51 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
     })
   }
 
+  updatedSector: Sector = {};
   updateSector(){
-    
-    alert("Yet to be completed");
+    this.updatedSector.name = this.updateSectorForm.value.name;
+    this.updatedSector.description = this.updateSectorForm.value.description;
+    this.updatedSector.whatToExpect = this.updateSectorForm.value.whatToExpect;
+    if(this.commChanged){
+      this.updatedSector.community = this.currentComm.name;
+      this.updatedSector.communityID = this.currentComm.uid;
+    }
+    if(this.secLeadChanged){
+      this.updatedSector.sectorLead = this.currentSecLead.uid;
+    }
+    this.fbData.updateSector(this.data.sect.uid, this.updatedSector);
     // close dialog
     this.onNoClick(false);
   }
 
   userSearch: User[];
+  subbedUser:boolean = false;
+  lastKeypress: number = 0;
+  private sub2;
   searchUser($event){
-
+    if ($event.timeStamp - this.lastKeypress > 200) {
+      this.sub2 = this.fbData.searchCollection(String(this.updateSectorForm.value.searchStringSectorLead), "users", "fullnameToLower", 5).subscribe(users => { this.userSearch = users; this.subbedUser = true; });
+    }
+    this.lastKeypress = $event.timeStamp;
   }
+
+  currentSecLead: User;
   getSectorLead(option){
-
+    this.currentSecLead = option;
   }
 
+  currentComm: Community;
+  commChanged: boolean = false;
   saveNewComm(){
-
+    this.commName = this.updateSectorForm.value.comm.name;
+    this.currentComm = this.updateSectorForm.value.comm;
+    this.commChanged = true;
   }
+  
+  secLeadChanged: boolean = false;
   saveNewSecLead(){
+    this.secLeadName = this.currentSecLead.firstName + " " + this.currentSecLead.lastname;
+    this.secLeadChanged = true;
 
   }
   onNoClick(data): void {
@@ -87,5 +113,9 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
   ngOnDestroy():void{
     this.commSub.unsubscribe();
     this.sectLeadSub.unsubscribe();
+
+    if(this.subbedUser){
+      this.sub2
+    }
   }
 }

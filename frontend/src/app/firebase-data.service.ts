@@ -150,11 +150,11 @@ export class FirebaseDataService {
           sector.groupsInSector.push(ref.id);
           const groups = sector.groupsInSector;
           const data = { groupsInSector: groups };
-          this.updateSector(sector, data);
+          this.updateSector(sector.uid, data);
         } else {
           const groups = [ref.id];
           const data = { groupsInSector: groups };
-          this.updateSector(sector, data);
+          this.updateSector(sector.uid, data);
         }
         // add group to community's groups 
         if (community.groupsInCommunity) {
@@ -364,8 +364,8 @@ export class FirebaseDataService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
     userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  updateSector(sector: Sector, data) {
-    const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`sectors/${sector.uid}`); //sector ref to update data
+  updateSector(sectorid: string, data) {
+    const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`sectors/${sectorid}`); //sector ref to update data
     sectorRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
   updateCommunity(communityuid:string, data) {
