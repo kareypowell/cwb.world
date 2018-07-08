@@ -1,6 +1,6 @@
 import { Component, OnInit, Inject, OnDestroy} from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
-import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FirebaseDataService } from '../../firebase-data.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Group, Community, Sector, meetingDays, groupPrice } from '../../interfaces/member';

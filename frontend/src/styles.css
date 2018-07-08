@@ -307,3 +307,6 @@ a {
   width: 100%;
   height: auto;
 }
+.showPointer{
+  cursor: pointer;
+}

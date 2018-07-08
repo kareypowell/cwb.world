@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { DialogComponent } from '../../dialog/dialog.component';
+import { CreateGroupComponent } from '../../crud/create-group/create-group.component';
 
 @Component({
   selector: 'app-group-lead-role-info',
@@ -14,13 +14,12 @@ export class GroupLeadRoleInfoComponent implements OnInit {
   ngOnInit() {
   }
   openDialog(): void {
-    let dialogRef = this.dialog.open(DialogComponent, {
+    let dialogRef = this.dialog.open(CreateGroupComponent, {
       width: '90%',
       data: { createGroup: true }
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      console.log('The dialog was closed');
       //this.animal = result;
     });
   }

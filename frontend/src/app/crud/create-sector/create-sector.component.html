@@ -1,50 +1,66 @@
-<div class="body-wrapper">
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
   <h1 class="bighead">Create a new Sector</h1>
   <form [formGroup]="createSectorForm" (submit)="createSector()">
-    <mat-form-field class="mr-3" appearance="outline">
-      <mat-label>Sector Name</mat-label>
-      <input matInput formControlName="name" required>
-    </mat-form-field>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Sector Name</mat-label>
+          <input matInput formControlName="name" required>
+        </mat-form-field>
+      </div>
+    </div>
     <br>
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Description</mat-label>
+          <textarea matInput rows="8" formControlName="description" required></textarea>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>What to Expect</mat-label>
+          <textarea matInput rows="8" formControlName="whatToExpect" required></textarea>
+        </mat-form-field>
+      </div>
+    </div>
+    
 
-    <mat-form-field class="full-width" appearance="outline">
-      <mat-label>Description</mat-label>
-      <textarea matInput rows="8" formControlName="description" required></textarea>
-    </mat-form-field>
-
-    <mat-form-field class="full-width" appearance="outline">
+    <!--<mat-form-field class="full-width" appearance="outline">
       <mat-label>Bio</mat-label>
       <textarea matInput rows="5" formControlName="bio" required></textarea>
-    </mat-form-field>
+    </mat-form-field>-->
+    <div class="row">
+      <div class="col-md-6">
+        <mat-form-field class="full-width smallerhead"  appearance="outline">
+          <mat-select placeholder="Select Community" formControlName="comm" required>
+            <mat-option *ngFor="let comm of communities" [value]="comm">
+              {{ comm?.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="col-md-6">
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Sector Lead</mat-label>
+        <input type="text" placeholder="Sector Lead" aria-label="Community" matInput [matAutocomplete]="auto2" formControlName="searchStringSectorLead" (keyup)="searchUser($event)">
+        <mat-hint align="start"><strong>Start Typing a user's name and select from the options</strong> </mat-hint>
+        <mat-autocomplete #auto2="matAutocomplete">
+          <mat-option *ngFor="let option of userSearch" [value]="option.firstName + ' '+option.lastname" (click) = "getSectorLead(option)">
+            {{ option.firstName }} {{option.lastname}}
+          </mat-option>
+        </mat-autocomplete>
+      </mat-form-field>
+      </div>
+    </div>
 
-    <mat-form-field class="full-width" appearance="outline">
-      <mat-label>What to Expect</mat-label>
-      <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline" class="mr-5">
-        <mat-label>Community</mat-label>
-      <input type="text" placeholder="Community" aria-label="Community" matInput [matAutocomplete]="auto1" formControlName="community" (keyup)="searchCommunity($event)">
-      <mat-autocomplete #auto1="matAutocomplete">
-        <mat-option *ngFor="let option of commSearch" [value]="option.name" (click)= "getCommunity(option)">
-          {{ option.name }}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-
-    <mat-form-field appearance="outline">
-        <mat-label>Sector Lead</mat-label>
-      <input type="text" placeholder="Sector Lead" aria-label="Community" matInput [matAutocomplete]="auto2" formControlName="searchStringSectorLead" (keyup)="searchUser($event)">
-      
-      <mat-autocomplete #auto2="matAutocomplete">
-        <mat-option *ngFor="let option of userSearch" [value]="option.firstName + ' '+option.lastname" (click) = "getSectorLead(option)">
-          {{ option.firstName }} {{option.lastname}}
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
+    
     <br><br>
     
-    <button class="mr-3" mat-raised-button>Cancel</button>
+    <button class="mr-3" type="button" mat-raised-button (click)="onNoClick(false)">Cancel</button>
     <button mat-raised-button type="submit" class="cwb-primary-button">Create Sector</button>
   </form>
 </div>

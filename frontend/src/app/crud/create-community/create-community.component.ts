@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Inject } from '@angular/core';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { Community, User } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
 import { AuthService } from '../../auth-service';
+import {MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 
 @Component({
   selector: 'app-create-community',
@@ -10,8 +12,10 @@ import { AuthService } from '../../auth-service';
   styleUrls: ['./create-community.component.css']
 })
 export class CreateCommunityComponent implements OnInit {
+  public config: PerfectScrollbarConfigInterface = {};
 
-  constructor(private _formBuilder: FormBuilder, private fbData:FirebaseDataService, private auth:AuthService) { }
+  constructor(private _formBuilder: FormBuilder, private fbData:FirebaseDataService, private auth:AuthService, public dialogRef: MatDialogRef<CreateCommunityComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   createCommunityForm: FormGroup;
   newCommunity:Community = {};
@@ -23,7 +27,7 @@ export class CreateCommunityComponent implements OnInit {
     this.createCommunityForm = this._formBuilder.group({
       name: ['',Validators.required],
       description: ['',Validators.required],
-      bio: ['',Validators.required],
+      bio: '',
       whatToExpect: ['',Validators.required]
     });
   }
@@ -45,5 +49,11 @@ export class CreateCommunityComponent implements OnInit {
     this.newCommunity.createdBy = this.currentUser.uid; // get who created community
 
     this.fbData.addCommunity(this.newCommunity); // call firebase service to add new community
+    // close dialog
+    this.onNoClick(false);
+  }
+
+  onNoClick(data): void {
+    this.dialogRef.close(data);
   }
 }

@@ -15,7 +15,7 @@
                   <span class="mr-5">
                     <strong>{{communities?.length}} Communities</strong>
                   </span>
-                  <button mat-button class="cwb-primary-button text-right" (click)="openDialog('createCommunity')">
+                  <button mat-button class="cwb-primary-button text-right" (click)="createCommunity()">
                     <i class="fas fa-plus mr-2"></i>New</button>
                 </div>
                 <div class="gap"></div>
@@ -54,7 +54,7 @@
                         <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector">
                           {{sector?.name}}
                           <span class="editables">
-                            <i class="far fa-edit" (click)="updateSector(sector?.uid)"></i>
+                            <i class="far fa-edit" (click)="updateSector(sector)"></i>
                             <i class="far fa-minus-square" (click)="deleteItem(sector?.uid, 'sectors')"></i>
                           </span>
                         </mat-list-item>
@@ -94,7 +94,7 @@
                   <span class="mr-5">
                     <strong>{{sectors?.length}} Sectors</strong>
                   </span>
-                  <button mat-button class="cwb-primary-button fl-right text-right" (click)="openDialog('createSector')">
+                  <button mat-button class="cwb-primary-button fl-right text-right" (click)="createSector()">
                     <i class="fas fa-plus mr-2"></i>New</button>
                 </div>
 
@@ -105,7 +105,7 @@
                     <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSector == sector" (click)="currentSector = sector; getGroupsForSec();">
                       {{sector?.name}}
                       <span class="editables">
-                        <i class="far fa-edit" (click)="updateSector(sector?.uid)"></i>
+                        <i class="far fa-edit" (click)="updateSector(sector)"></i>
                         <i class="far fa-minus-square" (click)="deleteItem(sector?.uid, 'sectors')"></i>
                       </span>
                     </mat-list-item>
@@ -156,7 +156,7 @@
                 </mat-form-field>
               <div class="topItems">
                   <span class="mr-5"><strong>{{groups?.length}} Groups</strong></span>
-                  <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('createGroup')">
+                  <button mat-button class="cwb-primary-button fl-right" (click)="createGroup()">
                     <i class="fas fa-plus mr-2"></i>New</button>
               </div>
 
@@ -234,7 +234,7 @@
             <div class="gap"></div>
             <div class="topItems">
                 <span class="mr-5"><strong>{{members?.length}} Users</strong></span>
-                <button mat-button class="cwb-primary-button fl-right" (click)="openDialog('addMember')">
+                <button mat-button class="cwb-primary-button fl-right" (click)="addMember()">
                   <i class="fas fa-plus mr-2"></i>New</button>
             </div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">

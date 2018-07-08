@@ -204,6 +204,27 @@ export class FirebaseDataService {
         })
       }));
   }
+  getAllCommunities(){
+    return this.afs.collection('communities')
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Community;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getUserName(id:string){
+    return this.afs.collection('users', ref => ref
+      .where('uid', '==', id))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as User;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
   getGroupsJoinedByMember(memberID: string){
     return this.afs.collection('group-members', ref => ref
       .orderBy('uid')

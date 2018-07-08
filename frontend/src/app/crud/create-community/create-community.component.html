@@ -1,4 +1,7 @@
-<div class="body-wrapper">
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
   <h1 class="bighead">Create a new Community</h1>
   <form [formGroup]="createCommunityForm" (submit)="createCommunity()">
     <mat-form-field class="mr-3" appearance="outline">
@@ -13,13 +16,13 @@
     </mat-form-field>
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>Bio</mat-label>
-      <textarea matInput rows="5" formControlName="bio" required></textarea>
+      <textarea matInput rows="5" formControlName="bio"></textarea>
     </mat-form-field>
     <mat-form-field class="full-width" appearance="outline">
       <mat-label>What to Expect</mat-label>
       <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
     </mat-form-field>
-    <button class="mr-3" mat-raised-button>Cancel</button>
+    <button class="mr-3" type="button" mat-raised-button (click)="onNoClick(false)">Cancel</button>
     <button mat-raised-button type="submit" class="cwb-primary-button">Create Community</button>
   </form>
 </div>

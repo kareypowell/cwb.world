@@ -60,7 +60,7 @@ export class CreateGroupComponent implements OnInit, OnDestroy {
         { day: 'Saturday', meet: false, recurrence: this.recurrence[0], startTime: this.now, endTime: this.future }
       ];
     this.subUser = this.auth.user$.subscribe(data => this.currentUser = data); // get current user info
-    this.subComm = this.fbData.communitiesFromDB$.subscribe(data => {
+    this.subComm = this.fbData.getAllCommunities().subscribe(data => {
       this.communities = data;
       this.subSect = this.fbData.getSectorsInCommunity(this.communities[0].uid).subscribe(data => this.sectors = data);
     });
@@ -165,6 +165,9 @@ export class CreateGroupComponent implements OnInit, OnDestroy {
     this.sector = this.createGroupForm.value.sect;
     this.community = this.createGroupForm.value.comm;
     this.fbData.addGroup(this.newGroup, this.currentUser, this.sector, this.community);
+
+    // close dialog
+    this.onNoClick(false);
   }
 
   customPayments: groupPrice[] = [];

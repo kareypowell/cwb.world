@@ -42,7 +42,7 @@
       <div class="alert alert-danger" role="alert" *ngIf="status?.fail">
         {{status?.msg}}
       </div>
-    <button type="button" mat-raised-button (click)="onNoClick()" class="mr-3">Cancel</button>
+    <button type="button" mat-raised-button (click)="onNoClick(false)" class="mr-3">Cancel</button>
     <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot" (click)="joinGroup()">Submit</button>
     <div class="gap"></div>
     <div class="gap"></div>

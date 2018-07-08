@@ -10,6 +10,9 @@ import { UpdateCommunityComponent } from '../crud/update-community/update-commun
 import { ConfirmDeleteComponent } from '../crud/confirm-delete/confirm-delete.component';
 import { UpdateSectorComponent } from '../crud/update-sector/update-sector.component';
 import { UpdateGroupComponent } from '../crud/update-group/update-group.component';
+import { CreateSectorComponent } from '../crud/create-sector/create-sector.component';
+import { CreateGroupComponent } from '../crud/create-group/create-group.component';
+import { CreateCommunityComponent } from '../crud/create-community/create-community.component';
 
 @Component({
   selector: 'app-admin-view',
@@ -95,17 +98,9 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     this.membersInGroup = this.fbData.getMembersInGroup(this.currentGroup.uid);
   }
 
-  openDialog(source): void {
-    if(source == 'createCommunity'){
-      this.dataset = { createCommunity: true }
-    }else if(source == 'createSector'){
-      this.dataset = { createSector: true }
-    }else if(source == 'createGroup'){  // create group already exists, check and correct according...
-      this.dataset = { createGroup: true }
-    }else if(source == 'deleteConfirm'){
-      this.dialogWidth = '300px'
-    }
-    let dialogRef = this.dialog.open(DialogComponent, {
+  createCommunity(){
+    this.dataset = {}
+    let dialogRef = this.dialog.open(CreateCommunityComponent, {
       width: this.dialogWidth,
       data: this.dataset
     });
@@ -114,7 +109,6 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-
   updateCommunity(commUID): void {
     this.dataset = {uid: commUID}
     let dialogRef = this.dialog.open(UpdateCommunityComponent, {
@@ -126,9 +120,31 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-  updateSector(sectoruid){
-    this.dataset = {uid: sectoruid}
+  createSector(){
+    this.dataset = {}
+    let dialogRef = this.dialog.open(CreateSectorComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+  updateSector(sector){
+    this.dataset = {sect: sector}
     let dialogRef = this.dialog.open(UpdateSectorComponent, {
+      width: this.dialogWidth,
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
+  }
+  createGroup(){
+    this.dataset = {}
+    let dialogRef = this.dialog.open(CreateGroupComponent, {
       width: this.dialogWidth,
       data: this.dataset
     });
@@ -149,6 +165,9 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  createEvent(grp:Group){
+
+  }
   updateEvent(eventID){
     this.dataset = {uid: eventID}
     let dialogRef = this.dialog.open(UpdateGroupComponent, {
@@ -161,6 +180,12 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
+  addMember(){
+
+  }
+  updateMember(){
+
+  }
   
   deleteItem(itemuid, collection): void {
     this.dataset = {
@@ -175,8 +200,6 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-
-  
 
   getGrpInfo(){
     this.memberGroups =  this.fbData.getGroupsJoinedByMember(this.currentMember.uid);

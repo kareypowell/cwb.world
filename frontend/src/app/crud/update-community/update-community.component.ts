@@ -57,6 +57,8 @@ export class UpdateCommunityComponent implements OnInit, OnDestroy {
     // call function to update community
     this.fbData.updateCommunity(this.data.uid, this.newCommunity);
     //console.log(this.updateCommunityForm.value);
+    // close dialog
+    this.onNoClick(false);
   }
 
   ngOnDestroy(){
