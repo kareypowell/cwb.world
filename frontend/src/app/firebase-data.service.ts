@@ -180,10 +180,10 @@ export class FirebaseDataService {
         if(group.events){
           group.events.push(ref.id);
           const data = {events: group.events};
-          this.updateGroup(group,data);
+          this.updateGroup(group.uid,data);
         }else{
           const data = {events: [ref.id]};
-          this.updateGroup(group,data);
+          this.updateGroup(group.uid,data);
         }
       }
     )
@@ -220,6 +220,17 @@ export class FirebaseDataService {
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as User;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getSpecificGroup(groupID:string){
+    return this.afs.collection('groups', ref => ref
+      .where('uid', '==', groupID))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Group;
           data.uid = a.payload.doc.id;
           return data;
         })
@@ -372,9 +383,11 @@ export class FirebaseDataService {
     const communityRef: AngularFirestoreDocument<any> = this.afs.doc(`communities/${communityuid}`); //community ref to update data
     communityRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  updateGroup(group: Group, data) {
-    const groupRef: AngularFirestoreDocument<any> = this.afs.doc(`groups/${group.uid}`); //group ref to update data
-    groupRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  returnVal:boolean = false;
+  updateGroup(groupID: string, data) {
+    const groupRef: AngularFirestoreDocument<any> = this.afs.doc(`groups/${groupID}`); //group ref to update data
+    groupRef.set(data, { merge: true }).then(()=>this.returnVal = true).catch(() => this.returnVal= false);
+    return this.returnVal;
   }
 
   // Assign Roles

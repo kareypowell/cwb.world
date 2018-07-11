@@ -37,10 +37,22 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
   meetings:meetingDays[];
   dayItem:meetingDays;
 
+  monthAcc:boolean = false;
+  monthFee:number =0;
+  quaterAcc:boolean = false;
+  quaterFee:number =0;
+  SemiAnnAcc:boolean = false;
+  semiAnnFee:number =0;
+  fullAcc:boolean = false;
+  fullFee:number =0;
+
+  p: groupPrice;
+
   constructor(public dialogRef: MatDialogRef<UpdateGroupComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private fbData: FirebaseDataService, private _formBuilder: FormBuilder) { }
 
   ngOnInit() {
+
     this.updateGroupForm = this._formBuilder.group({
       grpName: ['', Validators.required],
       description: ['', Validators.required],
@@ -70,11 +82,31 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
         
         this.sub = this.fbData.groupCollection.doc(this.data.uid).valueChanges().subscribe(data =>{
           this.group = data;
+          // get grp prices
+          this.group.prices.forEach(price => {
+            if(price.allowedTerm){
+              if(price.termDescription == 'Monthly'){
+                this.monthAcc = true;
+                this.monthFee = price.termPrice;
+              }else if(price.termDescription == 'Quarterly'){
+                this.quaterAcc = true;
+                this.quaterFee = price.termPrice;
+              }else if(price.termDescription == 'Semi-Annually'){
+                this.SemiAnnAcc = true;
+                this.semiAnnFee = price.termPrice;
+              }else if(price.termDescription == 'Full payment'){
+                this.fullAcc = true;
+                this.fullFee = price.termPrice;
+              }
+            }
+          })
+          //set community
           this.communities.forEach(comm =>{
             if(comm.uid === this.group.community){
               this.commName = comm.name;
             }
           })
+          //set sector
           this.sectors.forEach(sec =>{
             if(sec.uid === this.group.sector){
               this.secName = sec.name;
@@ -91,14 +123,14 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
             bankInfo: this.group.bankInfo,
             routingNumber: this.group.routingNumber,
             accountNumber: this.group.accountNumber,
-            monthly: this.group.prices[0].allowedTerm,
-            semiannually: this.group.prices[0].allowedTerm,
-            quaterly: this.group.prices[0].allowedTerm,
-            fullpayment: this.group.prices[0].allowedTerm,
-            monthlyFee: this.group.prices[0].termPrice,
-            semiannuallyFee: this.group.prices[0].termPrice,
-            quaterlyFee: this.group.prices[0].termPrice,
-            fullpaymentFee: this.group.prices[0].termPrice
+            monthly: this.monthAcc,
+            semiannually: this.SemiAnnAcc,
+            quaterly: this.quaterAcc,
+            fullpayment: this.fullAcc,
+            monthlyFee: this.monthFee,
+            semiannuallyFee: this.semiAnnFee,
+            quaterlyFee: this.quaterFee,
+            fullpaymentFee: this.fullFee
           });
         })
       })
@@ -122,13 +154,70 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
     
     
   }
-
+  errorUpdate: boolean = false;
+  successUpdate: boolean = false;
   updateGroup(){
+    this.errorUpdate = false;
+    this.successUpdate = false;
     this.updatedGroup = {};
+    this.updatedGroup.name = this.updateGroupForm.value.grpName;
+    this.updatedGroup.description = this.updateGroupForm.value.description;
+    this.updatedGroup.whatToExpect = this.updateGroupForm.value.whatToExpect;
+    this.updatedGroup.capacity = this.updateGroupForm.value.capacity;
+    this.updatedGroup.acceptPayments = this.updateGroupForm.value.acceptPayment;
+    this.updatedGroup.bankInfo = this.updateGroupForm.value.bankInfo;
+    this.updatedGroup.accountNumber = this.updateGroupForm.value.accountNumber;
+    this.updatedGroup.routingNumber = this.updateGroupForm.value.routingNumber;
+    if(this.commChanged){
+      this.updatedGroup.community = this.updateGroupForm.value.comm.uid;
+    }
+    if(this.secChanged){
+      this.updatedGroup.sector = this.updateGroupForm.value.sect.uid;
+    }
+    this.updatedGroup.prices = [];
+    if (this.updateGroupForm.value.monthly) {
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "Monthly";
+      this.p.termPrice = this.updateGroupForm.value.monthlyFee
+
+      this.updatedGroup.prices.push(this.p);
+    }
+    if (this.updateGroupForm.value.quaterly) {
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "Quarterly";
+      this.p.termPrice = this.updateGroupForm.value.quaterlyFee;
+      this.updatedGroup.prices.push(this.p);
+    }
+
+    if (this.updateGroupForm.value.semiannually) {
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "Semi-Annually";
+      this.p.termPrice = this.updateGroupForm.value.semiannuallyFee;
+      this.updatedGroup.prices.push(this.p);
+    }
+    if (this.updateGroupForm.value.fullpayment) {
+      this.p = {};
+      this.p.allowedTerm = true;
+      this.p.termDescription = "Full payment";
+      this.p.termPrice = this.updateGroupForm.value.fullpaymentFee;
+      this.updatedGroup.prices.push(this.p);
+    }
+
+    //console.log(this.updatedGroup);
+    if(this.fbData.updateGroup(this.data.uid,this.updatedGroup)){
+      //this.successUpdate = true;
+      this.onNoClick(false);
+    }else{
+      //this.errorUpdate = true;
+      this.onNoClick(false);
+    }
     
-    console.log(this.updatedGroup);
-    alert("Update functionality still in the works...");
   }
+
+
   getSectorsInCommunity(commID: string){
     this.subSect.unsubscribe();
     this.subSect = this.fbData.getSectorsInCommunity(commID).subscribe(data => this.sectors = data);
@@ -136,11 +225,14 @@ export class UpdateGroupComponent implements OnInit, OnDestroy {
   
 
   saveNewComm(){
+    this.commChanged = true;
+    this.commName = this.updateGroupForm.value.comm.name;
 
   }
 
   saveNewSector(){
-
+    this.secChanged = true;
+    this.secName = this.updateGroupForm.value.sect.name;
   }
 
 
