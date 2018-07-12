@@ -52,10 +52,6 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       eventDurationNumber: 2,
       eventDurationTerm: 'week'
     });
-    
-    this.createEventForm2 = this._formBuilder.group({
-      
-    });
   }
 
   newEvent: EventItem;
