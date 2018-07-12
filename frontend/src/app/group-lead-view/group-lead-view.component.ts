@@ -33,7 +33,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
 
   groups: Group[];
   members: GroupMember[] =[];
-  events: EventItem[] = [];
+  events: EventItem[];
   user: User;
 
   currentGroup;
@@ -48,24 +48,18 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subUser = this.auth.user$.subscribe(data => {
       this.user = data;
-      // sub for events in user's groups
-      this.eventSub = this.fbData.eventsFromDB$.subscribe(data =>{
-        data.forEach(event => {
-          if(this.user.groupsLead.indexOf(event.group) > -1){ // check if event belongs to groups lead by user
-            this.events.push(event);
-          }
-        });
-        if(this.events.length != 0){
-          this.currentEvent = this.events[0];
-        }
-      });
-
+    
       // sub for user groups lead
       this. groupSub = this.fbData.getGroupsLead(this.user.uid).subscribe(data =>{
         this.groups = data;
         if(data.length != 0){
           this.currentGroup = this.groups[0]; 
         }
+      });
+
+      // sub for events
+      this.eventSub = this.fbData.getAllEvents().subscribe(data =>{
+        this.events = data;
       });
 
       // sub for members in user's groups
@@ -75,41 +69,12 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
           this.currentMember = this.members[0];
         }
       });
-      
-      
 
     });
   }
   displayGroupInfo(grp){
     this.currentGroup = grp;
   }
- 
-
-  openDialog(source): void {
-    if(source == 'createCommunity'){
-      this.dataset = { createCommunity: true }
-    }else if(source == 'createSector'){
-      this.dataset = { createSector: true }
-    }else if(source == 'createGroup'){  // create group already exists, check and correct according...
-      this.dataset = { createGroup: true }
-    }else if(source == 'createEvent'){
-      this.dataset = { createEvent: true }
-      this.dataTransfer.createEventGroup = this.currentGroup;
-    }else if(source == 'deleteConfirm'){
-      this.dialogWidth = '300px'
-    }
-    let dialogRef = this.dialog.open(DialogComponent, {
-      width: this.dialogWidth,
-      data: this.dataset
-    });
-
-    dialogRef.afterClosed().subscribe(result => {
-      //this.animal = result;
-    });
-  }
-
-
-
 
   createGroup(){
     let dialogRef = this.dialog.open(CreateGroupComponent, {

@@ -57,15 +57,15 @@
                 <div class="gap"></div>
                 <mat-list *ngFor="let event of events | search:currentGroup?.uid:'group'">
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentEvent==event" (click)="currentEvent = event">
-                    {{event.name}}
+                    {{event?.name}}
                     <span class="editables">
                       <i class="far fa-edit" (click)="updateEvent(event)"></i>
-                      <i class="far fa-minus-square" (click)="deleteItem(event.uid, 'events')"></i>
+                      <i class="far fa-minus-square" (click)="deleteItem(event?.uid, 'events')"></i>
                     </span>
                   </mat-list-item>
                   <mat-divider></mat-divider>
                 </mat-list>
-                <h3 class="smallhead" *ngIf="(events | search:currentGroup?.uid:'group').length == 0">No Events in this group</h3>
+                <h3 class="smallhead" *ngIf="(events | search:currentGroup?.uid:'group')?.length == 0">No Events in this group</h3>
               </mat-card>
               <div class="gap"></div>
               <div class="gap"></div>

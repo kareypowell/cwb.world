@@ -369,6 +369,17 @@ export class FirebaseDataService {
       }));
   }
 
+  getAllEvents(){
+    return this.afs.collection('events')
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as EventItem;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+
   // UPDATE =======================================================================================================================
 
   updateUser(user: User, data) {
