@@ -20,7 +20,7 @@
             <div class="gap"></div>
             <p *ngIf="(groups | search: filterSearch: 'name')?.length == 0" class="no-matches smallhead">No matches</p>
             <mat-list *ngFor="let grp of groups | search: filterSearch: 'name'">
-              <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)">
+              <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp); getEvents()">
                 {{grp?.name}}
                 <span class="editables">
                   <i class="far fa-edit" (click)="updateGroup(grp.uid)"></i>
@@ -55,7 +55,7 @@
               </div>
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
-                <mat-list *ngFor="let event of events | search:currentGroup?.uid:'group'">
+                <mat-list *ngFor="let event of events">
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentEvent==event" (click)="currentEvent = event">
                     {{event?.name}}
                     <span class="editables">
@@ -65,7 +65,7 @@
                   </mat-list-item>
                   <mat-divider></mat-divider>
                 </mat-list>
-                <h3 class="smallhead" *ngIf="(events | search:currentGroup?.uid:'group')?.length == 0">No Events in this group</h3>
+                <h3 class="smallhead" *ngIf="(events)?.length == 0">No Events in this group</h3>
               </mat-card>
               <div class="gap"></div>
               <div class="gap"></div>
