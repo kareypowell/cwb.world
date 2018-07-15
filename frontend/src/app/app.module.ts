@@ -88,6 +88,8 @@ import { UpdateSectorComponent } from './crud/update-sector/update-sector.compon
 import { ConfirmDeleteComponent } from './crud/confirm-delete/confirm-delete.component';
 import { CreateAirRmsSpaceComponent } from './crud/create-air-rms-space/create-air-rms-space.component';
 import { UpdateAirRmsSpaceComponent } from './crud/update-air-rms-space/update-air-rms-space.component';
+import { CreateSuperSectorComponent } from './crud/create-super-sector/create-super-sector.component';
+import { UpdateSuperSectorComponent } from './crud/update-super-sector/update-super-sector.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -157,7 +159,9 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     UpdateSectorComponent,
     ConfirmDeleteComponent,
     CreateAirRmsSpaceComponent,
-    UpdateAirRmsSpaceComponent
+    UpdateAirRmsSpaceComponent,
+    CreateSuperSectorComponent,
+    UpdateSuperSectorComponent
   ],
   imports: [
     BrowserModule,

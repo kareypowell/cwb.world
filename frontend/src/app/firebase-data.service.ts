@@ -6,7 +6,7 @@ import { Observable, of, BehaviorSubject, zip, Subject } from 'rxjs';
 import { switchMap, merge, map, filter } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group, GroupMember, EventItem } from './interfaces/member';
+import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
@@ -265,6 +265,33 @@ export class FirebaseDataService {
         })
       }));
   }
+  getSuperSectorsInCommunity(communityID: string){
+    return this.afs.collection('super-sectors', ref => ref
+      .orderBy('community')
+      .startAt(communityID)
+      .endAt(communityID + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as SuperSector;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getSectorsInSuperSector(superID:string){
+    return this.afs.collection('sectors', ref => ref
+      .orderBy('superSector')
+      .startAt(superID)
+      .endAt(superID + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Sector;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+
   getGroupsInCommunity(communityID: string){
     return this.afs.collection('groups', ref => ref
       .orderBy('community')

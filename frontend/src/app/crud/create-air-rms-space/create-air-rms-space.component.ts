@@ -4,7 +4,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth-service';
 import { FirebaseDataService } from '../../firebase-data.service';
-import { User, Community, Sector } from '../../interfaces/member';
+import { User, Community, Sector, SuperSector } from '../../interfaces/member';
 
 @Component({
   selector: 'app-create-air-rms-space',
@@ -20,10 +20,19 @@ export class CreateAirRmsSpaceComponent implements OnInit {
   createAirRMSForm: FormGroup;
   currentUser: User;
   communities: Community[];
+  superSectors: SuperSector[];
   sectors: Sector[];
+  currentCommunity: Community;
+  currentSupSect: SuperSector;
+  currentSector: Sector;
+
+
   private subUser;
   private subComm;
   private subSect;
+  private subSuper;
+
+  private subbedSector: boolean = false;
 
   roomStyles = [
     { url: "roundtable.PNG", name: "Round Table", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya." },
@@ -39,7 +48,16 @@ export class CreateAirRmsSpaceComponent implements OnInit {
     this.subUser = this.auth.user$.subscribe(data => this.currentUser = data); // get current user info
     this.subComm = this.fbData.getAllCommunities().subscribe(data => {
       this.communities = data;
-      this.subSect = this.fbData.getSectorsInCommunity(this.communities[0].uid).subscribe(data => this.sectors = data);
+      this.currentCommunity = this.communities[0];
+      this.subSuper = this.fbData.getSuperSectorsInCommunity(this.currentCommunity.uid).subscribe(data => {
+        this.superSectors = data;
+        if(this.superSectors.length > 0){
+          this.currentSupSect = this.superSectors[0];
+          
+          this.subSect = this.fbData.getSectorsInSuperSector(this.currentSupSect.uid).subscribe(data => this.sectors = data);
+          this.subbedSector = true;
+        }
+      });   
     });
 
     this.createAirRMSForm = this._formBuilder.group({
@@ -48,20 +66,10 @@ export class CreateAirRmsSpaceComponent implements OnInit {
       whatToExpect: ['', Validators.required],
       capacity: [10, Validators.required],
       comm: ['', Validators.required],
+      supersector: '',
       sect: ['', Validators.required],
       roomType: this.roomStyles[0],
-      acceptPayment: false,
-      bankInfo: '',
-      routingNumber: '',
-      accountNumber: '',
-      monthly: false,
-      semiannually: false,
-      quaterly: false,
-      fullpayment: false,
-      monthlyFee: '',
-      semiannuallyFee: '',
-      quaterlyFee: '',
-      fullpaymentFee: ''
+      hasSuperSect: true
     });
   }
 
@@ -77,12 +85,26 @@ export class CreateAirRmsSpaceComponent implements OnInit {
 
   getSectorsInCommunity(commID: string) {
     this.subSect.unsubscribe();
-    this.fbData.getSectorsInCommunity(commID).subscribe(data => this.sectors = data);
+    this.subSect = this.fbData.getSectorsInCommunity(commID).subscribe(data => this.sectors = data);
+  }
+
+  getSuperSectorsInCommunity(){
+    this.subSuper.unsubscribe();
+    this.subSuper = this.fbData.getSuperSectorsInCommunity(this.currentCommunity.uid).subscribe(data => this.superSectors = data);
+  }
+  getSectorsInSuperSector(){
+    if(this.subbedSector){
+      this.subSect.unsubscribe();
+    }
+    this.subSect = this.fbData.getSectorsInSuperSector(this.currentSupSect.uid).subscribe(data => this.sectors = data);
   }
 
   ngOnDestroy(): void {
     this.subComm.unsubscribe();
     this.subUser.unsubscribe();
-    this.subSect.unsubscribe();
+    if(this.subbedSector){
+      this.subSect.unsubscribe();
+    }
+    this.subSuper.unsubscribe();
   }
 }

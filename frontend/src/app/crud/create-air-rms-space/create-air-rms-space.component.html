@@ -41,7 +41,7 @@
             <img src="../../../assets/images/{{room.url}}" alt="Icon" class="full-width">
           </div>
           <div class="col-sm-10">
-            <strong>{{room.name}}</strong><br>
+            <h3>{{room.name}}</h3>
             <p>{{room.description}}</p>
           </div>
         </div>
@@ -49,23 +49,36 @@
     </mat-radio-group>
     <div class="gap"></div>
     <div class="row">
-      <div class="col-sm-6">
+      <div class="col-sm-4">
         <mat-form-field class="full-width smallerhead"  appearance="outline">
           <mat-select placeholder="Select Community" formControlName="comm" required>
-            <mat-option *ngFor="let comm of communities" [value]="comm" (click)="getSectorsInCommunity(comm?.uid)">
+            <mat-option *ngFor="let comm of communities" [value]="comm" (click)="this.currentCommunity = comm; getSuperSectorsInCommunity()">
               {{ comm?.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-sm-6">
+      <div class="col-sm-4">   
+        <mat-form-field class="full-width smallerhead"  appearance="outline" *ngIf="createAirRMSForm.value.hasSuperSect">
+          <mat-select placeholder="Select Super-sector" formControlName="supersector">
+            <mat-option *ngFor="let superSector of superSectors" [value]="superSector" (click)="this.currentSupSect = superSector; getSectorsInSuperSector();">
+              {{ superSector?.name }}
+            </mat-option>
+            <mat-option *ngIf="superSectors?.length ===0">
+              No Super-sectors in this community
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+        <!--<mat-checkbox formControlName="hasSuperSect">Super sector?</mat-checkbox>-->
+      </div>
+      <div class="col-sm-4">
         <mat-form-field class="full-width smallerhead"  appearance="outline">
           <mat-select placeholder="Select Sector" formControlName="sect" required>
             <mat-option *ngFor="let sector of sectors; let i = index" [value]="sector">
               {{ sector?.name }}
             </mat-option>
             <mat-option *ngIf="sectors?.length ===0">
-              No Sectors in this community
+              No Sectors in this SuperSector
             </mat-option>
           </mat-select>
         </mat-form-field>

@@ -120,8 +120,18 @@ export interface Files {
     name?: string; // name of file or link
     type?: string; // file or link
     link?: { file?: boolean, link?: boolean }; // link to file or actual link of link, lool! Set only one to true with radio buttons
+    url?:string; // url to file
 }
-
+export interface SuperSector{
+    uid?:string;
+    name?: string;
+    community?:string;
+    description?:string;
+    createdBy?:string;
+    files?:string[];
+    images?:string[];
+    videos?:string[];
+}
 export interface Sector {
     uid?: string;
     name?: string;
@@ -131,6 +141,7 @@ export interface Sector {
     whatToExpect?: string;
     community?: string; // community name
     communityID?:string;
+    superSector?:string;
     sectorLead?: string; // hold uid of sector lead(s)
     imageUrl?: string;
     files?: string[];
