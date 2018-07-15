@@ -167,8 +167,8 @@
                   <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp); getMembersForGroup();">
                     {{grp?.name}}
                     <span class="editables">
-                      <i class="far fa-edit"></i>
-                      <i class="far fa-minus-square"></i>
+                      <i class="far fa-edit" (click)="updateGroup(grp?.uid)"></i>
+                      <i class="far fa-minus-square" (click)="deleteItem(grp?.uid, 'groups')"></i>
                     </span>
                   </mat-list-item>
                   <mat-divider></mat-divider>

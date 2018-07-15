@@ -1,5 +1,9 @@
 <div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
   <h1 class="smallhead">Update {{community?.name}}</h1>
+  <div class="gap"></div>
   <form [formGroup]="updateCommunityForm" (submit)="updateCommunity()">
       <mat-form-field class="mr-3" appearance="outline">
         <mat-label>Community Name</mat-label>
