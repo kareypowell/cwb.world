@@ -96,7 +96,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     }
     this.newEvent.eventStatus = 'active';
     this.newEvent.eventImage = this.createEventForm.value.image;
-    this.newEvent.videoUrl = this.createEventForm.value.video;
+    this.newEvent.videoDisplay = this.createEventForm.value.video;
     this.newEvent.durationNumber = this.createEventForm.value.eventDurationNumber;
     this.newEvent.durationTerm = this.createEventForm.value.eventDurationTerm;
     if (this.createEventForm.value.image) {

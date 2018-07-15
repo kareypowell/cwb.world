@@ -413,6 +413,11 @@ export class FirebaseDataService {
     return this.returnVal;
   }
 
+  updateEvent(eventID:string, data){
+    const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${eventID}`); //community ref to update data
+    eventRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  }
+
   // Assign Roles
   makeAdmin(user: User) {
     const data: User = {roles: {admin: true}};

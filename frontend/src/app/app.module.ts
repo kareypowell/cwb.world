@@ -87,6 +87,7 @@ import { UpdateCommunityComponent } from './crud/update-community/update-communi
 import { UpdateSectorComponent } from './crud/update-sector/update-sector.component';
 import { ConfirmDeleteComponent } from './crud/confirm-delete/confirm-delete.component';
 import { CreateAirRmsSpaceComponent } from './crud/create-air-rms-space/create-air-rms-space.component';
+import { UpdateAirRmsSpaceComponent } from './crud/update-air-rms-space/update-air-rms-space.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -155,7 +156,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     UpdateCommunityComponent,
     UpdateSectorComponent,
     ConfirmDeleteComponent,
-    CreateAirRmsSpaceComponent
+    CreateAirRmsSpaceComponent,
+    UpdateAirRmsSpaceComponent
   ],
   imports: [
     BrowserModule,
