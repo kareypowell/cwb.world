@@ -37,6 +37,7 @@ export class GroupComponent implements OnInit, OnDestroy {
         this.sub2 = this.fbData.getGroupMembers(this.id).subscribe(data => this.groupMembers = data);
         this.subEvents = this.fbData.getGroupEvents(this.id).subscribe(data => {
           this.upcomingEvents = data;
+          this.actualUpcomingEvents = [];
           this.upcomingEvents.forEach(event => {
             if(new Date(event.endDate['seconds']*1000) > new Date() && event.eventType === 'single'){
               this.actualUpcomingEvents.push(event);
