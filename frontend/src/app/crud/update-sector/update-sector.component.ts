@@ -17,6 +17,7 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
   users: User[];
   private commSub;
 
+  
   showCommEdit: boolean = false;
   showSecLeadEdit: boolean = false;
 

@@ -27,7 +27,9 @@ export class ConfirmDeleteComponent implements OnInit {
       this.status = this.fbData.deleteGroup(this.data.uid);
     } else if (this.data.collection === 'members') {
       this.status = this.fbData.deleteUser(this.data.uid);
-    } else if (this.data.collection === 'sectors') {
+    } else if (this.data.collection === 'super-sectors') {
+      this.status = this.fbData.deleteSuperSector(this.data.uid);
+    }else if (this.data.collection === 'sectors') {
       this.status = this.fbData.deleteSector(this.data.uid);
     } else {
       console.log("Unknown collection name");

@@ -26,6 +26,8 @@ export class FirebaseDataService {
   communityCollection: AngularFirestoreCollection<Community>;
   communitiesFromDB$: Observable<Community[]>;
 
+  // super sectors
+  superSectorcollection:  AngularFirestoreCollection<SuperSector>;
 
   //sectors
   sectorCollection: AngularFirestoreCollection<Sector>;
@@ -49,6 +51,7 @@ export class FirebaseDataService {
   constructor(public afs: AngularFirestore, private router: Router) {
     this.groupCollection = this.afs.collection('groups');
     this.communityCollection = this.afs.collection('communities');
+    this.superSectorcollection = this.afs.collection('super-sectors');
     this.sectorCollection = this.afs.collection('sectors');
     this.userCollection = this.afs.collection('users');
     this.eventCollection = this.afs.collection('events');
@@ -113,7 +116,10 @@ export class FirebaseDataService {
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
   }
-
+ 
+  addSuperSector(superSector: SuperSector){
+    this.superSectorcollection.add(superSector).then().catch(error => console.log(error));
+  }
   addSector(sector: Sector, secLead: User) {
     this.sectorCollection.add(sector)
       .then((ref) => {
@@ -209,6 +215,16 @@ export class FirebaseDataService {
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Community;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getAllSuperSectors(){
+    return this.afs.collection('super-sectors')
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as SuperSector;
           data.uid = a.payload.doc.id;
           return data;
         })
@@ -425,6 +441,10 @@ export class FirebaseDataService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
     userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
+  updateSuperSector(superID: string, data){
+    const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`super-sectors/${superID}`); //super-sector ref to update data
+    sectorRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  }
   updateSector(sectorid: string, data) {
     const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`sectors/${sectorid}`); //sector ref to update data
     sectorRef.set(data, { merge: true }).then().catch((error) => console.log(error));
@@ -504,6 +524,9 @@ export class FirebaseDataService {
     //
 
     this.groupCollection.doc(groupID).delete();
+  }
+  deleteSuperSector(superID: string){
+    this.superSectorcollection.doc(superID).delete().then(()=>{console.log( "successful")}).catch(err => {console.error( err)});
   }
   deleteSector(sectorID: string) {
     // remove sectorID from sectors in community

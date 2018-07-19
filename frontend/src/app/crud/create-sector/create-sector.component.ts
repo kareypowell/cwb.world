@@ -110,6 +110,7 @@ export class CreateSectorComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.commSub.unsubscribe();
     this.userSub.unsubscribe();
+    this.superSectorSub.unsubscribe();
     if(this.subbedUser){
       this.sub2.unsubscribe();
     }

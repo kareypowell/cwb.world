@@ -85,6 +85,36 @@
                 </mat-tab-group>
               </div>
             </mat-tab>
+            <mat-tab label="Super Sectors">
+                <div class="padding-15">
+                    <mat-form-field class="full-width">
+                        <input matInput type="text" name="filterSearch" [(ngModel)]="searchValSupSec" placeholder="Search Super-Sectors">
+                      </mat-form-field>
+                  <div class="topItems">
+                    <span class="mr-5">
+                      <strong>{{superSectors?.length}} Super-sectors</strong>
+                    </span>
+                    <button mat-button class="cwb-primary-button fl-right text-right" (click)="createSuperSector()">
+                      <i class="fas fa-plus mr-2"></i>New</button>
+                  </div>
+  
+                  <div class="gap"></div>
+                  <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
+                    <div class="gap"></div>
+                    <mat-list *ngFor="let supsector of superSectors | search: searchValSupSec: 'name'">
+                      <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentSuperSector == supsector" (click)="currentSuperSector = supsector">
+                        {{supsector?.name}}
+                        <span class="editables">
+                          <i class="far fa-edit" (click)="updateSuperSector(supsector)"></i>
+                          <i class="far fa-minus-square" (click)="deleteItem(supsector?.uid, 'super-sectors')"></i>
+                        </span>
+                      </mat-list-item>
+                      <mat-divider></mat-divider>
+                    </mat-list>
+                  </mat-card>
+                  <div class="gap"></div>
+                  </div>
+            </mat-tab>
             <mat-tab label="Sectors">
               <div class="padding-15">
                   <mat-form-field class="full-width">

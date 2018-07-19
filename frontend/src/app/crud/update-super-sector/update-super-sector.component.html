@@ -1,3 +1,86 @@
-<p>
-  update-super-sector works!
-</p>
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+    <span class="closedialog" (click)="onNoClick(false)">
+      <i class="far fa-window-close"></i>
+    </span>
+    <h1 class="bighead">Update Super-Sector - {{data?.sect.name}}</h1>
+    <br>
+    <form [formGroup]="updateSectorForm" (submit)="updateSector()">
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Super Sector Name</mat-label>
+            <input matInput formControlName="name" required>
+          </mat-form-field>
+        </div>
+      </div>
+      <br>
+      <div class="row">
+        <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <textarea matInput rows="8" formControlName="description" required></textarea>
+          </mat-form-field>
+        </div>
+        <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>What to Expect</mat-label>
+            <textarea matInput rows="8" formControlName="whatToExpect" required></textarea>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <p>Community: {{commName}}
+            <i class="fas fa-edit ml-3 showPointer" (click)="showCommEdit = !showCommEdit"></i>
+          </p>
+          <div *ngIf="showCommEdit">
+            <mat-form-field class="full-width smallerhead" appearance="outline">
+              <mat-select placeholder="Select Community" formControlName="comm" required>
+                <mat-option *ngFor="let comm of communities" [value]="comm">
+                  {{ comm?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button type="button" (click)="showCommEdit = false" class="mr-2">Cancel</button>
+            <button mat-raised-button type="button" (click)="saveNewComm(); showCommEdit = false" class="cwb-primary-button">Save</button>
+          </div>
+        </div>
+        <!--
+        <div class="col-md-6">
+            <p>Sector Lead: {{secLeadName}}
+                <i class="fas fa-edit ml-3 showPointer" (click)="showSecLeadEdit = !showSecLeadEdit"></i>
+              </p>
+          <div *ngIf="showSecLeadEdit">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Sector Lead</mat-label>
+              <input type="text" placeholder="Sector Lead"  matInput [matAutocomplete]="auto2" formControlName="searchStringSectorLead"
+                (keyup)="searchUser($event)">
+              <mat-hint align="start">
+                <strong>Start Typing a user's name and select from the options</strong>
+              </mat-hint>
+              <mat-autocomplete #auto2="matAutocomplete">
+                <mat-option *ngFor="let option of userSearch" [value]="option.firstName + ' '+option.lastname" (click)="getSectorLead(option)">
+                  {{ option.firstName }} {{option.lastname}}
+                </mat-option>
+              </mat-autocomplete>
+            </mat-form-field>
+            <br>
+            <button mat-raised-button type="button" (click)="showSecLeadEdit = false" class="mr-2">Cancel</button>
+            <button mat-raised-button type="button" (click)="saveNewSecLead(); showSecLeadEdit = false" class="cwb-primary-button">Save</button>
+          </div>
+  
+        </div>-->
+      </div>
+  
+  
+      <br>
+      <br>
+  
+      <button class="mr-3" type="button" mat-raised-button (click)="onNoClick(false)">Cancel</button>
+      <button mat-raised-button type="submit" class="cwb-primary-button">Update Super Sector</button>
+    </form>
+  
+  
+  </div>
+  

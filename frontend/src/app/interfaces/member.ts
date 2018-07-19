@@ -125,8 +125,11 @@ export interface Files {
 export interface SuperSector{
     uid?:string;
     name?: string;
+    nameToLower?:string;
     community?:string;
     description?:string;
+    dateCreated?: Date;
+    whatToExpect?:string;
     createdBy?:string;
     files?:string[];
     images?:string[];
