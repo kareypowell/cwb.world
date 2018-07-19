@@ -139,6 +139,7 @@ export interface Sector {
     description?: string;
     bio?: string;
     whatToExpect?: string;
+    sectorImage?:string;
     community?: string; // community name
     communityID?:string;
     superSector?:string;

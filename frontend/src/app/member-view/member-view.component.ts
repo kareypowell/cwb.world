@@ -48,6 +48,8 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       //console.log(result);
     });
   }
+  currentCommunity: Community;
+  currentSector: Sector;
   currentGroup:Group;
   groups:Group[];
   user: User;
@@ -66,12 +68,25 @@ export class MemberViewComponent implements OnInit, OnDestroy {
         }
       })
     });
-    this.sub2 = this.fbData.communitiesFromDB$.subscribe(data => this.communities = data);
-    this.sub3 = this.fbData.sectorsFromDB$.subscribe(data => this.sectors = data);
+    this.sub2 = this.fbData.getAllCommunities().subscribe(data => {
+      this.communities = data;
+      this.currentCommunity = this.communities[0];
+      this.sub3 = this.fbData.getSectorsInCommunity('').subscribe(data => {
+        this.sectors = data;
+        this.currentSector = this.sectors[0];
+      });
+    });
+    
     
   }
   
-
+  getSectors(){
+    this.sub3.unsubscribe();
+    this.sub3 = this.fbData.getSectorsInCommunity(this.currentCommunity.uid).subscribe(data => {
+      this.sectors = data;
+      this.currentSector = this.sectors[0];
+    });
+  }
   searchVal = "";
   sectorVal = "";
   commVal = "";

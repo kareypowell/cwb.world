@@ -11,6 +11,12 @@
           <input matInput formControlName="name" required>
         </mat-form-field>
       </div>
+      <div class="col-md-6">
+          <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Sector Image URL</mat-label>
+              <input matInput formControlName="sectorImage">
+            </mat-form-field>
+      </div>
     </div>
     <br>
     <div class="row">
@@ -27,23 +33,30 @@
         </mat-form-field>
       </div>
     </div>
-    
-
-    <!--<mat-form-field class="full-width" appearance="outline">
-      <mat-label>Bio</mat-label>
-      <textarea matInput rows="5" formControlName="bio" required></textarea>
-    </mat-form-field>-->
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-4">
         <mat-form-field class="full-width smallerhead"  appearance="outline">
           <mat-select placeholder="Select Community" formControlName="comm" required>
-            <mat-option *ngFor="let comm of communities" [value]="comm">
+            <mat-option *ngFor="let comm of communities" [value]="comm" (click)="this.currentCommunity = comm; getSuperSectors()">
               {{ comm?.name }}
             </mat-option>
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4">
+          <mat-form-field class="full-width smallerhead"  appearance="outline" *ngIf="this.createSectorForm.value.hasSuperSector">
+              <mat-select placeholder="Select super-sector" formControlName="superSector">
+                <mat-option *ngFor="let superSect of superSectors" [value]="superSect">
+                  {{ superSect?.name }}
+                </mat-option>
+                <mat-option *ngIf="superSectors.length === 0">
+                  No super-sectors in this community
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+        <mat-checkbox formControlName="hasSuperSector">Assign super-sector</mat-checkbox>
+      </div>
+      <div class="col-md-4">
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Sector Lead</mat-label>
         <input type="text" placeholder="Sector Lead" aria-label="Community" matInput [matAutocomplete]="auto2" formControlName="searchStringSectorLead" (keyup)="searchUser($event)">
@@ -56,10 +69,7 @@
       </mat-form-field>
       </div>
     </div>
-
-    
-    <br><br>
-    
+    <br>
     <button class="mr-3" type="button" mat-raised-button (click)="onNoClick(false)">Cancel</button>
     <button mat-raised-button type="submit" class="cwb-primary-button">Create Sector</button>
   </form>

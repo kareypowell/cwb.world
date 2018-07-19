@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, Inject } from '@angular/core';
-import { Sector, Community, User, Group } from '../../interfaces/member';
+import { Sector, Community, User, Group, SuperSector } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth-service';
@@ -18,8 +18,12 @@ export class CreateSectorComponent implements OnInit, OnDestroy {
     @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   communities:Community[];
+  superSectors: SuperSector[];
   private commSub;
   private userSub;
+  private superSectorSub;
+  currentCommunity: Community;
+  currentSuperSector: SuperSector;
   newSector: Sector = {};
   createSectorForm: FormGroup;
   private sub2;
@@ -27,19 +31,31 @@ export class CreateSectorComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.userSub = this.auth.user$.subscribe(data => this.CurrentUser = data); // get Current User info
-    this.commSub = this.fbData.getAllCommunities().subscribe(data => this.communities = data);
+    this.commSub = this.fbData.getAllCommunities().subscribe(data => {
+      this.communities = data;
+      this.currentCommunity = this.communities[0];
+      this.superSectorSub = this.fbData.getSuperSectorsInCommunity(this.currentCommunity.uid).subscribe(data => {
+        this.superSectors = data;
+        this.currentSuperSector = this.superSectors[0];
+      });
+    });
+
     this.createSectorForm = this._formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      //bio: ['', Validators.required],
       whatToExpect: ['', Validators.required],
+      sectorImage: '',
       searchStringSectorLead: '',
-      comm: ''
+      comm: '',
+      superSector: '',
+      hasSuperSector: false
     });
   }
   createSector() {
     this.newSector.name = this.createSectorForm.value.name;
     this.newSector.description = this.createSectorForm.value.description;
+    this.newSector.superSector = this.createSectorForm.value.superSector.uid;
+    this.newSector.sectorImage = this.createSectorForm.value.sectorImage;
     //this.newSector.bio = this.createSectorForm.value.bio;
     this.newSector.whatToExpect = this.createSectorForm.value.whatToExpect;
     this.newSector.sectorLead = this.secLead;
@@ -64,6 +80,14 @@ export class CreateSectorComponent implements OnInit, OnDestroy {
     this.secLead = option.uid;
   }
   
+
+  getSuperSectors(){
+    this.superSectorSub.unsubscribe();
+    this.superSectorSub = this.fbData.getSuperSectorsInCommunity(this.currentCommunity.uid).subscribe(data => {
+      this.superSectors = data;
+      this.currentSuperSector = this.superSectors[0];
+    });
+  }
 
   groupSearch: Group[];
   userSearch: User[];
