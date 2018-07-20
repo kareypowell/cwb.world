@@ -6,7 +6,7 @@ import { Observable, of, BehaviorSubject, zip, Subject } from 'rxjs';
 import { switchMap, merge, map, filter } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector } from './interfaces/member';
+import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
@@ -195,7 +195,9 @@ export class FirebaseDataService {
     )
     .catch( error => console.log(error)); // if there is an error
   }
-
+  addAirRMSSpace(space:AirRMS){
+    //add to collection
+  }
   addUser(user: User) {
     this.userCollection.add(user).catch(error => console.log(error));
   }
@@ -440,6 +442,10 @@ export class FirebaseDataService {
   updateUser(user: User, data) {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
     userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  }
+  updateAirRMS(airID: string, data){
+    const airRef: AngularFirestoreDocument<any> = this.afs.doc(`air-rms-space/${airID}`); //ref to update data
+    airRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
   updateSuperSector(superID: string, data){
     const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`super-sectors/${superID}`); //super-sector ref to update data

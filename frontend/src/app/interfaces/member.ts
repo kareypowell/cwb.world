@@ -126,6 +126,7 @@ export interface SuperSector{
     uid?:string;
     name?: string;
     nameToLower?:string;
+    imageURL?:string;
     community?:string;
     description?:string;
     dateCreated?: Date;
@@ -212,4 +213,19 @@ export interface eventSession{
     endDate?:Date;
     timeZone?:string;
 
+}
+
+export interface AirRMS{
+    uid?:string;
+    name?:string;
+    spaceType?:string;
+    description?:string;
+    capacity?:number;
+    eventsHosted?:number;
+    owner?:string; // hold uid of owner who can then request to host event with this space
+    pricePerHour?: number;
+    pricePerDay?: number;
+    pricePerWeek?:number;
+    pricePerMonth?:number;
+    eventsBooked?: string[]; //hold uids of events booked to take place in this space
 }

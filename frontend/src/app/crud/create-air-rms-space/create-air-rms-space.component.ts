@@ -1,17 +1,17 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, OnDestroy } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../../auth-service';
 import { FirebaseDataService } from '../../firebase-data.service';
-import { User, Community, Sector, SuperSector } from '../../interfaces/member';
+import { User, Community, Sector, SuperSector, AirRMS } from '../../interfaces/member';
 
 @Component({
   selector: 'app-create-air-rms-space',
   templateUrl: './create-air-rms-space.component.html',
   styleUrls: ['./create-air-rms-space.component.css']
 })
-export class CreateAirRmsSpaceComponent implements OnInit {
+export class CreateAirRmsSpaceComponent implements OnInit, OnDestroy {
 
   constructor(public dialogRef: MatDialogRef<CreateAirRmsSpaceComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private auth: AuthService, private fbData: FirebaseDataService) { }
@@ -74,10 +74,19 @@ export class CreateAirRmsSpaceComponent implements OnInit {
   }
 
 
-
+  newSpace: AirRMS = {};
   createSpace() {
+    this.newSpace.name = this.createAirRMSForm.value.name;
+    this.newSpace.description = this.createAirRMSForm.value.description;
+    this.newSpace.capacity = this.createAirRMSForm.value.capacity;
+    this.newSpace.eventsBooked = [];
+    this.newSpace.eventsHosted = 0;
+    this.newSpace.owner = this.currentUser.uid;
+
 
     alert("Still in works...");
+    //this.fbData.addAirRMSSpace(this.newSpace);
+    this.onNoClick(false);
   }
   onNoClick(data): void {
     this.dialogRef.close(data);

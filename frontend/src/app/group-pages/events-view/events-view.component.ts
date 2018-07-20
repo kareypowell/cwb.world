@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FirebaseDataService } from '../../firebase-data.service';
 import { EventItem } from '../../interfaces/member';
 import { DomSanitizer } from '@angular/platform-browser';
+import { EventRegistrationComponent } from '../../event-registration/event-registration.component';
+import { MatDialog } from '../../../../node_modules/@angular/material';
 
 @Component({
   selector: 'app-events-view',
@@ -18,7 +20,7 @@ export class EventsViewComponent implements OnInit, OnDestroy {
   singleEventView: boolean = false;
   selectedEvent: EventItem;
 
-  constructor(private route: ActivatedRoute, private fbData: FirebaseDataService, private sanitizer: DomSanitizer) { }
+  constructor(private route: ActivatedRoute, private fbData: FirebaseDataService, private sanitizer: DomSanitizer, private dialog:MatDialog) { }
 
   ngOnInit() {
     if(this.route.snapshot.params['id']){
@@ -41,6 +43,19 @@ export class EventsViewComponent implements OnInit, OnDestroy {
     
     
     
+  }
+
+  dataset = {};
+  registerEvent(){
+    this.dataset = {event: this.selectedEvent}
+    let dialogRef = this.dialog.open(EventRegistrationComponent, {
+      width: '99%',
+      data: this.dataset
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      //this.animal = result;
+    });
   }
   ngOnDestroy() {
     this.subEvents.unsubscribe();

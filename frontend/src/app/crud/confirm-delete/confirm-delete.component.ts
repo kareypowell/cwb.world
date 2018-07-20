@@ -34,6 +34,7 @@ export class ConfirmDeleteComponent implements OnInit {
     } else {
       console.log("Unknown collection name");
     }
+    /*
     setTimeout(() => {
       if (this.status.success) {
         this.onNoClick(false);
@@ -41,6 +42,8 @@ export class ConfirmDeleteComponent implements OnInit {
       this.status.success = false;
       this.status.fail = false;
     }, 3000);
+    */
+    this.onNoClick(false);
   }
   onNoClick(data): void {
     this.dialogRef.close(data);

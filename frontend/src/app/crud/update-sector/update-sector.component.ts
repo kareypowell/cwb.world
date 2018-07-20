@@ -16,7 +16,7 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
   communities: Community[];
   users: User[];
   private commSub;
-
+  imageURL: string;
   
   showCommEdit: boolean = false;
   showSecLeadEdit: boolean = false;
@@ -31,7 +31,11 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
 
   updateSectorForm: FormGroup;
   ngOnInit() {
-
+    if(this.data.sect.sectorImage){
+      this.imageURL = this.data.sect.sectorImage;
+    }else{
+      this.imageURL = "";
+    }
     this.commSub = this.fbData.getAllCommunities().subscribe( data => {
       this.communities = data;
       this.communities.forEach(comm => {
@@ -48,7 +52,8 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
       //bio: ['', Validators.required],
       whatToExpect: ['', Validators.required],
       searchStringSectorLead: '',
-      comm: ''
+      comm: '',
+      imageUrl: ''
     });
 
     this.updateSectorForm.setValue({
@@ -56,7 +61,8 @@ export class UpdateSectorComponent implements OnInit, OnDestroy {
       description: this.data.sect.description,
       whatToExpect: this.data.sect.whatToExpect,
       searchStringSectorLead: '',
-      comm: ''
+      comm: '',
+      imageUrl: this.imageURL
     })
   }
 
