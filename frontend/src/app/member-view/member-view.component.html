@@ -1,4 +1,4 @@
-<button id="toggleGrpPane"(click)="hideGroupSearch()">Toggle Groups Pane</button>
+<button id="toggleGrpPane" (click)="hideGroupSearch()">Toggle Groups Pane</button>
 <div class="row">
   <div class="col-md-{{groupPaneWidth}}" *ngIf="showGroupSearch">
     <div class="col-md-12 no-padding">
@@ -17,9 +17,9 @@
 
         <mat-form-field class="full-width" appearance="outline">
           <mat-select placeholder="Filter by Sector" [(ngModel)]="sectorVal">
-              <mat-option [value]="">
-                  All Sectors
-                </mat-option>
+            <mat-option [value]="">
+              All Sectors
+            </mat-option>
             <mat-option *ngFor="let sector of sectors" [value]="sector.uid">
               {{ sector.name }}
             </mat-option>
@@ -53,10 +53,13 @@
               <p *ngFor="let price of currentGroup?.prices">
                 <strong>{{price?.termDescription}}</strong> - {{price?.termPrice|currency:"USD"}}
               </p>
-              <p *ngIf="currentGroup?.prices.length ===0 || !currentGroup?.acceptPayments"><strong>Free</strong></p>
+              <p *ngIf="currentGroup?.prices.length ===0 || !currentGroup?.acceptPayments">
+                <strong>Free</strong>
+              </p>
               <h2 class="smallhead">Times</h2>
               <p *ngFor="let day of currentGroup?.meetingTimes">
-                <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to {{day?.endTime['seconds']*1000 | date: 'shortTime'}} {{day?.recurrence}}
+                <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to {{day?.endTime['seconds']*1000
+                | date: 'shortTime'}} {{day?.recurrence}}
               </p>
             </mat-tab>
             <mat-tab label="Files">
@@ -64,13 +67,15 @@
             </mat-tab>
           </mat-tab-group>
         </div>
-        <a routerLink="./../../group/{{currentGroup?.uid}}" class="mr-3"><button mat-raised-button>Visit Group Page</button></a>
+        <a routerLink="./../../group/{{currentGroup?.uid}}" class="mr-3">
+          <button mat-raised-button>Visit Group Page</button>
+        </a>
         <button *ngIf="showJoinButton" mat-button class="cwb-primary-button" (click)="joinGroup(currentGroup)">Join Group</button>
         <div class="gap"></div>
-          <span class="smallhead mr-2">Share:</span>
-          <i class="fab fa-facebook-f mr-2 shareIcon"></i>
-          <i class="fab fa-twitter mr-2 shareIcon"></i>
-          <i class="fab fa-google-plus-g mr-2 shareIcon"></i>
+        <span class="smallhead mr-2">Share:</span>
+        <i class="fab fa-facebook-f mr-2 shareIcon"></i>
+        <i class="fab fa-twitter mr-2 shareIcon"></i>
+        <i class="fab fa-google-plus-g mr-2 shareIcon"></i>
       </mat-card>
     </div>
   </div>
@@ -83,6 +88,14 @@
         <div class="gap"></div>
         <div class="gap"></div>
         <app-calendar></app-calendar>
+      </mat-card>
+    </div>
+    <br>
+    <div class="col-md-12 no-padding">
+      <mat-card>
+        <h1 class="smallhead text-center">MY GROUPS</h1>
+        <div class="gap"></div>
+        <div class="gap"></div>
       </mat-card>
     </div>
   </div>

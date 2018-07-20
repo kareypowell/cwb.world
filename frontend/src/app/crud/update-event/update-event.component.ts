@@ -26,6 +26,7 @@ export class UpdateEventComponent implements OnInit {
   eventVenue:string = "";
   imageURL:string ="";
   videoURL: string = "";
+  onlineEventURL: string = "";
 
 
   ngOnInit() {
@@ -50,6 +51,7 @@ export class UpdateEventComponent implements OnInit {
       startWithoutHost: false,
       timeZone: 'GMT',
       locationOnline: true,
+      liveEventURL: '',
       locationPhysical: false,
       locationPhysicalAddress: '',
       includeWeekends: true,
@@ -63,6 +65,11 @@ export class UpdateEventComponent implements OnInit {
       this.eventFee = this.data.event.eventFee;
       this.refundable = this.data.event.refundable;
       this.refundPol = this.data.event.refundPolicy
+    }
+    if(this.data.event.liveEventUrl){
+      this.onlineEventURL = this.data.event.liveEventUrl;
+    }else{
+      this.onlineEventURL = "";
     }
     if(this.data.event.eventType === "single"){
       this.includeWeekends = true;
@@ -100,6 +107,7 @@ export class UpdateEventComponent implements OnInit {
       startWithoutHost: this.data.event.startWithoutHost,
       timeZone: 'GMT',
       locationOnline: this.data.event.eventOnline,
+      liveEventURL: this.onlineEventURL,
       locationPhysical: this.data.event.eventPhysical,
       locationPhysicalAddress: this.eventVenue,
       includeWeekends: this.includeWeekends,
@@ -145,6 +153,7 @@ export class UpdateEventComponent implements OnInit {
       this.updatedEvent.refundPolicy = this.updateEventForm.value.refundPolicy;
     }
     this.updatedEvent.eventOnline = this.updateEventForm.value.locationOnline;
+    this.updatedEvent.liveEventUrl = this.updateEventForm.value.liveEventURL;
     this.updatedEvent.eventPhysical = this.updateEventForm.value.locationPhysical;
     if (this.updatedEvent.eventPhysical) {
       this.updatedEvent.eventVenue = this.updateEventForm.value.locationPhysicalAddress;

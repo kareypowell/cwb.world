@@ -184,6 +184,7 @@ export interface EventItem {
     sessions?:eventSession[];
     endDate?: Date;// end time
     eventOnline?: boolean;
+    liveEventUrl?:string;
     eventPhysical?: boolean;
     eventVenue?: string; // if not physical, give venue
     isRecurrent?: boolean; // if one time or recurrent

@@ -140,6 +140,10 @@
     <div class="row">
       <div class="col-md-6">
         <mat-checkbox formControlName="locationOnline">Online</mat-checkbox>
+        <mat-form-field class="full-width" appearance="outline" *ngIf="createEventForm.value.locationOnline">
+            <mat-label>Live Event URL</mat-label>
+            <input matInput formControlName="liveEventURL">
+          </mat-form-field>
       </div>
       <div class="col-md-6">
         <mat-checkbox formControlName="locationPhysical">Physical Location</mat-checkbox>

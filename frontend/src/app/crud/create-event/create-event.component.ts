@@ -44,6 +44,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       startWithoutHost: false,
       timeZone: 'GMT',
       locationOnline: true,
+      liveEventURL: '',
       locationPhysical: false,
       locationPhysicalAddress: '',
       includeWeekends: true,
@@ -90,6 +91,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       this.newEvent.refundPolicy = this.createEventForm.value.refundPolicy;
     }
     this.newEvent.eventOnline = this.createEventForm.value.locationOnline;
+    this.newEvent.liveEventUrl = this.createEventForm.value.liveEventURL;
     this.newEvent.eventPhysical = this.createEventForm.value.locationPhysical;
     if (this.newEvent.eventPhysical) {
       this.newEvent.eventVenue = this.createEventForm.value.locationPhysicalAddress;
