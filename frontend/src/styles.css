@@ -310,3 +310,6 @@ a {
 .showPointer{
   cursor: pointer;
 }
+.line-breaker {
+  white-space: pre-line;
+}

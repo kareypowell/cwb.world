@@ -54,7 +54,11 @@ export class CreateSectorComponent implements OnInit, OnDestroy {
   createSector() {
     this.newSector.name = this.createSectorForm.value.name;
     this.newSector.description = this.createSectorForm.value.description;
-    this.newSector.superSector = this.createSectorForm.value.superSector.uid;
+    if(this.createSectorForm.value.superSector != ''){
+      this.newSector.superSector = this.createSectorForm.value.superSector.uid;
+    }else{
+      this.newSector.superSector = null;
+    }
     this.newSector.sectorImage = this.createSectorForm.value.sectorImage;
     //this.newSector.bio = this.createSectorForm.value.bio;
     this.newSector.whatToExpect = this.createSectorForm.value.whatToExpect;

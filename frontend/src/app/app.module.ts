@@ -90,6 +90,7 @@ import { CreateAirRmsSpaceComponent } from './crud/create-air-rms-space/create-a
 import { UpdateAirRmsSpaceComponent } from './crud/update-air-rms-space/update-air-rms-space.component';
 import { CreateSuperSectorComponent } from './crud/create-super-sector/create-super-sector.component';
 import { UpdateSuperSectorComponent } from './crud/update-super-sector/update-super-sector.component';
+import { LinebreakPipe } from './linebreak.pipe';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -161,7 +162,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CreateAirRmsSpaceComponent,
     UpdateAirRmsSpaceComponent,
     CreateSuperSectorComponent,
-    UpdateSuperSectorComponent
+    UpdateSuperSectorComponent,
+    LinebreakPipe
   ],
   imports: [
     BrowserModule,
