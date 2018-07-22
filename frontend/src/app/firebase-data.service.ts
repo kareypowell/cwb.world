@@ -507,7 +507,7 @@ export class FirebaseDataService {
         this.st = {success: false, fail: true, msg: "Group is full!"};
       }
     }
-    return this.st;
+    //return this.st;
   }
 
   leaveGroup(){

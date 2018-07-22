@@ -51,10 +51,15 @@ export class RequestToJoinGroupComponent implements OnInit, OnDestroy {
       this.newGroupMember.paymentTerms = this.termSelected;
     }
     this.newGroupMember.approved = false;
-    this.newGroupMember.firstName = this.user.firstName;
-    this.newGroupMember.lastName = this.user.lastname;
+    if(this.user.firstName){
+      this.newGroupMember.firstName = this.user.firstName;
+    }
+    if(this.user.lastname){
+      this.newGroupMember.lastName = this.user.lastname;
+    }
     this.newGroupMember.photoURL = this.user.photoURL;
-    this.status = this.fbData.joinGroup(this.data.grp,this.newGroupMember, this.user);
+    this.fbData.joinGroup(this.data.grp,this.newGroupMember, this.user);
+    this.onNoClick(false);
   }
   onNoClick(data): void {
     this.dialogRef.close(data);

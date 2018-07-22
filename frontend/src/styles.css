@@ -313,3 +313,19 @@ a {
 .line-breaker {
   white-space: pre-line;
 }
+
+.myGroups{
+  list-style: none;
+  padding: 0px;
+}
+.myGroups li{
+  padding: 10px;
+  margin-bottom: 5px;
+}
+.myGroups li:nth-of-type(odd){
+  background-color: #FAFAFA;
+}
+.myGroupDetails{
+  padding: 15px 5px;
+  border: 1px dotted grey;
+}

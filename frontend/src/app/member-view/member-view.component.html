@@ -96,6 +96,33 @@
         <h1 class="smallhead text-center">MY GROUPS</h1>
         <div class="gap"></div>
         <div class="gap"></div>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Search my groups</mat-label>
+          <input matInput name="filterSearchMyGroups" [(ngModel)]="searchValMyGroups">
+          <mat-icon class="noMont" matPrefix>search</mat-icon>
+        </mat-form-field>
+        <ul class="myGroups">
+          <li *ngFor="let group of myGroups | search:searchValMyGroups:'name'" (click)="currentMyGroup = group" class="showPointer">
+            <h3 class="smallhead">{{group?.name}}</h3>
+            <div *ngIf="group == currentMyGroup" class="myGroupDetails">
+              <div class="row">
+                <div class="col-md-6">
+                  <strong>Group Details:</strong>
+                  <br>
+                  <strong>Description</strong><br>
+                  <p>{{group?.description}}</p>
+                </div>
+                <div class="col-md-6">
+                  <a routerLink="../../group/{{group?.uid}}">
+                    <button mat-raised-button class="cwb-primary-button mr-3">Visit Group Page</button>
+                  </a>
+                  <br>
+                  <button mat-raised-button (click)="leaveGroup()">Leave Group</button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </mat-card>
     </div>
   </div>

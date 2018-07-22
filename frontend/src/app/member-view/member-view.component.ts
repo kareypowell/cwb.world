@@ -52,8 +52,12 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   currentSector: Sector;
   currentGroup:Group;
   groups:Group[];
+  myGroups: Group[];
   user: User;
   private sub4;
+  searchValMyGroups: string = "";
+  showMyGroupDetails: boolean = false;
+  currentMyGroup: Group;
 
   ngOnInit() {
     this.sub = this.fbData.groupsFromDB$.subscribe(data => {this.groups = data;
@@ -61,12 +65,19 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       this.sub4 = this.auth.user$.subscribe(data => {
         this.user = data;
         const uid = this.user.uid;
+        this.myGroups = [];
         if(this.currentGroup.members.find(function (obj) { return obj.userUID == uid }) || this.currentGroup.members.length >= this.currentGroup.capacity){
           this.showJoinButton = false;
         }else{
           this.showJoinButton = true;
         }
-      })
+        // get groups I have joined
+        this.groups.forEach(group =>{
+          if(group.members.find(function (obj) { return obj.userUID == uid })){
+            this.myGroups.push(group);
+          }
+        });
+      });
     });
     this.sub2 = this.fbData.getAllCommunities().subscribe(data => {
       this.communities = data;
@@ -116,7 +127,9 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       this.eventPaneWidth = 12;
     }
   }
-
+  leaveGroup(){
+    alert("Unimplemented yet...");
+  }
   private sub;
   private sub2;
   private sub3;

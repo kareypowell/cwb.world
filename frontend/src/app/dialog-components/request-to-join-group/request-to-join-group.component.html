@@ -36,12 +36,15 @@
     </div>
     <br>
     <mat-checkbox [(ngModel)]="notRobot" class="mr-5">I am not a robot</mat-checkbox> <br>
-    <div class="alert alert-success" role="alert" *ngIf="status?.success">
+    <!--
+      <div class="alert alert-success" role="alert" *ngIf="status?.success">
         {{status?.msg}}
       </div>
       <div class="alert alert-danger" role="alert" *ngIf="status?.fail">
         {{status?.msg}}
       </div>
+    -->
+    
     <button type="button" mat-raised-button (click)="onNoClick(false)" class="mr-3">Cancel</button>
     <button mat-raised-button class="cwb-primary-button" [disabled]="!notRobot" (click)="joinGroup()">Submit</button>
     <div class="gap"></div>
