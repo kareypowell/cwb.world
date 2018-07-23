@@ -3,79 +3,107 @@
   <div class="col-md-{{groupPaneWidth}}" *ngIf="showGroupSearch">
     <div class="col-md-12 no-padding">
       <mat-card>
-        <h1 class="smallhead">ALL GROUPS</h1>
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-select placeholder="Filter by Community" [(ngModel)]="commVal">
-            <mat-option [value]="" (click)="this.currentCommunity = {uid:''}; getSectors()">
-              All Communities
-            </mat-option>
-            <mat-option *ngFor="let community of communities" [value]="community.uid" (click)="this.currentCommunity = community; getSectors()">
-              {{ community.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+        <mat-tab-group>
+          <mat-tab label="ALL GROUPS">
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-select placeholder="Filter by Community" [(ngModel)]="commVal">
+                <mat-option [value]="" (click)="this.currentCommunity = {uid:''}; getSectors()">
+                  All Communities
+                </mat-option>
+                <mat-option *ngFor="let community of communities" [value]="community.uid" (click)="this.currentCommunity = community; getSectors()">
+                  {{ community?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-select placeholder="Filter by Sector" [(ngModel)]="sectorVal">
-            <mat-option [value]="">
-              All Sectors
-            </mat-option>
-            <mat-option *ngFor="let sector of sectors" [value]="sector.uid">
-              {{ sector.name }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-select placeholder="Filter by Sector" [(ngModel)]="sectorVal">
+                <mat-option [value]="">
+                  All Sectors
+                </mat-option>
+                <mat-option *ngFor="let sector of sectors" [value]="sector.uid">
+                  {{ sector?.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Search within results</mat-label>
-          <input matInput name="filterSearch" [(ngModel)]="searchVal">
-          <mat-icon class="noMont" matPrefix>search</mat-icon>
-        </mat-form-field>
+            <mat-form-field class="full-width" appearance="outline">
+              <mat-label>Search within results</mat-label>
+              <input matInput name="filterSearch" [(ngModel)]="searchVal">
+              <mat-icon class="noMont" matPrefix>search</mat-icon>
+            </mat-form-field>
 
-        <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
-          <div class="gap"></div>
-          <mat-list *ngFor="let grp of groups | search:searchVal:'name' | search:sectorVal:'sector' | search: commVal:'community'">
-            <mat-list-item class="groupItemHover" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)"> {{grp?.name}} </mat-list-item>
-            <mat-divider></mat-divider>
-          </mat-list>
-        </mat-card>
-        <div class="gap"></div>
-
-        <div class="">
-          <mat-tab-group [dynamicHeight]="true">
-            <mat-tab label="Details">
+            <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
               <div class="gap"></div>
-              <h2 class="smallhead">Description</h2>
-              <p>
-                {{currentGroup?.description}}
-              </p>
-              <h2 class="smallhead">Price</h2>
-              <p *ngFor="let price of currentGroup?.prices">
-                <strong>{{price?.termDescription}}</strong> - {{price?.termPrice|currency:"USD"}}
-              </p>
-              <p *ngIf="currentGroup?.prices.length ===0 || !currentGroup?.acceptPayments">
-                <strong>Free</strong>
-              </p>
-              <h2 class="smallhead">Times</h2>
-              <p *ngFor="let day of currentGroup?.meetingTimes">
-                <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to {{day?.endTime['seconds']*1000
-                | date: 'shortTime'}} {{day?.recurrence}}
-              </p>
-            </mat-tab>
-            <mat-tab label="Files">
+              <mat-list *ngFor="let grp of groups | search:searchVal:'name' | search:sectorVal:'sector' | search: commVal:'community'">
+                <mat-list-item class="groupItemHover" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)"> {{grp?.name}} </mat-list-item>
+                <mat-divider></mat-divider>
+              </mat-list>
+            </mat-card>
+            <div class="gap"></div>
 
-            </mat-tab>
-          </mat-tab-group>
-        </div>
-        <a routerLink="./../../group/{{currentGroup?.uid}}" class="mr-3">
-          <button mat-raised-button>Visit Group Page</button>
-        </a>
-        <button *ngIf="showJoinButton" mat-button class="cwb-primary-button" (click)="joinGroup(currentGroup)">Join Group</button>
-        <div class="gap"></div>
-        <span class="smallhead mr-2">Share:</span>
-        <i class="fab fa-facebook-f mr-2 shareIcon"></i>
-        <i class="fab fa-twitter mr-2 shareIcon"></i>
-        <i class="fab fa-google-plus-g mr-2 shareIcon"></i>
+            <div class="">
+              <mat-tab-group [dynamicHeight]="true">
+                <mat-tab label="Details">
+                  <div class="gap"></div>
+                  <h2 class="smallhead">Description</h2>
+                  <p>
+                    {{currentGroup?.description}}
+                  </p>
+                  <h2 class="smallhead">Price</h2>
+                  <p *ngFor="let price of currentGroup?.prices">
+                    <strong>{{price?.termDescription}}</strong> - {{price?.termPrice|currency:"USD"}}
+                  </p>
+                  <p *ngIf="currentGroup?.prices.length ===0 || !currentGroup?.acceptPayments">
+                    <strong>Free</strong>
+                  </p>
+                  <h2 class="smallhead">Times</h2>
+                  <p *ngFor="let day of currentGroup?.meetingTimes">
+                    <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to {{day?.endTime['seconds']*1000
+                    | date: 'shortTime'}} {{day?.recurrence}}
+                  </p>
+                </mat-tab>
+                <mat-tab label="Files">
+
+                </mat-tab>
+              </mat-tab-group>
+            </div>
+            <a routerLink="./../../group/{{currentGroup?.uid}}" class="mr-3">
+              <button mat-raised-button>Visit Group Page</button>
+            </a>
+            <button *ngIf="showJoinButton" mat-button class="cwb-primary-button" (click)="joinGroup(currentGroup)">Join Group</button>
+            <div class="gap"></div>
+            <span class="smallhead mr-2">Share:</span>
+            <i class="fab fa-facebook-f mr-2 shareIcon"></i>
+            <i class="fab fa-twitter mr-2 shareIcon"></i>
+            <i class="fab fa-google-plus-g mr-2 shareIcon"></i>
+          </mat-tab>
+          <mat-tab label="MY GROUPS">
+            <!--<mat-form-field class="full-width" appearance="outline">
+              <mat-label>Search my groups</mat-label>
+              <input matInput name="filterSearch" [(ngModel)]="searchValMyGroups">
+              <mat-icon class="noMont" matPrefix>search</mat-icon>
+            </mat-form-field>-->
+            <mat-card class="scroll-container ps" [perfectScrollbar]="config">
+              <mat-list *ngFor="let group of myGroups | search:searchValMyGroups:'name'" (click)="currentMyGroup = group">
+                <mat-list-item class="groupItemHover" [class.activeListItem]="currentMyGroup==group"> {{group?.name}} </mat-list-item>
+                <div *ngIf="group == currentMyGroup">
+                  <strong>Description</strong>
+                  <br>
+                  <p>{{group?.description}}</p>
+                  <br>
+                  <a routerLink="../../group/{{group?.uid}}">
+                    <button mat-raised-button class="cwb-primary-button mr-3">Visit Group Page</button>
+                  </a>
+                  <br>
+                  <button mat-raised-button (click)="leaveGroup()">Leave Group</button>
+                  <br><br>
+                </div>
+                <mat-divider></mat-divider>
+              </mat-list>
+            </mat-card>
+          </mat-tab>
+        </mat-tab-group>
       </mat-card>
     </div>
   </div>
@@ -88,41 +116,6 @@
         <div class="gap"></div>
         <div class="gap"></div>
         <app-calendar></app-calendar>
-      </mat-card>
-    </div>
-    <br>
-    <div class="col-md-12 no-padding">
-      <mat-card>
-        <h1 class="smallhead text-center">MY GROUPS</h1>
-        <div class="gap"></div>
-        <div class="gap"></div>
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>Search my groups</mat-label>
-          <input matInput name="filterSearchMyGroups" [(ngModel)]="searchValMyGroups">
-          <mat-icon class="noMont" matPrefix>search</mat-icon>
-        </mat-form-field>
-        <ul class="myGroups">
-          <li *ngFor="let group of myGroups | search:searchValMyGroups:'name'" (click)="currentMyGroup = group" class="showPointer">
-            <h3 class="smallhead">{{group?.name}}</h3>
-            <div *ngIf="group == currentMyGroup" class="myGroupDetails">
-              <div class="row">
-                <div class="col-md-6">
-                  <strong>Group Details:</strong>
-                  <br>
-                  <strong>Description</strong><br>
-                  <p>{{group?.description}}</p>
-                </div>
-                <div class="col-md-6">
-                  <a routerLink="../../group/{{group?.uid}}">
-                    <button mat-raised-button class="cwb-primary-button mr-3">Visit Group Page</button>
-                  </a>
-                  <br>
-                  <button mat-raised-button (click)="leaveGroup()">Leave Group</button>
-                </div>
-              </div>
-            </div>
-          </li>
-        </ul>
       </mat-card>
     </div>
   </div>

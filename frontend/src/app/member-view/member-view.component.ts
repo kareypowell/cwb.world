@@ -77,6 +77,9 @@ export class MemberViewComponent implements OnInit, OnDestroy {
             this.myGroups.push(group);
           }
         });
+        if(this.myGroups.length > 0){
+          this.currentMyGroup = this.myGroups[0];
+        }
       });
     });
     this.sub2 = this.fbData.getAllCommunities().subscribe(data => {
