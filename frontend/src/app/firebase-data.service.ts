@@ -26,6 +26,10 @@ export class FirebaseDataService {
   communityCollection: AngularFirestoreCollection<Community>;
   communitiesFromDB$: Observable<Community[]>;
 
+  // communties
+  airRmsCollection: AngularFirestoreCollection<AirRMS>;
+  airRmsFromDB$: Observable<AirRMS[]>;
+
   // super sectors
   superSectorcollection:  AngularFirestoreCollection<SuperSector>;
 
@@ -56,6 +60,7 @@ export class FirebaseDataService {
     this.userCollection = this.afs.collection('users');
     this.eventCollection = this.afs.collection('events');
     this.groupMemberCollection = this.afs.collection('group-members');
+    this.airRmsCollection = this.afs.collection('air-rms-space');
 
     // get community collection
     this.communitiesFromDB$ = this.communityCollection.snapshotChanges().pipe(map(actions => {
@@ -261,7 +266,7 @@ export class FirebaseDataService {
           return data;
       }));
   }
-  
+
   getGroupsJoinedByMember(memberID: string){
     return this.afs.collection('group-members', ref => ref
       .orderBy('uid')

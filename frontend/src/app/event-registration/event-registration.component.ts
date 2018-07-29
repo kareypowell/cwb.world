@@ -20,6 +20,7 @@ export class EventRegistrationComponent implements  OnInit, OnDestroy {
   private userSub;
   private CurrentUser: User;
   registerEventForm: FormGroup;
+  public individual: boolean = true;
 
   ngOnInit() {
     this.userSub = this.auth.user$.subscribe(data => this.CurrentUser = data); // get Current User info
