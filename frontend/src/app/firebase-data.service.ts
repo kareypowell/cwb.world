@@ -222,6 +222,16 @@ export class FirebaseDataService {
         })
       }));
   }
+  getAllGroups(){
+    return this.afs.collection('groups')
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Group;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
   getAllSuperSectors(){
     return this.afs.collection('super-sectors')
       .snapshotChanges().pipe(map(actions => {
@@ -244,16 +254,14 @@ export class FirebaseDataService {
       }));
   }
   getSpecificGroup(groupID:string){
-    return this.afs.collection('groups', ref => ref
-      .where('uid', '==', groupID))
+    return this.groupCollection.doc(groupID)
       .snapshotChanges().pipe(map(actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as Group;
-          data.uid = a.payload.doc.id;
+          const data = actions.payload.data() as Group;
+          data.uid = actions.payload.id;
           return data;
-        })
       }));
   }
+  
   getGroupsJoinedByMember(memberID: string){
     return this.afs.collection('group-members', ref => ref
       .orderBy('uid')

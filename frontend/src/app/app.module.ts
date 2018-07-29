@@ -91,6 +91,7 @@ import { UpdateAirRmsSpaceComponent } from './crud/update-air-rms-space/update-a
 import { CreateSuperSectorComponent } from './crud/create-super-sector/create-super-sector.component';
 import { UpdateSuperSectorComponent } from './crud/update-super-sector/update-super-sector.component';
 import { LinebreakPipe } from './linebreak.pipe';
+import { LoginGuard } from './guards/login.guard';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -190,7 +191,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       RequestToJoinGroupComponent, EditProfileComponent, PreviewProfileComponent, CreateSectorComponent, CreateSuperSectorComponent,
       UpdateSuperSectorComponent, UpdateAirRmsSpaceComponent, EventRegistrationComponent
     ],
-  providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, AdminGuard, GroupLeadGuard, HostPartnerGuard,
+  providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, LoginGuard,AdminGuard, GroupLeadGuard, HostPartnerGuard,
     SectorLeadGuard, {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG

@@ -25,19 +25,18 @@ export class MemberViewComponent implements OnInit, OnDestroy {
 
   constructor(private data: DataTransferService, public dialog: MatDialog, private fbData: FirebaseDataService, private auth: AuthService) { }
 
-  openDialog(source, grp): void {
-    if (source == "reqToJoin") {
-      this.wid = '600px';
-    }
+  openDialog(): void {
+
     let dialogRef = this.dialog.open(DialogComponent, {
       width: this.wid,
-      data: { source: source, grp: grp }
+      data: { }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       //console.log(result);
     });
   }
+  
   joinGroup(grp){
     let dialogRef = this.dialog.open(RequestToJoinGroupComponent, {
       width: '90%',

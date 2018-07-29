@@ -36,12 +36,13 @@ import { PostsComponent } from './group-pages/posts/posts.component';
 import { FilesComponent } from './group-pages/files/files.component';
 import { GroupHomeComponent } from './group-pages/group-home/group-home.component';
 import { AllMembersComponent } from './group-pages/all-members/all-members.component';
+import { LoginGuard } from './guards/login.guard';
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
   { path: "contact", component: ContactComponent },
-  { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent },
+  { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
+  { path: "register", component: RegisterComponent, canActivate: [LoginGuard] },
   { path: "about", component: AboutComponent },
   { path: "termsandconditions", component: TermsandconditionsComponent },
   { path: "retrievelogin", component: RetrieveLoginComponent },
