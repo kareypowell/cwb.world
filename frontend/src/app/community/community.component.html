@@ -1,31 +1,46 @@
 <div class="body-wrapper">
   <div class="row">
-    <div class="col-md-4 community-info">
+    <div class="col-md-3 community-info">
       <div class="col-sm-12">
         <h1>{{community?.name}}</h1>
         <hr>
         <em>Created On {{community?.dateCreated['seconds']*1000|date}} By {{creator?.firstName}} {{creator?.lastname}}</em>
         <div class="gap"></div>
-        <h4>Description</h4>
+        <!--
+          <h4>Description</h4>
         <p>{{community?.description}}</p>
         <div class="gap"></div>
         <h4>Bio</h4>
         <p>{{community?.bio}}</p>
         <div class="gap"></div>
+        -->
+        
         <h4>What to Expect</h4>
-        <p>{{community?.whatToExpect}}</p>
+        <p class="line-breaker">{{community?.whatToExpect}}</p>
         <div class="gap"></div>
+        <h4>Filter by Sectors</h4>
+        <div class="gap"></div>
+        <span class="badge badge-success mr-3 showPointer" (click)="currentFilterSector = ''" [ngClass]="currentFilterSector === '' ? 'badge-success' : 'badge-info'"  matTooltip="All Sectors">All Sectors</span>
+        <span *ngFor="let sector of sectors" class="badge badge-info mr-3 showPointer" (click)="currentFilterSector = sector.uid" [class.badge-success]="currentFilterSector === sector.uid" matTooltip="{{sector?.whatToExpect}}">{{sector?.name}}</span>
+        <br>
+        <br>
+        <div class="makeWhite">
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-icon matSuffix>search</mat-icon>
+            <input matInput type="text" name="filterSearch" placeholder="Search Groups" [(ngModel)]="filterSearch">
+          </mat-form-field>
+        </div>
       </div>
       <div class="gap"></div>
       <div class="gap"></div>
       <div class="gap"></div>
     </div>
-    <div class="col-md-8">
-      <div *ngIf="groups?.length === 0; else showInfo">
+    <div class="col-md-9">
+      <div *ngIf="groups?.length === 0">
         <h3>No groups in this community yet.</h3>
         <button mat-button class="cwb-primary-button">Create a new group</button>
       </div>
-      <ng-template #showInfo>
+      <!--<ng-template #showInfo>
         <div class="row">
           <div class="col-sm-12">
               <h3 class="smallhead" (click)="showFilterDiv = !showFilterDiv; changeCaret()" style="cursor: pointer">
@@ -51,10 +66,10 @@
         </div>
 
         <div class="gap"></div>
-      </ng-template>
-      <p class="no-matches smallhead" *ngIf="(groups | search: filterSearch:'name' | search:sectorVal:'sector')?.length === 0">No matches found</p>
+      </ng-template>-->
+      <p class="no-matches smallhead" *ngIf="(groups | search: filterSearch:'name' | search:currentFilterSector:'sector')?.length === 0">No matches found</p>
       <div class="row">
-        <div class="col-md-4" *ngFor="let group of groups | search: filterSearch:'name' | search:sectorVal:'sector'">
+        <div class="col-md-4" *ngFor="let group of groups | search: filterSearch:'name' | search:currentFilterSector:'sector'">
           <mat-card>
             <div class="imageHolder">
               <img src="../../assets/images/education.jpg" alt="{{group?.name}} Image">

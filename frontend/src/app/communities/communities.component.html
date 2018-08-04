@@ -24,12 +24,12 @@
         </div>
         <div class="padding20">
           <div class="gap"></div>
-          <h3>{{comm.name}}</h3>
+          <h3>{{comm?.name}}</h3>
           <h3 class="smallerhead">
             <em>Created On {{comm.dateCreated['seconds']*1000 | date}}</em>
           </h3>
           <div class="gap"></div>
-          <p>{{comm.description}}</p>
+          <p class="line-breaker">{{comm?.whatToExpect}}</p>
           <div class="gap"></div>
           <a routerLink="../community/{{comm.uid}}" mat-button class="cwb-primary-button">View Community</a>
         </div>
