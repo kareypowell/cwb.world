@@ -7,6 +7,7 @@ import { Group } from './interfaces/member';
 export class DataTransferService {
   activeLink = 0;
   createEventGroup: Group;
+  routeBack: boolean = false;
   constructor() { }
   
 }

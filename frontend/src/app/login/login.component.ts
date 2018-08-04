@@ -5,6 +5,7 @@ import { LoginForm } from '../login-form';
 import { AuthService } from '../auth-service';
 import { User } from '../interfaces/member';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -14,7 +15,9 @@ export class LoginComponent implements OnInit {
   user:User;
   hide = true;
   loginDetails = new LoginForm("","",false);
-  constructor(private _auth:AuthService) { }
+  constructor(private _auth:AuthService) {
+    
+   }
   
   ngOnInit() {
     this._auth.user$.subscribe(data => this.user = data);

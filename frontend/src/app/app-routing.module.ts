@@ -41,8 +41,8 @@ import { LoginGuard } from './guards/login.guard';
 const routes: Routes = [
   { path: "", component: HomepageComponent },
   { path: "contact", component: ContactComponent },
-  { path: "login", component: LoginComponent, canActivate: [LoginGuard] },
-  { path: "register", component: RegisterComponent, canActivate: [LoginGuard] },
+  { path: "login", component: LoginComponent, canActivate: [] },
+  { path: "register", component: RegisterComponent, canActivate: [] },
   { path: "about", component: AboutComponent },
   { path: "termsandconditions", component: TermsandconditionsComponent },
   { path: "retrievelogin", component: RetrieveLoginComponent },

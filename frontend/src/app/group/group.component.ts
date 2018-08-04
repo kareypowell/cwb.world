@@ -5,6 +5,7 @@ import { Group, GroupMember, EventItem, User } from '../interfaces/member';
 import { AuthService } from '../auth-service';
 import { MatDialog } from '@angular/material';
 import { RequestToJoinGroupComponent } from '../dialog-components/request-to-join-group/request-to-join-group.component';
+import { DataTransferService } from '../data-transfer.service';
 
 @Component({
   selector: 'app-group',
@@ -14,8 +15,7 @@ import { RequestToJoinGroupComponent } from '../dialog-components/request-to-joi
 export class GroupComponent implements OnInit, OnDestroy {
 
   constructor(private fbData: FirebaseDataService, private route: ActivatedRoute, private router: Router, private auth: AuthService,
-    public dialog: MatDialog
-  ) { }
+    public dialog: MatDialog, private data: DataTransferService) { }
 
   navLinks = [
     { path: './', label: 'HOME' },
@@ -74,6 +74,7 @@ export class GroupComponent implements OnInit, OnDestroy {
       });
     } else {
       console.log("Login to join");
+      this.data.routeBack = true;
       this.router.navigate(['/login']);
     }
   }

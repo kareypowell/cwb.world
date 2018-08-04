@@ -6,16 +6,23 @@
     <h2>Request to Join Group - {{data.grp.name}}</h2>
     <div class="gap"></div>
     
-    <h3>Description</h3>
+    <div *ngIf="data.grp.description && data.grp.description != ''">
+      <h3>Description</h3>
     <p>
       {{data.grp.description}}
     </p>
-    <h3>What to Expect</h3>
+    </div>
+    <div *ngIf="data.grp.bio && data.grp.bio != ''">
+      <h3>Bio</h3>
     <p>{{data.grp.bio}}</p>
-    <h3>Bio</h3>
+    </div>
+
+    <div *ngIf="data.grp.whatToExpect && data.grp.whatToExpect != ''">
+      <h3>What to Expect</h3>
     <p>
       {{data.grp.whatToExpect}}
     </p>
+    </div>
     <h3>More Information</h3>
     <p>
       Community - {{community?.name}}

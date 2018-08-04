@@ -16,7 +16,7 @@ export class LoginGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       return this.auth.user$.pipe(
         take(1),
-        map( user => user ? true : false), //user.roles.member
+        map( user => user && user.roles.member ? true : false), //user.roles.member
         tap( isMember =>{
           if(isMember){
             this.router.navigate(['/member-ui']);

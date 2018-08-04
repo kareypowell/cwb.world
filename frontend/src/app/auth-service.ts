@@ -7,6 +7,8 @@ import { switchMap, merge } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { User } from './interfaces/member';
+import { Location } from '../../node_modules/@angular/common';
+import { DataTransferService } from './data-transfer.service';
 
 
 
@@ -14,9 +16,12 @@ import { User } from './interfaces/member';
 export class AuthService {
   user$: Observable<User>;
 
-  constructor(public afAuth: AngularFireAuth,
+  constructor(
+    private data: DataTransferService,
+    public afAuth: AngularFireAuth,
     private router: Router,
-    public afs: AngularFirestore) {
+    public afs: AngularFirestore,
+  private _location: Location) {
     this.user$ = afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -79,7 +84,15 @@ export class AuthService {
   loginEmail(email: string, password: string) {
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(
-        (credential) => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']) }
+        credential => { 
+          this.updateUser(credential.user, false);
+          if(this.data.routeBack){
+            this.data.routeBack = false; // set it back to false 
+            this._location.back()
+          }else{
+            this.router.navigate(['/member-ui']);
+          }
+         }
       )
       .catch(error => console.log(error));
   }
@@ -87,21 +100,45 @@ export class AuthService {
     const provider = new firebase.auth.GoogleAuthProvider();
     return this.afAuth.auth.signInWithPopup(provider)
       .then(
-        credential => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']); }
+        credential => { 
+          this.updateUser(credential.user, false);
+          if(this.data.routeBack){
+            this.data.routeBack = false; // set it back to false 
+            this._location.back()
+          }else{
+            this.router.navigate(['/member-ui']);
+          }
+         }
       )
       .catch(error => console.log(error));
   }
   loginTwitter() {
     const provider = new firebase.auth.TwitterAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      (credential) => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']); }
+      credential => { 
+        this.updateUser(credential.user, false);
+        if(this.data.routeBack){
+          this.data.routeBack = false; // set it back to false 
+          this._location.back()
+        }else{
+          this.router.navigate(['/member-ui']);
+        }
+       }
     )
       .catch(error => console.log(error))
   }
   loginFacebook() {
     const provider = new firebase.auth.FacebookAuthProvider();
     this.afAuth.auth.signInWithPopup(provider).then(
-      credential => { this.updateUser(credential.user, false), this.router.navigate(['/member-ui']); }
+      credential => { 
+        this.updateUser(credential.user, false);
+        if(this.data.routeBack){
+          this.data.routeBack = false; // set it back to false 
+          this._location.back()
+        }else{
+          this.router.navigate(['/member-ui']);
+        }
+       }
     )
       .catch(error => console.log(error))
   }
