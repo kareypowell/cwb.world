@@ -51,8 +51,6 @@ export class FirebaseDataService {
   groupMemberCollection: AngularFirestoreCollection<GroupMember>;
   groupMembersFromDB$: Observable<GroupMember[]>;
 
-  // Deleted Items
-  deletedItemsCollection: AngularFirestoreCollection<any>;
 
 
   constructor(public afs: AngularFirestore, private router: Router) {
@@ -64,7 +62,6 @@ export class FirebaseDataService {
     this.eventCollection = this.afs.collection('events');
     this.groupMemberCollection = this.afs.collection('group-members');
     this.airRmsCollection = this.afs.collection('air-rms-space');
-    this.deletedItemsCollection = this.afs.collection('deleted-items');
 
     // get community collection
     this.communitiesFromDB$ = this.communityCollection.snapshotChanges().pipe(map(actions => {
@@ -121,9 +118,6 @@ export class FirebaseDataService {
   }
 
   // CREATE ======================================================================================================================
-  addToDeletedItems(item: any){
-    this.deletedItemsCollection.add(item).catch(error => console.log(error));
-  }
 
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
@@ -429,19 +423,6 @@ export class FirebaseDataService {
         return actions.map(a => {
           const data = a.payload.doc.data() as Group;
           data.uid = a.payload.doc.id;
-          return data;
-      })
-      }));
-  }
-
-  getGroupMember(userID:string, groupID: string){
-    return this.afs.collection('group-members', ref => ref
-      .where('uid', '==', userID)
-      .where('groupUID', '==', groupID))
-      .snapshotChanges().pipe(map( actions => {
-        return actions.map(a => {
-          const data = a.payload.doc.data() as GroupMember;
-          data.id = a.payload.doc.id;
           return data;
       })
       }));

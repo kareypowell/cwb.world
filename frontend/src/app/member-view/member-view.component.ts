@@ -6,7 +6,7 @@ import { SearchPipe } from '../pipes/search.pipe';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { FirebaseDataService } from '../firebase-data.service';
-import { Group, Community, Sector, User, GroupMember } from '../interfaces/member';
+import { Group, Community, Sector, User } from '../interfaces/member';
 import { RequestToJoinGroupComponent } from '../dialog-components/request-to-join-group/request-to-join-group.component';
 import { AuthService } from '../auth-service';
 
@@ -129,11 +129,8 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       this.eventPaneWidth = 12;
     }
   }
-
-  exitGroupMemberID: string;
-  itemToDelete:GroupMember;
-
   leaveGroup(){
+<<<<<<< HEAD
     this.fbData.getGroupMember(this.user.uid,this.currentMyGroup.uid).subscribe(data => {
       this.exitGroupMemberID = data[0].id;
       this.itemToDelete = data[0];
@@ -142,6 +139,9 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       // splice
       this.fbData.addToDeletedItems(this.itemToDelete);
     })
+=======
+    alert("Unimplemented yet...");
+>>>>>>> parent of a4db4b7... exit group
   }
   private sub;
   private sub2;
