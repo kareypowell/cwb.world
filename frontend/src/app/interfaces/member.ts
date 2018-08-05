@@ -81,7 +81,8 @@ export interface groupPrice {
 }
 
 export interface GroupMember {
-    uid?: string; // member uid
+    id?: string; // id of group member
+    uid?: string; // user's uid
     groupUID?: string; // group uid
     approved?: boolean;
     dateJoined?: Date;
@@ -229,4 +230,5 @@ export interface AirRMS{
     pricePerWeek?:number;
     pricePerMonth?:number;
     eventsBooked?: string[]; //hold uids of events booked to take place in this space
+    pastEvents?: string []; // hold the uids of past events hosted
 }

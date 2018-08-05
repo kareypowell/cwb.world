@@ -6,7 +6,7 @@ import { SearchPipe } from '../pipes/search.pipe';
 import PerfectScrollbar from 'perfect-scrollbar';
 import { PerfectScrollbarConfigInterface, PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
 import { FirebaseDataService } from '../firebase-data.service';
-import { Group, Community, Sector, User } from '../interfaces/member';
+import { Group, Community, Sector, User, GroupMember } from '../interfaces/member';
 import { RequestToJoinGroupComponent } from '../dialog-components/request-to-join-group/request-to-join-group.component';
 import { AuthService } from '../auth-service';
 
@@ -129,8 +129,23 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       this.eventPaneWidth = 12;
     }
   }
+
+  exitGroupMemberID: string;
+  itemToDelete:GroupMember;
+
   leaveGroup(){
-    alert("Unimplemented yet...");
+    this.fbData.getGroupMember(this.user.uid,this.currentMyGroup.uid).subscribe(data => {
+      this.exitGroupMemberID = data[0].id;
+      this.itemToDelete = data[0];
+      this.fbData.addToDeletedItems(this.itemToDelete);
+      
+      // go to firebase service and delete this document from group-members collection
+
+      // splice 
+      const memberRef = {memberUID: this.exitGroupMemberID,userUID: this.user.uid};
+      // make a function in firebase service that takes in memberRef, currentMyGroup and then checks its member list and splices out 
+      // make a call to update the group in firestore
+    })
   }
   private sub;
   private sub2;

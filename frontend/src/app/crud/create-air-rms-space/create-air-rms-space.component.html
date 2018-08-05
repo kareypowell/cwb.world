@@ -26,27 +26,19 @@
           <textarea matInput rows="5" formControlName="description" required></textarea>
         </mat-form-field>
       </div>
-      <div class="col-md-6">
-        <mat-form-field class="full-width" appearance="outline">
-          <mat-label>What to Expect</mat-label>
-          <textarea matInput rows="5" formControlName="whatToExpect" required></textarea>
-        </mat-form-field>
-      </div>
     </div>
     <h1 class="bighead">Choose Room Style:</h1>
-    <mat-radio-group formControlName = "roomType">
-      <mat-radio-button *ngFor="let room of roomStyles" [value] = "room">
-        <div class="row">
-          <div class="col-sm-2">
-            <img src="../../../assets/images/{{room.url}}" alt="Icon" class="full-width">
-          </div>
-          <div class="col-sm-10">
-            <h3>{{room.name}}</h3>
-            <p>{{room.description}}</p>
-          </div>
+    <mat-checkbox *ngFor="let room of roomStyles" [value] = "room.selected">
+      <div class="row">
+        <div class="col-sm-2">
+          <img src="../../../assets/images/{{room.url}}" alt="Icon" class="full-width">
         </div>
-      </mat-radio-button> <br>
-    </mat-radio-group>
+        <div class="col-sm-10">
+          <h3>{{room.name}}</h3>
+          <p>{{room.description}}</p>
+        </div>
+      </div>
+    </mat-checkbox> <br>
     <div class="gap"></div>
     <div class="row">
       <div class="col-sm-4">

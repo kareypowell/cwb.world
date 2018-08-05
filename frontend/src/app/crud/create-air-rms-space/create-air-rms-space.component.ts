@@ -35,13 +35,14 @@ export class CreateAirRmsSpaceComponent implements OnInit, OnDestroy {
   private subbedSector: boolean = false;
 
   roomStyles = [
-    { url: "roundtable.PNG", name: "Round Table", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya." },
-    { url: "reception.PNG", name: "Reception", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya." },
-    { url: "squaretable.PNG", name: "Square Table", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya." }
-  ,{ url: "lectureroom.PNG", name: "Lecture Room", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya." }
-  ,{ url: "classroom.PNG", name: "Classroom", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya." }
-  ,{ url: "ettable.PNG", name: "T-Table, E-Table and U-Table", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya." }
-  
+    { url: "roundtable.PNG", name: "Round Table", description: "From corporate meetings to team building;\
+    \ this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya.", capacity: 0, selected: false },
+    { url: "reception.PNG", name: "Reception", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya.", capacity: 0 , selected: false},
+    { url: "squaretable.PNG", name: "Square Table", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya.", capacity: 0 , selected: false},
+    { url: "lectureroom.PNG", name: "Lecture Room", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya.", capacity: 0 , selected: false},
+    { url: "classroom.PNG", name: "Classroom", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya.", capacity: 0 , selected: false},
+    { url: "ettable.PNG", name: "T-Table, E-Table and U-Table", description: "From corporate meetings to team building; this is the ideal distraction-free setting located at the heart of Lavington Nairobi Kenya.", capacity: 0 , selected: false}
+
   ];
 
   ngOnInit() {
@@ -51,19 +52,18 @@ export class CreateAirRmsSpaceComponent implements OnInit, OnDestroy {
       this.currentCommunity = this.communities[0];
       this.subSuper = this.fbData.getSuperSectorsInCommunity(this.currentCommunity.uid).subscribe(data => {
         this.superSectors = data;
-        if(this.superSectors.length > 0){
+        if (this.superSectors.length > 0) {
           this.currentSupSect = this.superSectors[0];
-          
+
           this.subSect = this.fbData.getSectorsInSuperSector(this.currentSupSect.uid).subscribe(data => this.sectors = data);
           this.subbedSector = true;
         }
-      });   
+      });
     });
 
     this.createAirRMSForm = this._formBuilder.group({
       name: ['', Validators.required],
       description: ['', Validators.required],
-      whatToExpect: ['', Validators.required],
       capacity: [10, Validators.required],
       comm: ['', Validators.required],
       supersector: '',
@@ -97,12 +97,12 @@ export class CreateAirRmsSpaceComponent implements OnInit, OnDestroy {
     this.subSect = this.fbData.getSectorsInCommunity(commID).subscribe(data => this.sectors = data);
   }
 
-  getSuperSectorsInCommunity(){
+  getSuperSectorsInCommunity() {
     this.subSuper.unsubscribe();
     this.subSuper = this.fbData.getSuperSectorsInCommunity(this.currentCommunity.uid).subscribe(data => this.superSectors = data);
   }
-  getSectorsInSuperSector(){
-    if(this.subbedSector){
+  getSectorsInSuperSector() {
+    if (this.subbedSector) {
       this.subSect.unsubscribe();
     }
     this.subSect = this.fbData.getSectorsInSuperSector(this.currentSupSect.uid).subscribe(data => this.sectors = data);
@@ -111,7 +111,7 @@ export class CreateAirRmsSpaceComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subComm.unsubscribe();
     this.subUser.unsubscribe();
-    if(this.subbedSector){
+    if (this.subbedSector) {
       this.subSect.unsubscribe();
     }
     this.subSuper.unsubscribe();
