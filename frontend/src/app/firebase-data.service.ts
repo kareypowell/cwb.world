@@ -7,6 +7,7 @@ import { switchMap, merge, map, filter } from 'rxjs/operators';
 import * as firebase from 'firebase/app';
 import { Router } from '@angular/router';
 import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS } from './interfaces/member';
+import { getLocaleFirstDayOfWeek } from '../../node_modules/@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -542,8 +543,13 @@ export class FirebaseDataService {
     //return this.st;
   }
 
-  leaveGroup(){
-
+  leaveGroup(group: Group, user: GroupMember,){
+    this.groupMemberCollection.doc(group.uid).delete();
+    var index = group.members.indexOf({userUID:user.uid,memberUID:user.id})
+    if (index > -1) {
+     group.members.splice(index, 1);
+     this.groupCollection.doc(group.uid).set({ members: group.members }, {merge:true});
+     }
   }
 
 
