@@ -521,6 +521,7 @@ export class FirebaseDataService {
       }
     }
     //return this.st;
+    
   }
 
   leaveGroup(){
