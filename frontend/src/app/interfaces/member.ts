@@ -63,6 +63,19 @@ export interface Group {
     createdBy?: string; // hold name of user who created it
     partnershipCode?: string;
     events?: string[];
+    blogPosts?: blogPost[];
+    pageStructure?: pageContent [];
+}
+export interface blogPost{
+    title?: string;
+    body?:string;
+    image?: string;
+    video?: string;
+}
+export interface pageContent {
+    elementName: string; // name of element eg h1, video, image, etc
+    elementValue: string; // actual content in h1, image or video url
+    elementHTMLContent: string; // html tags and all needed to display content
 }
 
 export interface meetingDays {

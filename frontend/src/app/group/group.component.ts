@@ -32,6 +32,8 @@ export class GroupComponent implements OnInit, OnDestroy {
   private sub1;
   user: User;
   private sub2;
+  showJoinGroup: boolean = false;
+  manageMembership: boolean = false;
   private subUser;
   private subEvents;
   upcomingEvents: EventItem[];
@@ -40,10 +42,21 @@ export class GroupComponent implements OnInit, OnDestroy {
     this.id = this.route.snapshot.params['id'];
     this.subUser = this.auth.user$.subscribe(data => {
       this.user = data; // subscribe to user data
+      if(this.user){
+        if(this.user.groupsJoined.indexOf(this.id) < 0){
+          this.showJoinGroup = true;
+        }else{
+          this.manageMembership = true;
+        }
+      }else{
+        this.showJoinGroup = true;
+      }
       // sub for groups
       this.sub1 = this.fbData.getSpecificGroup(this.id).subscribe(data => {
         this.group = data;
-        this.sub2 = this.fbData.getGroupMembers(this.id).subscribe(data => this.groupMembers = data);
+        this.sub2 = this.fbData.getGroupMembers(this.id).subscribe(data => {
+          this.groupMembers = data;
+        });
         this.subEvents = this.fbData.getGroupEvents(this.id).subscribe(data => {
           this.upcomingEvents = data;
           this.actualUpcomingEvents = [];
@@ -70,13 +83,18 @@ export class GroupComponent implements OnInit, OnDestroy {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        //console.log(result);
+        if(this.user.groupsJoined.indexOf(this.id) > -1){
+          this.showJoinGroup = false;
+        }
       });
     } else {
       console.log("Login to join");
       this.data.routeBack = true;
       this.router.navigate(['/login']);
     }
+  }
+  mangeMembership(){
+
   }
   ngOnDestroy(): void {
     this.sub1.unsubscribe();
