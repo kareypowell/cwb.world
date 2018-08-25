@@ -65,6 +65,7 @@ export interface Group {
     events?: string[];
     blogPosts?: blogPost[];
     pageStructure?: pageContent [];
+    homePage?:string;
 }
 export interface blogPost{
     title?: string;

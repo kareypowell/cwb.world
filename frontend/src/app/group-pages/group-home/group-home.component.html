@@ -1,5 +1,6 @@
 <div class="body-wrapper">
-  <h1 class="bighead">Welcome to {{group?.name}}</h1>
+  <ng-template #default>
+    <h1 class="bighead">Welcome to {{group?.name}}</h1>
   <br>
   <!--
  <iframe width="100%" height="315" src="https://www.youtube.com/embed/F9GujgK0y2M" frameborder="0" allow="autoplay; encrypted-media"
@@ -9,6 +10,12 @@
   <br>
   <br>
   <h5>You will be able to customize your group page to convey your group's identity and message!</h5>
+  <button class="cwb-primary-button full-width" mat-raised-button (click)="openDialog()">Get Started</button>
+  </ng-template>
+
+  <div *ngIf="group?.homePage; else default" class="autoContent">
+    <div [innerHTML]="group?.homePage" class="autoContent"></div>
+  </div>
   
-<button class="cwb-primary-button full-width" mat-raised-button>Get Started</button>
+
 </div>
