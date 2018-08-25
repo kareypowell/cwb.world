@@ -40,6 +40,7 @@ export class DesignGroupHomepageComponent implements OnInit {
   }
 
   updateGroupPage(){
-    this.fbData.updateGroup(this.data.id,{"homePage":this.pageContent})
+    this.fbData.updateGroup(this.data.id,{"homePage":this.pageContent});
+    this.onNoClick(false);
   }
 }
