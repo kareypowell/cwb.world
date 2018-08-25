@@ -61,11 +61,33 @@ export class GroupComponent implements OnInit, OnDestroy {
           this.upcomingEvents = data;
           this.actualUpcomingEvents = [];
           this.upcomingEvents.forEach(event => {
-            if (new Date(event.endDate['seconds'] * 1000) > new Date() && event.eventType === 'single') {
+            if (new Date(event.endDate['seconds'] * 1000) >= new Date()) { // && event.eventType === 'single'
               this.actualUpcomingEvents.push(event);
+
             } else if (new Date(event.endDate['seconds'] * 1000) < new Date() && event.eventType === 'recurring') {
               //while() while loop through added recurrence to new date till current upcoming event
               // if any found, append to actualUpcomingEvents
+              const today = new Date();
+              let start_date = new Date(event.startDate['seconds']*1000);
+
+              for (let index = 0; index < event.durationNumber; index++) {
+                if(event.durationTerm === "week"){
+                  start_date.setDate(start_date.getDate()+7);
+                  if(start_date >= today){
+                    event.startDate = start_date;
+                    this.actualUpcomingEvents.push(event);
+                    break;
+                  }
+                }else if(event.durationTerm == "month"){
+                  start_date.setMonth(start_date.getMonth()+1);
+                  if(start_date >= today){
+                    event.startDate = start_date;
+                    this.actualUpcomingEvents.push(event);
+                    break;
+                  }
+                }
+                
+              }
             }
           });
         });

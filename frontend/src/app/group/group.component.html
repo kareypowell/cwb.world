@@ -59,10 +59,10 @@
           <strong>UPCOMING EVENTS</strong>
         </h3>
         <hr>
-        <p *ngIf="upcomingEvents?.length == 0; else showEvents">No Upcoming Events</p>
+        <p *ngIf="actualUpcomingEvents?.length == 0; else showEvents">No Upcoming Events</p>
         <ng-template #showEvents>
           <ul class="eventUL">
-            <li *ngFor="let event of upcomingEvents">
+            <li *ngFor="let event of actualUpcomingEvents">
               <a routerLink="events/{{event.uid}}" (click)="activeLink = 1"><p><span class="eventNameSpan"><strong>{{event?.name}}</strong></span> <span class="eventTimeSpan">{{event?.startDate['seconds']*1000 | date}}</span></p></a>
             </li>
           </ul>

@@ -1,5 +1,4 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { pageContent } from '../../interfaces/member';
 import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import {NgForm} from '@angular/forms';
@@ -16,17 +15,8 @@ export class DesignGroupHomepageComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data: any, private fbData: FirebaseDataService) { }
 
   pageContent:any;
-
-  pageComponens:pageContent[] = [];
   public config: PerfectScrollbarConfigInterface = {};
 
-  components:pageContent[] = [
-    {
-      elementHTMLContent:"",
-      elementName: "",
-      elementValue: ""
-    },
-  ];
 
   ngOnInit() {
     if(this.data.grp.homePage){
