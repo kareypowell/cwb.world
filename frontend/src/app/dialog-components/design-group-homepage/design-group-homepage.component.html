@@ -1,0 +1,11 @@
+<div class="body-wrapper dialogHeight scroll-container reqToJoin ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
+
+  <h1 class="bighead">Design Group Homepage</h1>
+  <quill-editor [(ngModel)] = "pageContent"></quill-editor>
+
+  <button mat-raised-button class="cwb-primary-button" (click)="updateGroupPage()">Save Page</button>
+  
+</div>

@@ -51,17 +51,18 @@
           </ul>
         </div>
         <div class="gap"></div>
-        <button mat-raised-button class="cwb-primary-button" (click)="joinGroup()">Join Group</button>
+        <button mat-raised-button class="cwb-primary-button full-width" (click)="joinGroup()" *ngIf="showJoinGroup">Join Group</button>
+        <button mat-raised-button class="cwb-primary-button full-width" (click)="mangeMembership()" *ngIf="manageMembership">Manage Membership</button>
         <div class="gap"></div>
         <h3 class="smallerhead">
           <i class="far fa-calendar-alt mr-2"></i>
           <strong>UPCOMING EVENTS</strong>
         </h3>
         <hr>
-        <p *ngIf="upcomingEvents?.length == 0; else showEvents">No Upcoming Events</p>
+        <p *ngIf="actualUpcomingEvents?.length == 0; else showEvents">No Upcoming Events</p>
         <ng-template #showEvents>
           <ul class="eventUL">
-            <li *ngFor="let event of upcomingEvents">
+            <li *ngFor="let event of actualUpcomingEvents">
               <a routerLink="events/{{event.uid}}" (click)="activeLink = 1"><p><span class="eventNameSpan"><strong>{{event?.name}}</strong></span> <span class="eventTimeSpan">{{event?.startDate['seconds']*1000 | date}}</span></p></a>
             </li>
           </ul>

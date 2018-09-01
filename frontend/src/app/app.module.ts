@@ -92,6 +92,8 @@ import { CreateSuperSectorComponent } from './crud/create-super-sector/create-su
 import { UpdateSuperSectorComponent } from './crud/update-super-sector/update-super-sector.component';
 import { LinebreakPipe } from './linebreak.pipe';
 import { LoginGuard } from './guards/login.guard';
+import { DesignGroupHomepageComponent } from './dialog-components/design-group-homepage/design-group-homepage.component';
+import { QuillModule } from 'ngx-quill'
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -164,7 +166,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     UpdateAirRmsSpaceComponent,
     CreateSuperSectorComponent,
     UpdateSuperSectorComponent,
-    LinebreakPipe
+    LinebreakPipe,
+    DesignGroupHomepageComponent
   ],
   imports: [
     BrowserModule,
@@ -184,12 +187,13 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatInputModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
+    QuillModule
   ],
   entryComponents:
     [ DialogComponent, UpdateCommunityComponent, UpdateEventComponent, UpdateGroupComponent, UpdateSectorComponent,
       ConfirmDeleteComponent, CreateAirRmsSpaceComponent, CreateGroupComponent, CreateEventComponent, CreateCommunityComponent,
       RequestToJoinGroupComponent, EditProfileComponent, PreviewProfileComponent, CreateSectorComponent, CreateSuperSectorComponent,
-      UpdateSuperSectorComponent, UpdateAirRmsSpaceComponent, EventRegistrationComponent
+      UpdateSuperSectorComponent, UpdateAirRmsSpaceComponent, EventRegistrationComponent, DesignGroupHomepageComponent
     ],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, LoginGuard,AdminGuard, GroupLeadGuard, HostPartnerGuard,
     SectorLeadGuard, {

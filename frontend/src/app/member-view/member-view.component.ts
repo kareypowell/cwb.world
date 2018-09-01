@@ -130,22 +130,7 @@ export class MemberViewComponent implements OnInit, OnDestroy {
     }
   }
   leaveGroup(){
-<<<<<<< HEAD
-    this.fbData.getGroupMember(this.user.uid,this.currentMyGroup.uid).subscribe(data => {
-      this.exitGroupMemberID = data[0].id;
-      this.itemToDelete = data[0];
-      this.fbData.addToDeletedItems(this.itemToDelete);
-      
-      // go to firebase service and delete this document from group-members collection
-
-      // splice 
-      const memberRef = {memberUID: this.exitGroupMemberID,userUID: this.user.uid};
-      // make a function in firebase service that takes in memberRef, currentMyGroup and then checks its member list and splices out 
-      // make a call to update the group in firestore
-    })
-=======
     alert("Unimplemented yet...");
->>>>>>> parent of a4db4b7... exit group
   }
   private sub;
   private sub2;
