@@ -132,10 +132,12 @@ export interface Community {
     files?: string[];
 }
 export interface Files {
-    name?: string; // name of file or link
-    type?: string; // file or link
-    link?: { file?: boolean, link?: boolean }; // link to file or actual link of link, lool! Set only one to true with radio buttons
+    uid?:string;
+    name?: string;
+    isPrivate?: boolean;
     url?:string; // url to file
+    groudId?:string; // hold uid to group file belongs to
+    dateCreated?: Date;
 }
 export interface SuperSector{
     uid?:string;

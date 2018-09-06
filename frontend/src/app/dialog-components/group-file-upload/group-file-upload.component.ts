@@ -4,6 +4,8 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AngularFireStorage, AngularFireUploadTask } from 'angularfire2/storage';
 import { Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
+import { FirebaseUploadService } from '../../services/firebase-upload.service';
+import { Files } from '../../interfaces/member';
 
 @Component({
   selector: 'app-group-file-upload',
@@ -20,9 +22,10 @@ export class GroupFileUploadComponent implements OnInit {
 
   public config: PerfectScrollbarConfigInterface = {};
   selectedFiles: FileList;
+  uploadedFile: Files = {};
 
   constructor(public dialogRef: MatDialogRef<GroupFileUploadComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any, private storage: AngularFireStorage) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private storage: AngularFireStorage, private fileStoreDB: FirebaseUploadService) { }
 
   ngOnInit() {
   }
@@ -55,9 +58,15 @@ export class GroupFileUploadComponent implements OnInit {
 
     task.snapshotChanges().pipe(
       finalize(() => {
-        this.downloadURL = fileRef.getDownloadURL();
-        this.downloadURL.subscribe(data => {
-          console.log(data);
+        fileRef.getDownloadURL()
+        .subscribe(data => {
+          this.downloadURL = data;
+          this.uploadedFile.name = file.name;
+          this.uploadedFile.isPrivate = false;
+          this.uploadedFile.url = data;
+          this.uploadedFile.groudId = this.data.groupId;
+          this.uploadedFile.dateCreated = new Date();
+          this.fileStoreDB.addFileToDB(this.uploadedFile);
         })
       })
     ).subscribe()

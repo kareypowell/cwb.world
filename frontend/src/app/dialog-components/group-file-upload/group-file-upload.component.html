@@ -8,7 +8,7 @@
     <mat-tab label="Upload new file">
       <!--<input type="file" (change)="detectFiles($event)">-->
       <br>
-      <input class="file-input" type="file" (change)="detectFiles($event)" mat-raised-button class="cwb-primary-button">
+      <input class="file-input" type="file" (change)="detectFiles($event)">
       <br><br>
       <div *ngIf="percentage | async as pct">
         <mat-progress-bar mode="determinate" value="pct"></mat-progress-bar> {{ pct | number }}%

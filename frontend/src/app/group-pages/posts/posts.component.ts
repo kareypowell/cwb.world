@@ -31,8 +31,10 @@ export class PostsComponent implements OnInit {
       this.group = data;
       this.auth.user$.subscribe(data => {
         this.user = data;
-        if(this.user.uid === this.group.groupLead){
-          this.showCreatePost = true;
+        if(this.user){
+          if(this.user.uid === this.group.groupLead){
+            this.showCreatePost = true;
+          }
         }
       });
       this.fbData.getAllPostsInGroup(this.id).subscribe(data => {

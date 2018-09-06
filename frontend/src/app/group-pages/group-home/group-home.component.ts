@@ -30,8 +30,10 @@ export class GroupHomeComponent implements OnInit {
       this.group = data;
       this.auth.user$.subscribe(data => {
         this.user = data;
-        if(this.user.uid === this.group.groupLead){
-          this.showEditHomePage = true;
+        if(this.user){
+          if(this.user.uid === this.group.groupLead){
+            this.showEditHomePage = true;
+          }
         }
       });
       
