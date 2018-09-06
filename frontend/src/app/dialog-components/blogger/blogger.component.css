@@ -1,0 +1,10 @@
+.allPosts{
+    list-style: none;
+    padding: 0px;
+}
+.allPosts li{
+    padding: 10px 5px;
+}
+.allPosts li:nth-of-type(odd){
+    background-color: #fafafa;
+}

@@ -37,6 +37,8 @@ import { FilesComponent } from './group-pages/files/files.component';
 import { GroupHomeComponent } from './group-pages/group-home/group-home.component';
 import { AllMembersComponent } from './group-pages/all-members/all-members.component';
 import { LoginGuard } from './guards/login.guard';
+import { PostComponent } from './group-pages/post/post.component';
+import { AllPostsComponent } from './group-pages/all-posts/all-posts.component';
 
 const routes: Routes = [
   { path: "", component: HomepageComponent },
@@ -70,7 +72,12 @@ const routes: Routes = [
       { path: '', component: GroupHomeComponent },
       { path: 'events', component: EventsViewComponent },
       { path: 'events/:id', component: EventsViewComponent },
-      { path: 'posts', component: PostsComponent },
+      { path: 'posts', component: AllPostsComponent,
+      children:[
+        {path: '', component: PostsComponent},
+        {path: 'post/:id', component: PostComponent}
+      ]
+     },
       { path: 'files', component: FilesComponent },
       { path: 'all-members', component: AllMembersComponent }
     ]

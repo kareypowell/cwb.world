@@ -1,0 +1,7 @@
+:host ::ng-deep iframe,img { 
+    max-width: 100%;
+    min-width: 100%;
+  }
+  :host ::ng-deep iframe{
+      min-height: 500px;
+  }

@@ -12,5 +12,4 @@ export class SearchPipe implements PipeTransform {
 		return item[parameter].toLowerCase().includes(searchVal.toLowerCase());
   })
   }
-
 }

@@ -1,3 +1,8 @@
 <div class="body-wrapper">
-    <h1 class="bighead">Blog Posts</h1>
+    <h1 class="bighead">{{post?.title}}</h1>
+    <h3 class="smallerhead"> <i class="far fa-clock mr-1"></i> {{post?.datePublished['seconds']*1000 | date}}</h3>
+    <br>
+    <div [innerHTML]="this._sanitizer.bypassSecurityTrustHtml(post?.body)" class="dynamicContent">
+
+    </div>
   </div>

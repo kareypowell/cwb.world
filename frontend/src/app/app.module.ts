@@ -28,6 +28,7 @@ import { GetInvoledComponent } from './get-involed/get-involed.component';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { environment } from '../environments/environment';
 import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
 import { MemberGuard } from './guards/member.guard';
 import { AdminGuard } from './guards/admin.guard';
 import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
@@ -91,9 +92,13 @@ import { UpdateAirRmsSpaceComponent } from './crud/update-air-rms-space/update-a
 import { CreateSuperSectorComponent } from './crud/create-super-sector/create-super-sector.component';
 import { UpdateSuperSectorComponent } from './crud/update-super-sector/update-super-sector.component';
 import { LinebreakPipe } from './linebreak.pipe';
+import { BoolPipePipe } from './pipes/bool-pipe.pipe';
 import { LoginGuard } from './guards/login.guard';
 import { DesignGroupHomepageComponent } from './dialog-components/design-group-homepage/design-group-homepage.component';
-import { QuillModule } from 'ngx-quill'
+import { QuillModule } from 'ngx-quill';
+import { BloggerComponent } from './dialog-components/blogger/blogger.component';
+import { AllPostsComponent } from './group-pages/all-posts/all-posts.component';
+import { GroupFileUploadComponent } from './dialog-components/group-file-upload/group-file-upload.component';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -126,6 +131,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     HostPartnerViewComponent,
     DialogComponent,
     SearchPipe,
+    BoolPipePipe,
     AdminRoleInfoComponent,
     SectorLeadRoleInfoComponent,
     GroupLeadRoleInfoComponent,
@@ -167,7 +173,10 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     CreateSuperSectorComponent,
     UpdateSuperSectorComponent,
     LinebreakPipe,
-    DesignGroupHomepageComponent
+    DesignGroupHomepageComponent,
+    BloggerComponent,
+    AllPostsComponent,
+    GroupFileUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -180,6 +189,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
+    AngularFireStorageModule,
     NgbModalModule.forRoot(),
     CalendarModule.forRoot(),
     PerfectScrollbarModule,
@@ -193,7 +203,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     [ DialogComponent, UpdateCommunityComponent, UpdateEventComponent, UpdateGroupComponent, UpdateSectorComponent,
       ConfirmDeleteComponent, CreateAirRmsSpaceComponent, CreateGroupComponent, CreateEventComponent, CreateCommunityComponent,
       RequestToJoinGroupComponent, EditProfileComponent, PreviewProfileComponent, CreateSectorComponent, CreateSuperSectorComponent,
-      UpdateSuperSectorComponent, UpdateAirRmsSpaceComponent, EventRegistrationComponent, DesignGroupHomepageComponent
+      UpdateSuperSectorComponent, UpdateAirRmsSpaceComponent, EventRegistrationComponent, DesignGroupHomepageComponent, BloggerComponent,
+      GroupFileUploadComponent
     ],
   providers: [ApiLinkService, AuthService, DataTransferService, MemberGuard, LoginGuard,AdminGuard, GroupLeadGuard, HostPartnerGuard,
     SectorLeadGuard, {

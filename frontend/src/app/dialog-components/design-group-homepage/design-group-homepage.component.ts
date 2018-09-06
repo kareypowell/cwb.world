@@ -20,7 +20,6 @@ export class DesignGroupHomepageComponent implements OnInit {
 
   ngOnInit() {
     if(this.data.grp.homePage){
-      console.log(this.data.grp.homePage);
       this.pageContent = this.data.grp.homePage;
     }
   }

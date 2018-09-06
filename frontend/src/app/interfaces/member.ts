@@ -63,20 +63,21 @@ export interface Group {
     createdBy?: string; // hold name of user who created it
     partnershipCode?: string;
     events?: string[];
-    blogPosts?: blogPost[];
-    pageStructure?: pageContent [];
+    blogPosts?: string[];
     homePage?:string;
 }
+
 export interface blogPost{
+    uid?:string; // hold post id
     title?: string;
-    body?:string;
-    image?: string;
-    video?: string;
-}
-export interface pageContent {
-    elementName: string; // name of element eg h1, video, image, etc
-    elementValue: string; // actual content in h1, image or video url
-    elementHTMLContent: string; // html tags and all needed to display content
+    title_url?:string;
+    draft?: boolean;
+    excerpt?:string;
+    body?: string;
+    datePublished?: Date;
+    author?: string; // hold uid of author
+    group?:string; // hold uid of group
+
 }
 
 export interface meetingDays {
