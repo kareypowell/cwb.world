@@ -5,10 +5,8 @@
     <ul *ngFor="let post of posts | boolPipe : false:'draft'" class= "posts">
       <li>
         <div class="row">
-          <div class="col-md-4">
-            <img src=".././../../assets/images/cwb-logo.png" alt="post thumbnail" class="full-width">
-          </div>
-          <div class="col-md-8">
+          <div class="col-md-3 thumbnail" [innerHTML]="post?.thumbnailImg"></div>
+          <div class="col-md-9">
               <h1 class="bighead">{{post?.title}}</h1>
               <!-- <i class="far fa-user mr-1"></i> Abdul-Kudus Chiibu-->
               <h3 class="smallerhead"> <i class="far fa-clock mr-1"></i> {{post?.datePublished['seconds']*1000 | date}}</h3>

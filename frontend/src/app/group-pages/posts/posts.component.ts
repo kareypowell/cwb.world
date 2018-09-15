@@ -39,6 +39,14 @@ export class PostsComponent implements OnInit {
       });
       this.fbData.getAllPostsInGroup(this.id).subscribe(data => {
         this.posts = data;
+        this.posts.forEach(post => {
+          let stub = post.body.match("<img(.*)>");
+          if(stub){
+            post.thumbnailImg = "<img " + stub[1] + " >";
+          }else{
+            post.thumbnailImg = '<img src=".././../../assets/images/cwb-logo.png" alt="post thumbnail" class="full-width">'
+          }
+        })
       });
       
       /*

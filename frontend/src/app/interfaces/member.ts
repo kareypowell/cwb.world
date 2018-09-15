@@ -72,6 +72,7 @@ export interface blogPost{
     title?: string;
     title_url?:string;
     draft?: boolean;
+    thumbnailImg?:string;
     excerpt?:string;
     body?: string;
     datePublished?: Date;
