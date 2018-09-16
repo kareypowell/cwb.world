@@ -6,19 +6,105 @@
 .full-height-wrapper{
     min-height: 100vh;
     height: auto;
+    padding: 30px;
 
+}
+.cwbLogoLanding{
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    transform: translate(-50%,0%);
+    width: 400px;
+    height: auto;
+}
+.landing-content h1{
+    font-size: 96px;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 100;
+}
+.landing-content h3{
+    font-size: 48px;
+    font-family: 'Source Sans Pro', sans-serif !important;
+    font-weight: 300;
+}
+.landingCallToAction{
+    color: #9a8260;
+    border-radius: 8px;
+    font-size: 28px;
+    padding: 15px 45px;
+    text-transform: uppercase;
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    transform: translate(-50%,0%);
 }
 .landing-section{
     width: 100%;
-    background-image: url('../../assets/images/studyset.jpg');
-    background-position: center top;
-    background-size: cover;
-    background-attachment: fixed;
+    background-color: #9a8260;
+    color: #fff;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-image: url(../../assets/images/orange-arrow-ef994b.png);
+    position: relative;
 }
-
+.stickGuyLandingSection{
+    position: absolute;
+    right: 100px;
+    width: 400px;
+    height: auto;
+    top: 48%;
+    transform: translate(0%,-50%)
+}
+.second-section{
+    width: 100%;
+    background-color: #ef994b;
+    color: #fff;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-image: url(../../assets/images/brown-arrow-9a8260-B.png);
+    position: relative;
+    text-align: right;
+}
+.stickGuySecondSection{
+    position: absolute;
+    left: 100px;
+    width: 400px;
+    height: auto;
+    top: 48%;
+    transform: translate(0%,-50%)
+}
+.third-section{
+    width: 100%;
+    background-color: #9a8260;
+    color: #fff;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-image: url(../../assets/images/orange-arrow-ef994b.png);
+    position: relative;
+}
+.fourth-section{
+    width: 100%;
+    background-color: #ef994b;
+    color: #fff;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-image: url(../../assets/images/brown-arrow-9a8260-B.png);
+    position: relative;
+    text-align: right;
+}
+.stickGuyFourthSection{
+    position: absolute;
+    left: 100px;
+    width: 400px;
+    height: auto;
+    top: 68%;
+    transform: translate(0%,-50%)
+}
 .landing-content{
     padding: 250px 0px 0px 100px;
+    width: 100%;
 }
+
 .join-hosts{
     height: 500px;
     position: relative;
@@ -29,18 +115,3 @@
     left: 50%;
     transform: translate(-50%,-50%);
 }
- /* Container holding the image and the text */
- .container {
-    position: relative;
-}
-
-/* Bottom right text */
-.text-block {
-    position: absolute;
-    bottom: 20px;
-    right: 20px;
-    background-color: black;
-    color: white;
-    padding-left: 20px;
-    padding-right: 20px;
-} 
