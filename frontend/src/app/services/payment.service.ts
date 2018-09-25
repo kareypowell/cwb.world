@@ -22,7 +22,9 @@ export class PaymentService {
   }
 
     processPayment(token: any) {
+      /*
       return this.db.object(`/users/${this.userId}/pro-membership`)
                     .update({ token: token.id });
+                    */
     }
 }
