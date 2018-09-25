@@ -1,0 +1,17 @@
+.posts{
+    list-style: none;
+    padding: 0px;
+}
+.posts li{
+    margin-bottom: 15px;
+}
+.thumbnail{
+    position: relative;
+}
+.thumbnail img{
+    width: 100%;
+}
+
+:host ::ng-deep img { 
+    width: 100%;
+  }

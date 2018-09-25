@@ -6,6 +6,8 @@ import { AuthService } from '../auth-service';
 import { MatDialog } from '@angular/material';
 import { RequestToJoinGroupComponent } from '../dialog-components/request-to-join-group/request-to-join-group.component';
 import { DataTransferService } from '../data-transfer.service';
+import { PaymentService } from '../services/payment.service';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-group',
@@ -14,8 +16,10 @@ import { DataTransferService } from '../data-transfer.service';
 })
 export class GroupComponent implements OnInit, OnDestroy {
 
+  handler: any;
+
   constructor(private fbData: FirebaseDataService, private route: ActivatedRoute, private router: Router, private auth: AuthService,
-    public dialog: MatDialog, private data: DataTransferService) { }
+    public dialog: MatDialog, private data: DataTransferService,public pmt: PaymentService) { }
 
   navLinks = [
     { path: './', label: 'HOME' },
@@ -40,6 +44,7 @@ export class GroupComponent implements OnInit, OnDestroy {
   actualUpcomingEvents: EventItem[];
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
+    this.configHandler();
     this.subUser = this.auth.user$.subscribe(data => {
       this.user = data; // subscribe to user data
       if(this.user){
@@ -97,6 +102,25 @@ export class GroupComponent implements OnInit, OnDestroy {
 
   }
 
+  private configHandler() {
+    this.handler = StripeCheckout.configure({
+      key: environment.stripeKey,
+      image: 'https://goo.gl/EJJYq8',
+      locale: 'auto',
+      token: token => {
+        this.pmt.processPayment(token);
+      }
+    });
+  }
+
+  openHandler() {
+    this.handler.open({
+      name: 'FireStarter',
+      excerpt: 'PRO Subscription',
+      amount: 1500
+    });
+  }
+
   joinGroup() {
     if (this.user) {
       let dialogRef = this.dialog.open(RequestToJoinGroupComponent, {
@@ -118,6 +142,12 @@ export class GroupComponent implements OnInit, OnDestroy {
   mangeMembership(){
 
   }
+
+  subscribe(){
+
+  }
+
+
   ngOnDestroy(): void {
     this.sub1.unsubscribe();
     this.sub2.unsubscribe();

@@ -63,20 +63,22 @@ export interface Group {
     createdBy?: string; // hold name of user who created it
     partnershipCode?: string;
     events?: string[];
-    blogPosts?: blogPost[];
-    pageStructure?: pageContent [];
+    blogPosts?: string[];
     homePage?:string;
 }
+
 export interface blogPost{
+    uid?:string; // hold post id
     title?: string;
-    body?:string;
-    image?: string;
-    video?: string;
-}
-export interface pageContent {
-    elementName: string; // name of element eg h1, video, image, etc
-    elementValue: string; // actual content in h1, image or video url
-    elementHTMLContent: string; // html tags and all needed to display content
+    title_url?:string;
+    draft?: boolean;
+    thumbnailImg?:string;
+    excerpt?:string;
+    body?: string;
+    datePublished?: Date;
+    author?: string; // hold uid of author
+    group?:string; // hold uid of group
+
 }
 
 export interface meetingDays {
@@ -106,6 +108,11 @@ export interface GroupMember {
     lastName?: string;
     photoURL?: string;
     attendance?: { event_uid: string, attended: boolean }[];
+    
+    //paymant data
+    stripeCustomerID?:string;
+    token?:string;
+    status?:string;
 }
 export interface LinkedAccounts {
     email?: boolean;
@@ -131,10 +138,12 @@ export interface Community {
     files?: string[];
 }
 export interface Files {
-    name?: string; // name of file or link
-    type?: string; // file or link
-    link?: { file?: boolean, link?: boolean }; // link to file or actual link of link, lool! Set only one to true with radio buttons
+    uid?:string;
+    name?: string;
+    isPrivate?: boolean;
     url?:string; // url to file
+    groudId?:string; // hold uid to group file belongs to
+    dateCreated?: Date;
 }
 export interface SuperSector{
     uid?:string;

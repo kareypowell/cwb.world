@@ -1,0 +1,23 @@
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
+
+  <h1 class="bighead">File Upload</h1>
+  <mat-tab-group>
+    <mat-tab label="Upload new file">
+      <!--<input type="file" (change)="detectFiles($event)">-->
+      <br>
+      <input class="file-input" type="file" (change)="detectFiles($event)">
+      <br><br>
+      <div *ngIf="percentage | async as pct">
+        <mat-progress-bar mode="determinate" value="pct"></mat-progress-bar> {{ pct | number }}%
+      </div>
+      <button mat-raised-button class="cwb-primary-button" (click)="startUpload()">Upload</button>
+    </mat-tab>
+    <mat-tab label="View all files">
+
+    </mat-tab>
+
+  </mat-tab-group>
+</div>

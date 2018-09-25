@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuthModule, AngularFireAuth } from 'angularfire2/auth';
 import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { Observable, of, BehaviorSubject, zip, Subject } from 'rxjs';
-import { switchMap, merge, map, filter } from 'rxjs/operators';
-import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS } from './interfaces/member';
+import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS, blogPost } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +47,10 @@ export class FirebaseDataService {
   groupMemberCollection: AngularFirestoreCollection<GroupMember>;
   groupMembersFromDB$: Observable<GroupMember[]>;
 
+  // Posts
+  postsCollection: AngularFirestoreCollection<blogPost>;
+  postsFromDB$: Observable<blogPost[]>;
+
 
 
   constructor(public afs: AngularFirestore, private router: Router) {
@@ -61,6 +62,7 @@ export class FirebaseDataService {
     this.eventCollection = this.afs.collection('events');
     this.groupMemberCollection = this.afs.collection('group-members');
     this.airRmsCollection = this.afs.collection('air-rms-space');
+    this.postsCollection = this.afs.collection('posts');
 
     // get community collection
     this.communitiesFromDB$ = this.communityCollection.snapshotChanges().pipe(map(actions => {
@@ -114,12 +116,23 @@ export class FirebaseDataService {
         return data;
       })
     }));
+    this.postsFromDB$ = this.postsCollection.snapshotChanges().pipe(map(actions => {
+      return actions.map(a => {
+        const data = a.payload.doc.data() as blogPost;
+        data.uid = a.payload.doc.id;
+        return data;
+      })
+    }));
   }
 
   // CREATE ======================================================================================================================
 
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
+  }
+
+  addPost(newPost: blogPost) {
+    this.postsCollection.add(newPost).catch(error => console.log(error));
   }
  
   addSuperSector(superSector: SuperSector){
@@ -266,6 +279,30 @@ export class FirebaseDataService {
           return data;
       }));
   }
+
+  getSpecificPost(uid:string){
+    return this.postsCollection.doc(uid)
+      .snapshotChanges().pipe(map(actions => {
+          const data = actions.payload.data() as blogPost;
+          data.uid = actions.payload.id;
+          return data;
+      }));
+  }
+  getAllPostsInGroup(uid: string){
+    return this.afs.collection('posts', ref => ref
+      .orderBy('group')
+      .startAt(uid)
+      .endAt(uid + "\uf8ff"))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as blogPost;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+
+
 
   getGroupsJoinedByMember(memberID: string){
     return this.afs.collection('group-members', ref => ref
@@ -482,6 +519,10 @@ export class FirebaseDataService {
   updateEvent(eventID:string, data){
     const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${eventID}`); //community ref to update data
     eventRef.set(data, { merge: true }).then().catch((error) => console.log(error));
+  }
+  updatePost(post: blogPost){
+    const postRef: AngularFirestoreDocument<any> = this.afs.doc(`posts/${post.uid}`);
+    postRef.set(post, { merge: true }).then().catch((error) => console.log(error));
   }
 
   // Assign Roles

@@ -1,3 +1,20 @@
 <div class="body-wrapper">
-    <h1 class="bighead">Blog Posts</h1>
+    <h1 class="bighead">Blog Posts <i (click)="createPost()" *ngIf="showCreatePost" class="far fa-edit showPointer"></i></h1>
+    <br>
+    <br>
+    <ul *ngFor="let post of posts | boolPipe : false:'draft'" class= "posts">
+      <li>
+        <div class="row">
+          <div class="col-md-3 thumbnail" [innerHTML]="post?.thumbnailImg"></div>
+          <div class="col-md-9">
+              <h1 class="bighead">{{post?.title}}</h1>
+              <!-- <i class="far fa-user mr-1"></i> Abdul-Kudus Chiibu-->
+              <h3 class="smallerhead"> <i class="far fa-clock mr-1"></i> {{post?.datePublished['seconds']*1000 | date}}</h3>
+              <p>{{post?.excerpt}}</p>
+              <a routerLink = "post/{{post.uid}}" mat-raised-button class="cwb-primary-button" >Read more</a>
+          </div>
+        </div>
+
+      </li>
+    </ul>
   </div>

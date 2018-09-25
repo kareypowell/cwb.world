@@ -18,15 +18,16 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatTooltipModule} from '@angular/material/tooltip';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 @NgModule({
   imports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
     MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule,
-    MatAutocompleteModule, MatTooltipModule],
+    MatAutocompleteModule, MatTooltipModule,MatProgressBarModule],
   exports: [MatButtonModule,MatInputModule,MatFormFieldModule,MatCardModule,MatSlideToggleModule,
     MatCheckboxModule,MatTabsModule,MatSelectModule,MatDialogModule,MatBadgeModule,
     MatIconModule,MatListModule,MatDividerModule,MatRadioModule,MatStepperModule,MatDatepickerModule,
-    MatAutocompleteModule, MatTooltipModule],
+    MatAutocompleteModule, MatTooltipModule,MatProgressBarModule],
 })
 export class MaterialModule { }

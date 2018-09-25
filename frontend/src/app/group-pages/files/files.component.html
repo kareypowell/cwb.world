@@ -1,3 +1,15 @@
 <div class="body-wrapper">
   <h1 class="bighead">Group Files</h1>
+  <button class="cwb-primary-button" mat-raised-button (click)="uploadFileDialog()" *ngIf="showUploadButton">Upload
+    Files</button>
+  <br>
+  <br>
+  <ul *ngFor="let file of allFiles" class="fileUl">
+    <li>
+      <i class="far fa-file mr-3 bighead"></i> {{file?.name}}
+      
+      <a href="{{file?.url}}" target="blank"><i class="far fa-eye ml-3"></i></a>
+      <a href="{{file?.url}}" download="{{file?.url}}" target="blank"><i class="fas fa-download ml-3"></i></a>
+    </li>
+  </ul>
 </div>

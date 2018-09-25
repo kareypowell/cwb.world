@@ -1,0 +1,67 @@
+<div class="body-wrapper dialogHeight scroll-container ps" [perfectScrollbar]="config">
+  <span class="closedialog" (click)="onNoClick(false)">
+    <i class="far fa-window-close"></i>
+  </span>
+
+  <h1 class="bighead">Create and Edit Posts</h1>
+  <br>
+  <mat-tab-group>
+    <mat-tab label="Create new post">
+      <br>
+      <div class="blogArea">
+        <mat-form-field class="full-width" appearance="outline">
+          <input matInput placeholder="Title" class="full-width" required [(ngModel)]=blogPost.title>
+        </mat-form-field>
+        <div class="alert alert-danger" role="alert" *ngIf="(blogPost.title ==''|| !blogPost.title) && titleRequired ">
+          Title is required
+        </div>
+        <mat-form-field class="full-width" appearance="outline">
+          <mat-label>Excerpt</mat-label>
+          <textarea matInput rows="3" required [(ngModel)]=blogPost.excerpt></textarea>
+        </mat-form-field>
+        <div class="alert alert-danger" role="alert" *ngIf="(blogPost.excerpt ==''|| !blogPost.excerpt) && excerptRequired">
+          Excerpt is Required
+        </div>
+        <quill-editor [(ngModel)]="blogPost.body"></quill-editor>
+        <br>
+        <button mat-raised-button (click)="createDraft()" class="mr-3">Save As Draft</button>
+        <button mat-raised-button class="cwb-primary-button" (click)="createPost()">Create Post</button>
+      </div>
+    </mat-tab>
+    <mat-tab label="View all posts">
+      <br>
+      <div *ngIf="!isEditPane">
+          <ul *ngFor="let post of allPosts" class="allPosts">
+              <li>
+                {{post.title}}
+                <span class="badge badge-info ml-2" *ngIf="post.draft">Draft</span>
+                <i class="far fa-edit ml-2" (click)="editPost(post)"></i>
+              </li>
+            </ul>
+      </div>
+      <div *ngIf="isEditPane">
+          <mat-form-field class="full-width" appearance="outline">
+            <input matInput placeholder="Title" class="full-width" required [(ngModel)]=editablePost.title>
+          </mat-form-field>
+          <div class="alert alert-danger" role="alert" *ngIf="(editablePost.title ==''|| !editablePost.title) && titleRequired ">
+            Title is required
+          </div>
+          <mat-form-field class="full-width" appearance="outline">
+            <mat-label>Excerpt</mat-label>
+            <textarea matInput rows="3" required [(ngModel)]=editablePost.excerpt></textarea>
+          </mat-form-field>
+          <div class="alert alert-danger" role="alert" *ngIf="(editablePost.excerpt ==''|| !editablePost.excerpt) && excerptRequired">
+            Excerpt is Required
+          </div>
+          <quill-editor [(ngModel)]="editablePost.body"></quill-editor>
+          <br>
+          <button mat-raised-button (click)="isEditPane = !isEditPane" class="mr-3">Cancel</button>
+          <button mat-raised-button (click)="updateDraft()" class="mr-3">Save As Draft</button>
+          <button mat-raised-button class="cwb-primary-button" (click)="sendEdit()">Update & Publish Post</button>
+        </div>
+    </mat-tab>
+    <mat-tab label="Post metrics">
+
+    </mat-tab>
+  </mat-tab-group>
+</div>
