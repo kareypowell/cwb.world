@@ -108,6 +108,11 @@ export interface GroupMember {
     lastName?: string;
     photoURL?: string;
     attendance?: { event_uid: string, attended: boolean }[];
+    
+    //paymant data
+    stripeCustomerID?:string;
+    token?:string;
+    status?:string;
 }
 export interface LinkedAccounts {
     email?: boolean;
