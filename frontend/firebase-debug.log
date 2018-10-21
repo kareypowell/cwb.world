@@ -1,0 +1,33 @@
+[debug] [2018-10-21T05:43:01.561Z] ----------------------------------------------------------------------
+[debug] [2018-10-21T05:43:01.563Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\chiib\AppData\Roaming\npm\node_modules\firebase-tools\bin\firebase serve
+[debug] [2018-10-21T05:43:01.564Z] CLI Version:   5.1.1
+[debug] [2018-10-21T05:43:01.564Z] Platform:      win32
+[debug] [2018-10-21T05:43:01.564Z] Node Version:  v8.9.3
+[debug] [2018-10-21T05:43:01.564Z] Time:          Sun Oct 21 2018 01:43:01 GMT-0400 (Eastern Daylight Time)
+[debug] [2018-10-21T05:43:01.564Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-10-21T05:43:01.573Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-10-21T05:43:01.574Z] > authorizing via signed-in user
+[debug] [2018-10-21T05:43:01.574Z] [iam] checking project cwb-world for permissions ["firebase.projects.get"]
+[debug] [2018-10-21T05:43:01.576Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/cwb-world:testIamPermissions  
+
+[debug] [2018-10-21T05:43:01.880Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-21T05:43:01.881Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/cwb-world  
+ 
+[debug] [2018-10-21T05:43:02.311Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\chiib\Desktop\Dev\cwb.world\frontend'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-10-21T05:43:03.087Z] Fetching environment
+[debug] [2018-10-21T05:43:03.089Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/84926444510:getServerAppConfig  
+ 
+[debug] [2018-10-21T05:43:03.090Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/84926444510/clients/_:getWebAppConfig  
+ 
+[debug] [2018-10-21T05:43:03.288Z] <<< HTTP RESPONSE 200
+[debug] [2018-10-21T05:43:03.288Z] Starting @google-cloud/functions-emulator
+[debug] [2018-10-21T05:43:03.356Z] <<< HTTP RESPONSE 200
+[info] i  hosting: Serving hosting files from: dist
+[info] +  hosting: Local server: http://localhost:5000
+[debug] [2018-10-21T05:43:05.326Z] Parsing function triggers
+[info] +  functions: helloWorld: http://localhost:5001/cwb-world/us-central1/helloWorld

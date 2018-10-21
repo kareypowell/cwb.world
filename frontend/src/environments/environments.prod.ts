@@ -1,5 +1,5 @@
 export const environment = {
-    production: false,
+    production: true,
     stripeKey: 'pk_test_HFeR2lSgAkLBWCcl9L1wSR7M',
     firebaseConfig :{
       apiKey: "AIzaSyCEVwNPKz4Ae23-Jonn51ni8U--W3c1hEk",
