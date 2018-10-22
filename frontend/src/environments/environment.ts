@@ -6,12 +6,12 @@ export const environment = {
   production: false,
   stripeKey: 'pk_test_HFeR2lSgAkLBWCcl9L1wSR7M',
   firebaseConfig :{
-    apiKey: "AIzaSyCEVwNPKz4Ae23-Jonn51ni8U--W3c1hEk",
-    authDomain: "cwb-world.firebaseapp.com",
-    databaseURL: "https://cwb-world.firebaseio.com",
-    projectId: "cwb-world",
-    storageBucket: "cwb-world.appspot.com",
-    messagingSenderId: "84926444510"
+    apiKey: "AIzaSyDNvKedHqWj_b3zKlMy3z6DYJ0yW6Q0usM",
+    authDomain: "fir-app-220117.firebaseapp.com",
+    databaseURL: "https://fir-app-220117.firebaseio.com",
+    projectId: "firebaseapp-220117",
+    storageBucket: "firebaseapp-220117.appspot.com",
+    messagingSenderId: "429387056804"
   }
 };
 
