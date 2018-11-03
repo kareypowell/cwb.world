@@ -4,7 +4,7 @@
 }
 
 #login{
-    max-width: 600px;
+    max-width: 350px;
 }
 .pos-rel{
     position: relative;
@@ -18,7 +18,5 @@
     transform: translate(-50%,-50%);
 }
 .loginButt{
-    width: 90%;
-    max-width: 300px;
     margin: 10px auto;
 }
