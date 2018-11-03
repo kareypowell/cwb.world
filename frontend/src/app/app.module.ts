@@ -99,6 +99,7 @@ import { QuillModule } from 'ngx-quill';
 import { BloggerComponent } from './dialog-components/blogger/blogger.component';
 import { AllPostsComponent } from './group-pages/all-posts/all-posts.component';
 import { GroupFileUploadComponent } from './dialog-components/group-file-upload/group-file-upload.component';
+import { NgAddToCalendarModule } from '@trademe/ng-add-to-calendar';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -197,7 +198,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     MatInputModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    QuillModule
+    QuillModule,
+    NgAddToCalendarModule
   ],
   entryComponents:
     [ DialogComponent, UpdateCommunityComponent, UpdateEventComponent, UpdateGroupComponent, UpdateSectorComponent,

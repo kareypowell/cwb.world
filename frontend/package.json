@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^6.0.0",
     "@angular/router": "^6.0.0",
     "@ng-bootstrap/ng-bootstrap": "^2.0.0",
+    "@trademe/ng-add-to-calendar": "^2.0.1",
     "angular-calendar": "^0.25.2",
     "angularfire2": "^5.0.0-rc.9",
     "core-js": "^2.5.4",
