@@ -1,0 +1,21 @@
+<div class="wrapper">
+  <h1 id="cwb">CWB.world Coming Soon...</h1>
+  <h2 id="comingsoon"></h2>
+  <div class="countdown">
+    <countdown [config]="config" (start)="onStart()" (finished)="onFinished()" (notify)="onNotify($event)" class="countdowntimer"></countdown>
+  </div>
+  <div class="sub">
+    <div *ngIf="notSubbed">
+        <input [(ngModel)] ="userInfo.name" type="text" placeholder="Your name">
+        <input [(ngModel)] ="userInfo.email" type="text" placeholder="Your email">
+        <br>
+        <button (click)="subscribe()" id="button">Notify me when CWB is Live!</button>
+    </div>
+    <div *ngIf="subbed"> 
+        <h3 class="loop">You are in the loop...get ready to engage!</h3>
+      </div>
+  </div>
+  
+</div>
+
+<router-outlet></router-outlet>

@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS, blogPost } from './interfaces/member';
+import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS, blogPost, signUps } from './interfaces/member';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +11,13 @@ import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, Ai
 export class FirebaseDataService {
   status:any = {success:false, fail:false, message:""}; // to send back status messages to pages
 
+  signUps: AngularFirestoreCollection<signUps>;
   //user
   user: User;
   userData: User;
   // all users
   userCollection: AngularFirestoreCollection<User>;
+
   usersFromDB$: Observable<User[]>;
 
 
@@ -63,6 +65,7 @@ export class FirebaseDataService {
     this.groupMemberCollection = this.afs.collection('group-members');
     this.airRmsCollection = this.afs.collection('air-rms-space');
     this.postsCollection = this.afs.collection('posts');
+    this.signUps = this.afs.collection('signups');
 
     // get community collection
     this.communitiesFromDB$ = this.communityCollection.snapshotChanges().pipe(map(actions => {
@@ -126,7 +129,27 @@ export class FirebaseDataService {
   }
 
   // CREATE ======================================================================================================================
-
+  checkSignUp(user:signUps){
+    return this.afs.collection('signups', ref => ref
+      .where('email', '==', user.email))
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as signUps;
+          return data;
+        })
+      }));
+  }
+  signup(signup:signUps){
+    
+    if (1==1){
+      this.signUps.add(signup).then(() => {
+        console.log("Signed up");
+      })
+    }else{
+      console.log("Already signed up")
+    }
+    
+  }
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
   }

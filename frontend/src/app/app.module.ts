@@ -100,6 +100,8 @@ import { BloggerComponent } from './dialog-components/blogger/blogger.component'
 import { AllPostsComponent } from './group-pages/all-posts/all-posts.component';
 import { GroupFileUploadComponent } from './dialog-components/group-file-upload/group-file-upload.component';
 import { NgAddToCalendarModule } from '@trademe/ng-add-to-calendar';
+import { CountdownComponent } from './countdown/countdown.component';
+import { CountdownModule } from 'ngx-countdown';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -178,6 +180,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     BloggerComponent,
     AllPostsComponent,
     GroupFileUploadComponent,
+    CountdownComponent,
   ],
   imports: [
     BrowserModule,
@@ -199,7 +202,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     QuillModule,
-    NgAddToCalendarModule
+    NgAddToCalendarModule,
+    CountdownModule
   ],
   entryComponents:
     [ DialogComponent, UpdateCommunityComponent, UpdateEventComponent, UpdateGroupComponent, UpdateSectorComponent,

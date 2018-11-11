@@ -27,7 +27,10 @@ export interface User {
     files?: string[];
 }
 
-
+export interface signUps{
+    name?:string;
+    email?:string;
+}
 export interface Roles {
     member?: boolean;
     admin?: boolean;

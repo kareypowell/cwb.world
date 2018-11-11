@@ -39,9 +39,11 @@ import { AllMembersComponent } from './group-pages/all-members/all-members.compo
 import { LoginGuard } from './guards/login.guard';
 import { PostComponent } from './group-pages/post/post.component';
 import { AllPostsComponent } from './group-pages/all-posts/all-posts.component';
+import { CountdownComponent } from './countdown/countdown.component';
 
 const routes: Routes = [
-  { path: "", component: HomepageComponent },
+  { path: "", component: CountdownComponent },
+  { path: "_actualhomepage", component: HomepageComponent},
   { path: "contact", component: ContactComponent },
   { path: "login", component: LoginComponent, canActivate: [] },
   { path: "register", component: RegisterComponent, canActivate: [] },

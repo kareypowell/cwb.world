@@ -1,0 +1,40 @@
+#cwb{
+    font-size: 45px;
+    color: #f39c12;
+}
+.countdowntimer{
+    font-size: 50px;
+    color: #ff7675;
+}
+.home{
+    text-align: center;
+}
+.sub{
+    margin-top: 50px;
+    padding: 35px; 
+}
+input{
+    width: 300px;
+    padding: 15px;
+    margin-right: 15px;
+    outline: none;
+}
+button{
+    margin-top: 25px;
+    padding: 15px 30px;
+    border: 0px;
+    background-color: #f39c12;
+    color: #fff;
+    cursor: pointer;
+}
+.wrapper{
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.loop{
+    font-size: 38px;
+    color: #00cec9;
+}

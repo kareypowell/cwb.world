@@ -1,0 +1,57 @@
+#cwb{
+    font-size: 45px;
+    color: #fff;
+}
+.countdowntimer{
+    font-size: 50px;
+    color: #d63031;
+    font-weight: 600;
+}
+.home{
+    text-align: center;
+}
+.sub{
+    margin-top: 10px;
+    padding: 35px; 
+}
+.home{
+    
+    min-height: 100%;
+    background-image: url(../../assets/images/bg.jpg);
+    background-size: cover;
+    text-align: center;
+}
+input{
+    padding: 15px;
+    margin-right: 15px;
+    outline: none;
+}
+button{
+    margin-top: 25px;
+    padding: 15px 30px;
+    border: 0px;
+    background-color: #fff;
+    color: #f39c12;
+    cursor: pointer;
+}
+.wrapperist{
+    height: 100vh;
+    position: absolute;
+    top:0;
+    bottom: 0;
+    z-index: 99999;
+    background-color: #f39c12;
+    width: 100%;
+    text-align: center;
+    padding-top: 100px;
+    background-image: url(../../assets/images/stickguy-2.png);
+    background-repeat: no-repeat;
+}
+.loop{
+    font-size: 38px;
+    color: #00cec9;
+}
+#alreadySigned{
+    font-weight: bold;
+    color: #d63031;
+}
