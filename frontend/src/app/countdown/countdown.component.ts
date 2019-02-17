@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { FirebaseDataService } from '../firebase-data.service';
 import { signUps } from '../interfaces/member';
 
@@ -29,44 +29,44 @@ export class CountdownComponent implements OnInit {
   notSubbed: boolean = true;
   subbed: boolean = false;
   config = {
-    leftTime: (new Date('2019,01,31').getTime() - new Date().getTime()) / 1000,
+    leftTime: (new Date('2019,03,01').getTime() - new Date().getTime()) / 1000,
     template: '$!d! Days $!h! Hours $!m! Min  $!s! Sec'
   }
 
-  onStart(){
+  onStart() {
 
   }
-  onFinished(){
+  onFinished() {
 
   }
-  onNotify(event){
+  onNotify(event) {
 
   }
   alreadySigned: boolean = false;
-  user:signUps = {};
+  user: signUps = {};
   alSigned: signUps;
-  subscribe(){
+  subscribe() {
     this.alreadySigned = false;
-    if(this.userInfo.email != ''){
+    if (this.userInfo.email != '') {
       this.user.email = this.userInfo.email;
       this.user.name = this.userInfo.name;
-      if(this.user.name == ''){
+      if (this.user.name == '') {
         this.user.name = "CWBer";
       }
       this.fbData.checkSignUp(this.user).subscribe(data => {
         console.log(data);
-        if(data.length == 0){
+        if (data.length == 0) {
           this.fbData.signup(this.user)
           this.subbed = true;
           this.notSubbed = false;
-        }else{
+        } else {
           this.alSigned = data[0];
           this.alreadySigned = true;
         }
-      }) 
-    }else{
+      })
+    } else {
       console.log("Enter an email");
     }
-    
+
   }
 }

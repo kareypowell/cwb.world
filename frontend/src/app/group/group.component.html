@@ -14,35 +14,33 @@
 <div class="body-wrapper grey-bg">
   <div class="body-content">
     <div class="row">
-      <div class="col-md-8 mainTab"> 
+      <div class="col-md-8 mainTab">
         <nav mat-tab-nav-bar>
-            <a mat-tab-link
-               *ngFor="let link of navLinks; let i = index"
-               [routerLink]="link.path"
-               (click)="activeLink = i"
-               [active]="activeLink == i">
-              <strong>{{link.label}}</strong>
-            </a>
-          </nav>
-          
-          <router-outlet></router-outlet>
+          <a mat-tab-link *ngFor="let link of navLinks; let i = index" [routerLink]="link.path" (click)="activeLink = i"
+            [active]="activeLink == i">
+            <strong>{{link.label}}</strong>
+          </a>
+        </nav>
+
+        <router-outlet></router-outlet>
       </div>
       <div class="col-md-4 right-pane">
         <div class="memberCount">
-          <button mat-raised-button class="cwb-primary-button full-width" (click)="openHandler()">Subscribe</button>
+          <!-- <button mat-raised-button class="cwb-primary-button full-width" (click)="openHandler()">Subscribe</button> -->
           <div>
             <h3 class="smallerhead">
               <i class="fas fa-users mr-2"></i>
-              <strong>{{(group?.members.length ==1)? (group?.members.length)+' MEMBER':(group?.members.length)+' MEMBERS'}}</strong>
+              <strong>{{(group?.members.length ==1)? (group?.members.length)+' MEMBER':(group?.members.length)+'
+                MEMBERS'}}</strong>
             </h3>
-            
+
           </div>
           <div class="text-right pr-2 view-all">
             <h3 class="smallerhead">
-              <a routerLink ="all-members" (click)="activeLink = 4"><strong>VIEW ALL</strong></a>
+              <a routerLink="all-members" (click)="activeLink = 4"><strong>VIEW ALL</strong></a>
             </h3>
           </div>
-        
+
         </div>
         <div class="memberThumbnails">
           <ul class="thumbnails">
@@ -52,8 +50,10 @@
           </ul>
         </div>
         <div class="gap"></div>
-        <button mat-raised-button class="cwb-primary-button full-width" (click)="joinGroup()" *ngIf="showJoinGroup">Join Group</button>
-        <button mat-raised-button class="cwb-primary-button full-width" (click)="mangeMembership()" *ngIf="manageMembership">Manage Membership</button>
+        <button mat-raised-button class="cwb-primary-button full-width" (click)="joinGroup()" *ngIf="showJoinGroup">Join
+          Group</button>
+        <button mat-raised-button class="cwb-primary-button full-width" (click)="mangeMembership()" *ngIf="manageMembership">Manage
+          Membership</button>
         <div class="gap"></div>
         <h3 class="smallerhead">
           <i class="far fa-calendar-alt mr-2"></i>
@@ -64,7 +64,10 @@
         <ng-template #showEvents>
           <ul class="eventUL">
             <li *ngFor="let event of actualUpcomingEvents">
-              <a routerLink="events/{{event.uid}}" (click)="activeLink = 1"><p><span class="eventNameSpan"><strong>{{event?.name}}</strong></span> <span class="eventTimeSpan">{{event?.startDate['seconds']*1000 | date}}</span></p></a>
+              <a routerLink="events/{{event.uid}}" (click)="activeLink = 1">
+                <p><span class="eventNameSpan"><strong>{{event?.name}}</strong></span> <span class="eventTimeSpan">{{event?.startDate['seconds']*1000
+                    | date}}</span></p>
+              </a>
             </li>
           </ul>
         </ng-template>

@@ -41,9 +41,11 @@ import { PostComponent } from './group-pages/post/post.component';
 import { AllPostsComponent } from './group-pages/all-posts/all-posts.component';
 import { CountdownComponent } from './countdown/countdown.component';
 
+
+//{ path: "", component: CountdownComponent },
+
 const routes: Routes = [
-  { path: "", component: CountdownComponent },
-  { path: "_actualhomepage", component: HomepageComponent},
+  { path: "", component: HomepageComponent },
   { path: "contact", component: ContactComponent },
   { path: "login", component: LoginComponent, canActivate: [] },
   { path: "register", component: RegisterComponent, canActivate: [] },
@@ -68,32 +70,33 @@ const routes: Routes = [
   },
   { path: "communities", component: CommunitiesComponent },
   { path: "community/:id", component: CommunityComponent },
-  { 
-    path: "group/:id", component: GroupComponent ,
-    children:[
+  {
+    path: "group/:id", component: GroupComponent,
+    children: [
       { path: '', component: GroupHomeComponent },
       { path: 'events', component: EventsViewComponent },
       { path: 'events/:id', component: EventsViewComponent },
-      { path: 'posts', component: AllPostsComponent,
-      children:[
-        {path: '', component: PostsComponent},
-        {path: 'post/:id', component: PostComponent}
-      ]
-     },
+      {
+        path: 'posts', component: AllPostsComponent,
+        children: [
+          { path: '', component: PostsComponent },
+          { path: 'post/:id', component: PostComponent }
+        ]
+      },
       { path: 'files', component: FilesComponent },
       { path: 'all-members', component: AllMembersComponent }
     ]
   },
   { path: "get-involved", component: GetInvoledComponent },
-  { path: "complete-registration", component: CompleteRegistrationDetailsComponent},
+  { path: "complete-registration", component: CompleteRegistrationDetailsComponent },
   { path: '**', component: PageNotFoundComponent }
-  
+
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { 
-  
+export class AppRoutingModule {
+
 }

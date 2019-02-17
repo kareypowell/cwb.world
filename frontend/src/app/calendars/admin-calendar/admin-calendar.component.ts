@@ -80,7 +80,7 @@ export class AdminCalendarComponent implements OnInit, OnDestroy {
       end: singleEv.end,
       color: singleEv.color,
       draggable: false,
-      moreInfo: singleEv.moreInfo,
+      meta: singleEv.meta,
       resizable: {
         beforeStart: false,
         afterEnd: false
@@ -115,7 +115,7 @@ export class AdminCalendarComponent implements OnInit, OnDestroy {
                 'end': new Date(event.endDate['seconds'] * 1000),
                 'title': event.name,
                 'color': this.colorChosen,
-                'moreInfo': event
+                'meta': event
               };
               this.addEvent(this.singleEvent);
             } else if (event.eventType === 'recurring') {
@@ -144,7 +144,7 @@ export class AdminCalendarComponent implements OnInit, OnDestroy {
                       'end': this.endDT,
                       'title': event.name,
                       'color': this.colorChosen,
-                      'moreInfo': event
+                      'meta': event
                     };
                     this.addEvent(this.singleEvent);
 
@@ -171,7 +171,7 @@ export class AdminCalendarComponent implements OnInit, OnDestroy {
                     'end': this.endDT,
                     'title': event.name,
                     'color': this.colorChosen,
-                    'moreInfo': event
+                    'meta': event
                   };
                   this.addEvent(this.singleEvent);
 
@@ -197,7 +197,7 @@ export class AdminCalendarComponent implements OnInit, OnDestroy {
                     'end': this.endDT,
                     'title': event.name,
                     'color': this.colorChosen,
-                    'moreInfo': event
+                    'meta': event
                   };
                   this.addEvent(this.singleEvent);
 

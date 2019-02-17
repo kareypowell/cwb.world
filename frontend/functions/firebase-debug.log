@@ -1,0 +1,28 @@
+[debug] [2018-11-18T17:04:51.066Z] ----------------------------------------------------------------------
+[debug] [2018-11-18T17:04:51.069Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\chiib\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js serve --only functions
+[debug] [2018-11-18T17:04:51.069Z] CLI Version:   6.1.0
+[debug] [2018-11-18T17:04:51.069Z] Platform:      win32
+[debug] [2018-11-18T17:04:51.069Z] Node Version:  v8.9.3
+[debug] [2018-11-18T17:04:51.070Z] Time:          Sun Nov 18 2018 12:04:51 GMT-0500 (Eastern Standard Time)
+[debug] [2018-11-18T17:04:51.070Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-18T17:04:51.080Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-18T17:04:51.081Z] > authorizing via signed-in user
+[debug] [2018-11-18T17:04:51.081Z] [iam] checking project firebaseapp-220117 for permissions ["firebase.projects.get"]
+[debug] [2018-11-18T17:04:51.082Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/firebaseapp-220117:testIamPermissions  
+
+[debug] [2018-11-18T17:04:51.360Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-18T17:04:51.362Z] >>> HTTP REQUEST GET https://cloudresourcemanager.googleapis.com/v1/projects/firebaseapp-220117  
+ 
+[debug] [2018-11-18T17:04:51.575Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Serving from 'C:\Users\chiib\Desktop\Dev\cwb.world\frontend'...
+[info] 
+[info] i  functions: Preparing to emulate functions.
+[debug] [2018-11-18T17:04:52.350Z] Fetching environment
+[debug] [2018-11-18T17:04:52.352Z] >>> HTTP REQUEST GET https://mobilesdk-pa.googleapis.com/v1/projects/429387056804:getServerAppConfig  
+ 
+[debug] [2018-11-18T17:04:52.566Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-18T17:04:52.566Z] Starting @google-cloud/functions-emulator
+[debug] [2018-11-18T17:04:54.595Z] Parsing function triggers
+[info] +  functions: testAuth: http://localhost:5000/firebaseapp-220117/us-central1/testAuth

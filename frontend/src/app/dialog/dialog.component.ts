@@ -98,6 +98,7 @@ export class DialogComponent implements OnInit, OnDestroy{
       city: this.updateUserForm.value.city,
       state: this.updateUserForm.value.state,
       zipCode: this.updateUserForm.value.zip,
+      fullnameToLower: this.updateUserForm.value.firstName.toLowerCase() + this.updateUserForm.value.lastName.toLowerCase(),
       email: this.updateUserForm.value.email,
       addressLineOne: this.updateUserForm.value.streetAdd,
       profilePublic: !!this.updateUserForm.value.profilePublic

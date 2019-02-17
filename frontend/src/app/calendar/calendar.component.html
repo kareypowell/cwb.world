@@ -1,7 +1,7 @@
 <ng-template #modalContent let-close="close()">
   <div class="modal-header">
     <h5 class="modal-title">
-      <strong>{{modalData?.event.moreInfo?.name}}</strong>
+      <strong>{{modalData?.event.meta?.name}}</strong>
     </h5>
     <button type="button" class="close" (click)="close">
       <span aria-hidden="true">&times;</span>
@@ -10,7 +10,7 @@
   <div class="modal-body">
     <div>
       <h3 class="smallhead">Description</h3>
-      {{modalData?.event.moreInfo?.description}}
+      {{modalData?.event.meta?.description}}
       <br>
       <div class="gap"></div>
       <div class="gap"></div>
@@ -25,14 +25,14 @@
       <div class="gap"></div>
       <div class="gap"></div>
       <div class="gap"></div>
-      <a href="{{modalData?.event.moreInfo.liveEventUrl}}" target="blank" *ngIf="modalData?.event.moreInfo.liveEventUrl">
+      <a href="{{modalData?.event.meta.liveEventUrl}}" target="blank" *ngIf="modalData?.event.meta.liveEventUrl">
         <button matButton class="linkToBBB cwb-primary-button">
           <span class="smallhead align-middle mr-3">Join Live Event</span>
         </button>
       </a>
-      <div *ngIf="modalData?.event.moreInfo.eventPhysical">
+      <div *ngIf="modalData?.event.meta.eventPhysical">
         <h3 class="smallhead">Physical Address</h3>
-        <p class="line-breaker">{{modalData?.event.moreInfo.eventVenue}}</p>
+        <p class="line-breaker">{{modalData?.event.meta.eventVenue}}</p>
         <a href="https://www.google.com/maps/" target="blank">Get Directions</a>
       </div>
     </div>

@@ -19,7 +19,7 @@ export class GroupComponent implements OnInit, OnDestroy {
   handler: any;
 
   constructor(private fbData: FirebaseDataService, private route: ActivatedRoute, private router: Router, private auth: AuthService,
-    public dialog: MatDialog, private data: DataTransferService,public pmt: PaymentService) { }
+    public dialog: MatDialog, private data: DataTransferService, public pmt: PaymentService) { }
 
   navLinks = [
     { path: './', label: 'HOME' },
@@ -44,16 +44,16 @@ export class GroupComponent implements OnInit, OnDestroy {
   actualUpcomingEvents: EventItem[];
   ngOnInit() {
     this.id = this.route.snapshot.params['id'];
-    this.configHandler();
+    //this.configHandler();
     this.subUser = this.auth.user$.subscribe(data => {
       this.user = data; // subscribe to user data
-      if(this.user){
-        if(this.user.groupsJoined.indexOf(this.id) < 0){
+      if (this.user && this.user.groupsJoined) {
+        if (this.user.groupsJoined.indexOf(this.id) < 0) {
           this.showJoinGroup = true;
-        }else{
+        } else {
           this.manageMembership = true;
         }
-      }else{
+      } else {
         this.showJoinGroup = true;
       }
       // sub for groups
@@ -73,25 +73,25 @@ export class GroupComponent implements OnInit, OnDestroy {
               //while() while loop through added recurrence to new date till current upcoming event
               // if any found, append to actualUpcomingEvents
               const today = new Date();
-              let start_date = new Date(event.startDate['seconds']*1000);
+              let start_date = new Date(event.startDate['seconds'] * 1000);
 
               for (let index = 0; index < event.durationNumber; index++) {
-                if(event.durationTerm === "week"){
-                  start_date.setDate(start_date.getDate()+7);
-                  if(start_date >= today){
+                if (event.durationTerm === "week") {
+                  start_date.setDate(start_date.getDate() + 7);
+                  if (start_date >= today) {
                     event.startDate = start_date;
                     this.actualUpcomingEvents.push(event);
                     break;
                   }
-                }else if(event.durationTerm == "month"){
-                  start_date.setMonth(start_date.getMonth()+1);
-                  if(start_date >= today){
+                } else if (event.durationTerm == "month") {
+                  start_date.setMonth(start_date.getMonth() + 1);
+                  if (start_date >= today) {
                     event.startDate = start_date;
                     this.actualUpcomingEvents.push(event);
                     break;
                   }
                 }
-                
+
               }
             }
           });
@@ -102,6 +102,7 @@ export class GroupComponent implements OnInit, OnDestroy {
 
   }
 
+  /*
   private configHandler() {
     this.handler = StripeCheckout.configure({
       key: environment.stripeKey,
@@ -112,6 +113,7 @@ export class GroupComponent implements OnInit, OnDestroy {
       }
     });
   }
+  
 
   openHandler() {
     this.handler.open({
@@ -120,6 +122,7 @@ export class GroupComponent implements OnInit, OnDestroy {
       amount: 1500
     });
   }
+  */
 
   joinGroup() {
     if (this.user) {
@@ -129,7 +132,7 @@ export class GroupComponent implements OnInit, OnDestroy {
       });
 
       dialogRef.afterClosed().subscribe(result => {
-        if(this.user.groupsJoined.indexOf(this.id) > -1){
+        if (this.user.groupsJoined.indexOf(this.id) > -1) {
           this.showJoinGroup = false;
         }
       });
@@ -139,11 +142,11 @@ export class GroupComponent implements OnInit, OnDestroy {
       this.router.navigate(['/login']);
     }
   }
-  mangeMembership(){
+  mangeMembership() {
 
   }
 
-  subscribe(){
+  subscribe() {
 
   }
 

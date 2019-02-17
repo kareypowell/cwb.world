@@ -80,7 +80,7 @@ export class GroupLeadCalendarComponent implements OnInit, OnDestroy {
       end: singleEv.end,
       color: singleEv.color,
       draggable: false,
-      moreInfo: singleEv.moreInfo,
+      meta: singleEv.meta,
       resizable: {
         beforeStart: false,
         afterEnd: false
@@ -115,7 +115,7 @@ export class GroupLeadCalendarComponent implements OnInit, OnDestroy {
                   'end': new Date(event.endDate['seconds'] * 1000),
                   'title': event.name,
                   'color': this.colorChosen,
-                  'moreInfo': event
+                  'meta': event
                 };
                 this.addEvent(this.singleEvent);
               } else if (event.eventType === 'recurring') {
@@ -123,13 +123,13 @@ export class GroupLeadCalendarComponent implements OnInit, OnDestroy {
                 const durationTerm = event.durationTerm;
                 // loop number of recurrence
                 if (durationTerm === 'week') {
-                  if(event.recurrence ==='weekly'){
+                  if (event.recurrence === 'weekly') {
                     for (let index = 0; index < durationNum; index++) {
-                      this.startDT = new Date(event.startDate['seconds']*1000);
-                      this.startDT.setDate(this.startDT.getDate() + index*7);
-                      this.endDT = new Date(event.endDate['seconds']*1000);
-                      this.endDT.setDate(this.endDT.getDate() + index*7);
-  
+                      this.startDT = new Date(event.startDate['seconds'] * 1000);
+                      this.startDT.setDate(this.startDT.getDate() + index * 7);
+                      this.endDT = new Date(event.endDate['seconds'] * 1000);
+                      this.endDT.setDate(this.endDT.getDate() + index * 7);
+
                       // set colors
                       if (this.startDT < new Date()) {
                         this.colorChosen = colors.red; // event has passed;
@@ -144,17 +144,17 @@ export class GroupLeadCalendarComponent implements OnInit, OnDestroy {
                         'end': this.endDT,
                         'title': event.name,
                         'color': this.colorChosen,
-                        'moreInfo': event
+                        'meta': event
                       };
                       this.addEvent(this.singleEvent);
-  
+
                     }
                   }
                 } else if (durationTerm === 'month') {
                   for (let index = 0; index < durationNum; index++) {
-                    this.startDT = new Date(event.startDate['seconds']*1000);
+                    this.startDT = new Date(event.startDate['seconds'] * 1000);
                     this.startDT.setMonth(this.startDT.getMonth() + index);
-                    this.endDT = new Date(event.endDate['seconds']*1000);
+                    this.endDT = new Date(event.endDate['seconds'] * 1000);
                     this.endDT.setMonth(this.endDT.getMonth() + index);
 
                     // set colors
@@ -171,16 +171,16 @@ export class GroupLeadCalendarComponent implements OnInit, OnDestroy {
                       'end': this.endDT,
                       'title': event.name,
                       'color': this.colorChosen,
-                      'moreInfo': event
+                      'meta': event
                     };
                     this.addEvent(this.singleEvent);
 
                   }
                 } else if (durationTerm === 'year') {
                   for (let index = 0; index < durationNum; index++) {
-                    this.startDT = new Date(event.startDate['seconds']*1000);
+                    this.startDT = new Date(event.startDate['seconds'] * 1000);
                     this.startDT.setFullYear(this.startDT.getFullYear() + index);
-                    this.endDT = new Date(event.endDate['seconds']*1000);
+                    this.endDT = new Date(event.endDate['seconds'] * 1000);
                     this.endDT.setFullYear(this.endDT.getFullYear() + index);
 
                     // set colors
@@ -197,7 +197,7 @@ export class GroupLeadCalendarComponent implements OnInit, OnDestroy {
                       'end': this.endDT,
                       'title': event.name,
                       'color': this.colorChosen,
-                      'moreInfo': event
+                      'meta': event
                     };
                     this.addEvent(this.singleEvent);
 
