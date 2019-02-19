@@ -9,7 +9,7 @@ import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, Ai
   providedIn: 'root'
 })
 export class FirebaseDataService {
-  status:any = {success:false, fail:false, message:""}; // to send back status messages to pages
+  status: any = { success: false, fail: false, message: "" }; // to send back status messages to pages
 
   signUps: AngularFirestoreCollection<signUps>;
   //user
@@ -30,7 +30,7 @@ export class FirebaseDataService {
   airRmsFromDB$: Observable<AirRMS[]>;
 
   // super sectors
-  superSectorcollection:  AngularFirestoreCollection<SuperSector>;
+  superSectorcollection: AngularFirestoreCollection<SuperSector>;
 
   //sectors
   sectorCollection: AngularFirestoreCollection<Sector>;
@@ -129,7 +129,7 @@ export class FirebaseDataService {
   }
 
   // CREATE ======================================================================================================================
-  checkSignUp(user:signUps){
+  checkSignUp(user: signUps) {
     return this.afs.collection('signups', ref => ref
       .where('email', '==', user.email))
       .snapshotChanges().pipe(map(actions => {
@@ -139,16 +139,16 @@ export class FirebaseDataService {
         })
       }));
   }
-  signup(signup:signUps){
-    
-    if (1==1){
+  signup(signup: signUps) {
+
+    if (1 == 1) {
       this.signUps.add(signup).then(() => {
         console.log("Signed up");
       })
-    }else{
+    } else {
       console.log("Already signed up")
     }
-    
+
   }
   addCommunity(newCommunity: Community) {
     this.communityCollection.add(newCommunity).catch(error => console.log(error));
@@ -157,8 +157,8 @@ export class FirebaseDataService {
   addPost(newPost: blogPost) {
     this.postsCollection.add(newPost).catch(error => console.log(error));
   }
- 
-  addSuperSector(superSector: SuperSector){
+
+  addSuperSector(superSector: SuperSector) {
     this.superSectorcollection.add(superSector).then().catch(error => console.log(error));
   }
   addSector(sector: Sector, secLead: User) {
@@ -219,31 +219,31 @@ export class FirebaseDataService {
       })
       .catch(error => console.log(error));
   }
-  addEvent(event:EventItem,group:Group){
+  addEvent(event: EventItem, group: Group) {
     // add event to events collections
     this.eventCollection.add(event)
-    .then( // then get event id and add to events list of group
-      (ref) => {
-        if(group.events){
-          group.events.push(ref.id);
-          const data = {events: group.events};
-          this.updateGroup(group.uid,data);
-        }else{
-          const data = {events: [ref.id]};
-          this.updateGroup(group.uid,data);
+      .then( // then get event id and add to events list of group
+        (ref) => {
+          if (group.events) {
+            group.events.push(ref.id);
+            const data = { events: group.events };
+            this.updateGroup(group.uid, data);
+          } else {
+            const data = { events: [ref.id] };
+            this.updateGroup(group.uid, data);
+          }
         }
-      }
-    )
-    .catch( error => console.log(error)); // if there is an error
+      )
+      .catch(error => console.log(error)); // if there is an error
   }
-  addAirRMSSpace(space:AirRMS){
+  addAirRMSSpace(space: AirRMS) {
     //add to collection
   }
   addUser(user: User) {
     this.userCollection.add(user).catch(error => console.log(error));
   }
   // READ ==========================================================================================================================
-  getAllUsers(){
+  getAllUsers() {
     return this.afs.collection('users')
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
@@ -253,7 +253,7 @@ export class FirebaseDataService {
         })
       }));
   }
-  getAllCommunities(){
+  getAllCommunities() {
     return this.afs.collection('communities')
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
@@ -263,7 +263,7 @@ export class FirebaseDataService {
         })
       }));
   }
-  getAllGroups(){
+  getAllGroups() {
     return this.afs.collection('groups')
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
@@ -273,7 +273,17 @@ export class FirebaseDataService {
         })
       }));
   }
-  getAllSuperSectors(){
+  getAllSectors() {
+    return this.afs.collection('sectors')
+      .snapshotChanges().pipe(map(actions => {
+        return actions.map(a => {
+          const data = a.payload.doc.data() as Sector;
+          data.uid = a.payload.doc.id;
+          return data;
+        })
+      }));
+  }
+  getAllSuperSectors() {
     return this.afs.collection('super-sectors')
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
@@ -283,7 +293,7 @@ export class FirebaseDataService {
         })
       }));
   }
-  getUserName(id:string){
+  getUserName(id: string) {
     return this.afs.collection('users', ref => ref
       .where('uid', '==', id))
       .snapshotChanges().pipe(map(actions => {
@@ -294,24 +304,24 @@ export class FirebaseDataService {
         })
       }));
   }
-  getSpecificGroup(groupID:string){
+  getSpecificGroup(groupID: string) {
     return this.groupCollection.doc(groupID)
       .snapshotChanges().pipe(map(actions => {
-          const data = actions.payload.data() as Group;
-          data.uid = actions.payload.id;
-          return data;
+        const data = actions.payload.data() as Group;
+        data.uid = actions.payload.id;
+        return data;
       }));
   }
 
-  getSpecificPost(uid:string){
+  getSpecificPost(uid: string) {
     return this.postsCollection.doc(uid)
       .snapshotChanges().pipe(map(actions => {
-          const data = actions.payload.data() as blogPost;
-          data.uid = actions.payload.id;
-          return data;
+        const data = actions.payload.data() as blogPost;
+        data.uid = actions.payload.id;
+        return data;
       }));
   }
-  getAllPostsInGroup(uid: string){
+  getAllPostsInGroup(uid: string) {
     return this.afs.collection('posts', ref => ref
       .orderBy('group')
       .startAt(uid)
@@ -327,7 +337,7 @@ export class FirebaseDataService {
 
 
 
-  getGroupsJoinedByMember(memberID: string){
+  getGroupsJoinedByMember(memberID: string) {
     return this.afs.collection('group-members', ref => ref
       .orderBy('uid')
       .startAt(memberID)
@@ -340,10 +350,10 @@ export class FirebaseDataService {
         })
       }));
   }
-  getGroupName(id:string){
+  getGroupName(id: string) {
     return this.groupCollection.doc(id).valueChanges();
   }
-  getSectorsInCommunity(communityID: string){
+  getSectorsInCommunity(communityID: string) {
     return this.afs.collection('sectors', ref => ref
       .orderBy('communityID')
       .startAt(communityID)
@@ -356,7 +366,7 @@ export class FirebaseDataService {
         })
       }));
   }
-  getSuperSectorsInCommunity(communityID: string){
+  getSuperSectorsInCommunity(communityID: string) {
     return this.afs.collection('super-sectors', ref => ref
       .orderBy('community')
       .startAt(communityID)
@@ -369,7 +379,7 @@ export class FirebaseDataService {
         })
       }));
   }
-  getSectorsInSuperSector(superID:string){
+  getSectorsInSuperSector(superID: string) {
     return this.afs.collection('sectors', ref => ref
       .orderBy('superSector')
       .startAt(superID)
@@ -383,7 +393,7 @@ export class FirebaseDataService {
       }));
   }
 
-  getGroupsInCommunity(communityID: string){
+  getGroupsInCommunity(communityID: string) {
     return this.afs.collection('groups', ref => ref
       .orderBy('community')
       .startAt(communityID)
@@ -397,7 +407,7 @@ export class FirebaseDataService {
       }));
   }
 
-  getGroupsInSector(secID: string){
+  getGroupsInSector(secID: string) {
     return this.afs.collection('groups', ref => ref
       .orderBy('sector')
       .startAt(secID)
@@ -411,7 +421,7 @@ export class FirebaseDataService {
       }));
   }
 
-  getMembersInGroup(groupID: string){
+  getMembersInGroup(groupID: string) {
     return this.afs.collection('group-members', ref => ref
       .orderBy('groupUID')
       .startAt(groupID)
@@ -439,7 +449,7 @@ export class FirebaseDataService {
       }));
   }
   dummyUser: User;
-  getSpecificItems(uid:string){
+  getSpecificItems(uid: string) {
     return this.afs.collection('groups', ref => ref
       .orderBy('community')
       .startAt(uid)
@@ -452,8 +462,8 @@ export class FirebaseDataService {
         })
       }));
   }
-  
-  getGroupMembers(groupUID:string){
+
+  getGroupMembers(groupUID: string) {
     return this.afs.collection('group-members', ref => ref
       .where('groupUID', '==', groupUID))
       .snapshotChanges().pipe(map(actions => {
@@ -464,7 +474,7 @@ export class FirebaseDataService {
         })
       }));
   }
-  getGroupEvents(groupUID:string){
+  getGroupEvents(groupUID: string) {
     return this.afs.collection('events', ref => ref
       .where('group', '==', groupUID))
       .snapshotChanges().pipe(map(actions => {
@@ -475,31 +485,31 @@ export class FirebaseDataService {
         })
       }));
   }
-  getGroupsLead(userID:string){
+  getGroupsLead(userID: string) {
     return this.afs.collection('groups', ref => ref
       .where('groupLead', '==', userID))
-      .snapshotChanges().pipe(map( actions => {
+      .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as Group;
           data.uid = a.payload.doc.id;
           return data;
-      })
+        })
       }));
   }
 
-  getEventsInAGroup(groupID:string){
+  getEventsInAGroup(groupID: string) {
     return this.afs.collection('events', ref => ref
       .where('group', '==', groupID))
-      .snapshotChanges().pipe(map( actions => {
+      .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
           const data = a.payload.doc.data() as EventItem;
           data.uid = a.payload.doc.id;
           return data;
-      })
+        })
       }));
   }
 
-  getAllEvents(){
+  getAllEvents() {
     return this.afs.collection('events')
       .snapshotChanges().pipe(map(actions => {
         return actions.map(a => {
@@ -516,11 +526,11 @@ export class FirebaseDataService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`); //user ref to update data
     userRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  updateAirRMS(airID: string, data){
+  updateAirRMS(airID: string, data) {
     const airRef: AngularFirestoreDocument<any> = this.afs.doc(`air-rms-space/${airID}`); //ref to update data
     airRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  updateSuperSector(superID: string, data){
+  updateSuperSector(superID: string, data) {
     const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`super-sectors/${superID}`); //super-sector ref to update data
     sectorRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
@@ -528,69 +538,69 @@ export class FirebaseDataService {
     const sectorRef: AngularFirestoreDocument<any> = this.afs.doc(`sectors/${sectorid}`); //sector ref to update data
     sectorRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  updateCommunity(communityuid:string, data) {
+  updateCommunity(communityuid: string, data) {
     const communityRef: AngularFirestoreDocument<any> = this.afs.doc(`communities/${communityuid}`); //community ref to update data
     communityRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  returnVal:boolean = false;
+  returnVal: boolean = false;
   updateGroup(groupID: string, data) {
     const groupRef: AngularFirestoreDocument<any> = this.afs.doc(`groups/${groupID}`); //group ref to update data
-    groupRef.set(data, { merge: true }).then(()=>this.returnVal = true).catch(() => this.returnVal= false);
+    groupRef.set(data, { merge: true }).then(() => this.returnVal = true).catch(() => this.returnVal = false);
     return this.returnVal;
   }
 
-  updateEvent(eventID:string, data){
+  updateEvent(eventID: string, data) {
     const eventRef: AngularFirestoreDocument<any> = this.afs.doc(`events/${eventID}`); //community ref to update data
     eventRef.set(data, { merge: true }).then().catch((error) => console.log(error));
   }
-  updatePost(post: blogPost){
+  updatePost(post: blogPost) {
     const postRef: AngularFirestoreDocument<any> = this.afs.doc(`posts/${post.uid}`);
     postRef.set(post, { merge: true }).then().catch((error) => console.log(error));
   }
 
   // Assign Roles
   makeAdmin(user: User) {
-    const data: User = {roles: {admin: true}};
-    this.updateUser(user,data);
+    const data: User = { roles: { admin: true } };
+    this.updateUser(user, data);
   }
 
   st: any;
   joinGroup(group: Group, user: GroupMember, userData: User) {
     if (group.members.find(function (obj) { return obj.userUID === userData.uid; })) { // check if user already joined group
       console.log("User Exists");
-      this.st = {success: false, fail: true, msg: "User already joined"};
+      this.st = { success: false, fail: true, msg: "User already joined" };
     } else {
       if (group.members.length < group.capacity) { // check if group has space for new members
         // push group UID to groups joined by user
-        if(userData.groupsJoined){
+        if (userData.groupsJoined) {
           userData.groupsJoined.push(group.uid); // push new group in user groups
-          this.updateUser(userData, {groupsJoined: userData.groupsJoined}); // use this new list to update user info
-        }else{
-          this.updateUser(userData, {groupsJoined: [group.uid]});
+          this.updateUser(userData, { groupsJoined: userData.groupsJoined }); // use this new list to update user info
+        } else {
+          this.updateUser(userData, { groupsJoined: [group.uid] });
         }
         // push group member to group member collection
-        this.groupMemberCollection.add(user).then((ref) =>{
-          this.st = {success: true, fail: false, msg: "Successfully joined"};
+        this.groupMemberCollection.add(user).then((ref) => {
+          this.st = { success: true, fail: false, msg: "Successfully joined" };
           // then push this new uid of member to group members array and update it
-          group.members.push({userUID:userData.uid,memberUID: ref.id});
-          this.groupCollection.doc(group.uid).set({ members: group.members }, {merge:true});
+          group.members.push({ userUID: userData.uid, memberUID: ref.id });
+          this.groupCollection.doc(group.uid).set({ members: group.members }, { merge: true });
           // set firestore backend rule to allow this write only when members are less than group capacity
-          
+
         }).catch(error => {
           console.log(error);
         })
       } else {
         console.log("Group Full")!
-        this.st = {success: false, fail: true, msg: "Group is full!"};
+        this.st = { success: false, fail: true, msg: "Group is full!" };
       }
     }
     //return this.st;
-    
+
   }
 
-  leaveGroup(){
+  leaveGroup() {
 
-    
+
   }
 
 
@@ -610,8 +620,8 @@ export class FirebaseDataService {
 
     this.groupCollection.doc(groupID).delete();
   }
-  deleteSuperSector(superID: string){
-    this.superSectorcollection.doc(superID).delete().then(()=>{console.log( "successful")}).catch(err => {console.error( err)});
+  deleteSuperSector(superID: string) {
+    this.superSectorcollection.doc(superID).delete().then(() => { console.log("successful") }).catch(err => { console.error(err) });
   }
   deleteSector(sectorID: string) {
     // remove sectorID from sectors in community
@@ -621,7 +631,7 @@ export class FirebaseDataService {
   }
   deleteCommunity(communityID: string) {
     // prompt admin to re-assign all groups, sectors assigned to this community
-    this.communityCollection.doc(communityID).delete().then(()=>{console.log( "successful")}).catch(err => {console.error( err)});
+    this.communityCollection.doc(communityID).delete().then(() => { console.log("successful") }).catch(err => { console.error(err) });
     /*.then(()=>{
       this.status.success = true;
       return this.status;
@@ -630,9 +640,9 @@ export class FirebaseDataService {
       return {success:false, fail:true, message:err};
     })*/
   }
-  deleteEvent(eventID: string){
+  deleteEvent(eventID: string) {
     // remove event ID from group events
-    
+
     this.eventCollection.doc(eventID).delete();
   }
 

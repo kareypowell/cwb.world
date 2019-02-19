@@ -36,7 +36,8 @@
             <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
               <div class="gap"></div>
               <mat-list *ngFor="let grp of groups | search:searchVal:'name' | search:sectorVal:'sector' | search: commVal:'community'">
-                <mat-list-item class="groupItemHover" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)"> {{grp?.name}} </mat-list-item>
+                <mat-list-item class="groupItemHover" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp)">
+                  {{grp?.name}} </mat-list-item>
                 <mat-divider></mat-divider>
               </mat-list>
             </mat-card>
@@ -59,7 +60,8 @@
                   </p>
                   <h2 class="smallhead">Times</h2>
                   <p *ngFor="let day of currentGroup?.meetingTimes">
-                    <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to {{day?.endTime['seconds']*1000
+                    <strong>{{day?.day}}</strong> from {{day?.startTime['seconds']*1000 | date: 'shortTime'}} to
+                    {{day?.endTime['seconds']*1000
                     | date: 'shortTime'}} {{day?.recurrence}}
                   </p>
                 </mat-tab>
@@ -71,7 +73,8 @@
             <a routerLink="./../../group/{{currentGroup?.uid}}" class="mr-3">
               <button mat-raised-button>Visit Group Page</button>
             </a>
-            <button *ngIf="showJoinButton" mat-button class="cwb-primary-button" (click)="joinGroup(currentGroup)">Join Group</button>
+            <button *ngIf="showJoinButton" mat-button class="cwb-primary-button" (click)="joinGroup(currentGroup)">Join
+              Group</button>
             <div class="gap"></div>
             <span class="smallhead mr-2">Share:</span>
             <i class="fab fa-facebook-f mr-2 shareIcon"></i>
@@ -86,7 +89,8 @@
             </mat-form-field>-->
             <mat-card class="scroll-container ps" [perfectScrollbar]="config">
               <mat-list *ngFor="let group of myGroups | search:searchValMyGroups:'name'" (click)="currentMyGroup = group">
-                <mat-list-item class="groupItemHover" [class.activeListItem]="currentMyGroup==group"> {{group?.name}} </mat-list-item>
+                <mat-list-item class="groupItemHover" [class.activeListItem]="currentMyGroup==group"> {{group?.name}}
+                </mat-list-item>
                 <div *ngIf="group == currentMyGroup">
                   <strong>Description</strong>
                   <br>

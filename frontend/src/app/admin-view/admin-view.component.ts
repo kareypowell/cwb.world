@@ -1,7 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { DataTransferService } from '../data-transfer.service';
-import { PerfectScrollbarConfigInterface,
-  PerfectScrollbarComponent, PerfectScrollbarDirective } from 'ngx-perfect-scrollbar';
+import {
+  PerfectScrollbarConfigInterface,
+  PerfectScrollbarComponent, PerfectScrollbarDirective
+} from 'ngx-perfect-scrollbar';
 import { MatDialog } from '@angular/material';
 import { DialogComponent } from '../dialog/dialog.component';
 import { Community, Sector, Group, User, EventItem, SuperSector } from '../interfaces/member';
@@ -24,7 +26,7 @@ import { UpdateSuperSectorComponent } from '../crud/update-super-sector/update-s
 export class AdminViewComponent implements OnInit, OnDestroy {
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
-  constructor(private data: DataTransferService, private dialog:MatDialog, private fbData: FirebaseDataService) { }
+  constructor(private data: DataTransferService, private dialog: MatDialog, private fbData: FirebaseDataService) { }
 
   showHiddenDeets: boolean = false;
   private communitySub;
@@ -34,11 +36,11 @@ export class AdminViewComponent implements OnInit, OnDestroy {
   public memberSub;
   private eventSub;
 
-  searchValComm:string = "";
+  searchValComm: string = "";
   searchValSupSec: string = ""
-  searchValSec:string = "";
-  searchValGrp:string = "";
-  searchValMem:string = "";
+  searchValSec: string = "";
+  searchValGrp: string = "";
+  searchValMem: string = "";
 
   public sectorsInComm;
   public groupsInComm;
@@ -63,52 +65,52 @@ export class AdminViewComponent implements OnInit, OnDestroy {
 
 
   ngOnInit() {
-    
-    this. communitySub = this.fbData.getAllCommunities().subscribe(data =>{
+
+    this.communitySub = this.fbData.getAllCommunities().subscribe(data => {
       this.communities = data;
       this.currentCommunity = this.communities[0];
       this.sectorsInComm = this.fbData.getSectorsInCommunity(this.currentCommunity.uid);
       this.groupsInComm = this.fbData.getGroupsInCommunity(this.currentCommunity.uid);
     });
-    this.superSectSub = this.fbData.getAllSuperSectors().subscribe( data => {
+    this.superSectSub = this.fbData.getAllSuperSectors().subscribe(data => {
       this.superSectors = data;
       this.currentSuperSector = this.superSectors[0];
     })
-    this. sectorSub = this.fbData.sectorsFromDB$.subscribe(data =>{
+    this.sectorSub = this.fbData.getAllSectors().subscribe(data => {
       this.sectors = data;
       this.currentSector = this.sectors[0];
       this.groupsInSec = this.fbData.getGroupsInSector(this.currentSector.uid);
     });
-    this. groupSub = this.fbData.groupsFromDB$.subscribe(data =>{
+    this.groupSub = this.fbData.getAllGroups().subscribe(data => {
       this.groups = data;
       this.currentGroup = this.groups[0];
       this.membersInGroup = this.fbData.getMembersInGroup(this.currentGroup.uid);
     });
-    this. memberSub = this.fbData.getAllUsers()
-    .subscribe(data =>{
-      this.members = data;
-      this.currentMember = this.members[0];
-      this.memberGroups = this.getGrpInfo();
-    });
+    this.memberSub = this.fbData.getAllUsers()
+      .subscribe(data => {
+        this.members = data;
+        this.currentMember = this.members[0];
+        this.memberGroups = this.getGrpInfo();
+      });
   }
   dataset = {};
 
   dialogWidth = '90%';
 
-  getSectorsForComm(commID:string){
+  getSectorsForComm(commID: string) {
     this.sectorsInComm = this.fbData.getSectorsInCommunity(commID);
   }
-  getGroupsForComm(commID:string){
+  getGroupsForComm(commID: string) {
     this.groupsInComm = this.fbData.getGroupsInCommunity(commID);
   }
-  getGroupsForSec(){
+  getGroupsForSec() {
     this.groupsInSec = this.fbData.getGroupsInSector(this.currentSector.uid);
   }
-  getMembersForGroup(){
+  getMembersForGroup() {
     this.membersInGroup = this.fbData.getMembersInGroup(this.currentGroup.uid);
   }
 
-  createCommunity(){
+  createCommunity() {
     this.dataset = {}
     let dialogRef = this.dialog.open(CreateCommunityComponent, {
       width: this.dialogWidth,
@@ -120,7 +122,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
   updateCommunity(commUID): void {
-    this.dataset = {uid: commUID}
+    this.dataset = { uid: commUID }
     let dialogRef = this.dialog.open(UpdateCommunityComponent, {
       width: this.dialogWidth,
       data: this.dataset
@@ -131,7 +133,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  createSuperSector(){
+  createSuperSector() {
     this.dataset = {}
     let dialogRef = this.dialog.open(CreateSuperSectorComponent, {
       width: this.dialogWidth,
@@ -143,8 +145,8 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  updateSuperSector(superSector){
-    this.dataset = {sect: superSector}
+  updateSuperSector(superSector) {
+    this.dataset = { sect: superSector }
     let dialogRef = this.dialog.open(UpdateSuperSectorComponent, {
       width: this.dialogWidth,
       data: this.dataset
@@ -154,7 +156,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-  createSector(){
+  createSector() {
     this.dataset = {}
     let dialogRef = this.dialog.open(CreateSectorComponent, {
       width: this.dialogWidth,
@@ -165,8 +167,8 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-  updateSector(sector){
-    this.dataset = {sect: sector}
+  updateSector(sector) {
+    this.dataset = { sect: sector }
     let dialogRef = this.dialog.open(UpdateSectorComponent, {
       width: this.dialogWidth,
       data: this.dataset
@@ -176,7 +178,7 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-  createGroup(){
+  createGroup() {
     this.dataset = {}
     let dialogRef = this.dialog.open(CreateGroupComponent, {
       width: this.dialogWidth,
@@ -187,8 +189,8 @@ export class AdminViewComponent implements OnInit, OnDestroy {
       //this.animal = result;
     });
   }
-  updateGroup(groupID){
-    this.dataset = {uid: groupID}
+  updateGroup(groupID) {
+    this.dataset = { uid: groupID }
     let dialogRef = this.dialog.open(UpdateGroupComponent, {
       width: this.dialogWidth,
       data: this.dataset
@@ -199,11 +201,11 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  createEvent(grp:Group){
+  createEvent(grp: Group) {
 
   }
-  updateEvent(eventID){
-    this.dataset = {uid: eventID}
+  updateEvent(eventID) {
+    this.dataset = { uid: eventID }
     let dialogRef = this.dialog.open(UpdateGroupComponent, {
       width: this.dialogWidth,
       data: this.dataset
@@ -214,13 +216,13 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  addMember(){
+  addMember() {
 
   }
-  updateMember(){
+  updateMember() {
 
   }
-  
+
   deleteItem(itemuid, collection): void {
     this.dataset = {
       uid: itemuid,
@@ -235,24 +237,24 @@ export class AdminViewComponent implements OnInit, OnDestroy {
     });
   }
 
-  getGrpInfo(){
-    this.memberGroups =  this.fbData.getGroupsJoinedByMember(this.currentMember.uid);
+  getGrpInfo() {
+    this.memberGroups = this.fbData.getGroupsJoinedByMember(this.currentMember.uid);
   }
-  getGroupName(id:string){
+  getGroupName(id: string) {
     return this.fbData.getGroupName(id);
   }
-  
-  
-  displayGroupInfo(grp){
+
+
+  displayGroupInfo(grp) {
     this.currentGroup = grp;
   }
-  
+
   ngOnDestroy(): void {
     this.communitySub.unsubscribe();
     this.sectorSub.unsubscribe();
     this.groupSub.unsubscribe();
     //this.memberSub.unsubscribe();
     //this.eventSub.unsubscribe()
-    
+
   }
 }

@@ -16,7 +16,19 @@
       <button mat-raised-button class="cwb-primary-button" (click)="startUpload()">Upload</button>
     </mat-tab>
     <mat-tab label="View all files">
+      <div class="gap"></div>
+      <ul *ngFor="let file of allFiles; let i = index" class="fileUl">
+        <li>
+          <i class="far fa-file mr-3 bighead"></i> {{file?.name}}
+          <a href="{{file?.url}}" target="blank"><i class="far fa-eye ml-3"></i></a>
+          <a href="{{file?.url}}" download="{{file?.url}}" target="blank"><i class="fas fa-download ml-3"></i></a>
+          <i class="fas fa-times ml-3 red" (click)="showWarning=true; activateWarnIndex = i" title="Delete file"></i>
+          <span class="ml-4" *ngIf="showWarning && activateWarnIndex == i">Are you sure? <button mat-raised-button
+              (click)="confirm(file.url,file.uid)" class="cwb-primary-button ml-3">Yes</button>
+            <button mat-raised-button (click)="cancel()" class="ml-3">Cancel</button></span>
+        </li>
 
+      </ul>
     </mat-tab>
 
   </mat-tab-group>

@@ -13,13 +13,17 @@ export class FirebaseUploadService {
 
   constructor(private afs: AngularFirestore) {
     this.uploadsCollection = this.afs.collection("uploads");
-   }
-
-  addFileToDB(file: Files){
-    this.uploadsCollection.add(file).then(()=>console.log("added file details to db")).catch(error => console.log(error))
   }
 
-  getFilesInGroup(groudId: string){
+  addFileToDB(file: Files) {
+    this.uploadsCollection.add(file).then(() => console.log("added file details to db")).catch(error => console.log(error))
+  }
+  removeFileFromDB(id: string) {
+    this.uploadsCollection.doc(id).delete().catch(error => console.log(error)
+    )
+  }
+
+  getFilesInGroup(groudId: string) {
     return this.afs.collection('uploads', ref => ref
       .where('groudId', '==', groudId))
       .snapshotChanges().pipe(map(actions => {
@@ -30,5 +34,5 @@ export class FirebaseUploadService {
         })
       }));
   }
-  
+
 }

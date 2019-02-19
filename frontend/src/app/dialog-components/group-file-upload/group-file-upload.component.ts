@@ -12,6 +12,7 @@ import { Files } from '../../interfaces/member';
   templateUrl: './group-file-upload.component.html',
   styleUrls: ['./group-file-upload.component.css']
 })
+
 export class GroupFileUploadComponent implements OnInit {
 
 
@@ -23,11 +24,15 @@ export class GroupFileUploadComponent implements OnInit {
   public config: PerfectScrollbarConfigInterface = {};
   selectedFiles: FileList;
   uploadedFile: Files = {};
+  allFiles: Files[];
 
   constructor(public dialogRef: MatDialogRef<GroupFileUploadComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any, private storage: AngularFireStorage, private fileStoreDB: FirebaseUploadService) { }
 
   ngOnInit() {
+    this.fileStoreDB.getFilesInGroup(this.data.groupId).subscribe(data => {
+      this.allFiles = data;
+    })
   }
 
 
@@ -59,22 +64,38 @@ export class GroupFileUploadComponent implements OnInit {
     task.snapshotChanges().pipe(
       finalize(() => {
         fileRef.getDownloadURL()
-        .subscribe(data => {
-          this.downloadURL = data;
-          this.uploadedFile.name = file.name;
-          this.uploadedFile.isPrivate = false;
-          this.uploadedFile.url = data;
-          this.uploadedFile.groudId = this.data.groupId;
-          this.uploadedFile.dateCreated = new Date();
-          this.fileStoreDB.addFileToDB(this.uploadedFile);
-        })
+          .subscribe(data => {
+            this.downloadURL = data;
+            this.uploadedFile.name = file.name;
+            this.uploadedFile.isPrivate = false;
+            this.uploadedFile.url = data;
+            this.uploadedFile.groudId = this.data.groupId;
+            this.uploadedFile.dateCreated = new Date();
+            this.fileStoreDB.addFileToDB(this.uploadedFile);
+          })
       })
     ).subscribe()
-    
+
   }
 
   // Determines if the upload task is active
   isActive(snapshot) {
     return snapshot.state === 'running' && snapshot.bytesTransferred < snapshot.totalBytes
+  }
+
+
+  activateWarnIndex: number;
+
+  deleteFile(url: string, id: string) {
+    this.storage.storage.refFromURL(url).delete().then(() => {
+      this.fileStoreDB.removeFileFromDB(id);
+    })
+  }
+  public showWarning: boolean = false;
+  confirm(url: string, id: string) {
+    this.deleteFile(url, id);
+  }
+  cancel() {
+    this.showWarning = false;
   }
 }

@@ -25,9 +25,11 @@ li,
 a {
   font-family: 'Montserrat', sans-serif !important;
 }
-gap50{
+
+gap50 {
   height: 50px;
 }
+
 mat-form-field.mat-form-field {
   font-size: 16px;
   padding: 0px !important;
@@ -265,54 +267,68 @@ a {
 .groupItemHover {
   width: 100% !important;
 }
-.half-width{
+
+.half-width {
   width: 49%;
 }
-.disp-Inline{
+
+.disp-Inline {
   display: inline;
 }
-.fw-300{
+
+.fw-300 {
   font-weight: 300;
   cursor: pointer;
 }
-.display-block{
+
+.display-block {
   display: block;
 }
-.padding-15{
+
+.padding-15 {
   padding: 15px;
 }
-.activeListItem{
+
+.activeListItem {
   background-color: #f39c12;
   color: #fff;
 }
-.linkToBBB img{
+
+.linkToBBB img {
   width: 50px;
   height: auto;
 }
-.linkToBBB{
+
+.linkToBBB {
   outline: none;
   border: 0px;
   cursor: pointer;
 }
-.even{
+
+.even {
   background-color: #efefef;
 }
-.no-matches{
+
+.no-matches {
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-.full-image{
+
+.full-image {
   width: 100%;
   height: auto;
 }
-.showPointer{
+
+.showPointer {
   cursor: pointer;
 }
+
 .line-breaker {
   white-space: pre-line;
 }
+
 .container {
   position: relative;
   font-family: Arial;
@@ -326,4 +342,8 @@ a {
   color: white;
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.red {
+  color: rgb(241, 46, 46);
 }

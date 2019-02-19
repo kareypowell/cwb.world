@@ -16,8 +16,8 @@ import { AuthService } from '../auth-service';
   styleUrls: ['./member-view.component.css']
 })
 export class MemberViewComponent implements OnInit, OnDestroy {
-  groupPaneWidth:number = 4;
-  eventPaneWidth:number = (12-this.groupPaneWidth);
+  groupPaneWidth: number = 4;
+  eventPaneWidth: number = (12 - this.groupPaneWidth);
 
   public config: PerfectScrollbarConfigInterface = {};
   todayDate = new Date();
@@ -29,15 +29,15 @@ export class MemberViewComponent implements OnInit, OnDestroy {
 
     let dialogRef = this.dialog.open(DialogComponent, {
       width: this.wid,
-      data: { }
+      data: {}
     });
 
     dialogRef.afterClosed().subscribe(result => {
       //console.log(result);
     });
   }
-  
-  joinGroup(grp){
+
+  joinGroup(grp) {
     let dialogRef = this.dialog.open(RequestToJoinGroupComponent, {
       width: '90%',
       data: { grp: grp }
@@ -49,8 +49,8 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   }
   currentCommunity: Community;
   currentSector: Sector;
-  currentGroup:Group;
-  groups:Group[];
+  currentGroup: Group;
+  groups: Group[] = [];
   myGroups: Group[];
   user: User;
   private sub4;
@@ -59,24 +59,25 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   currentMyGroup: Group;
 
   ngOnInit() {
-    this.sub = this.fbData.groupsFromDB$.subscribe(data => {this.groups = data;
+    this.sub = this.fbData.getAllGroups().subscribe(data => {
+      this.groups = data;
       this.currentGroup = this.groups[0];
       this.sub4 = this.auth.user$.subscribe(data => {
         this.user = data;
         const uid = this.user.uid;
         this.myGroups = [];
-        if(this.currentGroup.members.find(function (obj) { return obj.userUID == uid }) || this.currentGroup.members.length >= this.currentGroup.capacity){
+        if (this.currentGroup.members.find(function (obj) { return obj.userUID == uid }) || this.currentGroup.members.length >= this.currentGroup.capacity) {
           this.showJoinButton = false;
-        }else{
+        } else {
           this.showJoinButton = true;
         }
         // get groups I have joined
-        this.groups.forEach(group =>{
-          if(group.members.find(function (obj) { return obj.userUID == uid })){
+        this.groups.forEach(group => {
+          if (group.members.find(function (obj) { return obj.userUID == uid })) {
             this.myGroups.push(group);
           }
         });
-        if(this.myGroups.length > 0){
+        if (this.myGroups.length > 0) {
           this.currentMyGroup = this.myGroups[0];
         }
       });
@@ -89,11 +90,11 @@ export class MemberViewComponent implements OnInit, OnDestroy {
         this.currentSector = this.sectors[0];
       });
     });
-    
-    
+
+
   }
-  
-  getSectors(){
+
+  getSectors() {
     this.sub3.unsubscribe();
     this.sub3 = this.fbData.getSectorsInCommunity(this.currentCommunity.uid).subscribe(data => {
       this.sectors = data;
@@ -109,33 +110,34 @@ export class MemberViewComponent implements OnInit, OnDestroy {
   sectors: Sector[];
 
 
-  showJoinButton:boolean = true;
+  showJoinButton: boolean = true;
   displayGroupInfo(grp) {
     this.showJoinButton = false;
     const uid = this.user.uid;
-    if(grp.members.find(function (obj) { return obj.userUID == uid }) || this.currentGroup.members.length >= this.currentGroup.capacity){
+    if (grp.members.find(function (obj) { return obj.userUID == uid }) || this.currentGroup.members.length >= this.currentGroup.capacity) {
       this.showJoinButton = false;
-    }else{
+    } else {
       this.showJoinButton = true;
     }
     this.currentGroup = grp;
   }
-  showGroupSearch:boolean = true;
-  hideGroupSearch(){
+  showGroupSearch: boolean = true;
+  hideGroupSearch() {
     this.showGroupSearch = !this.showGroupSearch;
-    if(this.showGroupSearch){
-      this.eventPaneWidth = 12-this.groupPaneWidth;
-    }else{
+    if (this.showGroupSearch) {
+      this.eventPaneWidth = 12 - this.groupPaneWidth;
+    } else {
       this.eventPaneWidth = 12;
     }
   }
-  leaveGroup(){
+  leaveGroup() {
     alert("Unimplemented yet...");
   }
   private sub;
   private sub2;
   private sub3;
   ngOnDestroy(): void {
+    console.log("Destroyed member page");
     this.sub.unsubscribe();
     this.sub2.unsubscribe();
     this.sub3.unsubscribe();
