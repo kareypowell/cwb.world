@@ -1,8 +1,13 @@
-.buttonRight{
-    position: absolute;
-    right: 0px;
+.buttonRight {
+  position: absolute;
+  right: 0px;
 }
-.topItems{
-    position: relative;
-    height: 60px;
+
+.topItems {
+  position: relative;
+  height: 60px;
+}
+
+.hiddenDetails {
+  background-color: #dfe6e9;
 }

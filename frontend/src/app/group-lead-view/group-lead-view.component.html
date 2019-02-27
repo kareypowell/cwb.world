@@ -13,14 +13,14 @@
           </div>
           <div class="gap"></div>
           <mat-form-field class="full-width">
-              <input matInput type="text" name="filterSearch" placeholder="Search Groups" [(ngModel)]="filterSearch">
-            </mat-form-field>
+            <input matInput type="text" name="filterSearch" placeholder="Search Groups" [(ngModel)]="filterSearch">
+          </mat-form-field>
           <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
 
             <div class="gap"></div>
             <p *ngIf="(groups | search: filterSearch: 'name')?.length == 0" class="no-matches smallhead">No matches</p>
             <mat-list *ngFor="let grp of groups | search: filterSearch: 'name'">
-              <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp); getEvents()">
+              <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentGroup==grp" (click)="displayGroupInfo(grp); getEvents(); getMembersForGroup();">
                 {{grp?.name}}
                 <span class="editables">
                   <i class="far fa-edit" (click)="updateGroup(grp.uid)"></i>
@@ -91,7 +91,8 @@
               <mat-card class="groupCard scroll-container ps" [perfectScrollbar]="config">
                 <div class="gap"></div>
                 <mat-list *ngFor="let member of members | search:currentGroup?.uid:'groupUID'">
-                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==member" (click)="currentMember = member">
+                  <mat-list-item class="groupItemHover pl-2 pr-2" [class.activeListItem]="currentMember==member"
+                    (click)="currentMember = member; showHiddenDeets = !showHiddenDeets">
                     {{member?.firstName}} {{member?.lastName}}
                     <span class="editables">
                       <i class="far fa-edit"></i>
@@ -99,8 +100,13 @@
                     </span>
                   </mat-list-item>
                   <mat-divider></mat-divider>
+                  <div class="hiddenDetails padding-15" *ngIf="showHiddenDeets && currentMember == member">
+                    <strong>Email: </strong>{{member?.email}} <br>
+                    <strong>Date Joined: </strong>{{member?.dateJoined['seconds']*1000 | date }}
+                  </div>
                 </mat-list>
-                <h3 class="smallhead" *ngIf="(members | search:currentGroup?.uid:'groupUID').length == 0">No members in this group</h3>
+                <h3 class="smallhead" *ngIf="(members | search:currentGroup?.uid:'groupUID').length == 0">No members in
+                  this group</h3>
               </mat-card>
             </mat-tab>
             <mat-tab label="Payments">

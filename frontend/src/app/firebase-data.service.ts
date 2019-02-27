@@ -598,9 +598,14 @@ export class FirebaseDataService {
 
   }
 
-  leaveGroup() {
+  leaveGroup(memToDelete: any, user: User, group: Group, ) {
+    // remove group from user groups joined
+    this.updateUser(user, { groupsJoined: user.groupsJoined });
+    // remove group member doc
+    this.groupMemberCollection.doc(memToDelete.memberUID).delete().catch(error => console.log(error));
 
-
+    // remove user from group members
+    this.updateGroup(group.uid, { members: group.members });
   }
 
 

@@ -27,9 +27,9 @@ export interface User {
     files?: string[];
 }
 
-export interface signUps{
-    name?:string;
-    email?:string;
+export interface signUps {
+    name?: string;
+    email?: string;
 }
 export interface Roles {
     member?: boolean;
@@ -67,20 +67,20 @@ export interface Group {
     partnershipCode?: string;
     events?: string[];
     blogPosts?: string[];
-    homePage?:string;
+    homePage?: string;
 }
 
-export interface blogPost{
-    uid?:string; // hold post id
+export interface blogPost {
+    uid?: string; // hold post id
     title?: string;
-    title_url?:string;
+    title_url?: string;
     draft?: boolean;
-    thumbnailImg?:string;
-    excerpt?:string;
+    thumbnailImg?: string;
+    excerpt?: string;
     body?: string;
     datePublished?: Date;
     author?: string; // hold uid of author
-    group?:string; // hold uid of group
+    group?: string; // hold uid of group
 
 }
 
@@ -110,12 +110,13 @@ export interface GroupMember {
     firstName?: string;
     lastName?: string;
     photoURL?: string;
+    email?: string;
     attendance?: { event_uid: string, attended: boolean }[];
-    
+
     //paymant data
-    stripeCustomerID?:string;
-    token?:string;
-    status?:string;
+    stripeCustomerID?: string;
+    token?: string;
+    status?: string;
 }
 export interface LinkedAccounts {
     email?: boolean;
@@ -141,26 +142,26 @@ export interface Community {
     files?: string[];
 }
 export interface Files {
-    uid?:string;
+    uid?: string;
     name?: string;
     isPrivate?: boolean;
-    url?:string; // url to file
-    groudId?:string; // hold uid to group file belongs to
+    url?: string; // url to file
+    groudId?: string; // hold uid to group file belongs to
     dateCreated?: Date;
 }
-export interface SuperSector{
-    uid?:string;
+export interface SuperSector {
+    uid?: string;
     name?: string;
-    nameToLower?:string;
-    imageURL?:string;
-    community?:string;
-    description?:string;
+    nameToLower?: string;
+    imageURL?: string;
+    community?: string;
+    description?: string;
     dateCreated?: Date;
-    whatToExpect?:string;
-    createdBy?:string;
-    files?:string[];
-    images?:string[];
-    videos?:string[];
+    whatToExpect?: string;
+    createdBy?: string;
+    files?: string[];
+    images?: string[];
+    videos?: string[];
 }
 export interface Sector {
     uid?: string;
@@ -169,10 +170,10 @@ export interface Sector {
     description?: string;
     bio?: string;
     whatToExpect?: string;
-    sectorImage?:string;
+    sectorImage?: string;
     community?: string; // community name
-    communityID?:string;
-    superSector?:string;
+    communityID?: string;
+    superSector?: string;
     sectorLead?: string; // hold uid of sector lead(s)
     imageUrl?: string;
     files?: string[];
@@ -204,19 +205,19 @@ export interface EventItem {
     additionalInfo?: string;
     startDate?: Date; // date and time of event start
     timeZone?: string; //time zone
-    prerequisiteRequired?:boolean;
-    prereqs?:string[];
-    sessionChoice?:boolean;
-    sessions?:eventSession[];
+    prerequisiteRequired?: boolean;
+    prereqs?: string[];
+    sessionChoice?: boolean;
+    sessions?: eventSession[];
     endDate?: Date;// end time
     eventOnline?: boolean;
-    liveEventUrl?:string;
+    liveEventUrl?: string;
     eventPhysical?: boolean;
     eventVenue?: string; // if not physical, give venue
     isRecurrent?: boolean; // if one time or recurrent
     recurrence?: string; // if recurrent, set recurrence
-    durationNumber?:number; //1, 2, 10, etc => hold the count for duration and duration holds the term, month, year, weeks etc
-    durationTerm?:string; //weeks, one month, 10 weeks, etc
+    durationNumber?: number; //1, 2, 10, etc => hold the count for duration and duration holds the term, month, year, weeks etc
+    durationTerm?: string; //weeks, one month, 10 weeks, etc
     eventCapacity?: number; // if open to all users
     startWithoutHost?: boolean;
     paidEvent?: boolean;
@@ -226,33 +227,33 @@ export interface EventItem {
     files?: string[];
 }
 
-export interface eventSession{
-    name?:string;
-    capacity?:number;
-    description?:string;
-    price?:number;
-    required?:boolean;
-    locationSameAsMainEvent?:boolean;
-    locationOnline?:boolean;
-    physicalLocation?:boolean;
-    physicalLocationAddress?:boolean;
+export interface eventSession {
+    name?: string;
+    capacity?: number;
+    description?: string;
+    price?: number;
+    required?: boolean;
+    locationSameAsMainEvent?: boolean;
+    locationOnline?: boolean;
+    physicalLocation?: boolean;
+    physicalLocationAddress?: boolean;
     startDate?: Date;
-    endDate?:Date;
-    timeZone?:string;
+    endDate?: Date;
+    timeZone?: string;
 
 }
 
-export interface AirRMS{
-    uid?:string;
-    name?:string;
-    spaceType?:string;
-    description?:string;
-    capacity?:number;
-    eventsHosted?:number;
-    owner?:string; // hold uid of owner who can then request to host event with this space
+export interface AirRMS {
+    uid?: string;
+    name?: string;
+    spaceType?: string;
+    description?: string;
+    capacity?: number;
+    eventsHosted?: number;
+    owner?: string; // hold uid of owner who can then request to host event with this space
     pricePerHour?: number;
     pricePerDay?: number;
-    pricePerWeek?:number;
-    pricePerMonth?:number;
+    pricePerWeek?: number;
+    pricePerMonth?: number;
     eventsBooked?: string[]; //hold uids of events booked to take place in this space
 }

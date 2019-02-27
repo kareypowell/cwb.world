@@ -21,9 +21,10 @@
   color: #fff;
   text-align: center;
 }
-.content h1{
-    font-size: 58px;
-    
+
+.content h1 {
+  font-size: 58px;
+
 }
 
 .layer {
@@ -41,63 +42,78 @@
   /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   opacity: 0.5;
 }
-.body-content{
-    position: relative;
-    top: -76px;
-    z-index: 40;
-    background-color: #fff;
-    border-radius: 3px;
-    min-height: 100%;
-    height: auto;
+
+.body-content {
+  position: relative;
+  top: -76px;
+  z-index: 40;
+  background-color: #fff;
+  border-radius: 3px;
+  min-height: 100%;
+  height: auto;
 }
-.tabContent{
-  padding: 20px !important;
+
+.right-pane {
+  border-left: 2px groove #f2f2f2;
+  ;
+  padding: 20px;
+  min-height: 100vh;
+  height: auto;
 }
-.right-pane{
-    border-left: 2px groove #f2f2f2;;
-    padding: 20px;
-    min-height: 100vh;
-    height: auto;
+
+.padd-5 {
+  padding: 5px;
 }
-.padd-5{
-    padding: 5px;
-}
-.bannerContent{
+
+.bannerContent {
   position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
-.groupLogo{
-  width: 80px!important;
+
+.groupLogo {
+  width: 80px !important;
   height: 80px !important;
   border: 2px solid #fff;
 }
-.memberCount{
+
+.memberCount {
   display: grid;
   grid-template-columns: 50% 50%;
   margin-bottom: 20px;
 }
-.view-all{
+
+.view-all {
   color: #2980b9;
 }
-.memberThumbImg{
+
+.memberThumbImg {
   width: 30px;
   height: auto;
 }
-.thumbnails{
+
+.thumbnails {
   list-style: none;
   padding: 0px !important;
 }
 
-.thumbnails li{
+.thumbnails li {
   padding: 5px;
   display: inline;
 }
-.eventUL{
+
+.eventUL {
   list-style: none;
   padding: 0px;
 }
-.eventTimeSpan{
+
+.eventTimeSpan {
   float: right;
+}
+
+@media (max-width: 990px) {
+  .mainTab {
+    padding: 3px !important;
+  }
 }

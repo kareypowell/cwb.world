@@ -13,13 +13,17 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <script src="https://checkout.stripe.com/checkout.js"></script>
 </head>
 
 <body style="overflow-x: hidden">
   <app-root>
-    <img src="assets/images/preloader.gif" alt="Loading..." style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">
+    <div class="spinnerWrapper">
+      <div class="spinner">
+        <div class="dot1"></div>
+        <div class="dot2"></div>
+      </div>
+    </div>
+
   </app-root>
 </body>
 

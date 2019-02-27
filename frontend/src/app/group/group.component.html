@@ -6,7 +6,7 @@
   <div class="content">
     <div class="bannerContent">
       <img src="../../assets/images/education.jpg" class="groupLogo rounded-circle">
-      <h1>{{group?.name}}</h1>
+      <h3>{{group?.name}}</h3>
     </div>
 
   </div>
@@ -14,7 +14,7 @@
 <div class="body-wrapper grey-bg">
   <div class="body-content">
     <div class="row">
-      <div class="col-md-8 mainTab">
+      <div class="col-lg-8 mainTab">
         <nav mat-tab-nav-bar>
           <a mat-tab-link *ngFor="let link of navLinks; let i = index" [routerLink]="link.path" (click)="activeLink = i"
             [active]="activeLink == i">
@@ -24,7 +24,7 @@
 
         <router-outlet></router-outlet>
       </div>
-      <div class="col-md-4 right-pane">
+      <div class="col-lg-4 right-pane">
         <div class="memberCount">
           <!-- <button mat-raised-button class="cwb-primary-button full-width" (click)="openHandler()">Subscribe</button> -->
           <div>

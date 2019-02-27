@@ -28,6 +28,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
   filterSearch: string = "";
   searchVal = "";
 
+  showHiddenDeets: boolean = false;
   private groupSub;
   private memberSub;
   private eventSub;
@@ -64,16 +65,13 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
             this.currentEvent = this.events[0];
           }
         });
-      });
-
-
-
-      // sub for members in user's groups
-      this.memberSub = this.fbData.groupMembersFromDB$.subscribe(data => {
-        this.members = data;
-        if (data.length != 0) {
-          this.currentMember = this.members[0];
-        }
+        // sub for members in user's groups
+        this.memberSub = this.fbData.getMembersInGroup(this.currentGroup.uid).subscribe(data => {
+          this.members = data;
+          if (data.length != 0) {
+            this.currentMember = this.members[0];
+          }
+        });
       });
 
     });
@@ -82,7 +80,7 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
     this.currentGroup = grp;
   }
 
-  getEvents(){
+  getEvents() {
     this.eventSub.unsubscribe();
     this.eventSub = this.fbData.getEventsInAGroup(this.currentGroup.uid).subscribe(data => {
       this.events = data;
@@ -90,6 +88,12 @@ export class GroupLeadViewComponent implements OnInit, OnDestroy {
         this.currentEvent = this.events[0];
       }
     });
+  }
+  getMembersForGroup() {
+    this.memberSub.unsubscribe();
+    this.memberSub = this.fbData.getMembersInGroup(this.currentGroup.uid).subscribe(data => {
+      this.members = data;
+    })
   }
 
   createGroup() {

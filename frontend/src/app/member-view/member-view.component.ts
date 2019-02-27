@@ -130,8 +130,18 @@ export class MemberViewComponent implements OnInit, OnDestroy {
       this.eventPaneWidth = 12;
     }
   }
+
+  memberToDelete: any;
   leaveGroup() {
-    alert("Unimplemented yet...");
+    this.currentMyGroup.members.forEach(mem => {
+      if (mem.userUID == this.user.uid) {
+        this.memberToDelete = mem;
+      }
+    })
+    this.currentMyGroup.members.splice(this.currentMyGroup.members.indexOf(this.memberToDelete), 1);
+    this.user.groupsJoined.splice(this.user.groupsJoined.indexOf(this.currentMyGroup.uid));
+    this.fbData.leaveGroup(this.memberToDelete, this.user, this.currentMyGroup);
+    this.showJoinButton = true;
   }
   private sub;
   private sub2;
