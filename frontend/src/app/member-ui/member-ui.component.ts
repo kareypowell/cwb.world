@@ -5,6 +5,7 @@ import { AuthService } from '../auth-service';
 import { User } from '../interfaces/member';
 import { Router } from '@angular/router';
 import { DialogComponent } from './../dialog/dialog.component';
+import { NotificationService } from '../services/notification.service';
 
 @Component({
   selector: 'app-member-ui',
@@ -13,8 +14,12 @@ import { DialogComponent } from './../dialog/dialog.component';
 })
 export class MemberUiComponent implements OnInit {
   user: User;
-  
-  constructor(public dialog: MatDialog, private data: DataTransferService, public auth: AuthService, private route: Router) {}
+
+  constructor(public dialog: MatDialog, 
+              private data: DataTransferService, 
+              public auth: AuthService, 
+              private route: Router, 
+              private notificationService: NotificationService) { }
 
   ngOnInit() {
     this.auth.user$.subscribe(user => this.user = user);

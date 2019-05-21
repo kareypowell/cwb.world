@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule, Http } from '@angular/http';
 import { ApiLinkService } from './api-link.service';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DataTransferService } from './data-transfer.service';
 import { AppRoutingModule } from './app-routing.module';
@@ -102,6 +103,7 @@ import { GroupFileUploadComponent } from './dialog-components/group-file-upload/
 import { NgAddToCalendarModule } from '@trademe/ng-add-to-calendar';
 import { CountdownComponent } from './countdown/countdown.component';
 import { CountdownModule } from 'ngx-countdown';
+import { NotificationService } from './services/notification.service';
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -203,7 +205,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     OwlNativeDateTimeModule,
     QuillModule,
     NgAddToCalendarModule,
-    CountdownModule
+    CountdownModule,
+    HttpClientModule
   ],
   entryComponents:
     [ DialogComponent, UpdateCommunityComponent, UpdateEventComponent, UpdateGroupComponent, UpdateSectorComponent,
@@ -216,7 +219,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     SectorLeadGuard, {
       provide: PERFECT_SCROLLBAR_CONFIG,
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
-    }],
+    }, NotificationService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

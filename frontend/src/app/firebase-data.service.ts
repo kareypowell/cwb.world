@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS, blogPost, signUps } from './interfaces/member';
+import { NotificationService } from './services/notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -55,7 +56,7 @@ export class FirebaseDataService {
 
 
 
-  constructor(public afs: AngularFirestore, private router: Router) {
+  constructor(public afs: AngularFirestore, private router: Router, private notify: NotificationService) {
     this.groupCollection = this.afs.collection('groups');
     this.communityCollection = this.afs.collection('communities');
     this.superSectorcollection = this.afs.collection('super-sectors');

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import * as firebase from 'firebase';
 import { AuthService } from './auth-service';
 import { Router, NavigationEnd } from '@angular/router';
+import { NotificationService } from './services/notification.service';
+
 
 @Component({
   selector: 'app-root',
@@ -9,9 +11,10 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  constructor(private auth: AuthService, private router: Router) { }
   title = 'app';
 
+  constructor(private auth: AuthService, private router: Router, private notify: NotificationService) { }
+  
   private subs;
 
   ngOnInit() {
@@ -21,5 +24,9 @@ export class AppComponent implements OnInit {
       }
       window.scrollTo(0, 0);
     });
+
+    /* this.notify.pong().subscribe((res) => {
+      console.log(res);
+    }); */
   }
 }

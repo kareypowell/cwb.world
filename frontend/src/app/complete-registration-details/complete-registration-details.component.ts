@@ -47,7 +47,9 @@ export class CompleteRegistrationDetailsComponent implements OnInit {
       city: this.secondFormGroup.value.city,
       zipCode: this.secondFormGroup.value.zipCode
     }
+    
     this.auth.completeRegistration(this.user,data);
+
     console.log(this.firstFormGroup.value,this.secondFormGroup.value);
   }
 }

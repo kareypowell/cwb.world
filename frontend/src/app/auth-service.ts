@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { User } from './interfaces/member';
 import { Location } from '../../node_modules/@angular/common';
 import { DataTransferService } from './data-transfer.service';
+import { NotificationService } from './services/notification.service';
 
 
 
@@ -21,7 +22,8 @@ export class AuthService {
     public afAuth: AngularFireAuth,
     private router: Router,
     public afs: AngularFirestore,
-  private _location: Location) {
+    private _location: Location,
+    private notify: NotificationService) {
     this.user$ = afAuth.authState.pipe(
       switchMap(user => {
         if (user) {
@@ -46,6 +48,7 @@ export class AuthService {
         profilePublic: true,
         photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
       }
+
       return userRef.set(data, { merge: true });
     } else {
       const dataf: User = {
@@ -57,6 +60,7 @@ export class AuthService {
         },
         photoURL: user.photoURL || 'https://goo.gl/Fz9nrQ',
       }
+
       return userRef.set(dataf, { merge: true });
     }
   }
@@ -66,6 +70,9 @@ export class AuthService {
     const userRef: AngularFirestoreDocument<any> = this.afs.doc(`users/${user.uid}`);
     userRef.set(data, { merge: true });
     this.router.navigate(['/member-ui']);
+
+    // send welcome email to first-time users.
+    this.notify.signUp(data.firstName, user.email).subscribe((res) => {});
   }
   updateFeedback: boolean = true;
   updateUserInfo(user: User, data) {
