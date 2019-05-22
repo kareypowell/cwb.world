@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { User } from 'firebase';
 
 @Injectable({
   providedIn: "root"
@@ -24,6 +25,7 @@ export class NotificationService {
     return this.httpClient.post(`${this.apiTestURL}/test`, { users: users });
   }
 
+  // send new user sign up email
   public signUp(name: string, email: string) {
     return this.httpClient.post(`${this.apiLiveURL}/sign-up`, {
       name: name,
@@ -31,6 +33,7 @@ export class NotificationService {
     });
   }
 
+  // send new group member email to group lead.
   public newGroupMember(name: string, email: string, groupName: string) {
     return this.httpClient.post(`${this.apiLiveURL}/new-member`, {
       name: name,

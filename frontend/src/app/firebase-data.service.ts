@@ -587,6 +587,13 @@ export class FirebaseDataService {
           this.groupCollection.doc(group.uid).set({ members: group.members }, { merge: true });
           // set firestore backend rule to allow this write only when members are less than group capacity
 
+          // send welcome email to group lead.
+          this.getUserName(group.groupLead).subscribe((data) => {
+            if (data.length > 0) {
+              this.notify.newGroupMember(userData.firstName, data[0].email, group.name).subscribe((res) => {});
+            }
+          });
+
         }).catch(error => {
           console.log(error);
         })
