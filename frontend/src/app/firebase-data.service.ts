@@ -3,7 +3,7 @@ import { AngularFirestore, AngularFirestoreDocument, AngularFirestoreCollection 
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS, blogPost, signUps } from './interfaces/member';
+import { User, Community, Sector, Group, GroupMember, EventItem, SuperSector, AirRMS, blogPost, signUps, EventObj, EventParticipant } from './interfaces/member';
 import { NotificationService } from './services/notification.service';
 
 @Injectable({
@@ -294,6 +294,7 @@ export class FirebaseDataService {
         })
       }));
   }
+  
   getUserName(id: string) {
     return this.afs.collection('users', ref => ref
       .where('uid', '==', id))
@@ -309,6 +310,15 @@ export class FirebaseDataService {
     return this.groupCollection.doc(groupID)
       .snapshotChanges().pipe(map(actions => {
         const data = actions.payload.data() as Group;
+        data.uid = actions.payload.id;
+        return data;
+      }));
+  }
+
+  getSpecificEvent(id: string) {
+    return this.eventCollection.doc(id)
+      .snapshotChanges().pipe(map(actions => {
+        const data = actions.payload.data() as EventItem;
         data.uid = actions.payload.id;
         return data;
       }));
@@ -565,6 +575,47 @@ export class FirebaseDataService {
     this.updateUser(user, data);
   }
 
+  // 
+  joinEvent(event: EventItem, subscriber: EventParticipant, eventSubscribed: EventObj, userData: User) {
+    
+    if (event.participants) {
+      if (event.participants.find(function (obj) { return obj.memberID === userData.uid; })) { // check if user already joined event
+        console.log("Already subscribed!");
+      } else {
+        if (event.participants.length < event.eventCapacity) { // check if event has space for new members
+          // push event UID to events joined by user
+          if (userData.eventsSubscribed) {
+            userData.eventsSubscribed.push(eventSubscribed); // push new event in user events
+            this.updateUser(userData, { eventsSubscribed: userData.eventsSubscribed }); // use this new list to update user info
+          } else {
+            this.updateUser(userData, { eventsSubscribed: [eventSubscribed] });
+          }
+
+          // update
+          event.participants.push(subscriber);
+          this.eventCollection.doc(event.uid).set({ participants: event.participants }, { merge: true });
+
+          this.notify.eventRegistrationEmail(userData.firstName, event.name, event.startDate, event.endDate, userData.email, event.liveEventUrl, event.description).subscribe((res) => { });
+        } else {
+          console.log("Event Full")!
+        }
+      }
+    } else {
+      // console.log("Event has no participants");
+      this.updateEvent(event.uid, { participants: [subscriber]});
+
+      if (userData.eventsSubscribed) {
+        userData.eventsSubscribed.push(eventSubscribed); // push new event in user events
+        this.updateUser(userData, { eventsSubscribed: userData.eventsSubscribed }); // use this new list to update user info
+      } else {
+        this.updateUser(userData, { eventsSubscribed: [eventSubscribed] });
+      }
+
+      this.notify.eventRegistrationEmail(userData.firstName, event.name, event.startDate, event.endDate, userData.email, event.liveEventUrl, event.description).subscribe((res) => { });
+    }
+
+  }
+
   st: any;
   joinGroup(group: Group, user: GroupMember, userData: User) {
     if (group.members.find(function (obj) { return obj.userUID === userData.uid; })) { // check if user already joined group
@@ -587,10 +638,11 @@ export class FirebaseDataService {
           this.groupCollection.doc(group.uid).set({ members: group.members }, { merge: true });
           // set firestore backend rule to allow this write only when members are less than group capacity
 
-          // send welcome email to group lead.
+          // send welcome email to group lead and user.
           this.getUserName(group.groupLead).subscribe((data) => {
             if (data.length > 0) {
               this.notify.newGroupMember(userData.firstName, data[0].email, group.name).subscribe((res) => {});
+              this.notify.userJoinedGroup(userData.firstName, userData.email, group.name).subscribe((res) => {});
             }
           });
 

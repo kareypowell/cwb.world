@@ -66,6 +66,7 @@ export class CalendarComponent implements OnInit, OnDestroy {
   events: CalendarEvent[] = [];
   singleEvent: CalendarEvent;
   activeDayIsOpen: boolean = true;
+  dialogRef: any;
 
   constructor(private modal: NgbModal, private fbData: FirebaseDataService, private _auth: AuthService) { }
   private subEvents;
@@ -89,133 +90,135 @@ export class CalendarComponent implements OnInit, OnDestroy {
     });
     this.refresh.next();
   }
+
   colorChosen: any;
   user: User;
   private userSub;
+
   ngOnInit(): void {
     this.userSub = this._auth.user$.subscribe(data => {
       this.user = data;
-      // after getting user's groups, sub to all events
-      this.subEvents = this.fbData.eventCollection.valueChanges().subscribe(data => {
-        this.eventsFromDB = data;
-        this.events = []; // flush calendar
-        this.eventsFromDB.forEach(event => {
-          if (this.user.groupsJoined) {
-            if (this.user.groupsJoined.indexOf(event.group) > -1) { // check if event's group is part of user's groups joined
-              // set appropriate color code for event based on event time
 
-              if (event.eventType === 'single') {
-                if (new Date(event.endDate['seconds'] * 1000) < new Date()) {
-                  this.colorChosen = colors.red; // event has passed;
-                } else if (new Date(event.endDate['seconds'] * 1000) > new Date() && new Date(event.startDate['seconds'] * 1000) < new Date()) {
-                  this.colorChosen = colors.yellow; // event is in progress
-                } else if (new Date(event.startDate['seconds'] * 1000) > new Date()) {
-                  this.colorChosen = colors.green; // event is in the future
-                }
-                this.singleEvent = {
-                  'start': new Date(event.startDate['seconds'] * 1000),
-                  'end': new Date(event.endDate['seconds'] * 1000),
-                  'title': event.name,
-                  'color': this.colorChosen,
-                  'meta': event
-                };
-                this.addEvent(this.singleEvent);
-              } else if (event.eventType === 'recurring') {
-                const durationNum = event.durationNumber;
-                const durationTerm = event.durationTerm;
-                // loop number of recurrence
-                if (durationTerm === 'week') {
-                  if (event.recurrence === 'weekly') {
-                    for (let index = 0; index < durationNum; index++) {
-                      this.startDT = new Date(event.startDate['seconds'] * 1000);
-                      this.startDT.setDate(this.startDT.getDate() + index * 7);
-                      this.endDT = new Date(event.endDate['seconds'] * 1000);
-                      this.endDT.setDate(this.endDT.getDate() + index * 7);
-
-                      // set colors
-                      if (this.startDT < new Date()) {
-                        this.colorChosen = colors.red; // event has passed;
-                      } else if (this.endDT > new Date() && this.startDT < new Date()) {
-                        this.colorChosen = colors.yellow; // event is in progress
-                      } else if (this.startDT > new Date()) {
-                        this.colorChosen = colors.green; // event is in the future
-                      }
-                      // set event params
-                      this.singleEvent = {
-                        'start': this.startDT,
-                        'end': this.endDT,
-                        'title': event.name,
-                        'color': this.colorChosen,
-                        'meta': event
-                      };
-                      this.addEvent(this.singleEvent);
-
-                    }
-                  }
-                } else if (durationTerm === 'month') {
-                  for (let index = 0; index < durationNum; index++) {
-                    this.startDT = new Date(event.startDate['seconds'] * 1000);
-                    this.startDT.setMonth(this.startDT.getMonth() + index);
-                    this.endDT = new Date(event.endDate['seconds'] * 1000);
-                    this.endDT.setMonth(this.endDT.getMonth() + index);
-
-                    // set colors
-                    if (this.startDT < new Date()) {
-                      this.colorChosen = colors.red; // event has passed;
-                    } else if (this.endDT > new Date() && this.startDT < new Date()) {
-                      this.colorChosen = colors.yellow; // event is in progress
-                    } else if (this.startDT > new Date()) {
-                      this.colorChosen = colors.green; // event is in the future
-                    }
-                    // set event params
-                    this.singleEvent = {
-                      'start': this.startDT,
-                      'end': this.endDT,
-                      'title': event.name,
-                      'color': this.colorChosen,
-                      'meta': event
-                    };
-                    this.addEvent(this.singleEvent);
-
-                  }
-                } else if (durationTerm === 'year') {
-                  for (let index = 0; index < durationNum; index++) {
-                    this.startDT = new Date(event.startDate['seconds'] * 1000);
-                    this.startDT.setFullYear(this.startDT.getFullYear() + index);
-                    this.endDT = new Date(event.endDate['seconds'] * 1000);
-                    this.endDT.setFullYear(this.endDT.getFullYear() + index);
-
-                    // set colors
-                    if (this.startDT < new Date()) {
-                      this.colorChosen = colors.red; // event has passed;
-                    } else if (this.endDT > new Date() && this.startDT < new Date()) {
-                      this.colorChosen = colors.yellow; // event is in progress
-                    } else if (this.startDT > new Date()) {
-                      this.colorChosen = colors.green; // event is in the future
-                    }
-                    // set event params
-                    this.singleEvent = {
-                      'start': this.startDT,
-                      'end': this.endDT,
-                      'title': event.name,
-                      'color': this.colorChosen,
-                      'meta': event
-                    };
-                    this.addEvent(this.singleEvent);
-
-                  }
-                }
-
+      // console.log(this.user.eventsSubscribed);
+      
+      if (this.user.eventsSubscribed) {
+        this.user.eventsSubscribed.forEach(item => { 
+          // console.log('Item ID: ' + item.uid);
+          this.fbData.getSpecificEvent(item.uid).subscribe(event => {
+            // console.log(data);
+            // eventsList.push(data);
+            if (event.eventType === 'single') {
+              if (new Date(event.endDate['seconds'] * 1000) < new Date()) {
+                this.colorChosen = colors.red; // event has passed;
+              } else if (new Date(event.endDate['seconds'] * 1000) > new Date() && new Date(event.startDate['seconds'] * 1000) < new Date()) {
+                this.colorChosen = colors.yellow; // event is in progress
+              } else if (new Date(event.startDate['seconds'] * 1000) > new Date()) {
+                this.colorChosen = colors.green; // event is in the future
               }
+
+              this.singleEvent = {
+                'start': new Date(event.startDate['seconds'] * 1000),
+                'end': new Date(event.endDate['seconds'] * 1000),
+                'title': event.name,
+                'color': this.colorChosen,
+                'meta': event
+              };
+              this.addEvent(this.singleEvent);
+            } else if (event.eventType === 'recurring') {
+              const durationNum = event.durationNumber;
+              const durationTerm = event.durationTerm;
+              // loop number of recurrence
+              if (durationTerm === 'week') {
+                if (event.recurrence === 'weekly') {
+                  for (let index = 0; index < durationNum; index++) {
+                    this.startDT = new Date(event.startDate['seconds'] * 1000);
+                    this.startDT.setDate(this.startDT.getDate() + index * 7);
+                    this.endDT = new Date(event.endDate['seconds'] * 1000);
+                    this.endDT.setDate(this.endDT.getDate() + index * 7);
+
+                    // set colors
+                    if (this.startDT < new Date()) {
+                      this.colorChosen = colors.red; // event has passed;
+                    } else if (this.endDT > new Date() && this.startDT < new Date()) {
+                      this.colorChosen = colors.yellow; // event is in progress
+                    } else if (this.startDT > new Date()) {
+                      this.colorChosen = colors.green; // event is in the future
+                    }
+                    // set event params
+                    this.singleEvent = {
+                      'start': this.startDT,
+                      'end': this.endDT,
+                      'title': event.name,
+                      'color': this.colorChosen,
+                      'meta': event
+                    };
+                    this.addEvent(this.singleEvent);
+
+                  }
+                }
+              } else if (durationTerm === 'month') {
+                for (let index = 0; index < durationNum; index++) {
+                  this.startDT = new Date(event.startDate['seconds'] * 1000);
+                  this.startDT.setMonth(this.startDT.getMonth() + index);
+                  this.endDT = new Date(event.endDate['seconds'] * 1000);
+                  this.endDT.setMonth(this.endDT.getMonth() + index);
+
+                  // set colors
+                  if (this.startDT < new Date()) {
+                    this.colorChosen = colors.red; // event has passed;
+                  } else if (this.endDT > new Date() && this.startDT < new Date()) {
+                    this.colorChosen = colors.yellow; // event is in progress
+                  } else if (this.startDT > new Date()) {
+                    this.colorChosen = colors.green; // event is in the future
+                  }
+                  // set event params
+                  this.singleEvent = {
+                    'start': this.startDT,
+                    'end': this.endDT,
+                    'title': event.name,
+                    'color': this.colorChosen,
+                    'meta': event
+                  };
+                  this.addEvent(this.singleEvent);
+
+                }
+              } else if (durationTerm === 'year') {
+                for (let index = 0; index < durationNum; index++) {
+                  this.startDT = new Date(event.startDate['seconds'] * 1000);
+                  this.startDT.setFullYear(this.startDT.getFullYear() + index);
+                  this.endDT = new Date(event.endDate['seconds'] * 1000);
+                  this.endDT.setFullYear(this.endDT.getFullYear() + index);
+
+                  // set colors
+                  if (this.startDT < new Date()) {
+                    this.colorChosen = colors.red; // event has passed;
+                  } else if (this.endDT > new Date() && this.startDT < new Date()) {
+                    this.colorChosen = colors.yellow; // event is in progress
+                  } else if (this.startDT > new Date()) {
+                    this.colorChosen = colors.green; // event is in the future
+                  }
+                  // set event params
+                  this.singleEvent = {
+                    'start': this.startDT,
+                    'end': this.endDT,
+                    'title': event.name,
+                    'color': this.colorChosen,
+                    'meta': event
+                  };
+                  this.addEvent(this.singleEvent);
+
+                }
+              }
+
             }
-          }
+          });
         });
-      });
+      }
     });
   }
 
   ngOnDestroy(): void { // unsubscribe from all subscriptions
-    this.subEvents.unsubscribe();
+    // this.subEvents.unsubscribe();
     this.userSub.unsubscribe();
   }
 
@@ -247,6 +250,10 @@ export class CalendarComponent implements OnInit, OnDestroy {
   handleEvent(action?: string, event?: CalendarEvent): void {
     this.modalData = { event, action };
     this.modal.open(this.modalContent, { size: 'lg' });
+  }
+
+  onNoClick(data): void {
+    this.dialogRef.close(data);
   }
 
 

@@ -6,7 +6,7 @@ import { User } from 'firebase';
   providedIn: "root"
 })
 export class NotificationService {
-  apiTestURL: string = "http://cwb-world-api.test/api";
+  apiTestURL: string = "http://cwb-world-api.test/api/v1";
   apiLiveURL: string = "https://cwb-world-api.appspot.com/api/v1";
 
   constructor(private httpClient: HttpClient) {}
@@ -39,6 +39,51 @@ export class NotificationService {
       name: name,
       email: email,
       groupName: groupName
+    });
+  }
+
+  // send new group member email to group lead.
+  public userJoinedGroup(name: string, email: string, groupName: string) {
+    return this.httpClient.post(`${this.apiLiveURL}/joined-group`, {
+      name: name,
+      email: email,
+      groupName: groupName
+    });
+  }
+
+  // send email to sector lead.
+  public sendSectorLeadEmail(name: string, email: string) {
+    return this.httpClient.post(`${this.apiLiveURL}/sector-lead`, {
+      name: name,
+      email: email
+    });
+  }
+
+  /**
+   * send email to all memebers when a new event is created.
+   */
+  public sendNewEventEmail(groupHostName: string, eventName: string, url: string, startDate: Date, endDate: Date) {
+    return this.httpClient.post(`${this.apiLiveURL}/new-event`, {
+      groupHostName: groupHostName,
+      eventName: eventName,
+      url: url,
+      startDate: startDate,
+      endDate: endDate
+    });
+  }
+
+  /**
+   * send event registration details to user
+   */
+  public eventRegistrationEmail(memberName: string, eventName: string, startDate: Date, endDate: Date, email: string, url: string, description: string) {
+    return this.httpClient.post(`${this.apiLiveURL}/event-registration`, {
+      memberName: memberName,
+      eventName: eventName,
+      startDate: startDate,
+      endDate: endDate,
+      email: email,
+      url: url,
+      description: description
     });
   }
 }

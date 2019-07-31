@@ -4,6 +4,7 @@ import { Group, EventItem, eventSession } from '../../interfaces/member';
 import { FirebaseDataService } from '../../firebase-data.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+import { NotificationService } from '../../services/notification.service';
 
 @Component({
   selector: 'app-create-event',
@@ -13,7 +14,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 export class CreateEventComponent implements OnInit, OnDestroy {
 
   constructor(public dialogRef: MatDialogRef<CreateEventComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: any,private _formBuilder: FormBuilder, private fbData: FirebaseDataService) { }
+    @Inject(MAT_DIALOG_DATA) public data: any, private _formBuilder: FormBuilder, private fbData: FirebaseDataService, private notify: NotificationService) { }
   createEventForm: FormGroup;
   createEventForm2: FormGroup;
   public config: PerfectScrollbarConfigInterface = {};
@@ -108,6 +109,8 @@ export class CreateEventComponent implements OnInit, OnDestroy {
       this.newEvent.videoUrl = this.createEventForm.value.videoURL;
     }
     this.fbData.addEvent(this.newEvent, this.data.grp);
+
+    this.notify.sendNewEventEmail(this.newEvent.groupLead, this.createEventForm.value.name, this.createEventForm.value.liveEventURL, this.createEventForm.value.start, this.createEventForm.value.end).subscribe((res) => { });
     //console.log(this.newEvent);
   }
 

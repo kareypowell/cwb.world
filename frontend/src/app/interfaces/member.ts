@@ -18,6 +18,7 @@ export interface User {
     phoneNumber?: number;
     defaultDashView?: string; // to be set to where page redirects on Login/click dashboard link
     groupsJoined?: string[]; // save uid of groups joined
+    eventsSubscribed?: EventObj[];
     independentEvents?: string[]; // events joined without actually joining affiliated groups
     roles?: Roles;
     linkedAccounts?: LinkedAccounts; // keep track of which accounts are linked to user.  
@@ -31,6 +32,14 @@ export interface signUps {
     name?: string;
     email?: string;
 }
+
+// EventSubscription
+export interface EventObj {
+    uid?: string;
+    dateSubscribed?: Date;
+    paid?: boolean; 
+}
+
 export interface Roles {
     member?: boolean;
     admin?: boolean;
@@ -219,12 +228,19 @@ export interface EventItem {
     durationNumber?: number; //1, 2, 10, etc => hold the count for duration and duration holds the term, month, year, weeks etc
     durationTerm?: string; //weeks, one month, 10 weeks, etc
     eventCapacity?: number; // if open to all users
+    participants?: EventParticipant[];
     startWithoutHost?: boolean;
     paidEvent?: boolean;
     eventFee?: boolean;
     refundable?: boolean;
     refundPolicy?: string;
     files?: string[];
+}
+
+export interface EventParticipant {
+    memberID?: string; // actual user ID
+    dateSubscribed?: Date;
+    paid?: boolean;
 }
 
 export interface eventSession {

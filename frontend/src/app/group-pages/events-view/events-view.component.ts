@@ -36,27 +36,28 @@ export class EventsViewComponent implements OnInit, OnDestroy {
             this.selectedEvent = event;
           }
         });
-      }else{
+      } else {
         
       }
     });
-    
-    
-    
   }
 
   dataset = {};
-  registerEvent(){
-    this.dataset = {event: this.selectedEvent}
+  registerEvent() {
+    this.dataset = { event: this.selectedEvent }
+    
     let dialogRef = this.dialog.open(EventRegistrationComponent, {
-      width: '99%',
+      width: '75%',
+      height: '75%',
       data: this.dataset
     });
 
     dialogRef.afterClosed().subscribe(result => {
       //this.animal = result;
+      console.log(result);
     });
   }
+
   ngOnDestroy() {
     this.subEvents.unsubscribe();
   }

@@ -2,30 +2,48 @@
   <span class="closedialog" (click)="onNoClick(false)">
     <i class="far fa-window-close"></i>
   </span>
-  <h1>Register for {{data?.event.name}}</h1>
+  <h1>Register for {{ data?.event.name }}</h1>
   <div class="gap"></div>
   <br>
   <div class="row">
-    <div class="col-sm-6 mb-3">
-      <div class="col-xs-12 text-center" (click)="individual=true" [className]="individual ? 'activeReg': 'selectReg'">
+    <p>
+      {{ data?.event.description }}
+    </p>
+  </div>
+  <div class="row">
+    <h5>Available space: {{ data?.event.participants.length }} of {{ data?.event.eventCapacity }} </h5>
+  </div>
+  <div class="row">
+    <form [formGroup]="eventSubscriptionForm" (submit)="eventSubscription()" autocomplete="off" style="text-align: center;">
+      <button type="submit" mat-raised-button class="cwb-primary-button text-center">OK, sign me up!</button>
+    </form>
+
+    <button type="button" mat-raised-button (click)="onNoClick(false)" class="cwb-primary-button text-center">No thanks, cancel</button>
+    <!-- <div class="col-sm-6">
+      <div class="col-xs-12 text-center" (click)="individual = true" [className]="individual ? 'activeReg': 'selectReg'">
         <h3 class="smallhead">Register As Individual</h3>
       </div>
-    </div>
-    <div class="col-sm-6">
+    </div> -->
+    <!-- <div class="col-sm-6">
       <div class="col-xs-12 text-center" (click)="individual = false" [className]="!individual ? 'activeReg': 'selectReg'">
         <h3 class="smallhead">Request To Host Event</h3>
       </div>
-    </div>
+    </div> -->
   </div>
-  <div *ngIf="individual; else hostReg">
+
+  <!-- <div *ngIf="individual; else hostReg">
     Individual
     <br>
-    <form [formGroup]="registerEventForm" (submit)="registerEvent()" autocomplete="off">
-      
+    <form [formGroup]="registerEventForm" (submit)="registerEvent()" autocomplete="off" style="text-align: center;">
+      <button type="submit" mat-raised-button class="cwb-primary-button text-center">OK</button>
     </form>
   </div>
   <ng-template #hostReg>
     Host
-  </ng-template>
+    <br>
+    <form [formGroup]="registerEventForm" (submit)="registerEvent()" autocomplete="off" style="text-align: center;">
+      <button type="submit" mat-raised-button class="cwb-primary-button text-center">OK</button>
+    </form>
+  </ng-template> -->
   
 </div>
