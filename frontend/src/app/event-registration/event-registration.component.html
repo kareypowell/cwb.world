@@ -10,7 +10,7 @@
       {{ data?.event.description }}
     </p>
   </div>
-  <div class="row">
+  <div class="row" *ngIf="data?.event.participants">
     <h5>Available space: {{ data?.event.participants.length }} of {{ data?.event.eventCapacity }} </h5>
   </div>
   <div class="row">

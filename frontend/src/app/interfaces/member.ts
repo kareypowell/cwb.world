@@ -238,6 +238,7 @@ export interface EventItem {
 }
 
 export interface EventParticipant {
+    email?: string;
     memberID?: string; // actual user ID
     dateSubscribed?: Date;
     paid?: boolean;

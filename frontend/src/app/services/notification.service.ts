@@ -62,26 +62,31 @@ export class NotificationService {
   /**
    * send email to all memebers when a new event is created.
    */
-  public sendNewEventEmail(groupHostName: string, eventName: string, url: string, startDate: Date, endDate: Date) {
+  public sendNewEventEmail(groupHostName: string, eventName: string, eventID: string, groupID: string, startDate: Date, endDate: Date, url: string, participants: any) {
     return this.httpClient.post(`${this.apiLiveURL}/new-event`, {
       groupHostName: groupHostName,
       eventName: eventName,
-      url: url,
+      eventID: eventID,
+      groupID: groupID,
       startDate: startDate,
-      endDate: endDate
+      endDate: endDate,
+      url: url,
+      participants: participants
     });
   }
 
   /**
    * send event registration details to user
    */
-  public eventRegistrationEmail(memberName: string, eventName: string, startDate: Date, endDate: Date, email: string, url: string, description: string) {
+  public eventRegistrationEmail(memberName: string, eventName: string, startDate: Date, endDate: Date, email: string, eventID: string, groupID: string, url: string, description: string) {
     return this.httpClient.post(`${this.apiLiveURL}/event-registration`, {
       memberName: memberName,
       eventName: eventName,
       startDate: startDate,
       endDate: endDate,
       email: email,
+      eventID: eventID,
+      groupID: groupID,
       url: url,
       description: description
     });

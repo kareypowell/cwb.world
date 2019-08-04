@@ -595,7 +595,7 @@ export class FirebaseDataService {
           event.participants.push(subscriber);
           this.eventCollection.doc(event.uid).set({ participants: event.participants }, { merge: true });
 
-          this.notify.eventRegistrationEmail(userData.firstName, event.name, event.startDate, event.endDate, userData.email, event.liveEventUrl, event.description).subscribe((res) => { });
+          this.notify.eventRegistrationEmail(userData.firstName, event.name, event.startDate, event.endDate, userData.email, event.uid, event.group, event.liveEventUrl, event.description).subscribe((res) => { });
         } else {
           console.log("Event Full")!
         }
@@ -611,7 +611,7 @@ export class FirebaseDataService {
         this.updateUser(userData, { eventsSubscribed: [eventSubscribed] });
       }
 
-      this.notify.eventRegistrationEmail(userData.firstName, event.name, event.startDate, event.endDate, userData.email, event.liveEventUrl, event.description).subscribe((res) => { });
+      this.notify.eventRegistrationEmail(userData.firstName, event.name, event.startDate, event.endDate, userData.email, event.uid, event.group, event.liveEventUrl, event.description).subscribe((res) => { });
     }
 
   }

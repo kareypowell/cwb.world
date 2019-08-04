@@ -110,7 +110,7 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     }
     this.fbData.addEvent(this.newEvent, this.data.grp);
 
-    this.notify.sendNewEventEmail(this.newEvent.groupLead, this.createEventForm.value.name, this.createEventForm.value.liveEventURL, this.createEventForm.value.start, this.createEventForm.value.end).subscribe((res) => { });
+    this.notify.sendNewEventEmail(this.newEvent.groupLead, this.createEventForm.value.name, this.data.grp.uid, this.newEvent.uid, this.createEventForm.value.start, this.createEventForm.value.end, this.newEvent.liveEventUrl, this.newEvent.participants).subscribe((res) => { });
     //console.log(this.newEvent);
   }
 

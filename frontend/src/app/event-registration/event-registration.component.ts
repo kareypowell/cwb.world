@@ -52,6 +52,7 @@ export class EventRegistrationComponent implements  OnInit, OnDestroy {
     this.newSubscriptionObj.dateSubscribed = new Date();
     this.newSubscriptionObj.paid = false;
 
+    this.newEventParticipant.email = this.CurrentUser.email;
     this.newEventParticipant.memberID = this.CurrentUser.uid;
     this.newEventParticipant.dateSubscribed = new Date();
     this.newEventParticipant.paid = false;
