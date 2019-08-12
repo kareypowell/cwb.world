@@ -62,7 +62,7 @@ export class NotificationService {
   /**
    * send email to all memebers when a new event is created.
    */
-  public sendNewEventEmail(groupHostName: string, eventName: string, eventID: string, groupID: string, startDate: Date, endDate: Date, url: string, participants: any) {
+  public sendNewEventEmail(groupHostName: string, eventName: string, eventID: string, groupID: string, startDate: Date, endDate: Date, url: string, memberEmail: string, memberName: string) {
     return this.httpClient.post(`${this.apiLiveURL}/new-event`, {
       groupHostName: groupHostName,
       eventName: eventName,
@@ -71,7 +71,8 @@ export class NotificationService {
       startDate: startDate,
       endDate: endDate,
       url: url,
-      participants: participants
+      memberName: memberName,
+      memberEmail: memberEmail
     });
   }
 

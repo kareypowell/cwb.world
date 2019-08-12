@@ -2,7 +2,7 @@
   <ng-template #singleEvent>
     <h3 class="bighead">{{selectedEvent?.name}}</h3>
     <br>
-    <button mat-raised-button class="cwb-primary-button text-right" (click)="registerEvent()">Register for Event</button>
+    <button *ngIf="!alreadySubscribed(selectedEvent?.uid)" mat-raised-button class="cwb-primary-button text-right" (click)="registerEvent()">Register for Event</button>
     
     <div *ngIf="selectedEvent?.eventImageUrl && selectedEvent?.eventImageUrl != ''">
       <img src="{{selectedEvent?.eventImageUrl}}" alt="Event Image" class="full-width">

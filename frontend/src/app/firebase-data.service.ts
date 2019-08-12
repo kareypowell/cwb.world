@@ -306,6 +306,7 @@ export class FirebaseDataService {
         })
       }));
   }
+  
   getSpecificGroup(groupID: string) {
     return this.groupCollection.doc(groupID)
       .snapshotChanges().pipe(map(actions => {

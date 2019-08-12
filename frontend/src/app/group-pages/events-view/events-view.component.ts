@@ -62,4 +62,9 @@ export class EventsViewComponent implements OnInit, OnDestroy {
     this.subEvents.unsubscribe();
   }
 
+  alreadySubscribed(eventID: string) {
+    // this.fbData.getUserName()
+    return false;
+  }
+
 }
