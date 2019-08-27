@@ -220,30 +220,37 @@ export class FirebaseDataService {
       })
       .catch(error => console.log(error));
   }
-  addEvent(event: EventItem, group: Group) {
+  
+  async addEvent(event: EventItem, group: Group) {
     // add event to events collections
-    this.eventCollection.add(event)
-      .then( // then get event id and add to events list of group
-        (ref) => {
-          if (group.events) {
-            group.events.push(ref.id);
-            const data = { events: group.events };
-            this.updateGroup(group.uid, data);
-          } else {
-            const data = { events: [ref.id] };
-            this.updateGroup(group.uid, data);
-          }
-        }
-      )
-      .catch(error => console.log(error)); // if there is an error
+    try {
+      const ref = await this.eventCollection.add(event);
+      if (group.events) {
+        group.events.push(ref.id);
+        const data = { events: group.events };
+        this.updateGroup(group.uid, data);
+        return ref.id;
+      }
+      else {
+        const data_1 = { events: [ref.id] };
+        this.updateGroup(group.uid, data_1);
+        return ref.id;
+      }
+    }
+    catch (error) {
+      return console.log(error);
+    } // if there is an error
   }
+
   addAirRMSSpace(space: AirRMS) {
     //add to collection
   }
+
   addUser(user: User) {
     this.userCollection.add(user).catch(error => console.log(error));
   }
-  // READ ==========================================================================================================================
+
+  // READ ==================================================================================================
   getAllUsers() {
     return this.afs.collection('users')
       .snapshotChanges().pipe(map(actions => {
@@ -254,6 +261,7 @@ export class FirebaseDataService {
         })
       }));
   }
+
   getAllCommunities() {
     return this.afs.collection('communities')
       .snapshotChanges().pipe(map(actions => {
@@ -264,6 +272,7 @@ export class FirebaseDataService {
         })
       }));
   }
+  
   getAllGroups() {
     return this.afs.collection('groups')
       .snapshotChanges().pipe(map(actions => {

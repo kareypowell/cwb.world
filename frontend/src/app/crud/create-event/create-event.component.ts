@@ -108,21 +108,22 @@ export class CreateEventComponent implements OnInit, OnDestroy {
     if (this.createEventForm.value.video) {
       this.newEvent.videoUrl = this.createEventForm.value.videoURL;
     }
-    this.fbData.addEvent(this.newEvent, this.data.grp);
+    
+    this.fbData.addEvent(this.newEvent, this.data.grp).then((cEvtId: string) => {
+      let groupLeadName: string;
 
-    // let groupMembers: string[] = [];
-    let groupLeadName: string;
-
-    // Get a specific group and then fetch all member emails.
-    this.fbData.getSpecificGroup(this.data.grp.uid).subscribe(data => {
-      data.members.forEach(member => {
-        this.fbData.getUserName(this.newEvent.groupLead).subscribe(res => { return groupLeadName = res[0].firstName; });
-        this.fbData.getUserName(member.userUID).subscribe(res => {
-          this.notify.sendNewEventEmail(groupLeadName, this.createEventForm.value.name, this.data.grp.uid, this.newEvent.uid, this.createEventForm.value.start, this.createEventForm.value.end, this.newEvent.liveEventUrl, res[0].email, res[0].firstName).subscribe((res) => { });
-          this.dialogRef.close();
+      // Get a specific group and then fetch all member emails.
+      this.fbData.getSpecificGroup(this.data.grp.uid).subscribe(data => {
+        data.members.forEach(member => {
+          this.fbData.getUserName(this.newEvent.groupLead).subscribe(res => { return groupLeadName = res[0].firstName; });
+          this.fbData.getUserName(member.userUID).subscribe(res => {
+            this.notify.sendNewEventEmail(groupLeadName, this.createEventForm.value.name, cEvtId, this.data.grp.uid, this.createEventForm.value.start, this.createEventForm.value.end, this.newEvent.liveEventUrl, res[0].email, res[0].firstName).subscribe((res) => { });
+            this.dialogRef.close();
+          });
         });
       });
     });
+
   }
 
   // unsubscribe from group search observable
