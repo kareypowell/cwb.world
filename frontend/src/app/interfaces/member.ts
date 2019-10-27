@@ -14,6 +14,7 @@ export interface User {
     state?: string;
     country?: string;
     dateOfBirth?: { seconds: number };
+    ageRange ?: string,
     zipCode?: number;
     phoneNumber?: number;
     defaultDashView?: string; // to be set to where page redirects on Login/click dashboard link

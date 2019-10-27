@@ -24,7 +24,8 @@ export class CompleteRegistrationDetailsComponent implements OnInit {
       lastName: ['', Validators.required],
       about: ['', Validators.required],
       phoneNumber: ['', Validators.required],
-      dob: ['', Validators.required]
+      ageRange: ['', Validators.required]
+      // dob: ['', Validators.required]
     });
     this.secondFormGroup = this._formBuilder.group({
       streetAdd: ['', Validators.required],
@@ -41,7 +42,8 @@ export class CompleteRegistrationDetailsComponent implements OnInit {
       fullnameToLower: this.firstFormGroup.value.firstName.toLowerCase() + " " + this.firstFormGroup.value.lastName.toLowerCase(),
       aboutUser: this.firstFormGroup.value.about,
       phoneNumber: this.firstFormGroup.value.phoneNumber,
-      dateOfBirth: this.firstFormGroup.value.dob,
+      // dateOfBirth: this.firstFormGroup.value.dob,
+      ageRange: this.firstFormGroup.value.ageRange,
       addressLineOne: this.secondFormGroup.value.streetAdd,
       state: this.secondFormGroup.value.state,
       city: this.secondFormGroup.value.city,

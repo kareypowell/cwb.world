@@ -56,7 +56,7 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { UpdateUserProfileComponent } from './update-user-profile/update-user-profile.component';
 import { CompleteRegistrationDetailsComponent } from './complete-registration-details/complete-registration-details.component';
 import { MatNativeDateModule } from '@angular/material';
-import { MatInputModule } from '@angular/material';
+import { MatFormFieldModule, MatInputModule, MatSelectModule } from '@angular/material';
 import { CreateGroupComponent } from './crud/create-group/create-group.component';
 import { CreateEventComponent } from './crud/create-event/create-event.component';
 import { CreateCommunityComponent } from './crud/create-community/create-community.component';
@@ -201,6 +201,8 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     PerfectScrollbarModule,
     MatNativeDateModule,
     MatInputModule,
+    MatSelectModule,
+    MatFormFieldModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     QuillModule,
