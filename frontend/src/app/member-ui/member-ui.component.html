@@ -23,16 +23,17 @@
         <div class="gap"></div>
       </div>
       <div class="col-md-3">
-        <h2 *ngIf="(user?.firstName =='') && (user?.lastname =='')" class="smallhead">{{user?.displayName}}</h2>
-        <h2 *ngIf="!(user?.firstName =='') || !(user?.lastname =='')" class="smallhead">{{user?.firstName}} {{user?.lastname}}</h2>
+        <h2 *ngIf="(user?.firstName =='') && (user?.lastname =='')" class="smallhead">{{ user?.displayName }}</h2>
+        <h2 *ngIf="!(user?.firstName =='') || !(user?.lastname =='')" class="smallhead">{{ user?.firstName }} {{user?.lastname}}</h2>
         <h5 class="smallerhead">
-          <i class="far fa-calendar-alt mr-3"></i><strong>DOB:</strong> {{user?.dateOfBirth?.seconds*1000 | date}}</h5>
+          <!-- <i class="far fa-calendar-alt mr-3"></i><strong>DOB:</strong> {{user?.dateOfBirth?.seconds*1000 | date}}</h5> -->
+          <i class="far fa-calendar-alt mr-3"></i><strong>Age Range:</strong> {{ user?.ageRange }}</h5>
         <h5 class="smallerhead">
-          <i class="fas fa-map-marker-alt mr-3"></i><strong>Address:</strong> {{user?.addressLineOne}}</h5>
+          <i class="fas fa-map-marker-alt mr-3"></i><strong>Address:</strong> {{ user?.addressLineOne }}</h5>
         <h5 class="smallerhead">
-          <i class="fas fa-at mr-3"></i><strong>Email:</strong> {{user?.email}}</h5>
+          <i class="fas fa-at mr-3"></i><strong>Email:</strong> {{ user?.email }}</h5>
         <h5 class="smallerhead">
-          <i class="fas fa-phone mr-3"></i><strong>Phone:</strong> {{user?.phoneNumber}}</h5>
+          <i class="fas fa-phone mr-3"></i><strong>Phone:</strong> {{ user?.phoneNumber }}</h5>
       </div>
       <div class="col-md-3">
         <h2 class="smallhead">About Me</h2>

@@ -16,11 +16,24 @@
         <input matInput formControlName="lastName" value="{{user?.lastname}}" required>
       </mat-form-field>
       <br>
-      <mat-form-field class="mr-2" appearance="outline">
+      <!-- <mat-form-field class="mr-2" appearance="outline">
         <mat-label>Date of Birth</mat-label>
         <input matInput [matDatepicker]="picker" placeholder="Date of birth" formControlName="dob">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field> -->
+      <mat-form-field class="mr-3" appearance="outline">
+        <mat-label>Age Range</mat-label>
+        <mat-select matSelect formControlName="ageRange" required>
+          <mat-option>Select age range...</mat-option>
+          <mat-option value="16-18">16-18</mat-option>
+          <mat-option value="19-25">19-25</mat-option>
+          <mat-option value="26-45">26-45</mat-option>
+          <mat-option value="46-60">46-60</mat-option>
+          <mat-option value="46-60">61-70</mat-option>
+          <mat-option value="46-60">71-84</mat-option>
+          <mat-option value="Over 60">Over 85</mat-option>
+        </mat-select>
       </mat-form-field>
       <mat-form-field appearance="outline" class="mr-2">
         <mat-label>Email </mat-label>
