@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "firebaseapp-220117"
+    "default": "firebaseapp-220117",
+    "production": "cwb-world-f54dd"
   }
 }

@@ -1,0 +1,17 @@
+[debug] [2020-01-10T15:50:25.447Z] ----------------------------------------------------------------------
+[debug] [2020-01-10T15:50:25.497Z] Command:       /usr/local/Cellar/node@8/8.16.2/bin/node /usr/local/bin/firebase deploy -P production --only hosting
+[debug] [2020-01-10T15:50:25.497Z] CLI Version:   7.2.2
+[debug] [2020-01-10T15:50:25.497Z] Platform:      darwin
+[debug] [2020-01-10T15:50:25.497Z] Node Version:  v8.16.2
+[debug] [2020-01-10T15:50:25.504Z] Time:          Fri Jan 10 2020 10:50:25 GMT-0500 (EST)
+[debug] [2020-01-10T15:50:25.504Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2020-01-10T15:50:25.792Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2020-01-10T15:50:25.792Z] > authorizing via signed-in user
+[debug] [2020-01-10T15:50:25.792Z] [iam] checking project cwb-world-f54dd for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2020-01-10T15:50:25.795Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/cwb-world-f54dd:testIamPermissions  
+
+[debug] [2020-01-10T15:50:26.667Z] <<< HTTP RESPONSE 200
+[debug] [2020-01-10T15:50:26.669Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/cwb-world-f54dd  
+ 
+[debug] [2020-01-10T15:50:27.166Z] <<< HTTP RESPONSE 200
