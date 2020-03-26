@@ -1,6 +1,9 @@
 {
   "projects": {
     "default": "firebaseapp-220117",
-    "production": "cwb-world-f54dd"
+    "production": "cwb-production-272314",
+    "prd": "cwb-production",
+    "staging": "firebaseapp-220117",
+    "prod": "cwb-production-272314"
   }
 }
