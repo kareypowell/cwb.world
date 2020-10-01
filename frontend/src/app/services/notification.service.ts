@@ -6,8 +6,8 @@ import { User } from 'firebase';
   providedIn: "root"
 })
 export class NotificationService {
-  apiTestURL: string = "http://cwb-world-api.test/api/v1";
-  apiLiveURL: string = "https://cwb-world-api.appspot.com/api/v1";
+  apiTestURL: string = "https://api.cwb.world/api/v1";
+  apiLiveURL: string = "https://api.cwb.world/api/v1";
 
   constructor(private httpClient: HttpClient) {}
 
