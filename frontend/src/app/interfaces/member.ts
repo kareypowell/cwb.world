@@ -15,7 +15,7 @@ export interface User {
     country?: string;
     dateOfBirth?: { seconds: number };
     zipCode?: number;
-    phoneNumber?: number;
+    phoneNumber?: string;
     defaultDashView?: string; // to be set to where page redirects on Login/click dashboard link
     groupsJoined?: string[]; // save uid of groups joined
     independentEvents?: string[]; // events joined without actually joining affiliated groups
